@@ -10,12 +10,18 @@
 	"comment_maximoserverauthentication": "Enable this if you want to use maximo server configured authentication only. In this mode, the user would be re-directed to maximologinurl to authenticate. By default, this is not enabled and the maximo-x login dialog would be shown, which would gather credentials and submit to maximo server.",
 	
   	"contexts": [
-	
 		{
-			"name": "custom context example",
-			"hostname": "my-maximo-x-hostname",
-			"maximohostname": "my-maximo-hostname",
-			"maximoport": 8080,
+			"name": "VM SSG IP",
+			"hostname": "127.0.0.1",
+			"maximohostname": "90.115.201.245",
+			"maximoport": 9080,
+			"maximocontext": "/maximo"
+		},
+		{
+			"name": "VM SSG LOCALHOST",
+			"hostname": "localhost",
+			"maximohostname": "90.115.201.245",
+			"maximoport": 9080,
 			"maximocontext": "/maximo"
 		}
 	],
