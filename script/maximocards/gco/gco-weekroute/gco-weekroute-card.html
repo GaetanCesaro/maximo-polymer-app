@@ -1,0 +1,149 @@
+<!--
+A list composed with map of the technician week route
+
+Example:
+
+    <gco-weekroute-card></gco-weekroute-card>
+
+@demo
+-->      
+<dom-module id="gco-weekroute-card">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="gco-weekroute-card-css.html">
+	<style is="custom-style" include="gco-weekroute-card-css"></style>
+
+	<!-- Google Map -->
+	<!--script src="../../../script/components/platform/platform.js"></script-->
+	<link rel="import" href="../../../../script/components/google-map/google-map.html">
+
+	<style>
+		google-map {
+			vertical-align: center;
+		}
+	</style>
+	
+	<template>	
+		<maximo-collection 
+			auto
+		    id="routecollection" 
+			attribute-names="stopsequence,location,location.serviceaddress.longitudex,location.serviceaddress.latitudey"
+			collection-data="{{locationData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"	
+			filter-data="{{filterData}}"			
+			object-name="GCO_MXAPIROUTE" 
+			order-by-attribute-names="%2Bstopsequence"
+			query-info="{{queryInfo}}" 
+			search-term-value="{{searchTermValue}}"
+			search-attribute-names="stopsequence,location"
+			selected-query-name="{{selectedQueryName}}"
+			selected-record="{{selectedRecord}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			schema="{{schema}}"
+			use-search-terms="true"
+			additional-params=''
+			on-record-data-refreshed="_handleRecordDataRefreshed" 
+			on-dynamic-attribute-data-fetched="_handleRecordDataRefreshed">
+		</maximo-collection>
+		
+		<maximo-panel id="myweekroute" label="{{localize('uitext', 'mxapiperuser', 'Itinéraire')}}" headinginfo="{{recordCount}}" width="[[panelWidth]]" height="470px" collections="routecollection">
+			<!--google-map latitude="36.77493" longitude="-121.41942" api-key="AIzaSyDewMJPvywZ9tEvuOOo92yIPEMISurzUbM">
+				<google-map-marker latitude="36.77493" longitude="-121.41942" title="Coucou !">
+					Hello !
+				</google-map-marker>
+				<google-map-marker latitude="38.77493" longitude="-122.41942">
+						<img src="http://90.115.201.245:9080/maximo/oslc/images/70">
+				</google-map-marker>
+				<google-map-marker latitude="36.77493" longitude="-123.41942" draggable="true"></google-map-marker>
+			</google-map-->
+
+			<google-map api-key="AIzaSyDewMJPvywZ9tEvuOOo92yIPEMISurzUbM" fit-to-markers>
+				<template is="dom-repeat" items="{{locationData}}">>
+					<google-map-marker latitude="{{item.location.serviceaddress.latitudey}}" longitude="{{item.location.serviceaddress.longitudex}}" title="{{item.location}}">
+						<p>{{item.location}}</p>
+					</google-map-marker>		 	
+				</template>
+			</google-map>
+
+		</maximo-panel>
+
+		
+
+		<!--maximo-resource id="myteamlistResource" resource-uri="{{record.href}}"></maximo-resource>
+		<maximo-panel id="myteamlist" label="{{localize('uitext', 'mxapiperuser', 'MyContacts')}}" headinginfo="{{recordCount}}" width="[[panelWidth]]" height="470px" collections="routecollection">
+		<maximo-searchbar id="myteamlist-searchbar" collection="{{getLocalObject('routecollection')}}" placeholder="{{localize('uitext', 'mxapibase', 'Search')}}"></maximo-searchbar>
+		<maximo-norecordfound id="teamlist_norecord"  collection="{{getLocalObject('routecollection')}}" message="{{localize('uitext', 'mxapiperuser', 'NoteammemberswerefoundContactyouradminist')}}"></maximo-norecordfound>		
+			<iron-list id="myteamlistIronList" items="{{locationData}}" as="record">
+				<template id="myteamlistTemplate">
+					<div  id="myteamlistTemplate_innerdiv">
+						<div id="myteamlist_section_div1" class="cardborder">								
+							<div class="cardheader">
+								<div class="flex-equal-justified">
+									<maximo-label id="myteamlist_label1" class="contactName" label="{{record.displayname}}"></maximo-label>
+								</div>
+							</div>
+							<div class="cardcontainer">
+								<div class="flex-start-justified">
+									<div id="myteamlist_section_div1_div2" style="text-align: left;flex:1">
+										<maximo-field id="gco_myteamlist_section_label0" label="{{schema.properties.user.properties.rv_location.title}}" datalabel="{{record.user.rv_location}}"></maximo-field>
+										<maximo-field id="gco_myteamlist_section_label1" label="{{schema.properties.user.properties.defstoreroom.title}}" datalabel="{{record.user.defstoreroom}}"></maximo-field>
+										<maximo-field id="myteamlist_section_label1" label="{{schema.properties.labor.items.properties.laborcraftrate.items.properties.craft.items.properties.craft.title}}" datalabel="{{record.labor.0.laborcraftrate.0.craft.0.description}}"></maximo-field>
+										<maximo-field id="myteamlist_section_label2" label="{{schema.properties.labor.items.properties.laborcraftrate.items.properties.uxcraftskill.items.properties.skilllevel.title}}" datalabel="{{record.labor.0.laborcraftrate.0.uxcraftskill.0.description}}"></maximo-field>
+										<maximo-field id="myteamlist_section_label3" label="{{schema.properties.personcal.properties.calendar.properties.calnum.title}}" datalabel="{{record.personcal.calendar.description}}"></maximo-field>
+										<maximo-field id="myteamlist_section_label4" label="{{schema.properties.personcal.properties.shift.properties.shiftnum.title}}" datalabel="{{record.personcal.shift.description}}"></maximo-field>					
+									</div>
+									<div id="myteamlist_section_div1_div1" style="align: center;flex:.75;" >
+										<div><maximo-imglib id="myteamlist_assetimage" width="100px" height="100px" image="{{record._imagelibref}}" noimageicon="maximo-based:no-image" rounded></maximo-imglib></div>
+									</div>
+								</div>
+							</div>
+
+							<maximo-section id="myteamlist_contact_section" label="{{localize('uitext', 'mxapiperuser', 'Contact')}}"  style="display:block;" collapsed="true"  width="100%"  fontsize="90%" customstyle="modest">
+								<hr>
+								<div class="spacer">
+									<div>
+										<div id="myteamlist_contact_section_innerdiv1" class="container flex-start-justified">
+											<maximo-button id="myteamlist-iron-icon-email" name="emailaddress-icon" action="true" on-tap="sendEmail" icon="glyphs:email" class="iconstyle" ></maximo-button>
+											<maximo-button id="myteamlist_contactsection_email" name="emailaddress-label" action="true" on-tap="sendEmail" label="{{setLabel(record.email.emailaddress)}}"></maximo-button>
+										</div>
+									</div>
+									<div>
+										<div id="myteamlist_contact_section_innerdiv2" class="container flex-start-justified">
+											<maximo-button id="myteamlist-iron-icon-call" name="phonenum-icon" action="true" on-tap="makeCall" icon="glyphs:phone-call" class="iconstyle" ></maximo-button>
+											<maximo-button id="myteamlist_contactsection_call" name="phonenum-label" action="true" on-tap="makeCall" label="{{setLabel(record.phone.phonenum)}}" ></maximo-button>
+										</div>
+									</div>				
+									<div>
+										<div id="myteamlist_contact_section_innerdiv3" class="container flex-start-justified">
+											<maximo-button id="myteamlist-iron-icon-sms" name="primarysms-icon" action="true" on-tap="sendSMS" icon="object-based:mobile-phone" class="iconstyle" ></maximo-button>
+											<maximo-button id="myteamlist_contactsection_sms" name="primarysms-label" action="true" on-tap="sendSMS" label="{{setLabel(record.primarysms)}}" ></maximo-button>
+										</div>
+									</div>
+									<div>
+										<div id="myteamlist_contact_section_innerdiv4"  class="container flex-start-justified">
+											<iron-icon id="myteamlist_contact_section_innerdiv4_iron_icon" icon="glyphs:location" class="disabled"  style="height:24px;width:24px;padding-left:5px; padding-right:10px;"></iron-icon>
+											<div id="myteamlist_contact_section_innerdiv4_labeldiv" style="padding-right:20px; text-align:left;">
+												<maximo-label id="myteamlist_contact_section_innerdiv4_label1" label="{{setLabel(record.addressline1)}}" class="disabled"></maximo-label>
+												<maximo-label id="myteamlist_contact_section_innerdiv4_label2" label="{{setLabel(record.city)}} {{setLabel(record.stateprovince)}}" class="disabled"></maximo-label><br>
+												<maximo-label id="myteamlist_contact_section_innerdiv4_label4" label="{{setLabel(record.postalcode)}} {{setLabel(record.country)}}" class="disabled"></maximo-label>
+											</div>
+										</div>
+									</div>							
+								</div>			
+							</maximo-section>													
+						</div>
+					</div>				 	
+				</template>
+			</iron-list>
+		</maximo-panel-->
+	</template>
+
+	<script src="gco-weekroute-card.js"></script>
+
+</dom-module>
