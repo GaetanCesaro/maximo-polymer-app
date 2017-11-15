@@ -1,0 +1,61 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!--
+The `maximo-chatbubble` element provides bubble shaped div for chatting service.
+
+    <maximo-chatbubble
+       label="chatting messages" direction="left" maxwidth="500px" datecal="simple" date="getDate()"></maximo-chatbubble>
+ 
+This element has chat message and date information on the bottom of the message. 
+-->
+<dom-module id="maximo-chatbubble">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="maximo-chatbubble-css.html">
+	<style is="custom-style" include="maximo-chatbubble-css"></style>
+  	<template>
+		<template is="dom-if" if="{{direction}}">
+			<div class="commentMessages container flex">
+				<div>
+					<div>
+						<maximo-imglib class="personImage leftPersonImage" id="createbyImage" width="48px" height="48px" image="{{personImage}}" noimageicon="maximo-based:no-user" rounded on-tap="_imgClicked"></maximo-imglib>
+					</div>
+					<div align="center">
+						<maximo-label class="firstnameLabel" label="{{personFirstname}}" fontsize="12px"></maximo-label>
+					</div>			
+				</div>
+				<div>
+					<div class="bubble bubbleLeft" style$="max-width:{{maxwidth}}">
+						<maximo-htmlfield class="commentLabel" datalabel="{{label}}"></maximo-htmlfield>
+						<maximo-label class="dateLabelRight" fontsize="12px" label="{{getCommentDate(date)}}"></maximo-label>
+					</div>
+				</div>
+			</div>
+		</template>
+		<template is="dom-if" if="{{!direction}}">
+			<div class="commentMessages container flex-end-justified">
+				<div>
+					<div class="bubble bubbleRight" style$="max-width:{{maxwidth}}">
+						<maximo-htmlfield ignore-rich-text class="commentLabel" datalabel="{{label}}"></maximo-htmlfield>
+						<maximo-label class="dateLabel" fontsize="12px" label="{{getCommentDate(date)}}"></maximo-label>
+					</div>
+				</div>
+				<div>
+					<div>
+						<maximo-imglib class="personImage rightPersonImage" id="createbyImage" width="48px" height="48px" image="{{personImage}}" noimageicon="maximo-based:no-user" rounded on-tap="_imgClicked"></maximo-imglib>
+					</div>
+					<div align="center">
+						<maximo-label class="firstnameLabel" label="{{personFirstname}}" fontsize="12px"></maximo-label>
+					</div>
+				</div>
+			</div>
+		</template>	
+	</template>
+	<script src="maximo-chatbubble.js"></script>
+
+</dom-module>

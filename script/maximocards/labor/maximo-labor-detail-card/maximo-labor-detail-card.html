@@ -1,0 +1,68 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<!--
+A description of what component does
+
+Example:
+
+    <maximo-labor-detail-card></maximo-labor-detail-card>
+
+@demo
+-->      
+<dom-module id="maximo-labor-detail-card">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-labor-detail-card-css.html">
+	<style is="custom-style" include="maximo-labor-detail-card-css"></style>
+	
+	<template>
+	
+		<maximo-section id="status_section">
+		
+			<maximo-header>Labor Details</maximo-header>
+			<div id="container" class="container">
+				<div id="imgcontainer" class="leftcolumn">
+					<maximo-image src="http://lorempixel.com/200/200/people" width="100px" height="100px"></maximo-image>
+				</div>
+				<div id="infocontainer" class="rightcolumn">
+					<div id="basicinfo">
+						<maximo-label id="basicinfoname" label="{{record.person.displayname}}"></maximo-label>
+						<maximo-label id="basicinfolocation" label="{{record.worklocation}}"></maximo-label>
+						<maximo-label id="basicinfocraft" label="{{record.laborcraftrate.craft}}"></maximo-label>
+					</div>
+					<div id="jobinfo">
+						<maximo-label id="jobinfocalendar" label="Calendar: {{record.calnum}}"></maximo-label>
+						<maximo-label id="jobinfoshift" label="Shift: {{record.shiftnum}}"></maximo-label>
+						<maximo-label id="jobinfoqualification" label="Qualifications: None"></maximo-label>
+					</div>
+					<div id="contactinfo">
+						<maximo-label id="contactinfophone" label="Phone: {{record.person.primaryphone}}"></maximo-label>
+						<maximo-label id="contactinfoemail" label="Email: {{record.person.primaryemail}}"></maximo-label>
+						<maximo-label id="contactinfoaddress" label="Address: {{address}}"></maximo-label>
+					</div>
+				</div>
+			</div>
+			<div id="footer" class="flex-equal-around-justified">
+			  	<maximo-label id="footerrecord" event="#" on-tap="laborRecord" label="Go To Labor Record"></maximo-label>						  
+			  	<maximo-label id="footerclose" event="#" on-tap="close" label="Ok"></maximo-label>
+			</div>
+
+			
+		
+		</maximo-section>	
+		
+	</template>
+
+	<script src="maximo-labor-detail-card.js"></script>
+
+</dom-module>

@@ -1,0 +1,77 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-flipper tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<script src="../../../main.js"></script>
+		<script src="../../../test.js"></script>
+		<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+		<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="flipper">
+			<template>
+				<maximo-flipper on-tap="flipMe">
+					<maximo-flipper-front>
+						front
+					</maximo-flipper-front>
+					<maximo-flipper-back>
+						back
+					</maximo-flipper-back>
+				</maximo-flipper>
+			</template>
+		</test-fixture>
+		<script>
+			suite('<maximo-flipper>', function() {
+				var flipper, front, back;
+				setup(function() {
+					flipper = fixture('flipper');
+					front = $j(flipper).find('maximo-flipper-front');
+					back = $j(flipper).find('maximo-flipper-back');
+				});
+				
+				test('flipper base - checks states', function(done) {
+					expect(flipper.flipped).to.equal(false, 'should not be flipped');
+					expect(flipper.isFlippedFront()).to.equal(true, 'isFlippedFront should be true');
+					flipper.showBack();
+					expect(flipper.flipped).to.equal(true, 'flipped should now be true');
+					expect(flipper.isFlippedFront()).to.equal(false, 'isFlippedFront should be false');
+					flipper.showFront();
+					expect(flipper.flipped).to.equal(false, 'should not be flipped');
+					expect(flipper.isFlippedFront()).to.equal(true, 'isFlippedFront should be true');
+					flipper.flipped = true;
+					expect(flipper.flipped).to.equal(true, 'should be flipped');
+					expect(flipper.isFlippedFront()).to.equal(false, 'isFlippedFront should be false');
+					done();
+				});
+				
+				a11ySuite('flipper');
+			});
+		</script>
+	</body>
+</html>

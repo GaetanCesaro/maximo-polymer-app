@@ -1,0 +1,49 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-navitem-css">
+	<template>
+    	<style>
+    		.flex-center-justified {
+			    @apply(--layout-horizontal);
+			    @apply(--layout-center-justified);
+			  }
+			.countBadge{
+				z-index : 1;
+				top : 6px;
+			}
+			maximo-badge {
+				--maximo-badge-width: auto;
+				--maximo-badge-height: 17px;
+				--maximo-badge-background: var(--Neutral-gray2);
+				--maximo-badge-margin-left: 32px;
+				--maximo-badge-margin-bottom: 10px;
+				--maximo-badge-border-radius: 3px;
+			}
+			.countBadge ::content .badge{
+				padding: 1px 3px 1px 3px;
+				min-width: 13px;
+			}	
+			.navitemlabel {
+				display: block;
+				color: #FFFFFF;
+				text-align: center;
+			}
+			
+			.navitemicon {
+				vertical-align:bottom;
+				display':inline-block;
+			}	
+			.navitemWrapper:hover {
+				cursor:pointer;
+			}
+				
+			iron-icon ::content svg {
+				fill: var(--Primary-white);
+			} 
+		</style>
+	</template>
+</dom-module>

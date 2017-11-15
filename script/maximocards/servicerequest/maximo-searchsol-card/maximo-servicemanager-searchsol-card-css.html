@@ -1,0 +1,55 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-servicemanager-searchsol-card-css">
+	<template>
+    	<style>
+		 	.container {
+		      @apply(--layout-horizontal);
+		      @apply(--layout-justified);
+		    }	
+		    .container > div {
+				display: inline-block;
+			}
+
+			.flex-container {
+			    display: flex;
+			    flex-direction: row;
+			    flex-wrap: nowrap;
+			    justify-content: flex-end;
+			    align-content: flex-start;
+			    align-items: center;
+		    }
+		    .longdescriptionclass {
+		    	text-align: left;
+		    }
+		    .searchsol-footer-buttons {
+		    	padding-right: 10px;
+		    }
+		    .solutionclass ::content label,
+		    .descriptionclass ::content label{
+		    	font-weight : bold;
+		    	font-size : 18px;
+		    }
+		    
+			
+			.searchsol-checkbox-selfaccess {
+				transform: scale(1.3);
+				margin: 0px 2px;
+				direction: ltr;
+				
+			}
+			
+			.searchsol-checkbox-selfaccess.touch {
+				transform: scale(2);
+				margin: 0px 5px;
+				
+			}
+			.viewsr_footer_div11 {
+				padding-left : 7px;
+			}
+		</style>
+	</template>
+</dom-module>

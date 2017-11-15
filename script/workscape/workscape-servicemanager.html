@@ -1,0 +1,78 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../maximocomponents/maximo-slider-container/maximo-slider-container.html">
+
+<link rel="import" href="../maximocards/servicerequest/maximo-overview-card/maximo-servicemanager-overview-card.html" />
+<link rel="import" href="../maximocards/servicerequest/maximo-viewsr-card/maximo-servicemanager-viewsr-card.html" />
+<link rel="import" href="../maximocards/servicerequest/maximo-searchsol-card/maximo-servicemanager-searchsol-card.html" />
+<link rel="import" href="../maximodata/maximo-weather-data/maximo-weather-data.html"/>
+<link rel="import" href="../maximocards/kpi/maximo-kpi-indicator/maximo-kpi-indicator.html"/>
+<link rel="import" href="../maximocards/maximo-weather-card/maximo-weather-card.html"/>
+
+<dom-module id="workscape-servicemanager">
+
+	<template id="template">
+			
+		<maximo-workscape id="workscape" label="{{localize('Standard Service Manager')}}" >
+			<!-- <maximo-slider-container id="indicatorcontainer">
+			Weather
+				<maximo-weather-data id="maximo-weather-data" weather-collection={{weatherCollection}} sequence='["temperature"]'></maximo-weather-data>
+				<template id="informationrepeatcontainer" is="dom-repeat" items="{{weatherCollection}}" as="weatherInfo">
+					<maximo-weather-card id="weatherindicator" data="{{weatherInfo.data}}" 
+						unit="{{weatherInfo.unit}}" location="{{weatherInfo.location}}" label="{{weatherInfo.label}}" icon="{{weatherInfo.icon}}" link="{{weatherInfo.link}}"></maximo-weather-card>
+				</template>
+						
+				Emergency Work Overdue by Supervisor
+				<maximo-kpi-indicator id="emwosup" kpiname="EMWOSUP"></maximo-kpi-indicator>				
+				
+				PM Work Overdue by Supervisor
+				<maximo-kpi-indicator id="pmwosup" kpiname="PMWOSUP"></maximo-kpi-indicator>					
+			
+				PM Performance
+				<maximo-kpi-indicator id="pmperfsup" kpiname="PMPERFSUP" unit="%"></maximo-kpi-indicator>	
+									
+			</maximo-slider-container> -->
+			<maximo-slider-container id="panelSlider" >
+				<maximo-servicemanager-overview-card class="noshrink" id="overviewcard" panel-width="600px"></maximo-servicemanager-overview-card>
+	 			<maximo-servicemanager-viewsr-card class="noshrink" id="viewsrcard" panel-width="600px"></maximo-servicemanager-viewsr-card>
+				<maximo-servicemanager-searchsol-card class="noshrink" id="searchsolcard" panel-width="500px"></maximo-servicemanager-searchsol-card >
+			</maximo-slider-container>
+		</maximo-workscape>
+	</template>
+
+<script>
+	Polymer({
+	    is: "workscape-servicemanager",
+   		properties: {
+   			
+	    },
+	    behaviors: [BaseComponent],
+
+		ready: function()
+		{
+		
+		},
+		
+		_handleRecordDataRefreshed: function()
+		{
+		
+		},
+		
+		_showUserDetails: function()
+		{
+			
+		},
+		
+		_selectedQueryNameChanged : function()
+		{
+			
+		},
+		attached: function(){
+			
+		}
+});
+</script>
+</dom-module>	

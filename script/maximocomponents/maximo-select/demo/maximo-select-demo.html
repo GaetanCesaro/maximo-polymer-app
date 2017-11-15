@@ -1,0 +1,87 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-select-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../maximo-select.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+	<div class="outer">
+			
+			<div class="demo-section">
+				<p class="demo-header">Default select</p>
+				<p>
+				<maximo-select id="actionselect" label="Select your option" values='one,two' value="" placeholder="Select Option"></maximo-select>
+				</p>
+				<div class="code">
+  					<xmp><maximo-select id="actionselect" label="Select your option" values='one,two' value="" placeholder="Select Option"></maximo-select></xmp>
+  				</div>
+
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Default select (Numeric array)</p>
+				<p>
+				<maximo-select id="actionselect" label="Select your option" values='1,2,3,4,5,6,7,8,9' value=""></maximo-select>
+				</p>
+				<div class="code">
+  					<xmp><maximo-select id="actionselect" label="Select your option" values='1,2,3,4,5,6,7,8,9' value=""></maximo-select></maximo-text></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Default select (Null array)</p>
+				<p>
+				<maximo-select id="actionselect" label="Select your option" values='' value=""></maximo-select>
+				</p>
+				<div class="code">
+  					<xmp><maximo-select id="actionselect" label="Select your option" values='' value=""></maximo-select></xmp>
+  				</div>
+			</div>
+
+  			</div>
+  		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-select-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				querylist: {
+    		type: Array,
+    		value: [],
+    		notify: true
+    	}
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log(this.data);
+				var demoData=this.data;
+				var array=[];
+				demoData.forEach(function(d) {
+					array.push(d.description);
+					console.log(d.description);	
+			});
+				console.log(array);
+				this.querylist=array;
+				console.log(this.querylist);
+			}
+			,
+  			accordion:function(e){
+  		console.log(this);
+        this.classList.toggle("active");	
+        var panel=document.getElementsByClassName("codeexample");
+        console.log(panel);
+        console.log(panel[0].classList);
+        panel[0].classList.toggle("show");
+}
+		});
+	</script>
+</dom-module>

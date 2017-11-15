@@ -1,0 +1,70 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+	<dom-module id="maximo-textarea-demo">
+		<link rel="import" href="../../../../css/demo.html">
+		<style is="custom-style" include="maximo-demo-css"></style>
+		<template>
+  		<maximo-collection 
+				auto="true"	
+				id="collection" 
+				collection-data="{{data}}"
+				test-url="{{resolveUrl('data/data.json')}}"
+				on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+  		<div class="outer">
+ 			<div>
+ 				<maximo-textarea width="500px" placeholder="Enter some text"></maximo-textarea>
+ 			</div>
+	  		<div>
+	  			<maximo-textarea value="{{_textAreaValue}}" width="500px"></maximo-textarea>
+			</div>
+			<div>
+				No SpellCheck<br>
+  				<maximo-textarea spell-check-off value="{{_textAreaValue}}" width="500px"></maximo-textarea>
+  			</div>
+			<div>
+  				<maximo-textarea label="readonly" readonly value="{{_textAreaValue}}" width="500px"></maximo-textarea>
+  			</div>
+  			<div>
+					<maximo-textarea label="Required" required value="{{_textAreaValue}}" width="500px"></maximo-textarea>
+				</div>
+  			<div style="display: inline-block; width: 500px;height: 140px;font-size: 12px;">[[_textAreaValue]]</div>
+  		</div>
+	</template>
+  <script>
+
+    HTMLImports.whenReady(function() {
+
+      Polymer({
+        is: 'maximo-textarea-demo',
+        behaviors: [BaseComponent],
+      	listeners: {
+      		'_handleRecordDataRefreshed' : '_handleRecordDataRefreshed'
+      	},
+      	properties: {
+        	_textAreaValue: {
+        		type: String,
+        		value: '',
+        		observer: '_changed'
+        	}
+        },
+        _handleRecordDataRefreshed: function(){
+        	//this._textAreaValue = this.data[0].children[0].description;
+        	this._textAreaValue = this.data[0].	description;
+        },
+        _changed: function(value){
+        	if(this.data){
+        		this.data[0].description = value;
+        	}
+        }
+      	
+      });
+
+    });
+
+  </script>
+</dom-module>

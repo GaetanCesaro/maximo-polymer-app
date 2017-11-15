@@ -1,0 +1,68 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-worktoassign-card-css">
+	<template>
+    	<style>
+			.wtadescription ::content label,
+			.wtalaborlabel ::content label {
+				font-size: 93.3%;
+				
+			}
+		 	.container {
+		      @apply(--layout-horizontal);
+		      @apply(--layout-justified);
+		    }	
+		    .container > div {
+				display: inline-block;
+			}	
+			
+			.flex-container {
+			    display: flex;
+			    flex-direction: row;
+			    flex-wrap: nowrap;
+			    justify-content: flex-end;
+			    align-content: flex-start;
+			    align-items: center;
+		    }
+		    
+			.wtatypeclass ::content label, 
+			.wtanumclass ::content label,
+			.wtapriorityclass ::content label {
+				font-size: 1.286em;
+				font-family: HelveticaNeue-Light;
+			}
+			
+			.wtalaborlabel {
+				@apply(--layout-end-justified);
+				white-space: nowrap;
+			}
+			
+			.wtachild1 {
+			    order: 0;
+			    flex: 0 1 auto;
+			    align-self: auto;
+		    }
+			
+			.wtachild2 {
+				font-family: HelveticaNeue-Italic;
+			    margin-left: 5px;
+		    }
+			    
+			.wtachild3 {
+			    order: 0;
+			    flex: 0 0 auto;
+			    align-self: auto;
+		    }
+		    
+		    .floater {
+		    	float: right;
+		    	padding: 0px 0px 10px 10px;
+		    	text-align: center;
+		    }
+		</style>
+	</template>
+</dom-module>

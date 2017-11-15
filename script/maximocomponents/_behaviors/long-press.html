@@ -1,0 +1,56 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->
+<script>
+	/**
+	 * Code to apply a function on longpress
+	 *
+	 * @polymerBehavior LongPress
+	 */
+	LongPress = {
+		properties : {
+			timeout : { 
+				type: Number,
+				value: 400
+			},
+			callback: {
+				type: Object
+			},
+			start: {
+				type: Number,
+				value: 0
+			}
+		},
+		longPress: function(elements, callback){
+			var lp = this;
+			this.callback = callback;
+			elements.each(function(index,element){
+				lp.applyToElement(element, callback);
+			});
+		},
+		applyToElement: function(element){
+		    var lp = this;
+		    var timer;
+		    $j(element).on( 'mousedown', function( e ) {
+		    	if(e.currentTarget._longPressTimer){
+		    		window.clearTimeout(e.currentTarget._longPressTimer);
+		    	}
+		    	e.currentTarget._longPressTimer = window.setTimeout(function(){
+		    		lp.callback.apply(lp, [element]);
+		    		console.log()
+		    	}, lp.timeout);
+		    } );
+
+		    $j(element).on( 'mouseleave', function( e ) {
+		    	window.clearTimeout(e.currentTarget._longPressTimer);
+		    } );
+
+		    $j(element).on( 'mouseup', function( e ) {
+		    	window.clearTimeout(e.currentTarget._longPressTimer);
+		    } );
+		}
+	};
+</script>

@@ -1,0 +1,53 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-sr-card">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-sr-card-css.html">
+	<style is="custom-style" include="maximo-sr-card-css"></style>
+	<template>
+		<div id="viewSRCard" class="cardborder" data-ticketid$="{{sr.ticketid}}" on-tap="showDetails">
+			<div class="layout vertical justified">
+				<maximo-htmlfield ignore-rich-text id="viewsr-label-description" class="description" ellipsis-size="50" datalabel="{{_getDescription(sr)}}"></maximo-htmlfield>
+				
+				<div>
+					<template is="dom-if" if="{{!_isHistory(sr)}}">
+						<maximo-field class$="completion {{_overdueClass(sr)}}" empty-value-string="{{localize('uitext','mxapisr','Pending')}}" label="{{localize('uitext','mxapisr','EstimatedCompletionDate')}}" datalabel="{{getLocaleDate(sr.targetfinish)}}"></maximo-field>
+					</template>
+					<template is="dom-if" if="{{_isHistory(sr)}}">
+						<maximo-field class$="completion" label="{{localize('uitext','mxapisr','CompletionDate')}}" datalabel="{{getCompletionDate(sr)}}"></maximo-field>
+					</template>
+					
+					<div class="reportedon" title="{{sr.ticketid}}{{_formatStatus(sr)}} - {{_getReportedInfo(sr)}}">{{sr.ticketid}}{{_formatStatus(sr)}} - {{_getReportedInfo(sr)}}</div>
+					
+					<maximo-label id="priorityLabel" class="priorityLabel" label="{{setPriorityLabel()}}"></maximo-label>
+					<div class="footer container flex-equal-justified">
+						<div class="west">
+							<div class$="{{_mapButtonClass(sr)}}">
+								<iron-icon class="showmapIcon" icon="object-based:location"></iron-icon>
+							</div>
+							<div id="srCardAttachmentCount">
+								<!-- <iron-icon class="attachmentIcon" icon="formatting:attachment"></iron-icon>{{_getAttachmentCount(sr)}} -->
+								<iron-icon class="attachmentIcon" icon="formatting:attachment"></iron-icon>&nbsp;{{attachmentCounter}}
+							</div>
+							<div id="srCardCommentCount" class="srCardCommentCount">
+								<!-- <iron-icon class="commentIcon" icon="maximo-based:comments"></iron-icon>{{_getCommentCount(sr)}} -->
+								<iron-icon class="commentIcon" icon="maximo-based:comments"></iron-icon>&nbsp;{{commentCounter}}
+							</div>
+						</div>
+						<maximo-button class="cancelStyle" action label="{{localize('uitext','mxapibase','Cancel')}}" on-tap="onTapCancel" hidden$="{{_hideCancelInHistory(sr)}}"></maximo-button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+  <script src="maximo-sr-card.js"></script>
+</dom-module>

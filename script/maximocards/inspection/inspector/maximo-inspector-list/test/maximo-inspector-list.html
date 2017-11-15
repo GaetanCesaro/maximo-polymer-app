@@ -1,0 +1,189 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-inspection-list tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<script src="../../../../../main.js"></script>
+		<script src="../../../../../test.js"></script>
+		<script src="../../../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../../../components/iron-test-helpers/mock-interactions.js"></script>
+		
+		<link rel="import" href="../../../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<link rel="import" href="../../maximo-inspector-list/maximo-inspector-list.html" />
+		<script src="mockData.js"></script>
+		
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="emptyList">
+			<template>
+				<maximo-inspector-list id="inspectorListTest1"></maximo-inspector-list>
+			</template>
+		</test-fixture>
+		
+		<test-fixture id="list">
+			<template>
+				<maximo-inspector-list id="inspectorListTest2"></maximo-inspector-list>
+			</template>
+		</test-fixture>
+		
+		<test-fixture id="filterlist">
+			<template>
+				<maximo-inspector-list id="inspectorListTest3"></maximo-inspector-list>
+			</template>
+		</test-fixture>		
+	<script>
+	suite('empty list', function() {
+		
+		var emptyList;
+		setup(function() {
+			emptyList = fixture('emptyList');
+			emptyList.dataSet = emptyMockList;
+		});
+
+		test('check counter', function(done) {
+		
+			expect(emptyList).to.have.property('dataSet').with.lengthOf(0);
+			emptyList.dataSetRefresh();
+			expect(emptyList.hasRecord).to.equal(false, 'Property set incorrectly for empty list');
+			
+			done();
+		});
+	
+		//a11ySuite('maximo-inspection-main');
+	});
+	
+	suite('list with records', function() {
+		
+		var list;
+		setup(function() {
+			list = fixture('list');
+			list.dataSet = mockList;
+		});
+
+		test('check counter', function(done) {
+		
+			expect(list).to.have.property('dataSet').with.lengthOf(5);
+			list.dataSetRefresh();
+			expect(list.hasRecord).to.equal(true, 'Property set incorrectly for list with records');
+			
+			done();
+		});
+		
+		test('verify createUnscheduledInspection is triggered', function(done) {
+			
+			var mockedCollection = sinon.mock(list);
+			var createRecordExpectation = mockedCollection.expects("createUnscheduledInspection");
+			
+			//click Unscheduled Inspection button 
+			MockInteractions.tap(mockedCollection.object.$.createform);	
+			
+			//Verify createRecordExpectation method was executed
+			createRecordExpectation.calledOnce;
+			
+			done();
+		});
+	
+		//a11ySuite('maximo-inspection-main');
+	});
+	
+	suite('list of records to test Filter Tabs', function() {
+		
+		var list;
+		setup(function() {
+			list = fixture('filterlist');
+			list.dataSet = mockTestFilterDataSetList;
+			//list.parentElement = mockedParentElement;
+			list.statusSet = statusObject;
+		});
+
+		test('check counter', function(done) {
+		
+			expect(list).to.have.property('dataSet').with.lengthOf(3);
+			list.dataSetRefresh();
+			expect(list.hasRecord).to.equal(true, 'Property set incorrectly for list with records');
+			
+			done();
+		});
+		
+		test('verify pending tab sets pending filter', function(done) {
+			
+			window['inspresultcollection'] = list;
+			list.additionalParams=[];
+			
+			//Click Pending Link, should set Pending whereclause.
+			MockInteractions.tap(list.$.maximo_status_label1);				
+			var pendingwhere = list.additionalParams[0];
+			expect(pendingwhere).to.contain('oslc.where=status=%22PENDING%22', 'Pending where clause not set.');
+			
+			done();
+		});
+		
+		test('verify inprogress tab sets inprogress filter', function(done) {
+			
+			window['inspresultcollection'] = list;
+			list.additionalParams=[];
+			
+			//Click Inprogress Link, should set pending whereclause.
+			MockInteractions.tap(list.$.maximo_status_label2);				
+			var inprogresswhere = list.additionalParams[0];
+			expect(inprogresswhere).to.contain('oslc.where=status=%22INPROG%22', 'Inprogress where clause not set.');
+
+			done();
+		});		
+
+		test('verify Complete tab sets complete filter', function(done) {
+			
+			window['inspresultcollection'] = list;
+			list.additionalParams=[];
+			
+			//Click Inprogress Link, should set inprogress whereclause.
+			MockInteractions.tap(list.$.maximo_status_label3);				
+			var inprogresswhere = list.additionalParams[0];
+			expect(inprogresswhere).to.contain('oslc.where=status=%22COMPLETED%22', 'Complete where clause not set.');
+
+			done();
+		});	
+		
+		test('verify the All tab sets no filter', function(done) {
+			
+			window['inspresultcollection'] = list;
+			list.additionalParams=[];
+			
+			//Click All link, should set no whereclause.
+			MockInteractions.tap(list.$.maximo_status_label4);				
+			var allwhere = list.additionalParams[0];
+			expect(list.additionalParams).to.have.length(0);
+			expect(allwhere).to.equal('oslc.where=orgid=%22EAGLENA%22', 'Complete where clause not set.');
+		
+			done();
+		});	
+		//a11ySuite('maximo-inspection-main');
+	});	
+	
+	</script>
+	</body>
+</html>

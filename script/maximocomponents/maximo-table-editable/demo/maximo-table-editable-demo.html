@@ -1,0 +1,262 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script src="../../../libraries/tinymce/js/tinymce/tinymce.min.js"></script>
+<link rel="import" href="../../maximo-button/maximo-button.html">
+<link rel="import" href="../../maximo-checkbox/maximo-checkbox.html">
+<link rel="import" href="../../maximo-dialog/maximo-dialog.html">
+<link rel="import" href="../../maximo-text/maximo-text.html">
+<link rel="import" href="maximo-table-dialogcontent.html"/>
+<link rel="import" href="../../../components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../components/iron-icons/editor-icons.html">
+<link rel="import" href="../../../components/iron-icons/social-icons.html">
+<link rel="import" href="../../../components/iron-icons/places-icons.html">
+<link rel="import" href="../../../components/iron-icons/maps-icons.html">
+<link rel="import" href="../../../components/iron-icons/av-icons.html">
+<link rel="import" href="../../../components/iron-icons/image-icons.html">
+<link rel="import" href="../../../components/iron-iconset/iron-iconset.html">
+<link rel="import" href="../../../../images/svg/Maximo.html">
+
+
+<dom-module id="maximo-table-editable-demo">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+
+	
+	<template>
+		<style>
+			.cardborder {
+				display: inline-block;
+			}
+			
+			.cardborder h4 {
+			    margin: 0px;
+		    	padding: 3px 10px;
+				background-color: var(--Primary-yellow10);
+			}
+			
+			.outer > div {
+				display: inline-block;
+				width: 100%;
+			}
+			
+			.actions {
+				text-align: right;
+			}
+			
+		</style>
+  		<maximo-collection 
+  			auto
+  			id="collection_short" 
+  			test-url="{{resolveUrl('data/short_data.json')}}"
+  			on-new-record-created="_handleNewRecordCreated">
+		</maximo-collection>
+		<maximo-collection 
+  			auto
+  			id="collection_short1" 
+  			test-url="{{resolveUrl('data/short_data.json')}}">
+		</maximo-collection>
+		<maximo-collection 
+  			auto
+  			id="collection_short2" 
+  			test-url="{{resolveUrl('data/short_data.json')}}">
+		</maximo-collection>
+		<maximo-collection 
+  			auto
+  			id="collection_short3" 
+  			test-url="{{resolveUrl('data/short_data.json')}}">
+		</maximo-collection>
+			<div style="text-align: left">
+<!--  				<maximo-table-editable label="Table Built From Array (readonly)" id="table" collection="{{getLocalObject('collection_short')}}" filter-row summary="demo table 0">
+ 					<maximo-table-actions>
+						<maximo-button id="table_edit" title="Add" action synchronous table-tap='add' icon="Maximo:Add-New"></maximo-button>
+					</maximo-table-actions>
+					<maximo-table-body>
+						<maximo-table-column data-attribute="first_name"></maximo-table-column>
+						<maximo-table-column data-attribute="last_name"></maximo-table-column>
+					</maximo-table-body>
+ 				</maximo-table-editable>
+ -->
+				<maximo-table-editable label="Table Built From child columns" id="table0" collection="{{getLocalObject('collection_short')}}" filter-row summary="demo table 0">
+					<maximo-table-actions>
+						<maximo-button id="table0_edit" label="Add Row" synchronous default table-tap='add' icon="Maximo:Add-New"></maximo-button>
+					</maximo-table-actions>
+					<maximo-table-body>
+						<maximo-table-column data-attribute="first_name">
+							<maximo-text id="table0_fname"  value=":first_name"/>
+						</maximo-table-column>
+						<maximo-table-column data-attribute="last_name">
+							<maximo-text id="table0_lname" value=":last_name"/>
+						</maximo-table-column>
+						<maximo-table-column data-attribute="company">
+							<maximo-text id="table0_company" value=":company"/>
+						</maximo-table-column>
+						<maximo-table-column data-attribute="human" title="Label override test">
+							<maximo-select id="table0_human" value=":human" values='true,false'/>
+						</maximo-table-column>
+						<maximo-table-column data-attribute="count">
+							<maximo-text id="table0_count" value=":count"/>
+						</maximo-table-column>
+						<maximo-table-column actions>
+							<maximo-button id="table0_delete" title="Delete - Direct" action synchronous table-tap='delete' icon="Maximo:Trash"></maximo-button>
+							<!--   <maximo-button id="table0_delete_event" title="Delete Event" action synchronous table-tap='table-row-delete' icon="Maximo:Trash"></maximo-button> -->
+						</maximo-table-column>
+					</maximo-table-body>
+					<maximo-table-details id="table0_details">
+						<table>
+							<tr>
+								<td>
+									<maximo-text label="::first_name.title::" id="table0_details_fname" type="text" value="::first_name::"></maximo-text>
+									<maximo-text label="::last_name.title::" id="table0_details_lname" type="text" value="::last_name::"></maximo-text>
+									<maximo-select label="::human.title::" id="table0_details_human" value="::human::" values='true,false'/>
+								</td>
+								<td>
+									<maximo-text label="::gender.title::" id="table0_details_gender" type="text" value="::gender::"></maximo-text>
+									<maximo-text label="::company.title::" id="table0_details_company" type="text" value="::company::"></maximo-text>
+								</td>
+							</tr>
+						</table>
+					</maximo-table-details>
+				</maximo-table-editable>
+<!--				
+				<maximo-table-editable label="Table Built From child columns" id="table1"  ordered-data row-drop-event="xx"  collection="{{getLocalObject('collection_short')}}" filter-row summary="demo table 0">
+					<maximo-table-actions>
+						<maximo-button id="table1_edit" title="Edit" action synchronous on-tap='_tableActionEdit' icon="Maximo:Edit"></maximo-button>
+					</maximo-table-actions>
+					<maximo-table-body>
+						<maximo-table-column data-attribute="first_name">
+							<maximo-text id="table1_fname" type="text" value=":first_name"/>
+						</maximo-table-column>
+						<maximo-table-column data-attribute="last_name"></maximo-table-column>
+						<maximo-table-column data-attribute="human" title="Label override test">
+							<maximo-checkbox id="table1_human" type="checkbox" slider readonly/>
+						</maximo-table-column>
+						<maximo-table-column actions>
+							<maximo-button id="table1_delete" title="Delete" action synchronous table-tap='delete' icon="Maximo:Trash"></maximo-button>
+						</maximo-table-column>
+					</maximo-table-body>
+					<maximo-table-details id="table1_details">
+						<table>
+							<tr>
+								<td>
+									<maximo-text label="{{collection.schema.properties.first_name.title}}" id="table1_details_fname" type="text" value="::first_name::"></maximo-text>
+									<maximo-text label="{{collection.schema.properties.last_name.title}}" id="table1_details_lname" type="text" value="::last_name::"></maximo-text>
+								</td>
+								<td>
+									<maximo-text id="table1_details_gender" type="text" value="::gender::"></maximo-text>
+									<maximo-text id="table1_details_company" type="text" value="::company::"></maximo-text>
+								</td>
+							</tr>
+						</table>
+					</maximo-table-details>
+				</maximo-table-editable>
+
+-->
+readonly, multi-select, with filter 		
+				<maximo-table-editable id="table4" select-mode="multiple" select-on collection="{{getLocalObject('collection_short1')}}" summary="demo table 4" filter-row>
+					<maximo-table-body>
+						<maximo-table-column data-attribute="first_name"></maximo-table-column>
+						<maximo-table-column data-attribute="last_name"></maximo-table-column>
+						<maximo-table-column data-attribute="human" title="Label override test"></maximo-table-column>
+					</maximo-table-body>
+				</maximo-table-editable>
+				
+single select, no filter
+				<maximo-table-editable id="table2" collection="{{getLocalObject('collection_short2')}}" summary="demo table 2" select-mode="single" select-on>
+					<maximo-table-body>
+						<maximo-table-column data-attribute="first_name"></maximo-table-column>
+						<maximo-table-column data-attribute="last_name"></maximo-table-column>
+						<maximo-table-column data-attribute="human" title="Label override test"></maximo-table-column>
+					</maximo-table-body>
+				</maximo-table-editable>
+			</div>
+		</div>
+
+		<button on-tap="_openDialog">Open Dialog</button>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-table-editable-demo',
+			behaviors: [BaseComponent],
+			listeners: {
+				'maximo-table-selection-changed':'_selectedChanged',
+				'drop-table-row':'_tableRowDropped',
+				'table-row-delete':'_tableRowDelete'
+			},
+			properties: {
+				columns: {
+					type: Array,
+					value: [{"attribute":"first_name","title":"First Name"},{"attribute":"last_name"},{"attribute":"company","title":"Company Name"}]
+				},
+				showtable: {
+					type: Boolean,
+					value: function(){
+						return false;
+					}
+				},
+				dataArray: {
+					type: Array,
+					value: [{"_id":"1","href":"HREF1","title":"","first_name":"Philip","middle_name":"J","last_name":"Fry","gender":"Male","company":"Planet Express","human":true},
+					{"_id":"2","href":"HREF2","title":"","first_name":"Turanga","middle_name":"","last_name":"Leela","gender":"Female","company":"Planet Express","human":true},
+					{"_id":"3","href":"HREF3","title":"","first_name":"Bender","middle_name":"Bending","last_name":"Rodriguez","gender":"NONE","company":"Planet Express","human":false},
+					{"_id":"4","href":"HREF4","title":"","first_name":"Amy","middle_name":"","last_name":"Wong","gender":"Female","company":"Planet Express","human":true},
+					{"_id":"5","href":"HREF5","title":"","first_name":"Hermes","middle_name":"","last_name":"Conrad","gender":"Male","company":"Planet Express","human":true},
+					{"_id":"6","href":"HREF6","title":"Professor","first_name":"Hubert","middle_name":"J","last_name":"Farnsworth","gender":"Male","company":"Planet Express","human":true},
+					{"_id":"7","href":"HREF7","title":"Doctor","first_name":"John","middle_name":"","last_name":"Zoidberg","gender":"Male","company":"Planet Express","human":false}]
+				}
+			},
+			_getButtonLabel: function(){
+				return $M.localize('uitext','mxapibase','edit');
+			},
+			_rowButtonEdit: function(e){
+				console.log('edit button clicked on table:'+e.detail._tableInfo.table + ' on record:' );
+				console.dir(e.detail._tableInfo.record);
+			},
+			_rowButtonSave: function(e){
+				console.log('save button clicked on table:'+e.detail._tableInfo.table + ' on record:' );
+				console.dir(e.detail._tableInfo.record);
+			},
+			_tableRowDelete: function(e){
+				e.detail.table.fire('table-action-allowed', e);
+			},
+			_selectedChanged: function(e){
+				console.dir(e.detail.getSelectedRecords());
+			},
+			_tableRowDropped: function(e){
+				// This is temporary for proof of concept. 
+				// Any filter or sort will reset the order in the demo table.
+				// In a real implementation the position change should be applied immediately.
+				var record = e.detail.table._data.splice(e.detail.startIndex, 1)[0];
+				if(e.detail.endIndex > e.detail.startIndex){
+					e.detail.table._data.splice(e.detail.endIndex - 1, 0, record);	
+				}
+				else {
+					e.detail.table._data.splice(e.detail.endIndex, 0, record);				
+				}
+				
+			},
+			_tableActionEdit: function(e){
+				console.log('_tableActionEdit was called');
+			},
+			_openDialog: function(){
+				$M.showDialog(this, 'testDialog', 'test Dialog', 'maximo-table-dialogcontent', false, null);
+			},
+			_handleNewRecordCreated: function(e){
+				var recordData = e.detail;
+				
+			}
+		
+		});
+	</script>
+</dom-module>

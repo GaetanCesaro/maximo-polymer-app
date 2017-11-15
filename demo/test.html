@@ -1,0 +1,72 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	  	<script src="/script/components/webcomponentsjs/webcomponents-lite.min.js"></script> 
+	  	<link href="/css/main.css" rel="stylesheet">
+	  	<script src="/script/libraries/jquery/jquery-2.2.0.js"></script>
+	  	<script src="/script/libraries/lightning.js"></script>
+	  	<link rel="import" href="/script/components/polymer/polymer.html"/>
+	</head>
+  	<body>
+  	
+  	<dom-module id="maximo-button">
+
+	<template>
+		<template is="dom-if" if="{{showMe()}}">
+				{{id}} - small
+		</template>
+		<template is="dom-if" if="{{showMe('large')}}">
+				{{id}} - large
+		</template>
+	</template>
+	
+	<script>
+		Polymer({
+			is : "maximo-button",
+			properties : {
+				id : {
+					type : String,
+					reflectToAttribute: true
+				},
+				layout: {
+					type: String,
+					notify: true,
+					reflectToAttribute: true
+				},
+				defaultLayout: {
+					type: String,
+					value : "small",
+					readonly: true;
+				}
+			},
+			created : function(){
+				console.log();
+			},
+			ready : function() {
+				console.log();
+			},
+			showMe: function(myLayout){
+				if(!myLayout){
+					myLayout = "small";
+				}
+				var layout = this.getAttribute("layout");
+				if(!layout){
+					layout = "small";//default
+				}
+				return myLayout==layout;
+			}
+		});
+	</script>
+  	<maximo-button id="test" ></maximo-button>
+  	<br>
+  	<maximo-button id="test" layout="large"></maximo-button>
+  	<br>
+  	<maximo-button id="test" layout="small"></maximo-button>
+	</body>
+</html>

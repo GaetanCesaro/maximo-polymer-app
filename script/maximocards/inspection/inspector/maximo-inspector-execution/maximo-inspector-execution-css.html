@@ -1,0 +1,196 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-inspector-execution-css">
+	<template>
+    	<style>  
+			.seperator{ 
+			    display:block;
+			    border:none;
+			    color: var(--Primary-white);
+			    height:1px;
+			    background: var(--Primary-gray10);
+			    margin-top: 13px;
+			}
+			
+			.seperator.true {
+				display:none;
+			}
+			
+			.highlight{
+				background-color: var(--Primary-blue60);
+			}
+									
+			.progress {
+			    order: 0;
+			    flex: 0 1 auto;
+			}
+			
+			.progress iron-icon {
+			    fill: var(--Primary-green30);
+			}
+			
+			.highlight.progress{
+				align-self: center; !important
+			}			
+			
+			.container {
+			    display: flex;
+			    flex-direction: row;
+			    flex-wrap: wrap;
+			    justify-content: flex-end;
+			    align-content: flex-end;
+			    align-items: flex-start;
+			    padding:13px;
+		    }
+		    	
+		    .executionContainer {
+		     	padding-bottom:50px;
+		    }
+		    		
+			.main {
+			    order: 0;
+			    flex: 1 1 auto;
+			    font-size: 129%;
+			    text-align:left;
+		    }
+		    
+		    .main[required]:before {
+    			content: '* ';
+    			font-size: 110%;
+    			color : var(--Primary-orange50);
+    		}
+    		
+		    .highlight .main {
+		    	color: var(--Primary-white);
+		    }
+		    
+		    .emptyradio {
+		        box-sizing: border-box;
+			    width: 19px;
+			    height: 19px;
+			    border: 1px solid #AEAEAE;
+		    }
+		    
+			
+			.circle {
+				 background-color: rgba(204, 0, 102, 0);
+				 display: block !important;
+				 border: 1px solid #AEAEAE;
+				 height: 15px;
+				 width: 15px;
+				 border-radius:50%;
+			}
+			
+			.groupedQuestions {
+				background-color: var(--Primary-white);
+			}
+			
+			.info ::content button iron-icon{
+				vertical-align:top;
+				color: var(--Primary-blue30) !important;
+			}
+			
+			.slideIn  {
+			    width: 100%;
+				background-color: var(--Primary-blue60);
+			    text-align: left;
+			    z-index: 99;
+     			padding:10px;
+			}
+			
+			.slideIn >div {
+			    color: var(--Primary-white);
+			}
+						
+			.float-down {
+			    -webkit-animation-duration:2s;
+			    -moz-animation-duration:2s;
+			    -o-animation-duration:2s;
+			    animation-duration:2s;
+			    -webkit-animation-name:float-down;
+			    -moz-animation-name:float-down;
+			    -o-animation-name:float-down;
+			    animation-name:float-down;
+			    -webkit-animation-iteration-count:1;
+			    -moz-animation-iteration-count:1;
+			    -o-animation-iteration-count:1;
+			    animation-iteration-count:1;
+			    -webkit-animation-timing-function:ease-out;
+			    -moz-animation-timing-function:ease-out;
+			    -o-animation-timing-function:ease-out;
+			    animation-timing-function:ease-out;
+			    -webkit-animation-fill-mode:forwards;
+			    -moz-animation-fill-mode:forwards;
+			    -o-animation-fill-mode:forwards;
+			    animation-fill-mode:forwards;
+			    position:absolute;
+			    box-shadow: inset 0 0 10px  var(--Primary-blue70);
+    			padding: 10px;
+			}
+			@-webkit-keyframes float-down {
+			    0% {
+			        top:0px;
+			        opacity:0;
+			    }
+			    25% {
+			        opacity:1;
+			    }
+			    35% {
+			        top:10px;
+			    }
+			    100% {
+			        top:0px;
+			    }
+			}
+			@-moz-keyframes float-down {
+			    0% {
+			        top:0px;
+			        opacity:0;
+			    }
+			    25% {
+			        opacity:1;
+			    }
+			    35% {
+			        top:10px;
+			    }
+			    100% {
+			        top:0px;
+			    }
+			}
+			@-o-keyframes float-down {
+			    0% {
+			        top:0px;
+			        opacity:0;
+			    }
+			    25% {
+			        opacity:1;
+			    }
+			    35% {
+			        top:10px;
+			    }
+			    100% {
+			        top:0px;
+			    }
+			}
+			@-keyframes float-down {
+			    0% {
+			        top:0px;
+			        opacity:0;
+			    }
+			    25% {
+			        opacity:1;
+			    }
+			    35% {
+			        top:10px;
+			    }
+			    100% {
+			        top:0px;
+			    }
+			}			
+		</style>
+	</template>
+</dom-module>

@@ -1,0 +1,66 @@
+<!-- 
+@license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../components/iron-pages/iron-pages.html">
+<link rel="import" href="../../components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../../components/paper-styles/paper-styles.html">
+<link rel="import" href="../../components/paper-menu/paper-menu.html">
+<link rel="import" href="../../components/paper-item/paper-item.html">
+<link rel="import" href="../../components/paper-drawer-panel/paper-drawer-panel.html">
+	
+<!--
+`<maximo-navbar>` is Maximo navigation bar element. It support portrait and landscape mode.
+
+Example:
+
+    <maximo-navbar></maximo-navbar>
+
+--> 
+<dom-module id="maximo-navbar">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+
+	<link rel="import" href="maximo-navbar-css.html">
+	<style is="custom-style" include="maximo-navbar-css"></style>		
+	<template>
+		<app-route route="{{subroute}}" pattern="/:route" data="{{navbarData}}"></app-route>
+		<div style="display: flex">
+			<div class="sideMenu" id="menudiv">
+				<paper-menu id="servicerequestmenu" class="menu" on-iron-select="_onSelectMenu" selected={{selectedIndex}}>
+					<template is="dom-repeat" items="[[items]]" as="item" id="sideTemplate">
+						<a href="{{_getRouteHref(item.subRoute)}}">	
+							<paper-item role="option" id="paperitem{{index}}" dataindex="{{index}}" class="flex horizontal layout center center-justified">
+								<maximo-navitem class="papernavitem" data-index$={{index}} label="{{item.label}}" icon="{{item.icon}}" count="{{item.count}}"></maximo-navitem>
+							</paper-item>
+						</a>
+					</template>
+				</paper-menu>
+			</div>  
+			<iron-pages id="cards" style="height:100%;width:100%;" selected="0">
+				<content></content>
+			</iron-pages>
+			<div id="bottomnavbar" class="bottombar horizontal layout" >
+				<table id="bottomtable">
+					<tr id="bottomtr">
+						<template is="dom-repeat" items="[[items]]" as="item" id="bottomTemplate">
+							<td id="tditem{{index}}" class="bottomTd" dataindex="{{index}}">
+								<a href="{{_getRouteHref(item.subRoute)}}">
+									<maximo-navitem class="tdnavitem" data-index$={{index}} label="{{item.label}}" icon="{{item.icon}}" count="{{item.count}}" sub-route="{{item.subRoute}}"></maximo-navitem>
+								</a>
+							</td>
+						</template>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</template>
+
+	<script src="maximo-navbar.js"></script>
+</dom-module>

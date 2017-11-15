@@ -1,0 +1,45 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-changestatus-card">
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-changestatus-card-css.html">
+	<style is="custom-style" include="maximo-changestatus-card-css"></style>		
+  	
+  	<template id="maximo_changestatus_dialog">
+  		<maximo-resource id="recordResource" resource-uri="{{record.href}}"></maximo-resource>
+		<!-- <maximo-section id="status_section"> -->
+		
+			<maximo-field id="changestatus_section_label1" label="{{localize('uitext', 'mxapiwo', 'WorkOrder')}}" hide-data>
+				<maximo-button id="changestatus_section_link" action="true" label="{{record.wonum}}" on-tap="openWorkorder"></maximo-button>
+			</maximo-field>
+<!-- 			<maximo-label id="changestatus_section_label1" label="{{localize('uitext', 'mxapiwo', 'WorkOrder')}}:" bold></maximo-label>
+			<maximo-button id="changestatus_section_value" action="true" on-tap="openWorkorder" label="{{record.wonum}}"></maximo-button> -->
+			
+			<!-- <maximo-field id="changestatus_section_label1" label="{{localize('uitext', 'mxapiwo', 'WorkOrder')}}" datalabel="{{record.wonum}}"></maximo-field> -->
+			<maximo-field id="changestatus_section_label2" label="{{localize('uitext', 'mxapiwo', 'Description')}}" datalabel="{{record.description}}"></maximo-field>
+			<maximo-field id="changestatus_section_label3" label="{{localize('uitext', 'mxapiwo', 'Status')}}" datalabel="{{record.status}}"></maximo-field>
+			<maximo-field id="changestatus_section_label4" label="{{localize('uitext', 'mxapiwo', 'StatusDate')}}" datalabel="{{getDateTime(record.statusdate)}}"></maximo-field>			
+		<!-- </maximo-section> -->				
+		
+		<maximo-select id="select" label="{{localize('uitext', 'mxapiwo', 'SelectStatus')}}" values="{{_statusList(record)}}" on-change="enableButton" internal-label="true" style="margin-top: 20px;" required="true"></maximo-select><br>
+		
+		<maximo-texteditor id="changestatus_section_texteditor" class="editdetail" placeholder="{{localize('uitext', 'mxapiwo', 'recordnpstatusmemo')}}" rows="6" value="{{record.np_statusmemo}}" width="100%" ></maximo-texteditor>
+		<!-- <maximo-text id="changestatus_section_text1" label="{{localize('uitext', 'mxapiwo', 'Memo')}}" value="{{record.np_statusmemo}}"></maximo-text> -->
+	
+		
+		 <maximo-footer id="footer" centered>
+			 	<maximo-button id="changestatus_footer_Cancel" label="{{localize('uitext', 'mxapibase', 'Cancel')}}" on-tap="close" action="true" ></maximo-button>
+		  		<maximo-button id="changestatus_footer_ok" label="{{localize('uitext', 'mxapibase', 'Ok')}}" on-tap="changeStatus" default="true" disabled="true" ></maximo-button>
+	  	</maximo-footer>	
+  	</template>
+
+	<script src="maximo-changestatus-card.js"></script>
+
+</dom-module>

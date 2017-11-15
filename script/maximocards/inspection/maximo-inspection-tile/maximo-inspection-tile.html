@@ -1,0 +1,73 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-inspection-tile">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspection-tile-css.html">
+	<style is="custom-style" include="maximo-inspection-tile-css"></style>		
+	<template>
+	
+  		<div id="tileContainer" class="container">
+			<div id="tile" class="dataSetCard" on-tap="_showFormOptions">
+				<div class="title">
+					<maximo-label id="title" ellipsis-size="100" wordwrap="break-word" label="{{record.name}}"></maximo-label>
+				</div>
+				 <!-- <div>
+					<maximo-htmlfield id="description" ellipsis-size="50" datalabel="{{record.description_longdescription}}"></maximo-htmlfield>
+				</div> -->
+				<div class="footer">
+					<div>
+						<div class="box">
+							<maximo-label id="revision" label="[[_revision]]"></maximo-label>&nbsp;-&nbsp; 
+							<maximo-label id="date" label="[[getDate(record.changedate)]]"></maximo-label>
+						</div>
+						<div class="layout horizontal">
+							<maximo-checkbox id="checkbox" label="[[state.description]]" checked="{{booleanState}}" slider on-tap="_preventPopup"></maximo-checkbox>
+						</div>
+					</div> 
+				</div>
+				<maximo-button action="true" id="showInfo" synchronous tabindex="0" class="showinfo" on-mouseenter="_showInfoHover" on-tap="_showInfo" icon="action-based:get-information"></maximo-button>
+			</div>
+		</div>
+		
+		<maximo-tooltip id="tooltipInspection" class="ttStyle">
+			<div id="info">
+				<div style="font-family:HelveticaNeue-Bold; line-height:18px; margin-bottom: 8px; word-break: break-all;">
+					<label id="titleTt">{{record.name}}</label>
+				</div>
+				
+				<maximo-field id="typeTt" label="{{localize('uitext','mxapiinspection','type')}}" datalabel="{{record.type}}"></maximo-field>
+				<maximo-field id="usedForTt" label="{{localize('uitext','mxapiinspection','used_for')}}" datalabel="{{record.usedFor}}"></maximo-field>
+				
+				<maximo-field id="createdDateTt" label="{{localize('uitext','mxapiinspection','created_on')}}" datalabel="{{getDateTime(record.createdate)}}"></maximo-field>
+				<maximo-field id="lastRevisionByTt" label="{{localize('uitext','mxapiinspection','last_revision_by')}}" datalabel="{{record.personchange.displayname}}"></maximo-field>
+				<maximo-field id="lastRevisionDateTt"  label="{{localize('uitext','mxapiinspection','last_revision_date')}}" datalabel="{{getDateTime(record.changedate)}}"></maximo-field>
+				
+				<maximo-field id="usedByTt" label="{{localize('uitext','mxapiinspection','used_by')}}" datalabel="{{record.usedBy}}"></maximo-field>
+			</div>
+		</maximo-tooltip>
+		
+		<div id="formOptionsHolder" style="display: none;">
+			<div id="formOptions" class="layout vertical">
+				<!-- maximo-button id="prevOpt" style="font-family:HelveticaNeue;font-size:18px;line-height:36px;" label="{{localize('uitext','mxapiinspection','preview')}}" icon="Maximo:View" on-tap="_preview" action></maximo-button-->
+				<maximo-button id="editOpt" hidden$="{{hideEdit}}" style="font-family:HelveticaNeue;font-size:18px;line-height:36px;" label="{{localize('uitext','mxapiinspection','edit')}}" icon="Maximo:Edit" on-tap="_edit" action></maximo-button>				
+				<maximo-button id="revOpt" hidden$="{{hideRevision}}" style="font-family:HelveticaNeue;font-size:18px;line-height:36px;" label="{{localize('uitext','mxapiinspection','create_revision')}}" icon="Maximo:Create-Revision" on-tap="_revise" action></maximo-button>
+				<maximo-button id="copyOpt" style="font-family:HelveticaNeue;font-size:18px;line-height:36px;" label="{{localize('uitext','mxapiinspection','duplicate')}}" icon="Maximo:Copy" on-tap="_duplicate" action></maximo-button>
+				<maximo-button id="trashOpt" hidden$="{{hideDelete}}" style="font-family:HelveticaNeue;font-size:18px;line-height:36px;" label="{{localize('uitext','mxapiinspection','delete')}}" icon="Maximo:Trash" on-tap="_delete" action></maximo-button>
+				<!-- maximo-button id="configOpt" style="font-family:HelveticaNeue;font-size:18px;line-height:36px;" label="{{localize('uitext','mxapiinspection','form_settings')}}" icon="Maximo:Configure" on-tap="_config" action></maximo-button-->
+			</div>
+		</div>
+		
+	</template>
+	<script src="maximo-inspection-tile.js"></script>
+
+</dom-module>

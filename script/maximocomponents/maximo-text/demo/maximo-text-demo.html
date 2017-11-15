@@ -1,0 +1,142 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../../components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../components/iron-icons/editor-icons.html">
+<link rel="import" href="../../../components/iron-icons/social-icons.html">
+<link rel="import" href="../../../components/iron-icons/places-icons.html">
+<link rel="import" href="../../../components/iron-icons/maps-icons.html">
+<link rel="import" href="../../../components/iron-icons/av-icons.html">
+<link rel="import" href="../../../components/iron-icons/image-icons.html">
+<link rel="import" href="../../../components/iron-iconset/iron-iconset.html">
+<link rel="import" href="../../../../images/svg/Maximo.html">
+
+<dom-module id="maximo-text-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+		<style>
+			.outer > div {
+				text-align: left;
+				justify-content: flex-start;
+			}
+		</style>
+	
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+  		
+  		<div class="outer">
+  			<div class="demo">
+  				<maximo-text id="text0" label="Without initial value" placeholder="no initial value" width="500px"></maximo-text>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-text id="text0" label="Without initial value" placeholder="no initial value" width="500px"></maximo-text></xmp>
+  			</div>
+  		</div>
+  		
+  		<div class="outer">
+  			<div class="demo">
+  				<maximo-text id="text1" label="With initial value" value="{{_textValue}}" width="500px"></maximo-text>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-text id="text1" label="With initial value" value="{{_textValue}}" width="500px"></maximo-text></xmp>
+  			</div>
+  		</div>
+  		
+  		<div class="outer">
+  			<div class="demo">
+  				<maximo-text id="text2" label="readonly" readonly value="{{_textValue}}" width="500px"></maximo-text>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-text id="text2" label="readonly" readonly value="{{_textValue}}" width="500px"></maximo-text></xmp>
+  			</div>
+  		</div>
+  		
+  		<div class="outer">
+  			<div class="demo">
+  				<maximo-text id="text3" label="Required" required value="{{_textValue}}" width="500px"></maximo-text>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-text id="text3" label="Required" required value="{{_textValue}}" width="500px"></maximo-text></xmp>
+  			</div>
+  		</div>
+
+  		<div class="outer">
+  			<div class="demo">
+  				<maximo-text id="text6" label="Required asterik on input" placeholder="value" input-required="false" value="" width="500px"></maximo-text>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-text id="text61" label="Required" value="" width="500px" input-required="true"></maximo-text></xmp>
+  			</div>
+  		</div>
+  		
+  		<div class="outer">
+  			<div class="demo">
+  				<maximo-text id="text2a" label="readonly and required" readonly required value="previously set" width="500px"></maximo-text>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-text id="text2a" label="readonly" readonly required value="{{_textValue}}" width="500px"></maximo-text></xmp>
+  			</div>
+  		</div>
+  		
+  		
+  		<div class="outer">
+  			<div class="demo">
+  				<maximo-text id="text4" label="Password" type="password" value="{{_textValue}}" width="500px"></maximo-text>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-text id="text4" label="Password" type="password" value="{{_textValue}}" width="500px"></maximo-text></xmp>
+  			</div>
+  		</div>
+  		<div class="outer">
+  			<div class="demo">
+  				<maximo-text id="text5" label="Question" placeholder="value" value="" width="500px" on-value-changed='validation'></maximo-text>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-text id="text51" label="Password" value="" width="500px" on-value-changed='validation'></maximo-text></xmp>
+  			</div>
+  		</div>
+  		
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-text-demo',
+			behaviors: [BaseComponent],
+			listeners: {
+				'_handleRecordDataRefreshed' : '_handleRecordDataRefreshed'
+			},
+			properties: {
+				_textValue: {
+					type: String,
+					value: '',
+					observer: '_changed'
+				}
+			},
+			ready: function(){
+				$M.demoMode = true;
+				$j('body').css({'background': '#efefef','text-align':'center'});
+			},
+			_handleRecordDataRefreshed: function(){
+			//	this._textValue = this.data[0].children[0].description;
+				this._textValue = this.data[0].	description;
+		    },
+		    _changed: function(value){
+		    	if(this.data){
+		    		this.data[0].description = value;
+		    	}
+		    },
+		    validation:function(e){
+		    this.$.text5.validator(this.$.text5,true);
+		    }
+		});
+	</script>
+</dom-module>

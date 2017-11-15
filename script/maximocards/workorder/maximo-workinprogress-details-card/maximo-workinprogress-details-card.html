@@ -1,0 +1,95 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../../handlers/handler-workorder/handler-workorder.html"/>
+
+<dom-module id="maximo-workinprogress-details-card">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-workinprogress-details-card-css.html">
+	<style is="custom-style" include="maximo-workinprogress-details-card-css"></style>		
+	<template id="workinprogress-details-template">
+	
+		<maximo-collection 
+		    id="wocollection" 
+			attribute-names="wonum,workorderid,remdur,estdur,actfinish,actstart,actlabcost,estatapprlabcost,actmatcost,estatapprmatcost,actservcost,estatapprservcost,acttoolcost,estatapprtoolcost,rel.childtask{taskid,description,status},rel.uxshowactualmaterial{matusetransid,description,quantity},rel.modifyworklog{worklogid,logtype,recordkey,description}"
+			collection-data="{{collectionRecord}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"	
+			filter-data="{{filterData}}"			
+			object-name="MXAPIWODETAIL"
+			order-by-child-attribute-names="{{childTaskSort}}"
+			search-attribute-names="workorderid"
+			search-term-value="{{filterWorkOrderID}}"
+			selected-query-name="All"
+			selected-record="{{selectedRecord}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			additional-params='["internalvalues=1"]'
+			use-search-terms="true"
+			refresh-interval="300"
+			refresh-listeners='["completecollection"]'
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+		</maximo-collection>
+		
+						
+		<!-- <maximo-section id="mainsection" label="{{localize('uitext', 'mxapibase', 'Showmore')}}" alternate-label="{{localize('uitext', 'mxapibase', 'Showless')}}" class="hiddensection" collapsed="true" fontsize="100%" block no-icon show-bottom-toggler> -->
+		<div name="wpd-inner-section">
+			<hr>
+			<div id="timeleftsection" hidden$="{{hideTimeLeft}}" class="flex-equal-justified" style="padding-left: 10px; padding-right: 10px;">
+				<maximo-label id="workinprogress_timeleftlabel" fontsize="1.3em" label="{{localize('uitext', 'mxapiwodetail', 'TimeLeft')}}" style="padding: 12px 0px;"></maximo-label>
+				<div class="childVerticalCenter" sytle="padding-right: 10px;">
+					<!-- <iron-icon id="workinprogress_timer" icon="icons:query-builder"></iron-icon> -->
+					<maximo-label id="workinprogress_timeleftlabel_time" fontsize="1.3em"  label="{{timeLeft}}" format="HhMm"></maximo-label>
+				</div>
+			</div>
+			<hr hidden$="{{hideTimeLeft}}">
+			<maximo-section id="actualtimesection" hidden$="{{hideTimeSection}}" label="{{localize('uitext', 'mxapiwodetail', 'TimeSpentvsEstimated')}}" summary="{{spentEstTime}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<maximo-field id="workinprogress_actualtimesection_actual" label="{{localize('uitext', 'mxapiwodetail', 'TimeSpent')}}" datalabel="{{timeSpent}}" format="HhMm"></maximo-field>
+				<maximo-field id="workinprogress_actualtimesection_duration" label="{{localize('uitext', 'mxapiwodetail', 'EstimatedDuration')}}" datalabel="{{estimatedTime}}" format="HhMm"></maximo-field>
+			</maximo-section>
+			<hr hidden$="{{hideTimeSection}}">
+			<maximo-section id="costsection" hidden$="{{hideCostSection}}" label="{{localize('uitext', 'mxapiwodetail', 'Cost')}}" summary="{{costsSummary}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<template id="costsectionTemplate" is="dom-repeat" items="{{costsCollection}}" as="cost">
+					<maximo-field id="costlabel" label="{{cost.label}}" datalabel="{{cost.cost}}"></maximo-field>
+				</template>
+			</maximo-section>
+			<hr hidden$="{{hideCostSection}}">
+			<maximo-section id="taskcompletionsection" label="{{localize('uitext', 'mxapiwodetail', 'TaskCompletion')}}" summary="{{taskCompletion}}" collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<ul>
+				<template id="taskcompletionsectionTemplate" is="dom-repeat" items="{{tasksCollection}}" as="task">
+					<li>{{task.taskid}} | {{task.description}} | {{task.status_description}}</li>
+				</template>
+				</ul>
+			</maximo-section>
+			<hr>
+			<maximo-section id="materialsection" label="{{localize('uitext', 'mxapiwodetail', 'MaterialsUsed')}}" summary="{{materialSummary}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<ul>
+					<template id="materialsectionTemplate" is="dom-repeat" items="{{materialCollection}}" as="material">
+						<li>{{getQuantity(material.quantity)}} | {{material.description}} </li>
+					</template>
+				</ul>
+			</maximo-section>
+			<hr>
+			<maximo-section id="commentsection" label="{{localize('uitext', 'mxapiwodetail', 'Comments')}}" summary="{{commentSummary}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<ul>
+				<template id="commentsectionTemplate" is="dom-repeat" items="{{commentsCollection}}" as="comment">
+					<li>{{comment.logtype_description}} | {{comment.description}}</li>
+				</template>
+				</ul>
+			</maximo-section>
+			<hr>
+		</div>
+		<!-- </maximo-section> -->
+	</template>
+
+	<script src="maximo-workinprogress-details-card.js"></script>
+
+</dom-module>

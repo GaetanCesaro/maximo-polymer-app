@@ -1,0 +1,58 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<link rel="import" href="../../maximo-inspection-tile/maximo-inspection-tile.html" />
+
+<dom-module id="maximo-inspection-list">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspection-list-css.html">
+	<style is="custom-style" include="maximo-inspection-list-css"></style>		
+	<template>
+	
+		<div class="mainPage">
+		
+			<div class="header">
+				<div>
+					<h1 class="title">{{localize('uitext','mxapiinspection','inspection_form_library')}}</h1>
+					<maximo-searchbar id="searchbar" class="searchbar" collection="{{collectionRef}}" placeholder="{{localize('uitext', 'mxapiinspection', 'search_inspection_forms')}}"></maximo-searchbar>
+				</div>
+				<div class="layout horizontal end">
+					<maximo-button id="createform" icon="Maximo:Add-New" class="addButton" default label="{{localize('uitext','mxapiinspection','create_form')}}" on-tap="createForm" ></maximo-button>
+				</div>
+			</div>
+			
+			<div id="pageDiv" class="pageDiv scroll">
+				<maximo-label id="count" class="count" label="[[_resultCounter]]" block="true"></maximo-label>			
+				
+				<template is="dom-if" if="[[!hasRecord]]">
+					<div class="noRecords">
+						<div class="icon">
+							<object data="images/bee-shadow-large.svg" type="image/svg+xml" style="padding-top: 20px;"></object>
+						</div>
+						<p>{{localize('uitext','mxapiinspection','no_inspections_forms')}}</p>
+						<p>{{localize('uitext','mxapiinspection','use_create_button')}}</p>
+						<!-- <p style="text-align: center;">There is no records to show. Create a new form!</p> -->
+					</div>
+				</template>
+				<div id="dataScroller" class="layout horizontal wrap">
+					<template id="inspectionFormTemplate" is="dom-repeat" items="[[dataSet]]" as="inspForm">
+						<maximo-inspection-tile id="inspForm_tile_record" data-id="[[inspForm.inspectionformid]]" record="{{inspForm}}" 
+							form-status-set="[[statusSet]]"></maximo-inspection-tile>
+					</template>
+				</div>
+		   </div>
+		</div>
+  
+	</template>
+	<script src="maximo-inspection-list.js"></script>
+
+</dom-module>

@@ -1,0 +1,55 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-richtexteditor-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+	
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+		<style>
+			.outer > div {
+				text-align: left;
+			}
+		</style>
+	
+  	
+  		<div class="outer">
+  			<div class="demo">
+	  			<maximo-richtexteditor id="instructionsRichtext" textareauniqueid="textarea1" width="600" placeholder="Enter text here..."></maximo-richtexteditor>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-richtexteditor id="instructionsRichtext" textareauniqueid="textarea1" width="600" placeholder="Enter text here..."></maximo-richtexteditor></xmp>
+  			</div>
+			
+			<br>
+  			
+  			<div class="demo">
+	  			<maximo-richtexteditor id="instructionsRichtext2" textareauniqueid="textarea2" width="600" placeholder="Enter text here for second Rich Text..."></maximo-richtexteditor>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-richtexteditor id="instructionsRichtext2" textareauniqueid="textarea2" width="600" placeholder="Enter text here for second Rich Text..."></maximo-richtexteditor></xmp>
+  			</div>
+  			
+  		</div>
+
+  		 
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-richtexteditor-demo',
+			behaviors: [BaseComponent],
+			listeners: {
+			},
+			properties: {
+			},
+			ready: function(){
+				$M.demoMode = true;
+				$j('body').css({'background': '#efefef','text-align':'center'});
+			}
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,11 @@
+[	{
+		"description": "data 1 description 1",
+		"myBoolean" : false,
+		"href" : "record0" 
+	},
+	{
+		"description": "data 1 description 2",
+		"myBoolean" : true,
+		"href" : "record1"
+	}
+]

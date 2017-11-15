@@ -1,0 +1,98 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-badge-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../maximo-badge.html">
+	
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+		<style>
+		
+			maximo-badge.style {
+				--maximo-badge-width: 30px;
+				--maximo-badge-height: 30px;
+				--maximo-badge-background: black;
+				--maximo-badge-margin-left: 10px;
+				--maximo-badge-margin-bottom: 10px;
+				--maximo-badge-border-radius: 50px;
+			}
+			
+			maximo-badge.excellent {
+				--maximo-badge-width: auto;
+				--maximo-badge-background: yellow;
+			}
+			
+			
+			.outer > div {
+				text-align: left;
+			}
+			
+		</style>
+	
+  		<div class="outer">
+  			<div class="demo">
+  				<maximo-badge id="badge1" data="25" style="position: static;"></maximo-badge>
+  			</div>
+  			<div class="code">
+  				<xmp><maximo-badge id="badge1" data="25"></maximo-badge></xmp>
+  			</div>
+		</div>
+		
+		<div class="outer">
+  			<div class="demo">
+  				<maximo-badge id="badge2" data="Excellent" class="excellent" color="black" style="position: static;"></maximo-badge>
+  			</div>
+  			<div class="code">
+  				<xmp>
+.excellent {
+	--maximo-badge-width: auto;
+	--maximo-badge-background: gray;
+}
+			
+<maximo-badge id="badge2" data="Excellent" class="excellent" color="black" style="position: static;"></maximo-badge>
+  				</xmp>
+  			</div>
+		</div>
+		
+		<div class="outer">
+			<div class="demo">
+  				<maximo-badge id="badge3" data="D1" class="style" color="#5696e2" font-size="18px" style="position: static;"></maximo-badge>
+  			</div>
+  			<div class="code">
+  				<xmp>
+.style {
+	--maximo-badge-width: 30px;
+	--maximo-badge-height: 30px;
+	--maximo-badge-background: black;
+	--maximo-badge-margin-left: 10px;
+	--maximo-badge-margin-bottom: 10px;
+	--maximo-badge-border-radius: 50px;
+}
+
+<maximo-badge id="badge3" data="D1" class="style" color="#5696e2" font-size="18px"></maximo-badge>
+  				</xmp>
+  			</div>
+		</div>
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-badge-demo',
+			
+			behaviors: [BaseComponent],
+			
+			properties: {
+				
+			},
+			
+			ready: function(){
+				$M.demoMode = true;
+				/* $j('body').css({'background': '#efefef','text-align':'center'}); */
+			}
+		});
+	</script>
+</dom-module>

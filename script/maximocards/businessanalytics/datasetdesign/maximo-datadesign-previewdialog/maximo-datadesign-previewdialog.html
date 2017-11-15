@@ -1,0 +1,39 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->     
+<dom-module id="maximo-datadesign-previewdialog">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-datadesign-previewdialog-css.html">
+	<style is="custom-style" include="maximo-datadesign-previewdialog-css"></style>		
+  <template>
+  
+	<maximo-collection
+		id="previewcollection" 
+		attribute-names="{{previewattributes}}"
+		collection-data="{{previewdataset}}"
+		debounce-duration="600"				
+	    object-name="{{previewobjectname}}"
+	    selected-query-uri="{{previewqueryname}}"
+	    query-info="{{queryInfo}}"
+	    page-size="9"
+	    on-record-data-refreshed="_handlePreviewRefreshed">				
+	</maximo-collection>
+	
+	<div class="outer" style="padding: 0px 20px;width: 600px">
+	<!-- may want to estimate the width on this based on how many columns --> 
+		<maximo-table items="{{flattenDataset}}" summary="Preview Table" columns="{{previewcolumns}}" width="100%" max-height="500px"></maximo-table>
+	</div>
+	<maximo-footer id="footer" centered>
+  		<maximo-button id="preview_footer_ok" label="{{localize('uitext', 'mxapibase', 'Ok')}}" on-tap="_ok" action ></maximo-button>
+  	</maximo-footer>
+  </template>
+  <script src="maximo-datadesign-previewdialog.js"></script>
+</dom-module>

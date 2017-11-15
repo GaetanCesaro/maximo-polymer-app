@@ -1,0 +1,28 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->    
+<dom-module id="maximo-select">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-select-css.html">
+	<style is="custom-style" include="maximo-select-css"></style>
+	
+	<template>
+		<div id="wrapper" class="wrapper" disabled$="{{readonly}}">
+			<label id="label"  class="label" required$="{{required}}" >{{label}}</label>
+			<div id="selectdiv">
+				<select id="select" class="select" disabled="{{readonly}}" aria-readonly$="{{readonly}}" aria-required$="{{required}}" placeholder$="{{placeholder}}" readonly-empty-placeholder$="{{readonlyemptyplaceholder}}"></select>
+			</div>				
+		</div>
+	</template>
+
+	<script src="maximo-select.js"></script>
+
+</dom-module>

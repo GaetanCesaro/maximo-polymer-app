@@ -1,0 +1,107 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-numberinput tests</title>
+		<script src="../../../main.js"></script>
+		<script src="../../../test.js"></script>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+		<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+		<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="numberinput">
+			<template>
+				<maximo-numberinput id="numberinput0" label="Test Numberinput" max="10" value="0"></maximo-numberinput>
+			</template>
+		</test-fixture>
+		<test-fixture id="numberinputmax">
+			<template>
+				<maximo-numberinput id="numberinput1" label="Test Numberinput Maxvalue" max="10" value="9"></maximo-numberinput>
+			</template>
+		</test-fixture>
+		<test-fixture id="numberinputmin">
+			<template>
+				<maximo-numberinput id="numberinput2" label="Test Numberinput MinValue" min="0" value="1"></maximo-numberinput>
+			</template>
+		</test-fixture>
+		<test-fixture id="numberinputnumberonly">
+			<template>
+				<maximo-numberinput id="numberinput3" label="Test Numberinput MinValue" value="0"></maximo-numberinput>
+			</template>
+		</test-fixture>
+<script>
+suite('<maximo-numberinput>', function() {
+	var numberinput;
+	setup(function() {
+		numberinput = fixture('numberinput');
+		numberinputmax = fixture('numberinputmax');
+		numberinputmin = fixture('numberinputmin');
+	});
+	test('numberinput base - click default value', function(done) {
+		expect(numberinput.$.number_input.value).to.equal('0', 'wrong default value');
+		
+		MockInteractions.tap(numberinput.$.plus_button);
+		expect(numberinput.value).to.equal(1, 'value should be +1');
+		MockInteractions.tap(numberinput.$.plus_button);
+		expect(numberinput.value).to.equal(2, 'value should be +1');
+		
+		MockInteractions.tap(numberinput.$.less_button);
+		expect(numberinput.value).to.equal(1, 'value should be -1');
+		MockInteractions.tap(numberinput.$.less_button);
+		expect(numberinput.value).to.equal(0, 'value should be -1');
+		done();
+	});
+	
+	test('numberinput - click value smaller than or equal to maximum value', function(done) {
+		expect(numberinputmax.$.number_input.bindValue).to.equal(9, 'wrong default value');
+		
+		MockInteractions.tap(numberinputmax.$.plus_button);
+		expect(numberinputmax.value).to.equal(10, 'value should be +1');
+		MockInteractions.tap(numberinputmax.$.plus_button);
+		expect(numberinputmax.value).to.equal(10, 'value should be as maxvalue');
+		
+		done();
+	});
+	
+	test('numberinput - click value greater than or equal to minimum value', function(done) {
+		expect(numberinputmin.$.number_input.bindValue).to.equal(1, 'wrong default value');
+		
+		MockInteractions.tap(numberinputmin.$.less_button);
+		expect(numberinputmin.value).to.equal(0, 'value should be +1');
+		MockInteractions.tap(numberinputmin.$.less_button);
+		expect(numberinputmin.value).to.equal(0, 'value should be as minvalue');
+		
+		done();
+	});
+});
+</script>
+	</body>
+</html>

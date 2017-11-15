@@ -1,0 +1,73 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<link rel="import" href="../../inspector/maximo-inspector-tile/maximo-inspector-tile.html" />
+
+<dom-module id="maximo-inspector-list">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspector-list-css.html">
+	<style is="custom-style" include="maximo-inspector-list-css"></style>		
+	<template>
+		
+		<div id="inspectorListMainDiv" class="mainPage">
+		
+			<div id="inspectorListHeaderDiv" class="header">
+				<div id="inspectorListContainerDiv" class="container">
+					<div id="inspectorListFlex1Div">
+						<h1 class="title">{{localize('uitext','mxapiinspresult','inspections')}}</h1>
+					</div>
+					<div id="inspectorListFlex2Div">
+						<div id="inspectorListContentSelectorDiv">
+							<maximo-content-selector id="inspectorListContentSelector" class="horizontal center-justified" block="true" light>		
+								<maximo-label id="maximo_status_label1" intvalue="1" name="pending" on-tap="tabTap" label="{{localize('uitext', 'mxapiinspresult', 'pending')}}"></maximo-label>
+								<maximo-label id="maximo_status_label2" intvalue="2" name="inprogress" on-tap="tabTap" label="{{localize('uitext', 'mxapiinspresult', 'inprogress')}}"></maximo-label>
+								<maximo-label id="maximo_status_label3" intvalue="3" name="completed" on-tap="tabTap" label="{{localize('uitext', 'mxapiinspresult', 'completed')}}"></maximo-label>
+								<maximo-label id="maximo_status_label4" intvalue="4" name="all" on-tap="tabTap" label="{{localize('uitext', 'mxapiinspresult', 'all')}}"></maximo-label>
+							</maximo-content-selector>
+						</div>
+						
+						<div id="inspectorListSearchBarDiv" style="width:30%;display:inline-block;float:left;padding-top:10px;margin-left:-10px;">
+							<maximo-searchbar id="inspectorListSearchBar" class="searchbar" collection="{{collectionRef}}" placeholder="{{localize('uitext', 'mxapibase', 'Search')}}"></maximo-searchbar>
+						</div>
+						<div id="inspectorListCreateButton" style="display:inline-block;float:right">
+							<maximo-button id="createform" icon="Maximo:Add-New" class="addButton" default label="{{localize('uitext','mxapiinspresult','inspector_unscheduled_inspection')}}" on-tap="createUnscheduledInspection" ></maximo-button>
+						</div>
+						
+					</div>
+
+				</div>
+			</div>
+			
+			<div id="inspectorListTileDiv" class="pageDiv scroll">
+				<maximo-label id="inspectorListCount" class="count" label="[[_resultCounter]]" block="true"></maximo-label>			
+				
+				<template is="dom-if" if="[[!hasRecord]]">
+					<div id="inspectorListNoRecords" class="noRecords">
+						<div id="inspectorListBckgroundDiv" class="icon">
+							<object data="images/bee-shadow-large.svg" type="image/svg+xml" style="padding-top: 150px;"></object>
+						</div>
+						<p>{{noInspectionsFound}}</p>
+					</div>
+				</template>
+				<div id="inspectorListDataScrollerDiv" class="layout horizontal wrap">
+					<template id="inspectorListTileTemplate" is="dom-repeat" items="[[dataSet]]" as="inspForm">
+						<maximo-inspector-tile id="inspectorListTileRecord" data-id="[[inspForm.inspectionformid]]" record="{{inspForm}}" page="inspResultList"
+							form-status-set="[[statusSet]]" on-tap="_loadExecution"></maximo-inspector-tile>
+					</template>
+				</div>
+		   </div>
+		</div>
+  
+	</template>
+	<script src="maximo-inspector-list.js"></script>
+
+</dom-module>

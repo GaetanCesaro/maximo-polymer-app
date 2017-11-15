@@ -1,0 +1,50 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../maximo-button/maximo-button.html"/>
+<dom-module id="maximo-collapsible-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<link rel="import" href="../../maximo-label/maximo-label.html"/>
+	<template>
+  		<maximo-collection 
+			auto	
+			id="collection" 
+			collection-data="{{tabledata}}"
+			test-url="{{resolveUrl('data/real_data.json')}}">
+  		</maximo-collection>
+  		<maximo-collection 
+  			auto
+  			id="collection_short" 
+  			collection-data="{{tabledata_short}}"
+  			test-url="{{resolveUrl('data/real_data_two_rows.json')}}">
+		</maximo-collection>
+  		<div class="outer">
+	  		<div style="text-align: left">
+	  			<br>Default Behavior<br>
+		 		<div class="cardcontainer">
+					<maximo-collapsible id="collapsible1" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lorem risus, sollicitudin non ante in, tincidunt elementum neque. Quisque ultrices sed quam tristique dignissim. Etiam ullamcorper justo aliquet nisl viverra varius. Maecenas dictum, mauris at pulvinar gravida, elit magna vehicula neque, eget aliquam lectus ex a lacus. Maecenas condimentum fermentum est. Aliquam semper augue arcu, et sollicitudin est condimentum quis. Proin vitae faucibus massa. Integer ut convallis dui. In aliquam, dui vel scelerisque lobortis, ligula dui sagittis turpis, vitae venenatis libero sapien eu risus. Vestibulum eleifend at est sit amet vehicula. Ut egestas, tortor sed congue viverra, arcu justo facilisis dolor, vitae convallis nisl urna at tortor. Quisque ac mauris erat. Integer efficitur volutpat libero quis ornare.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lorem risus, sollicitudin non ante in, tincidunt elementum neque. Quisque ultrices sed quam tristique dignissim. Etiam ullamcorper justo aliquet nisl viverra varius. Maecenas dictum, mauris at pulvinar gravida, elit magna vehicula neque, eget aliquam lectus ex a lacus. Maecenas condimentum fermentum est. Aliquam semper augue arcu, et sollicitudin est condimentum quis. Proin vitae faucibus massa. Integer ut convallis dui. In aliquam, dui vel scelerisque lobortis, ligula dui sagittis turpis, vitae venenatis libero sapien eu risus. Vestibulum eleifend at est sit amet vehicula. Ut egestas, tortor sed congue viverra, arcu justo facilisis dolor, vitae convallis nisl urna at tortor. Quisque ac mauris erat. Integer efficitur volutpat libero quis ornare.</maximo-collapsible>
+				</div><br>
+  			</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-collapsible-demo',
+			behaviors: [BaseComponent],
+			listeners: {
+				'_handleRecordDataRefreshed' : '_handleRecordDataRefreshed'
+			},
+			properties: {
+			},
+			ready: function(){
+				$j('body').css({'background': '#efefef','text-align':'center'});
+			},
+			_handleRecordDataRefreshed: function(){
+				
+		    }
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,44 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<link rel="import" href="../../maximo-step-template/maximo-step-template.html">
+
+<dom-module id="maximo-submitsr-defineissue">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-submitsr-defineissue-css.html">
+	<style is="custom-style" include="maximo-submitsr-defineissue-css"></style>		
+	<template>
+		<maximo-collection
+		    id="tktemplatecollection" 
+			attribute-names="*"
+			debounce-duration="600"
+			collection-data="{{recordData}}"
+			query-info="{{queryInfo}}"
+			refresh-listeners='["tkt"]'		
+			page-size="600"	
+			object-name="MXAPITKTEMPLATE" 
+			selected-record="{{selectedRecord}}"
+			additional-params='{{additionalparams}}'
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			selected-query-name="SERVICEREQUESTTKTEMPLATE"	
+			on-data-error="_handleDataError">					
+		</maximo-collection>
+		<maximo-step-template id="defineissue" title="{{localize('uitext', 'mxapisr', 'DescribeIssueStep')}}" type="issue" enable-buttons="next" on-next-step="_goNext" disable-next="true">
+			<div class="radioGroupWrapper">	
+			  	<maximo-radiobuttongroup id="issueGroup" class="issueGroup" items="{{recordData}}" attribute="checked" label-attribute="description" on-radio-button-selected="_handleSelected"></maximo-radiobuttongroup>
+			</div>
+		</maximo-step-template>
+	</template>
+
+  <script src="maximo-submitsr-defineissue.js"></script>
+
+</dom-module>

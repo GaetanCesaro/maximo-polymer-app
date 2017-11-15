@@ -1,0 +1,41 @@
+{
+  "responseInfo" : {
+	  "schema" : {
+	  "title":"SAMPLESET1",
+	  "$schema":"http://json-schema.org/draft-04/schema#",
+	  "description":"Json Schema for SAMPLESET1",
+	  "$ref":"http://192.168.1.68:7001/maximo/oslc/jsonschemas/sampleset1",
+	  "properties":{ "first_name":{
+		  				"title":"First Name",
+		  				"maxLength":20,
+		  				"subType":"ALN",
+		  				"remarks":"Person First Name",
+		  				"type":"string"},
+		  			 "last_name":{
+		  				 "title":"Last Name",
+		  				 "maxLength":20,
+		  				 "subType":"ALN",
+		  				 "remarks":"Person Last Name",
+		  				 "type":"string" },
+		  			  "gender":{
+		  				 "title":"Gender",
+		  				 "maxLength":6,
+		  				 "subType":"ALN",
+		  				 "remarks":"Person Gender",
+		  				 "type":"string"},
+	  				"company":{
+		  				 "title":"Company Name",
+		  				 "maxLength":30,
+		  				 "subType":"ALN",
+		  				 "remarks":"Person Company",
+		  				 "type":"string"}
+		  			},
+		  			  
+	  "required":["first_name","last_name","company"],
+	  "type":"object",
+	  "pk":["first_name","last_name","company"] } 
+  },
+ "href":"http://192.168.1.68:7001/maximo/oslc/os/samplset1",
+ "member":[{"href":"1","first_name":"Philip","last_name":"Martinez","gender":"Male","company":"A longer than usual company name"},
+		{"href":"2","first_name":"Stephanie","last_name":"Fernandez","gender":"Female","company":"Youfeed"}]
+}

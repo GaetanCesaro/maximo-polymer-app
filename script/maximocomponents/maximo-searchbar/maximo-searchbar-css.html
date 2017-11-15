@@ -1,0 +1,72 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-searchbar-css">
+	<template>
+    	<style>
+    		.wrapper {
+    			padding: 5px 10px;
+    		}
+    		
+    		.outerDiv {
+    			background-color: var(--Primary-white);
+    			margin:0px 0px 5px 0px;
+    			transition: all 2ms;
+    			border: 1px solid var(--Cool-gray30)
+    		}
+    		
+    		.outerDivFocus {
+    			outline: 2px solid var(--Primary-blue10);
+    			outline-offset: -2px;	
+    		}
+    		
+    		input {
+    			width:100%;
+    			padding: 2px 3px;
+    			border: 0px;
+    			outline:0;
+    			border-radius: 8px;
+    			border-color: var(--Cool-gray20);
+    			font-family: 'HelveticaNeue-Light';
+    			color: var(--Primary-gray100);
+    			font-size: 14px;
+    			line-height: 20px;
+    		}
+    		
+    		input::-webkit-input-placeholder {
+    			color: var(--Primary-gray50);
+    		}
+    		
+    		input::-moz-placeholder {
+    			color: var(--Primary-gray50);
+    		} 
+    		
+    		input:-ms-input-placeholder {
+				color: var(--Primary-gray50);
+    		}
+    		
+    		.searchIcon {
+    			fill: var(--Cool-gray50);
+    			padding: 0px 0px 0px 5px;
+    			height: 15px;
+    			width: 15px;
+    		}
+    		
+    		.searchIcon.rtl {
+    			padding: 0px 5px 0px 0px;
+    		}
+    		
+    		.searchIcon.ready {
+    			fill: var(--Cool-gray50);
+    		}
+    			
+    		.searchIcon.ready:hover {
+    			fill: var(--Primary-blue50);
+    		}
+    		    		
+		</style>
+	</template>
+</dom-module>

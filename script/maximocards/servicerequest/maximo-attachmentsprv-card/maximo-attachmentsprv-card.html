@@ -1,0 +1,40 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-attachmentsprv-card">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-attachmentsprv-card-css.html">
+	<style is="custom-style" include="maximo-attachmentsprv-card-css"></style>
+	
+	<template>
+		<maximo-simple-panel id="attachmentPreviewPanel" class="attachmentPreviewPanel" title$="{{attachmentFilename}}" back-button="true" on-close="close"> 
+			<maximo-wait id="previewSpinner"></maximo-wait>
+			<div id="main" class="attachmentPreviewMain">
+				<div class="container flex-vertical overlayWrapper">
+					<div class="imageWrapper flexchild-vertical">
+					</div> 
+					
+					<a href="{{attachmentUrl}}" target="_blank" download="{{attachmentFilename}}" style="text-decoration: none;" hidden$={{!downloadable}}>
+						<div class="downloadButton">
+				    		<div class="downButtonWrapper">
+				    			<iron-icon class="downIcon" icon="action-based:download"></iron-icon>
+					     		<maximo-label class="downLabel" label="{{localize('uitext', 'mxapisr', 'Download')}}"></maximo-label>
+				 			</div>
+				 		</div>
+					</a>
+				</div>
+			    
+			</div> 
+		</maximo-simple-panel>
+	</template>
+	
+	<script src="maximo-attachmentsprv-card.js"></script>
+</dom-module>

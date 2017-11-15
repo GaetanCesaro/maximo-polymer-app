@@ -1,0 +1,54 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="maximo-wizard-step/maximo-wizard-step.html">
+<link rel="import" href="../maximo-label/maximo-label.html">
+
+<dom-module id="maximo-wizard">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-wizard-css.html">
+	<style is="custom-style" include="maximo-wizard-css"></style>
+	
+	<template>
+		<div>
+			<div class="maindiv" id="maindiv" role="navigation" aria-label="[[label]]">
+				<div id="topWrapper" class="topWrapper">
+					<h4>[[label]]</h4>
+					<div class="inner" id="inner">
+						<content></content>
+						<div class="line">
+							<div id="lineMarker" class="marker"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="help" class="help" hidden$="{{hideHelp}}">
+				<table role="presentation">
+					<tr>
+						<td class="info" width="100%">
+							<maximo-label id="stepTitle" class="stepTitle" label="{{_stepTitle}}"></maximo-label>
+							<maximo-label id="stepInfo"  class="stepInfo" label="{{_stepInfo}}"></maximo-label>
+							<maximo-label id="stepHelp"  class="stepHelp" label="{{_stepHelp}}" block="true"></maximo-label>
+						</td>
+						<td id="toolbar" class="toolbar" role="toolbar">
+							<template is="dom-repeat" items="{{_toolbarButtons}}" as="button">
+								<maximo-button id="button_{{button.event}}" icon="{{button.icon}}" label="{{button.label}}" on-tap="_fireEvent" data-event$="{{button.event}}" action></maximo-button>
+							</template>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</template>
+
+	<script src="maximo-wizard.js"></script>
+
+</dom-module>

@@ -1,0 +1,68 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<dom-module id="maximo-singlevalue-info-css">
+	<template>
+    	<style>	
+    		:host {
+			 		--maximo-singlevalue-info-bkcolor-background,#f9f9f9;
+			 		--maximo-singlevalue-info-bordercolor-border-color,#4b8400;
+			 		--maximo-singlevalue-info-title-font-size,22px;
+			 		--maximo-singlevalue-info-value-font-size,14px;
+			 		--maximo-singlevalue-info-title-font-color,#4b8400;
+			 		--maximo-singlevalue-info-value-font-color,#464646;
+			 		--maximo-singlevalue-info-svinfoicon-margin,-7px 0px 0px 235px;
+			 		--maximo-singlevalue-info-svinfoicon-display,none;
+      		 }
+      		 
+			.svbox {
+				background:var(--maximo-singlevalue-info-bkcolor-background,#f9f9f9);
+				border:1px solid;
+				border-color: var(--maximo-singlevalue-info-bordercolor-border-color,#4b8400);
+				margin: 20px 10px 20px 10px;
+				width:269px;
+				height:94px;
+				height_orig:84px;
+			}
+			
+			.svtitle {
+				font-family:HelveticaNeue-Light;
+				font-size: var(--maximo-singlevalue-info-title-font-size,22px);
+				margin: 10px 10px 10px 10px;
+				text-align: center;
+				color:var(--maximo-singlevalue-info-title-font-color,#4b8400);
+			}
+			
+			.svvalue {
+				font-family:HelveticaNeue;
+				font-size: var(--maximo-singlevalue-info-value-font-size,14px);
+				margin: 10px 10px 10px 10px;
+				text-align: center;
+				color:var(--maximo-singlevalue-info-value-font-color,#464646);
+			}
+			
+			.svinfoicon{	
+				color:#4178be !important;
+				width:22px;
+				height:22px;
+				visibility: var(--maximo-singlevalue-info-svinfoicon-display,hidden);
+    			bottom: 0;	
+    			right: 0;
+    			margin: var(--maximo-singlevalue-info-svinfoicon-margin, -7px 0px 0px 235px);
+			}
+			
+			
+		</style>
+	</template>
+</dom-module>

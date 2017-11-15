@@ -1,0 +1,59 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../../script/components/google-map/google-map.html"/>
+
+<iron-iconset name="team-icons" src="my-icons.png" width="96" size="24" icons="location place starta stopb bus car train walk">
+  	
+<dom-module id="maximo-myteam-card">
+
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-myteam-card-css.html">
+	<style is="custom-style" include="maximo-myteam-card-css"></style>	
+  		
+  	<template id="myteam-template">
+  			
+		<maximo-panel id=myteam_panel" label="My Team" width="270px">
+		
+			<div class="header">
+				<div id="">{{localize('Day Shift')}}</div>
+				<div id="">{{localize('Night Shift')}}</div>
+				<div id="">{{localize('Weekend Shift')}}</div>
+			</div>
+			<div class="container">
+				<div class="indicators">
+					<div id="myteam-div-social">
+						<maximo-label id="myteam-maximo-label-social" label="15"></maximo-label>
+						<iron-icon id="myteam-iron-icon-social" icon="social:people"></iron-icon>
+					</div>
+					<div id="myteam-div-hospital">
+						<maximo-label id="myteam-maximo-label-hospital" label="1"></maximo-label>
+						<iron-icon id="myteam-iron-icon-hospital" icon="maps:local-hospital"></iron-icon>
+					</div>
+					<div id="myteam-div-beach">
+						<maximo-label id="myteam-maximo-label-beach" label="4"></maximo-label>
+						<iron-icon id="myteam-iron-icon-beach" icon="places:beach-access"></iron-icon>
+					</div>
+				</div>
+				<div>
+					<google-map id="google-map" latitude="{{latitude}}" longitude="{{longitude}}" fit-to-markers>
+						  <google-map-marker id="google-map-marker" latitude="{{latitude}}" longitude="{{longitude}}"
+						      draggable="true" title="Home"></google-map-marker>
+					</google-map>
+				</div>
+			</div>
+			
+			<maximo-footer id="myteam-maximo-footer">20</maximo-footer>				
+		</maximo-panel>  	
+  	</template>
+
+  	<script src="maximo-myteam-card.js"></script>
+
+</dom-module>

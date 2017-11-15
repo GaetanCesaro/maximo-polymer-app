@@ -1,0 +1,69 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-audio-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../maximo-select.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<link rel="import" href="../maximo-audio.html">
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+		<div class="outer">
+			
+			<div class="demo-section">
+				<p class="demo-header">Default maximo-audio component using a .mp3 file:</p>
+				<p>
+				<maximo-audio src="data/song.mp3"></maximo-audio>
+				</p>
+				<div class="code">
+					<p>
+						<xmp><maximo-audio src="data/song.mp3"></maximo-audio></xmp>
+					</p>
+				</div>
+
+			</div>
+			
+			
+  		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-audio-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				querylist: {
+    		type: Array,
+    		value: [],
+    		notify: true
+    	},
+    		exampledata:{
+    			type:String,
+    			notify:true,
+    			value:"binded"
+    		}
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log(this.data);
+				var demoData=this.data;
+				demoData.forEach(function(d) {
+					this.querylist=d.description;
+					console.log(d.description);	
+			});
+				console.log(this.querylist);
+			},
+			ready : function(){
+  			
+  	}
+  			
+		});
+	</script>
+</dom-module>

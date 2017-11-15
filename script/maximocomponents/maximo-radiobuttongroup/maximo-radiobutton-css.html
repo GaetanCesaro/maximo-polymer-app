@@ -1,0 +1,77 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-radiobutton-css">
+	<template>
+    	<style>
+  	
+    		div[role=radio] {
+    			padding: 0px 10px 0px 0px;
+    			outline: none;
+    		}
+    		
+    		div.rtl[role=radio] {
+    			padding: 0px 0px 0px 10px;
+    		}
+    		
+    		div[role=radio][aria-readonly=true] .radiobutton {
+    			border-color: var(--Primary-gray10);
+    		}
+    		
+    		div[role=radio][aria-readonly=true] .label {
+    			color: var(--Primary-gray30);
+    		}
+    		
+    		div[role=radio] .radiobutton .mark {
+    			display: block !important;
+				width: 8px;
+				height: 8px;
+    			margin: 4px;
+				border: 0px;
+				border-radius: 50%;
+    			transition: all .2s;
+    		}
+    		
+    		div[role=radio][aria-checked=true] .radiobutton .mark {
+    			background-color: var(--Primary-blue50);
+    		}
+    		
+    		div[role=radio]:hover .radiobutton {
+    			background-color: var(--Primary-blue10) !important;
+    		}
+    		
+    		.radiobutton {
+    			width: 16px;
+    			height: 16px;
+    			border: 1px solid var(--Primary-blue50);
+    			border-radius: 50%;
+    			display: inline-block;
+    			text-align: center;
+    			margin: 3px 5px 3px 0px;
+    			background-color: var(--Primary-white);
+    			vertical-align: middle;
+    		}
+    		
+    		.radiobutton.rtl {
+    			margin: 5px 0px 5px 5px;
+    		}
+    		
+    		div[role=radio]:focus .radiobutton {
+    			border-color: var(--Primary-blue30) !important;
+    			background-color: var(--Primary-blue10) !important;
+    		}
+    		
+    		div[role=radio][aria-readonly=true] label {
+    			color: var(--Primary-gray30);
+    		}
+    		
+    		div[role=radio]:not([aria-checked=true][aria-readonly=true]):focus .radiobutton .mark {
+    			background-color: var(--Primary-blue30);
+    		}
+    		
+		</style>
+	</template>
+</dom-module>

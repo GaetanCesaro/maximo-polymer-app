@@ -1,0 +1,67 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-worktoclose-card-css">
+	<template>
+    	<style>
+			.wtcdescription ::content label,
+			.wtccomplete ::content label {
+				font-size: 93.3%;
+				
+			}
+		 	.container {
+		      @apply(--layout-horizontal);
+		      @apply(--layout-justified);
+		    }	
+		    .container > div {
+				display: inline-block;
+			}	
+			
+			.flex-container {
+			    display: flex;
+			    flex-direction: row;
+			    flex-wrap: nowrap;
+			    justify-content: flex-end;
+			    align-content: flex-start;
+			    align-items: center;
+			}
+			    
+			.wtctypeclass ::content label, 
+			.wtcnumclass ::content label,
+			.wtcpriorityclass ::content label {
+				font-size: 1.286em;
+				font-family: HelveticaNeue-Light;
+			}
+				
+			.wtcchild1 {
+			    order: 0;
+			    flex: 0 1 auto;
+			    align-self: auto;
+			}
+			    
+			.wtcchild1 > p {
+			 	font-family: HelveticaNeue-Italic;
+			  	font-size: 14px;
+			}
+			
+			.wtcchild3 {
+			    @apply(--layout-self-center);
+			    padding-top: 10px;
+		    }
+		    
+		    .floater {
+		    	float: right;
+		    	padding: 0px 0px 10px 10px;
+		    	text-align: center;
+		    }
+		    
+		    .regular {
+		    	font-family: HelveticaNeue;
+		    }
+		    
+		</style>
+	</template>
+</dom-module>

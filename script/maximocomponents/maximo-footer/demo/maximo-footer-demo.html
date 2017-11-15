@@ -1,0 +1,69 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-footer-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../maximo-footer.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data_with_schema.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+  		<div class="outer">
+	  		<div style="text-align: left">
+	  			<div class="outer">
+	  			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id semper dolor, vitae tempus risus. Ut lobortis ex non dictum ornare. Nullam ut justo a tortor accumsan finibus. Sed ultrices accumsan quam et gravida. Sed iaculis urna sit amet arcu ullamcorper elementum. Duis sed ex a turpis luctus varius sed non est. Etiam vitae iaculis turpis. Etiam porta velit sed faucibus gravida. Phasellus vestibulum fermentum ligula, in varius ex viverra non. Nulla bibendum sapien nec massa convallis, non rhoncus dolor aliquet. In at finibus magna. Etiam pharetra nulla magna, a lobortis nisi tincidunt ut.</p>
+	  			<maximo-footer>
+	  				<div class="demo-footer">
+	  					<p>Demo footer</p>
+	  				</div>
+	  			</maximo-footer>
+	  			</div>
+	  			<div class="code">
+  					<xmp><maximo-footer><div class="demo-footer"><p>Demo footer</p></div></maximo-footer></xmp>
+  				</div>
+	  			<div class="outer">
+	  			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id semper dolor, vitae tempus risus. Ut lobortis ex non dictum ornare. Nullam ut justo a tortor accumsan finibus. Sed ultrices accumsan quam et gravida. Sed iaculis urna sit amet arcu ullamcorper elementum. Duis sed ex a turpis luctus varius sed non est. Etiam vitae iaculis turpis. Etiam porta velit sed faucibus gravida. Phasellus vestibulum fermentum ligula, in varius ex viverra non. Nulla bibendum sapien nec massa convallis, non rhoncus dolor aliquet. In at finibus magna. Etiam pharetra nulla magna, a lobortis nisi tincidunt ut.</p>
+	  			<maximo-footer centered>
+	  				<div class="demo-footer">
+	  					<p>Demo footer</p>
+	  				</div>
+	  			</maximo-footer>
+	  			</div>
+	  			<div class="code">
+  					<xmp><maximo-footer centered><div class="demo-footer"><p>Demo footer</p></div></maximo-footer></xmp>
+  				</div>
+	  			<div class="outer">
+	  			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id semper dolor, vitae tempus risus. Ut lobortis ex non dictum ornare. Nullam ut justo a tortor accumsan finibus. Sed ultrices accumsan quam et gravida. Sed iaculis urna sit amet arcu ullamcorper elementum. Duis sed ex a turpis luctus varius sed non est. Etiam vitae iaculis turpis. Etiam porta velit sed faucibus gravida. Phasellus vestibulum fermentum ligula, in varius ex viverra non. Nulla bibendum sapien nec massa convallis, non rhoncus dolor aliquet. In at finibus magna. Etiam pharetra nulla magna, a lobortis nisi tincidunt ut.</p>
+	  			<maximo-footer left>
+	  				<div class="demo-footer">
+	  					<p>Demo footer</p>
+	  				</div>
+	  			</maximo-footer>
+	  			</div>
+	  			<div class="code">
+  					<xmp><maximo-footer left><div class="demo-footer"><p>Demo footer</p></div></maximo-footer></xmp>
+  				</div>
+			</div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-footer-demo',
+			behaviors: [BaseComponent],
+			properties: {
+
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log('data loaded');
+			}
+		});
+	</script>
+</dom-module>

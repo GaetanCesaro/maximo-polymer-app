@@ -1,0 +1,82 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<link rel="import" href="../../components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../../components/neon-animation/neon-animations.html">
+<link rel="import" href="../../components/neon-animation/neon-animation.html">
+
+<dom-module id="maximo-neonpages">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<template id="maximo-neonpages-template">
+      	<neon-animated-pages id="pages" selected="[[pageSelected]]" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
+       		<content id="pagecontent"></content>
+      	</neon-animated-pages>
+	</template>
+	<script>
+	Polymer({
+		is : 'maximo-neonpages',
+		properties: {
+			/**
+			 * Start from page 0;
+			 */
+			pageSelected: {
+				type: Number,
+				value: 0,
+				notify: true
+			},
+			
+			/**
+			 * Maximum pagenum
+			 */
+			
+			maxPageNum: {
+				type: Number,
+				value: 1,
+				notify: true
+			}
+		},
+		
+		behaviors: [BaseComponent],
+
+		nextPage: function(){
+	        this.goToPage(this.pageSelected + 1);
+		},
+		
+		prePage: function(){
+			this.goToPage(this.pageSelected - 1);
+		},
+		
+		goToPage: function(pageIndex){
+			if(pageIndex > this.pageSelected){
+		        this.entryAnimation = 'slide-from-right-animation';
+		        this.exitAnimation = 'slide-left-animation';
+				if(pageIndex < this.maxPageNum){
+					this.pageSelected = pageIndex;
+				}
+			}else{
+		        this.entryAnimation = 'slide-from-left-animation';
+		        this.exitAnimation = 'slide-right-animation';
+				if(pageIndex > -1){
+					this.pageSelected = pageIndex;
+				}
+			}
+		}
+	});
+	</script>
+</dom-module>	

@@ -1,0 +1,1 @@
+java -jar \apps\closure\compiler.jar --js plotly\dist\plotly.js --js_output_file plotly\dist\plotly.min.js

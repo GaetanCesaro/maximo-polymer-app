@@ -1,0 +1,40 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-help-css">
+  <template>
+    <style>
+ 		.help {
+ 			background-color: var(--Primary-blue50);
+ 			border: 1px solid transparent;
+ 			color: var(--Primary-white);
+ 			border-radius: 50%;
+ 			height: 25px;
+ 			width: 25px;
+ 			text-align: center;
+ 			font-family: "HelveticaNeue-Bold";
+ 			line-height: 23px;
+ 			font-size: 110%;
+ 			display: inline-block;
+ 			cursor: pointer;
+ 		}
+ 		
+ 		.help.light {
+ 			background: var(--Primary-white);
+ 			background: url(images/fill.png) no-repeat center bottom;
+ 			color: var(--Primary-blue50);
+ 		}
+ 		
+ 		.help:focus {
+ 			border: 1px solid var(--Primary-blue50);
+ 			background-color: var(--Primary-blue30);
+ 			outline: 0px;
+ 		}
+ 		
+ 		
+    </style>
+  </template>
+</dom-module>

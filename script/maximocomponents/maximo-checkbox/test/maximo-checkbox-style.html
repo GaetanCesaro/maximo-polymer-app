@@ -1,0 +1,107 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <title>maximo-checkbox style tests</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <script src="../../../main.js"></script>
+    <script src="../../../test.js"></script>
+    <script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../../../components/web-component-tester/browser.js"></script>
+    <script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+    <link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+    <style is="custom-style">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  	<maximo-module id="module"></maximo-module>
+    <test-fixture id="checkbox">
+		<template>
+			<maximo-checkbox id="checkbox"  label="Test Checkbox" ></maximo-checkbox>
+		</template>
+	</test-fixture>
+	<test-fixture id="checkbox_checked">
+		<template>
+			<maximo-checkbox id="checkbox"  label="Test Checkbox" checked></maximo-checkbox>
+		</template>
+	</test-fixture>
+	<test-fixture id="slider">
+		<template>
+			<maximo-checkbox id="slider"  label="Test Slider" slider></maximo-checkbox>
+		</template>
+	</test-fixture>
+	<test-fixture id="slider_checked">
+		<template>
+			<maximo-checkbox id="slider"  label="Test Slider" slider checked></maximo-checkbox>
+		</template>
+	</test-fixture>
+   <script>
+      suite('<maximo-checkbox>', function() {
+          var checkbox, slider, checkbox_checked, slider_checked;
+          setup(function() {
+        	  checkbox = fixture('checkbox');
+        	  slider = fixture('slider');
+        	  checkbox_checked = fixture('checkbox_checked');
+        	  slider_checked = fixture('slider_checked');
+          });
+
+        test('base checkbox style', function(done) {
+        	expect(getStyleProperty(checkbox.$$('.checkbox'), 'border-width')).to.equal('1px', 'checkbox border is not correct');
+        	expect(rgb2hex(getStyleProperty(checkbox.$$('.checkbox'), 'background'))).to.equal('#ffffff', 'checkbox background color is not correct');
+        	expect(rgb2hex(getStyleProperty(checkbox_checked.$$('.mark'), 'background-color'))).to.equal('#4178be', 'checkbox check color is not correct');
+        	
+        	checkbox.readonly = true;
+        	expect(rgb2hex(getStyleProperty(checkbox.$$('.checkbox'), 'background'))).to.equal('#c7c7c7', 'readonly checkbox background color is not correct');
+        	 
+        	checkbox_checked.readonly = true;
+        	expect(rgb2hex(getStyleProperty(checkbox.$$('.checkbox'), 'background'))).to.equal('#c7c7c7', 'readonly checkbox background color is not correct');
+        	
+        	done();
+         });
+          
+        test('slider style', function(done) {
+        	expect(rgb2hex(getStyleProperty(slider.$$('.switch'), 'background-color'))).to.equal('#777677', 'slider background color is not correct');
+        	expect(parseInt(getStyleProperty(slider.$$('.switch'), 'border-radius'))).to.equal(15, 'slider border-radius not correct');
+         	
+        	expect(rgb2hex(getStyleProperty(slider.$$('.slider'), 'background'))).to.equal('#e0e0e0', 'slider handle background color is not correct');
+        	expect(getStyleProperty(slider.$$('.slider'), 'border-radius')).to.equal('50%', 'slider handle border-radius is not correct');
+        	 
+        	expect(rgb2hex(getStyleProperty(slider_checked.$$('.switch'), 'background-color'))).to.equal('#6eb400', 'slider checked background color is not correct');
+        	
+    		expect(parseInt(getStyleProperty(slider.querySelector('.slider'), 'left'))).to.equal(0, 'slider not marked as unchecked');
+    		expect(parseInt(getStyleProperty(slider_checked.querySelector('.slider'), 'left'))).to.equal(13, 'checked slider not marked as checked');
+
+    		slider.readonly = true;
+        	expect(rgb2hex(getStyleProperty(slider.$$('.switch'), 'background-color'))).to.equal('#aeaeae', 'readonly slider background color is not correct');
+        	
+        	slider_checked.readonly = true;
+        	expect(rgb2hex(getStyleProperty(slider_checked.$$('.switch'), 'background-color'))).to.equal('#aeaeae', 'readonly slider background color is not correct');
+
+        	done();  
+          });
+      });      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+ 
+<dom-module id="maximo-wizard-step">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-wizard-step-css.html">
+	<style is="custom-style" include="maximo-wizard-step-css"></style>
+	
+	<template>
+		<div class="outer">
+			<label id="label" class="label" bold$="{{bold}}" style$="{{style}}">{{label}}</label>
+			<div id="state" class="state">
+				<div class="marker" style="display: {{_showInitial}}">
+					<iron-icon id="compIcon" icon="maximo-based:step-complete"></iron-icon>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<script src="maximo-wizard-step.js"></script>
+	
+</dom-module>

@@ -1,0 +1,30 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-numberinput">
+	
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-numberinput-css.html">
+	<style is="custom-style" include="maximo-numberinput-css"></style>
+		
+  <template>
+  	<maximo-label id="input_label" label="{{label}}" style="margin-bottom:4px;"></maximo-label>
+    <div id="input_with_button" class="flex-horizontal">
+ 		<button id="less_button" on-tap="_handleMinus" class="border">-</button>
+ 		<input id="number_input" is="iron-input" prevent-invalid-input bind-value="{{value}}" allowed-pattern="[0-9]" class="container border">
+  		<button id="plus_button" on-tap="_handlePlus" class="border">+</button>
+	</div>
+  </template>
+    	
+	<script src="maximo-numberinput.js"></script>
+
+</dom-module>

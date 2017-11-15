@@ -1,0 +1,136 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->
+
+<script>
+	/**
+	 * This is used for performing operations on inspection form question groups
+	 *
+	 * @polymerBehavior QuestionGroups
+	 */
+	QuestionGroups = {
+	
+		properties : {
+	
+		},
+		
+		
+		/**
+		 * Check if question is a group header
+		 */
+		_isGroupHeader: function(question){
+			if (question && question.groupid && question.sequence === 0){
+				return true;
+			}
+			return false;
+		},
+	
+		_isGroupChild: function(question){
+			if (question && question.groupid && question.sequence > 0){
+				return true;
+			}
+			return false;
+		},
+	
+		_isGrouped: function(question){
+			if (question && question.groupid){
+				return true;
+			}
+			return false;
+		},
+		
+		/**
+		 * Create hierarchical structure of questions
+		 */
+		_flatToHierarchy: function (flatQuestions) {
+		    var roots = []; // things without parent
+		    var all = {};	// make them accessible by guid on this map
+	
+		    flatQuestions.sort(function(a, b){return a.groupseq - b.groupseq;});
+		    flatQuestions.forEach(function(item) {
+		    	var groupseq = parseFloat(item.groupseq); //trim trailing zeros
+				all[groupseq] = item;
+		    });
+	
+		    // connect childrens to its parent, and split roots apart
+		    var self = this;
+		    Object.keys(all).forEach(function (qnum) {
+		        var item = all[qnum];
+		        
+		        item.listdesc = qnum + '. ' + item.description;
+		        
+		        //has decimal, in other words it belongs to a question group
+		        if (self._isGroupChild(item)){
+		        	var p = all[item.groupid];
+		            if (!('children' in p)) {
+		                p.children = [];
+		            }
+		            p.children.push(item);
+		        }else {
+		        	roots.push(item);
+		        }
+		    });
+		    return roots;    // done!
+		},
+		
+		/**
+		 * Remove children from question before creating flat structure
+		 */
+		_removeChildrenForStructureChange: function(questions) {
+			
+			for (var i = 0; i < questions.length; i++) {
+				var q = questions[i];
+				if (q.children && q.children.length > 0) {
+					q.children = [];
+				}
+			}
+			
+			return questions;
+		},
+	
+		_getGroupChildren: function (groupid) {
+		    var children = [];
+			var foundGroup = false;
+		    if (this.questions){
+		    	//this.questions.sort(function(a, b){return a.groupseq - b.groupseq;});
+			    for(var i=0; i < this.questions.length; i++){
+			    	if (this.questions[i].groupid === groupid){
+				        if (this._isGroupChild(this.questions[i])){
+				    		foundGroup = true;
+				            children.push(this.questions[i]);
+				        }
+			        } else if (foundGroup){
+			        	break;
+			        }
+			    }
+		    }
+		    return children;
+		},
+		
+		_findLastGroupQuestionIndex: function(groupid){
+			var i = 0;
+			var foundGroup = false;
+			while (i < this.questions.length){
+	  			if(this.questions[i].groupid === groupid){
+	  				foundGroup = true;
+	  			} else if (foundGroup) {
+	  				break;
+	  			}
+	  			i ++;
+	  		}
+			return foundGroup ? i-1: -1;
+		},
+				
+		_generateGroupSeq: function(question){
+			var gs = question.sequence;
+			if (question.groupid){
+				gs = parseFloat(question.groupid + '.' + (question.sequence < 10 ? '0':'') + question.sequence);
+			}
+			return gs;
+		}
+		
+	};
+</script>

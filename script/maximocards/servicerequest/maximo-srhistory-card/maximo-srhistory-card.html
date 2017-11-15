@@ -1,0 +1,87 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-srhistory-card">
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-srhistory-card-css.html">
+	<style is="custom-style" include="maximo-srhistory-card-css"></style>		
+  	   	
+	
+ 	<template id="maximo_srhistory_dialog">
+ 	<maximo-collection 
+ 		
+	    id="tkstatuscollection" 
+		attribute-names="ticketid,class,status,changeby,changedate,memo,siteid,orgid,tkstatusid"
+		collection-data="{{srHistoryData}}"
+		filter-data="{{tkFilterData}}"
+		debounce-duration="600"
+		page-size="20"
+		object-name="MXAPITKSTATUS" 
+		order-by-attribute-names="%2Bchangedate"
+		query-info="{{queryInfo}}"
+		selected-record="{{selectedRecord}}"
+		selected-record-index="{{selectedRecordIndex}}"
+		on-dynamic-attribute-data-fetched="_showTkDetails"
+		selected-query-name="All"
+		on-data-error="_handleDataError"  >
+	</maximo-collection>
+	 <maximo-resource id="tkstatusResource" resource-uri="{{_getStatusUrl(srHistoryData)}}"></maximo-resource>
+	
+	<maximo-collection 
+ 		
+	    id="tkownercollection" 
+		attribute-names="ticketid,class,ownergroup,owner,owndate,ownerchangeby"
+		collection-data="{{srOwnerHistoryData}}"
+		filter-data="{{tkFilterData}}"
+		debounce-duration="600"
+		page-size="20"
+		object-name="MXAPITKOWNERHISTORY" 
+		order-by-attribute-names="%2Bowndate"
+		query-info="{{queryInfo}}"
+		selected-record="{{selectedRecord}}"
+		selected-record-index="{{selectedRecordIndex}}"
+		on-dynamic-attribute-data-fetched="_showTkDetails"
+		selected-query-name="All"
+		on-data-error="_handleDataError"  >
+	</maximo-collection>
+	<maximo-resource id="tkownerResource" resource-uri="{{_getHistoryUrl(srOwnerHistoryData)}}"></maximo-resource>	
+	        <div id="TicketStatusContainer">
+	        <maximo-label id="tkstatus_label" label="{{localize('Status History')}}"></maximo-label>
+				<maximo-table class="tkstatusTable" id="history_ticket_section_1_table" items="{{srHistoryData}}" collection="{{'tkstatusscollection')}}">
+					<maximo-tablecol id="history_section_1_ticketid" label="Ticket ID" attribute="ticketid"  ></maximo-tablecol>
+					<maximo-tablecol id="history_section_1_class" label="Class" attribute="class" ></maximo-tablecol>
+					<maximo-tablecol id="history_section_1_status" label="Status" attribute="status"></maximo-tablecol>
+					<maximo-tablecol id="history_section_1_changedate" label="Changed date" attribute=changedate></maximo-tablecol>
+					<maximo-tablecol id="history_section_1_changeby" label="Changed by" attribute="changeby"></maximo-tablecol>
+					<maximo-tablecol id="history_section_1_memo" label="Memo" attribute="memo"></maximo-tablecol>
+				
+				</maximo-table>				
+			</div> 
+			<br>
+			<hr>
+			
+			 <div id="TicketOwnerContainer">
+			 <maximo-label id="tkowner_label" label="{{localize('Owner History')}}"></maximo-label>
+				<maximo-table class="tkstatusTable" id="history_ticket_section_1_table" items="{{srOwnerHistoryData}}" collection="{{'tkownercollection')}}">
+					<maximo-tablecol id="ownerhistory_section_1_ticketid" label="Ticket ID" attribute="ticketid"  ></maximo-tablecol>
+					<maximo-tablecol id="ownerhistory_section_1_class" label="Class" attribute="class" ></maximo-tablecol>
+					<maximo-tablecol id="ownerhistory_section_1_status" label="Owner Group" attribute="ownergroup"></maximo-tablecol>
+					<maximo-tablecol id="ownerhistory_section_1_changeby" label="Owner" attribute="owner"></maximo-tablecol>
+					<maximo-tablecol id="ownerhistory_section_1_changedate" label="Own Date" attribute="owndate"></maximo-tablecol>
+					<maximo-tablecol id="ownerhistory_section_1_memo" label="Changed by" attribute="ownerchangeby"></maximo-tablecol>
+				
+				</maximo-table>				
+			</div>    
+			
+	 
+		
+  	</template>
+
+	<script src="maximo-srhistory-card.js"></script>
+
+</dom-module>

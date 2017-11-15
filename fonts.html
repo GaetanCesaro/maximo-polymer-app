@@ -1,0 +1,99 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script src="script/main.js"></script>
+			
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	  	<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="apple-touch-icon" href="images/lightning-icon.png">
+		<link rel="shortcut icon" href="images/lightning.ico">
+		  	
+	  	<link href="css/main.css" rel="stylesheet">
+	    
+		<title>IBM Maximo</title>
+		<style>
+			div {
+				border: 1px solid #eee;
+				margin:10px;
+				display:inline-block;
+				padding: 5px;
+			}
+		
+			span, label {
+				display: block;
+			}
+			label {
+				border-bottom: 1px solid #eee;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>  
+  	<body style="overflow: hidden; background: #fff;padding: 20px;">
+  		<div>
+  			<label>No styling (base fonts)</label>
+	  		<span style="font-family:HelveticaNeue-Light">Maximo Lightning - (HelveticaNeue-Light)</span>
+	  		<span style="font-family:HelveticaNeue-Light-Italic">Maximo Lightning - (HelveticaNeue-Light-Italic)</span>
+			<br>
+			<span style="font-family:HelveticaNeue-Thin">Maximo Lightning - (HelveticaNeue-Thin)</span>
+			<br>
+	  		<span style="font-family:HelveticaNeue">Maximo Lightning - (HelveticaNeue)</span>
+	  		<span style="font-family:HelveticaNeue-Italic">Maximo Lightning - (HelveticaNeue-Italic)</span>
+	  		<br>
+	  		<span style="font-family:HelveticaNeue-Medium">Maximo Lightning - (HelveticaNeue-Medium)</span>
+	  		<span style="font-family:HelveticaNeue-Medium-Italic">Maximo Lightning - (HelveticaNeue-Medium-Italic)</span>
+	  		<br>
+	  		<span style="font-family:HelveticaNeue-Medium">Maximo Lightning - (HelveticaNeue-Medium)</span>
+	  		<span style="font-family:'HelveticaNeue-Medium-Italic">Maximo Lightning - ('HelveticaNeue-Medium-Italic)</span>
+			<br>
+	  		<span style="font-family:HelveticaNeue-Bold">Maximo Lightning - (HelveticaNeue-Bold)</span>
+	  		<span style="font-family:HelveticaNeue-Bold-Italic">Maximo Lightning - (HelveticaNeue-Bold-Italic)</span>
+  		</div>
+		
+		<div>
+		<table>
+			<tr>
+				<th id="selector">
+				</th>
+			</tr>
+			<tr>
+				<td id="holder">
+				</td>
+			</tr>
+		</table>
+	
+	</body>
+	<script>
+		function buildMainList(bottom, range){
+			var html = [];
+			for(index=bottom;index<bottom+range;index++){
+				html.push(
+                    '<td onclick="buildTable('+index+')">' + index + 'px</td>'
+	            );
+			}
+			document.getElementById("selector").innerHTML = "<table><tr>"+html.join('')+"</tr></table>";
+		}
+	
+	    function buildTable(size) {
+	        var html = [];
+	        for (var x = 6; x <= 24; x++) {
+	            html.push(
+	                '<tr>',
+	                    '<td>' + x + 'px</td>',
+	                    '<td>' + (x / size).toFixed(3) + 'em</td>',
+	                    '<td>' + (x / size * 100).toFixed(1) + '%</td>',
+	                    '<td>' + Math.round(x * .75) + 'pt</td>',
+	                '</tr>'
+	            );
+	        }
+			document.getElementById("holder").innerHTML = "<table>"+html.join('')+"</table>";
+	    }
+	    buildMainList(10,10);
+	</script>
+</html>

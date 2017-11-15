@@ -1,0 +1,28 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../components/iron-range-behavior/iron-range-behavior.html">
+
+<dom-module id="maximo-progress">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-progress-css.html">
+	<style is="custom-style" include="maximo-progress-css"></style>
+	
+  	<template>
+        <div class="progress" style$="{{_computeStyle(ratio)}}">
+          <div class="progress-value" hidden$="{{displayValue}}"><span id="disPercent">{{ratio}}</span></div>
+        </div>
+        <div class="remainProgress">
+        	<span></span>
+        </div>
+  	</template>
+  <script src="maximo-progress.js"></script>
+</dom-module>

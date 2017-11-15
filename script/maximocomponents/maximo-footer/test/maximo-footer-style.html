@@ -1,0 +1,75 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <title>maximo-footer style tests</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <script src="../../../main.js"></script>
+    <script src="../../../test.js"></script>
+    <script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../../../components/web-component-tester/browser.js"></script>
+    <script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+    <link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+    <style is="custom-style">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  	 <maximo-module id="module"></maximo-module>
+        <test-fixture id="tf_footer1">
+          <template>
+            <maximo-footer id="footer1"></maximo-footer>
+          </template>
+        </test-fixture>
+        <test-fixture id="tf_footer2">
+          <template>
+            <maximo-footer id="footer2" centered="true"></maximo-footer>
+          </template>
+        </test-fixture>
+        <test-fixture id="tf_footer3">
+          <template>
+            <maximo-footer id="footer3" left="true"></maximo-footer>
+          </template>
+        </test-fixture>
+   <script>
+      suite('<maximo-field>', function() {
+          var tf_footer1, tf_footer2,tf_footer3;
+          setup(function() {
+        	  tf_footer1 = fixture('tf_footer1');
+        	  tf_footer2 = fixture('tf_footer2');
+            tf_footer3 = fixture('tf_footer3');
+
+            });
+
+        test('base footer style', function(done) {
+        	done();
+         });
+          
+        test('field hidewhenempty=true style', function(done) {
+        	done();  
+          });
+      });      
+    </script>
+  </body>
+</html>

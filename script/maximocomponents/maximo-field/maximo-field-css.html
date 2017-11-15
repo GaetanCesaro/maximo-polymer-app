@@ -1,0 +1,35 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-field-css">
+	<template>
+    	<style>
+    	
+	    	:host {
+	    		line-height: 120%;
+	    	}
+
+	    	div {
+				margin-bottom: 7px;
+	    	}
+
+			.staticlabel ::content label {
+	    		color: var(--Primary-gray50);
+	    	}
+	    	
+	    	.dynamiclabel ::content label {
+	    		color: var(--Primary-gray100);
+	    	}
+	    	
+	    	
+	    	.notEnteredLabel ::content label {
+	    		color: var(--Primary-gray50);
+	    		font-style: italic;
+	    	}
+	    	
+		</style>
+	</template>
+</dom-module>

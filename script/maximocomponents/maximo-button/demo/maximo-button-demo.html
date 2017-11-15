@@ -1,0 +1,91 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-button-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+		<div class="outer">
+			<div style="text-align: left">
+				<table>
+					<tr>
+						<td>
+							Standard<br>
+			  				<maximo-button id="button1" label="{{textValue}}" on-tap="buttonTap"></maximo-button><br><br>
+			  				Standard - disabled<br>
+			  				<maximo-button id="button2" label="{{textValue}}" on-tap="buttonTap" disabled></maximo-button><br><br>
+			  				Icon<br>
+			  				<maximo-button id="button3" label="{{textValue}}" on-tap="buttonTap" icon="maximo-based:complete" synchronous></maximo-button><br><br>
+			  				East Icon<br>
+			  				<maximo-button id="button4" label="{{textValue}}" on-tap="buttonTap" easticon="maximo-based:complete"></maximo-button><br><br>
+			  				<hr>
+			  				East Icon disabled<br>
+			  				<maximo-button id="button5" label="{{textValue}}" on-tap="buttonTap" easticon="maximo-based:complete" disabled></maximo-button><br><br>
+			  				<hr>
+			  				Default - icon<br>
+			  				<maximo-button id="button6" label="{{textValue}}" default on-tap="buttonTap" icon="maximo-based:complete"></maximo-button><br><br>
+			  				<hr>
+			  				Default - icon<br>
+			  				<maximo-button id="button7" label="{{textValue}}" default on-tap="buttonTap" easticon="chevron-right"></maximo-button><br><br>
+			  			</td>
+			  			<td style="padding: 0px 50px">
+			  				Action<br>
+			  				<maximo-button id="button8" label="{{textValue}}" on-tap="buttonTap" action="true"></maximo-button><br><br>
+			  				Action - Icon<br>
+			  				<maximo-button id="button9" label="{{textValue}}" on-tap="buttonTap" action="true" icon="maximo-based:complete"></maximo-button><br><br>
+			  				Action - Icon - asynchronous - false<br>
+			  				<maximo-button id="button10" label="{{textValue}}" on-tap="buttonTap" action="true" icon="maximo-based:complete" asynchronous="false"></maximo-button><br><br>
+			  				Action - East Icon<br>
+			  				<maximo-button id="button11" label="{{textValue}}" on-tap="buttonTap" action="true" easticon="maximo-based:complete"></maximo-button><br><br>
+			  				Action - disabled<br>
+			  				<maximo-button id="button12" label="{{textValue}}" disabled on-tap="buttonTap" action="true"></maximo-button><br><br>
+			  				Action - <br>
+			  				<maximo-button id="button13"  label="{{textValue}}" disabled on-tap="buttonTap" action="true"></maximo-button><br><br>
+			  				Synchronous - (no spinner) <br>
+			  				<maximo-button id="button14" synchronous label="Synchronous" icon="maximo-based:complete" on-tap="buttonTap" action="true"></maximo-button><br><br>
+			  				Programmatic Button<br>
+			  				<div id="prog"></div>
+			  			</td>
+			  		</tr>
+			  	</table>
+  			</div>
+  		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-button-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				textValue: {
+					type: String
+				},
+				textValue1: {
+					type: String
+				},
+			},
+			_handleRecordDataRefreshed: function(e){
+				this.textValue = this.data[0].description;
+			},
+			buttonTap: function(e){
+				//alert('tapped '+ e.currentTarget.id);
+			},
+			ready: function(){
+				var newButton = Polymer.Base.create('maximo-button', {'id':'progButton', 'icon':'maximo-based:complete', 'action':'action', 'label':'Programmatic'} );
+				$j(newButton).on('click', function(e){
+					$M.notify('clicked ' + e.currentTarget.id);
+				});
+				$j(this.$.prog).append(newButton);
+			}
+		});
+	</script>
+</dom-module>

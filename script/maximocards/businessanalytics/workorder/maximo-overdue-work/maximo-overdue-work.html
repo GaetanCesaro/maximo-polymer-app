@@ -1,0 +1,39 @@
+<!-- 
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../../../handlers/handler-chartutils.html"/>
+      
+<dom-module id="maximo-overdue-work">
+
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-overdue-work-css.html">
+	<style is="custom-style" include="maximo-overdue-work-css"></style>
+	
+  <template>
+	<maximo-collection 			
+		    id="wodata" 
+			attribute-names="*"
+			collection-data="{{woData}}"
+			debounce-duration="600"
+			object-name="MXAPIWO"
+			selected-query-name="uxworkbacklog" 
+			group-by-attribute-names="supervisor,status,count.*"
+			group-by-data="{{groupByData}}"
+			search-attribute-names="wopriority"
+			search-term-value="{{searchTerms}}"		
+			use-search-terms="true"
+			on-groupby-data-refreshed="_handleGroupByDataRefreshed"
+			on-record-data-refreshed="_handleWoDataRefreshed">
+	</maximo-collection>	
+	<maximo-chart id="chart" frameclass="cardborder" charttype="heatmap" allowedtypes="heatmap" chartoptions="{{chartoptions}}" fulltitle="{{localize('uitext', 'mxapiwo', 'OverdueWorkQuantity')}}" values="{{chartdata}}" labels="{{labels}}" width="540" height="170" hovertemplates="{{hovertemplates}}" abouttext="{{localize('uitext', 'mxapiwo', 'overdueWorkAbout')}}" ></maximo-chart>
+  </template>
+  <script src="maximo-overdue-work.js"></script>
+</dom-module>

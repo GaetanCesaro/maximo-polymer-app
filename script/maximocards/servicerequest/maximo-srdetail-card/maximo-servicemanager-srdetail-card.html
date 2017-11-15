@@ -1,0 +1,88 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-servicemanager-srdetail-card">
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-servicemanager-srdetail-card-css.html">
+	<style is="custom-style" include="maximo-servicemanager-srdetail-card-css"></style>		
+  	
+ 	<template id="maximo_srdetail_dialog">
+   		<div id="maximo_srdetail_card" class="maincontainer">	
+			<maximo-section id="viewsr_relatedpeople" class="hiddeninnersection" label="{{localize('Related People')}}" summary="{{Related people}}" collapsed="false" width="100%" fontsize="100%" block customstyle="raw">
+						<div class="container flex-equal-justified">
+							<div>
+								<maximo-field id="viewsr_relatedpeople_reportedby" label="{{localize('Reported by')}}" datalabel="{{record.person.displayname}}"></maximo-field>
+								<maximo-field id="viewsr_relatedpeople_affectedperson" label="{{localize('Affected person')}}" datalabel="{{record.affectedperson.displayname}}"></maximo-field>
+								<maximo-field id="viewsr_relatedpeople_ownerperson" label="{{localize('Owner')}}" datalabel="{{record.ownerperson.displayname}}"></maximo-field>
+							</div>
+							<div>
+								<maximo-imglib id="my_reportedbyimage" width="70px" height="70px" image="{{record.person._imagelibref}}" noimageicon="icons:perm-identity" rounded></maximo-imglib>
+							</div>
+						</div>
+					</maximo-section>
+					<hr>
+					<maximo-section id="viewsr_assetinfo" class="hiddeninnersection" label="{{localize('Asset Information')}}" summary="{{Asset information}}"  collapsed="false" width="100%" fontsize="100%" block customstyle="raw">
+						<div class="container flex-equal-justified">
+							<div>
+								<maximo-field id="viewsr_assetinfo_assetnum" label="{{localize('Number')}}" datalabel="{{record.assetnum}}"></maximo-field>
+								<maximo-field id="viewsr_assetinfo_description" label="{{localize('Description')}}" datalabel="{{record.asset.description}}"></maximo-field>
+								<maximo-field id="viewsr_assetinfo_location" label="{{localize('Location')}}" datalabel="{{record.asset.location}}"></maximo-field>
+							</div>
+							<div>
+								<maximo-imglib id="my_assetimage" width="70px" height="70px" image="{{record.asset._imagelibref}}" noimageicon="image:photo" rounded></maximo-imglib>
+							</div>
+						</div>
+					</maximo-section>
+					<hr>
+					<maximo-section id="viewsr_timetracking" class="hiddeninnersection" label="{{localize('Time Tracking')}}" summary="{{Time table}}"  collapsed="false" width="100%" fontsize="100%" block customstyle="raw">
+						<div class="container flex-equal-justified">
+							<div>
+								<maximo-field id="viewsr_timetracking_reportdate" label="{{localize('Reported')}}" datalabel="{{getDate(record.reportdate)}}"></maximo-field>
+								<maximo-field id="viewsr_timetracking_affecteddate" label="{{localize('Affected')}}" datalabel="{{getDate(record.affecteddate)}}"></maximo-field>
+								<maximo-field id="viewsr_timetracking_statusdate" label="{{localize('Status Changed')}}" datalabel="{{getDate(record.statusdate)}}"></maximo-field>
+								<maximo-field id="viewsr_timetracking_changedate" label="{{localize('Request Changed')}}" datalabel="{{getDate(record.changedate)}}"></maximo-field>
+								<maximo-field id="viewsr_timetracking_actualstart" label="{{localize('Actual Start')}}" datalabel="{{getDate(record.actualstart)}}"></maximo-field>
+								<maximo-field id="viewsr_timetracking_actualfinish" label="{{localize('Actual Finished')}}" datalabel="{{getDate(record.actualfinish)}}"></maximo-field>
+							</div>
+							<div>
+								<div class="flex-equal-vertical">
+									<div>
+										<maximo-label id="viewsr_timetracking_status" class="timeTracStatus" label="{{record.statusdesc.description}}"></maximo-label>
+										<maximo-label id="viewsr_timetracking_statusfor" class="timeTrackStatusFor" label="  for"></maximo-label>								
+									</div>
+									<div>
+										<maximo-label id="viewsr_timetracking_statusdate" class="timeTrackStatusDate" label="{{_setDateString(record)}}"></maximo-label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</maximo-section>
+					<hr>
+					<maximo-section id="viewsr_commodity" class="hiddeninnersection" label="{{localize('Commodity Information')}}" summary="{{Commodity information}}"  collapsed="false" width="100%" fontsize="100%" block customstyle="raw">
+						<maximo-field id="viewsr_commodity_name" label="{{localize('Name')}}" datalabel="{{record.commodity}}"></maximo-field>
+						<maximo-field id="viewsr_commodity_group" label="{{localize('Group')}}" datalabel="{{record.commoditygroup}}"></maximo-field>
+					</maximo-section>
+					<hr>
+					<maximo-section id="viewsr_reqdesc" class="hiddeninnersection" label="{{localize('Request Description')}}" summary="{{Request Description}}"  collapsed="false" width="100%" fontsize="100%" block customstyle="raw">
+						<maximo-field id="viewsr_reqdesc_desc" label="{{localize('Description')}}" datalabel="{{record.description_longdescription}}"></maximo-field>
+					</maximo-section>
+					<hr>
+				
+				
+			</div>  	
+	
+				
+		<maximo-footer id="footer">
+		 	<maximo-button id="srdetail_footer_Cancel" label="{{localize('Close')}}" on-tap="close" default></maximo-button>
+	  	</maximo-footer>	
+	  		  	
+  	</template>
+
+	<script src="maximo-servicemanager-srdetail-card.js"></script>
+
+</dom-module>

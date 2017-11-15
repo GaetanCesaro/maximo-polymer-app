@@ -1,0 +1,28 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+    NotificationForwarder = {
+        listeners: {
+            'subscribe-all-records': '_forwardSubscribeAllRecords'
+        },
+
+        created: function() {
+        },
+
+        // bridge the event subscribe-all-records
+        _forwardSubscribeAllRecords: function(e) {
+            // expects the component using this behavior to have a single maximo-remote-notification element
+            var srNotification = document.querySelector('maximo-remote-notification');
+            if (srNotification) {
+                srNotification._onSubscribeToAllRecords(e.detail);
+            }
+            else {
+                console.log('Unable to find a maximo-remote-notification element');
+            }
+        }
+    };
+</script>

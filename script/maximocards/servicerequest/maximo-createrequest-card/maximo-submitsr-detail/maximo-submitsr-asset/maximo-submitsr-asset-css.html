@@ -1,0 +1,125 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-submitsr-asset-css">
+	<template>
+    	<style>
+			.assetSearchBar::content input{
+  				height : 44px;
+  				font-size : 18px;
+  				padding-left : 10px;
+  				padding-right : 10px;
+  			}
+  			.assetSearchBar::content iron-icon{
+  				width : 21px;
+  				height : 21px;
+  				top : 11px;
+  				left : 5px;
+  				display: none;
+  			}
+  			.assetSearchBar ::content .outerDiv {
+  			  	margin-bottom: 0px;
+  			}
+  			.assetSearchBar ::content .wrapper{
+  				padding-left : 0px;
+  				padding-right : 0px;
+  				padding-bottom : 0px;
+  			}	
+  			.searchbarinput ::content input{
+  				width: 100%;
+  				height:100%;
+  				background-color: white;
+  			}	
+ 
+	        .assetContain {
+	            width: 100%;
+	            position: relative;
+	         }
+
+			.itemList { 
+			    position: absolute;
+			    width: 100%;
+		   	    background-color: #ffffff;
+		   	    box-sizing: border-box;
+		   	    padding : 1px;
+		   	    border-left : 1px solid #aeaeae;
+		   	    border-right : 1px solid #aeaeae;
+		   	    border-bottom : 1px solid #aeaeae;
+		   	    z-index : 2001;
+		   	 }	
+	
+		   	.item1 {
+		   		text-overflow: ellipsis; 
+		   		overflow: hidden;
+		   		padding-right: 3px;
+		   		@apply(--layout-flex);
+		   	}
+
+			.itemCommon {
+			    font-family:HelveticaNeue-Light;
+			    font-size: 18px;
+			    color:#000000;
+			}
+		   	.divRow {
+       			@apply(--layout-horizontal);
+       			padding : 13px 13px 13px 13px;
+      			cursor : pointer;
+      			white-space : nowrap;
+    		}
+			.divRow:hover { 
+				background-color: var(--Neutral-gray10);
+				color : white;
+			}
+			
+    		.divRow:hover, 
+			.divRow:hover[default]:not([aria-disabled]):focus > * {
+				background-color: var(--Primary-gray10);
+				color : white;
+			}
+    		
+ 			.selectAssetButton ::content .button:not(.action){
+				border : 1px solid #ffffff;
+				color : #ffffff;
+				background : #4178be;
+				padding-left : 25px;
+				padding-right : 18px;
+				font-family:HelveticaNeue-Light;
+				font-size : 18px;
+				height : 37px;
+				width : 158;
+			}
+			.selectAssetButton ::content iron-icon
+			{
+				fill : #ffffff;
+    			width: 9px;
+    			height: 15px;
+    			padding-bottom: 2px;
+			}
+			.selectAssetWrapper{
+				border-top : solid 1px #ffffff;
+				text-align : center;
+				padding-top : 26px;
+			}	
+			.selectAssetWrapper_noData {
+				border : none;
+			}	
+			.nodataLabelWrapper{
+				text-align : center;
+				font-size: 18px;
+				padding-bottom : 10px;
+				padding-top : 10px;
+			}
+			.nodataLabel ::content label{
+				font-family:HelveticaNeue;
+				font-size:14px;
+				font-style: italic;
+				color: var(--Primary-gray50);
+				letter-spacing:0px;
+				text-align:left;
+			}										    		
+		</style>
+	</template>
+</dom-module>

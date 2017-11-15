@@ -1,0 +1,50 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-label tests</title>
+		<script src="../../../main.js"></script>
+		<script src="../../../test.js"></script>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+		<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+		<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+<script>
+suite('<maximo-prioritytag>', function() {
+	a11ySuite('tf_priority1');
+	a11ySuite('tf_priority2');
+	a11ySuite('tf_priority3');
+
+
+});
+</script>
+	</body>
+</html>

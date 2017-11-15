@@ -1,0 +1,28 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+	/**
+	 * It seems to provide ability to rollback operations. It appears.... :S
+	 *
+	 * @polymerBehavior UndoBehavior
+	 */
+	UndoBehavior = {
+		attached: function(){
+			$M.pushState({'id': this.id, 'element':this});
+		},
+		close: function(){
+			history.back();
+		},
+		canClose: function(caller){
+	  		if(caller !== $M){
+	  			console.warn('Cannot call \'dialog.closeMe()\' directly. Use \'close()\' function instead.')
+	  			return false;
+	  		}
+	  		return true;
+		}
+	};
+</script>

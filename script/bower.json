@@ -1,0 +1,29 @@
+{
+  "name": "maximox",
+  "version": "7.6.0.2",
+  "description": "Maximo X",
+  "license": "IBM",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.8.1",
+	"app-route": "PolymerElements/app-route#0.9.3",
+	"font-roboto": "PolymerElements/font-roboto-local#1.0.1",
+	"google-apis": "GoogleWebComponents/google-apis#1.1.7",
+	"google-map": "GoogleWebComponents/google-map#1.1.13",
+    "iron-elements": "PolymerElements/iron-elements#1.0.10",
+    "paper-drawer-panel": "PolymerElements/paper-drawer-panel#1.0.11",
+	"paper-input": "PolymerElements/paper-input#1.1.23",
+	"paper-item": "PolymerElements/paper-item#1.2.1",
+	"paper-menu": "PolymerElements/paper-menu#1.2.2",
+	"paper-radio-button": "PolymerElements/paper-radio-button#1.3.1",
+	"paper-radio-group": "PolymerElements/paper-radio-group#1.2.1",
+	"web-component-tester": "Polymer/web-component-tester#5.0.1"
+  }
+}

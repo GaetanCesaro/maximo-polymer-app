@@ -1,0 +1,81 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-inspector-main tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<script src="../../../../../main.js"></script>
+		<script src="../../../../../test.js"></script>
+		<script src="../../../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../../../components/iron-test-helpers/mock-interactions.js"></script>
+		
+		<link rel="import" href="../../../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<link rel="import" href="../../maximo-inspector-main/maximo-inspector-main.html" />
+		<script src="mockData.js"></script>
+		
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="maximoinspectormain">
+			<template>
+				<maximo-inspector-main id="maximoInspectorMainTest1"></maximo-inspector-main>
+			</template>
+		</test-fixture>
+		
+	<script>
+	suite('maximoinspectormain', function() {
+		
+		var maximoinspectormain;
+		var mocked$M;
+		
+		setup(function() {
+			mocked$M = getMockedMaximoContext();
+			maximoinspectormain = fixture('maximoinspectormain');
+		});
+
+		test('Verifying..Inspection Result Record Creation', function(done) {
+		
+		 	var mockedCollection = sinon.mock(maximoinspectormain.$.inspresultcollection);
+			var createRecordExpectation = mockedCollection.expects("createRecord");
+			var expectationT = mocked$M.expects("toggleWait");
+			expectationT.atLeast(1).withArgs(true);
+			
+			createRecordExpectation.once();
+			maximoinspectormain.record = inspectionFormRecord;
+			maximoinspectormain._createInspectionResult();
+						
+			mockedCollection.verify();
+			expectationT.verify();
+			
+			done();
+		});
+	
+	});
+	
+
+	
+	</script>
+	</body>
+</html>

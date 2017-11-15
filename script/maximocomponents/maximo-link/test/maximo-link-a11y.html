@@ -1,0 +1,51 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-link tests</title>
+		<script src="../../../main.js"></script>
+		<script src="../../../test.js"></script>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+		<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+		<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="link">
+			<template>
+				<maximo-link id="link0" pre-label="begin" label="middle" post-label="end" ></maximo-link>
+			</template>
+		</test-fixture>
+		<script>
+			suite('<maximo-link>', function() {
+				a11ySuite('readonly_link');
+			});
+		</script>
+	</body>
+</html>

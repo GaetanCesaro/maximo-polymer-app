@@ -1,0 +1,129 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-text-css">
+	<template>
+    	<style>
+    		.wrapper {
+    			margin: 0px;
+    			display: block;
+    		}
+    		
+    		input {
+    			padding: 3px 3px;
+    			transition: border-color .5s;
+    			outline: none;
+    			margin-bottom: 3px;
+    			border-radius: 2px;
+    			line-height: 27px;
+    			min-width: 150px;
+    			border-style: solid;
+				border-color:  var(--Cool-gray30);
+    			border-width: 0px 0px 2px 0px;
+    			box-sizing: border-box;
+    		}
+    		
+			.wrapper.invalid {
+				position: relative;
+			}
+			
+			.wrapper .validationicon {
+                --iron-icon-fill-color:var(--Primary-orange50);
+            }
+			
+			.wrapper .validationicon {
+				display: initial;
+				transition: all .3s;
+				opacity: 0;
+				position: absolute;
+ 			   	pointer-events: all;
+ 			   	left: 0px;
+ 			   	bottom: 6px;
+ 			   	cursor: default;
+ 			   	top: 8px;
+			}
+			
+			.wrapper.invalid .validationicon {
+				opacity: 1;
+			}    		
+    		
+    		.wrapper.invalid input {
+    			padding-left: 25px;
+    			border-color: var(--Alert-red);
+    		}
+    		
+    		input.bordered {
+    			border-width: 1px;
+    		}
+    		
+    		input:focus {
+    			border-color: var(--Primary-blue30);
+    		}
+    		
+
+    		input[readonly]{
+				border-color: transparent;
+				background-color: transparent;
+    		}
+
+    		label {
+				color: var(--Primary-gray50);
+				display: block;	
+    		}
+    		
+    		label[required]:not([readonly]):before {
+    			content: '* ';
+    			font-size: 110%;
+    			color : var(--Primary-orange50);
+    		}
+
+			/* Remove spinner controls from Safari and Chrome */
+			.input-no-spinner::-webkit-outer-spin-button, .input-no-spinner::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+			    appearance: none;
+			    margin: 0; 
+			}
+			
+			/* Remove spinner controls from Firefox */
+			.input-no-spinner {
+			 	-moz-appearance: textfield;
+			}
+			
+			input.invalid {
+				padding-left: 30px;
+				border-color: var(--Primary-orange50);
+			}
+			
+			div[required]:before {
+    			content: '* ';
+    			font-size: 110%;
+    			color : var(--Primary-orange50);
+    		}
+    		
+    		div[notrequired]:before {
+    			content: '\00a0\00a0';
+    			font-size: 110%;
+    			color : var(--Primary-orange50);
+    		}
+    		
+    		input::-webkit-input-placeholder {
+				color: var(--Primary-gray50);
+				font-family: 'HelveticaNeue-Italic';
+			}
+			
+			input::-moz-placeholder {
+			 	color: var(--Primary-gray50);
+				font-family: 'HelveticaNeue-Italic';
+			} 
+			 
+			input:-ms-input-placeholder {
+			 	color: var(--Primary-gray50);
+				font-family: 'HelveticaNeue-Italic';
+			} 
+			
+		</style>
+	</template>
+</dom-module>

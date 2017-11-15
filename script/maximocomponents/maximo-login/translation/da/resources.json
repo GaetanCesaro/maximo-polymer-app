@@ -1,0 +1,31 @@
+{
+		"main_title":"Enterprise Asset Management",
+		"log_in":"Log på",
+		"user_name":"Brugernavn",
+		"password":"Kodeord",
+		"sign_in":"Log på",
+		"error":"Angiv gyldige legitimationsoplysninger.",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"All rights reserved.",
+		"copyright_2":"Der er flere oplysninger i produktlicensen.",
+		"loading_resources":"Indlæser",
+		"missing_config":"{0}-konfigurationsfil mangler. Bruger standardværdier.",
+		"unknown_error":"Der opstod en ukendt fejl. {0}",
+		"resource_error":"Der opstod en fejl under anmodning om strengressourcer. {0}",
+		"contact_admin":"Kontakt systemadministratoren, hvis problemet opstår igen.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"VIGTIGT: Andre personlige oplysninger (f.eks. følsomme økonomiske eller medicinske data samt oplysninger, der kan identificere enkeltpersoner) end forretningskontaktoplysninger [angivet som obligatoriske i systemet, som er] nødvendige for at yde support, SKAL IKKE angives i dette system. Enhver, der indtaster personlige oplysninger, accepterer, at IBM kan bruge og overføre dem på tværs af landegrænser i henhold til <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM's praksis vedrørende personoplysninger</a> for at levere de ønskede services. Hvis du er IBM-medarbejder eller -leverandør, og en kunde beder dig om at indtaste deres personlige oplysninger, skal du læse denne meddelelse for dem for at opnå deres samtykke, inden du indtaster deres personlige oplysninger.",
+		"session_timeout":"Tidsfristen for din session er udløbet.",
+		"noworkscape" : "Der er ikke defineret noget arbejdscenter til din bruger-id.",
+		"no_access_default":"Du har ikke de nødvendige autorisationer til den ønskede placering. Vil du indlæse en standardapplikation?",
+		"signout" : "Du er logget af. Luk browseren, eller log på igen.",
+		"login_error" : "Fejl ved logon",
+		"login_error_invalid" :"Kombinationen af brugernavn og kodeord er ugyldig. Prøv igen.",
+		"return" : "Vend tilbage",
+		"logout" : "Log af",
+		"logout_complete" : "Du skal lukke browseren, hvis du vil logge fuldstændigt af.",
+		"user_info_error" : "Fejl under indlæsning af brugeroplysninger. Kontakt systemadministratoren"
+}
+

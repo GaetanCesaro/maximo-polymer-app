@@ -1,0 +1,33 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="test/maximo-test-card.html">
+<link rel="import" href="../../maximo-button/maximo-button.html">
+
+<dom-module id="maximo-dialog-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+		<style>
+			.outer > div {
+				text-align: left;
+			}
+		</style>
+
+  		<div class="outer">
+  			<maximo-button id="testButton" on-tap="showTest" action label="Click me to open a dialog"></maximo-button>
+  		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-dialog-demo',
+			behaviors: [BaseComponent],
+			showTest: function(){
+				$M.showDialog(null, 'test_dialog', 'Test Dialog', 'maximo-test-card', 2, null);
+			},
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,56 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-inspector-tile">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspector-tile-css.html">
+	<style is="custom-style" include="maximo-inspector-tile-css"></style>		
+	<template>
+	
+		<!-- Inspection List -->
+  		<div id="tileContainerResult" class="container" hidden$="{{hideResultTile}}">
+			<div id="inspectorListTile" class="dataSetCard">
+				<div id="inspectorListTileTitle" class="title">
+					<maximo-label id="inspectorTileListName" ellipsis-size="65" label="{{record.inspectionform.name}}"></maximo-label>
+				</div>
+				<div id="inspectorListTileAssetLocGroup">
+					<div id="inspectorListTileAssetField" hidden$="{{!hideLocation}}" class="ellipsis"  >
+						<iron-icon id="inspectorTileListAssetIcon" icon="Maximo:Asset"  style="height:21px;width:18px;"></iron-icon>
+						<maximo-label id="inspectorTileListAsset" ellipsis-size="35" label="{{record.asset.description}}"></maximo-label>
+					</div>
+					<div id="inspectorListTileLocationField" hidden$="{{hideLocation}}"  class="ellipsis"   >
+						<iron-icon id="inspectorTileListLocationIcon" icon="Maximo:Location"  style="height:21px;width:18px;"></iron-icon>
+						<maximo-label id="inspectorTileListLocation" ellipsis-size="35" label="{{record.locations.description}}"></maximo-label>
+					</div>						
+				</div>
+				<div id="inspectorListTileFooter" class="footer">
+					<div>
+						<maximo-field id="maximo_worktoclose_status"    label="[[localize('uitext','mxapiinspection','status')]]" datalabel="{{record.status_description}}" class="regular wrapperEllipsis"></maximo-field>
+						<maximo-field id="maximo_worktoclose_cretedOn"    label="[[localize('uitext','mxapiinspection','created_on')]]" datalabel="{{getDate(record.createdate)}}" class="regular wrapperEllipsis"></maximo-field>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Create an Unscheduled Inspection Tile -->
+		<div id="tileContainerCreate" class="container" hidden$="{{hideCreateTile}}">
+			<div id="tileContainerCreatecard" class="dataSetCard small" on-tap="_formSelect">
+				<div id="tileContainerCreateTitle" class="title">
+					<maximo-label id="title" ellipsis-size="65" label="{{record.name}}"></maximo-label>
+				</div>
+			</div>
+		</div>
+				
+	</template>
+	<script src="maximo-inspector-tile.js"></script>
+
+</dom-module>

@@ -1,0 +1,117 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-datadesign-objsets-css">
+	<template>
+    	<style>
+  		
+    		.searchbar ::content .wrapper {
+    			width: 400px;
+    			padding: 0px 20px;
+    		}
+    		
+    		.searchbar.rtl ::content .wrapper {
+    			padding: 0px;
+    		}
+    		    		
+    		.count ::content label {
+    			margin: 10px 0px 10px 20px;
+    		}
+    		
+    		.count.rtl ::content label {
+    			margin: 10px 20px 10px 0px;
+    		}
+    		
+    		.count.rtl ::content label {
+    			text-align: right;
+    		}
+    		
+    		.dataScroller {
+    			text-align: left;
+    	    	overflow-y: auto;
+    			padding: 5px 0px 0px 18px;
+    		}
+    		
+    		.dataScroller.rtl {
+    			text-align: right;
+    			padding: 0px;
+    		}
+    		
+    		.dataSetCard {
+    			border-width: 0px !important;
+    			border-bottom: 10px solid var(--Primary-blue40) !important;
+    			box-shadow: 2px 2px 20px #dadada;
+    			width: 230px !important;
+    			vertical-align: top;
+    			margin: 3px 34px 27px 3px;
+    			outline: 3px solid transparent;
+    			box-sizing: border-box;   
+    			position:relative; 		
+    		}
+    		
+    		.dataSetCard[selected] {
+    			outline-color: var(--Primary-green10) !important;
+    			border-bottom: 7px solid var(--Primary-green10) !important;
+    		}
+    		
+    		.dataSetCard.rtl {
+    			margin: 3px 3px 27px 34px;
+    		}
+    		
+    		.dataSetCard:hover, .dataSetCard:focus {
+    			outline: 3px solid var(--Primary-blue40);
+    		}
+    		.cardheader {
+    			background-color: transparent !important;
+    			text-align: left;
+    		}
+    		
+    		.cardheader ::content label {
+    			font-size: 129%;
+    			font-family: 'HelveticaNeue';
+    			color: var(--Primary-gray70);
+    			text-align:left;
+    		}
+    		
+    		
+    		.dataSetCard[selected] .cardheader ::content label {
+    			font-family: 'HelveticaNeue-Bold';
+    		}
+    		
+    		.cardtext ::content label {
+    			overflow: auto;
+    	    	height: 60px !important;
+    	    	display: block !important;
+    		}
+    		.showinfo {
+    			position:absolute;
+    			bottom:10px;
+    			right:5px;
+    		}
+    		
+    		.showinfo ::content button svg {
+    			color: var(--Primary-blue50);
+    		}
+    		
+    		.showinfo ::content button:hover svg {
+    			color: var(--Primary-blue30);
+    		}
+    		
+    		.showinfo:focus {
+    			outline: none;
+    		}
+    		
+    		.showinfo:focus ::content button svg {
+    			color: var(--Primary-green50);
+    		}
+    		
+    		.cardcontainer{
+    			height:80px;
+    		}
+    		
+    	</style>
+	</template>
+</dom-module>

@@ -1,0 +1,42 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-progress-css">
+  <template>
+    <style>
+		:host {
+			--progress-color: var(--Primary-blue50);
+			--remaining-color: var(Primary-white);
+		
+			display: block;
+			height: 20px;
+			@apply(--layout-horizontal);
+			
+			background-color: var(Primary-white);
+		}
+		.progress {
+			background-color: var(--progress-color);
+			height: 100%;
+		}
+		
+		.remainProgress {
+			@apply(--layout-flex-auto);
+			background-color: var(--remaining-color);
+		}
+		
+		.progress-value {
+			text-align: center;
+			width: 100%;
+			height: 100%;
+		}
+
+		.progress-value span{
+			color: #4178be;
+		}
+
+    </style>
+  </template>
+</dom-module>

@@ -1,0 +1,98 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-prioritytag-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<link rel="import" href="../maximo-prioritytag.html">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	<style>
+	</style>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+		<div class="outer">
+			<div class="demo-section">
+				<p class="demo-header">Default prioritytag - Collection data</p>
+				<p><maximo-prioritytag id="prioritydemo" priority="{{sampledata.wopriority}}"></maximo-prioritytag></p>
+				<div class="code">
+				<xmp><maximo-prioritytag id="prioritydemo" priority="{{sampledata.wopriority}}"></maximo-prioritytag>r</xmp>
+				</div>
+				</div>
+				<div class="demo-section">
+  				<p class="demo-header">Default prioritytag - Binded value</p>
+				<p><maximo-prioritytag id="prioritydemo" priority="{{exampledata}}"></maximo-prioritytag></p>
+				<div class="code">
+  					<xmp><maximo-prioritytag id="prioritydemo" priority="{{exampledata}}"></maximo-prioritytag></xmp>
+  				</div>
+  				</div>
+
+				<div class="demo-section">
+  				<p class="demo-header">Default prioritytag - Static value</p>
+				<p><maximo-prioritytag id="prioritydemo" priority="2"></maximo-prioritytag></p>
+				<div class="code">
+  					<xmp><maximo-prioritytag id="prioritydemo" priority="2"></maximo-prioritytag></xmp>
+  				</div>
+  				</div>
+					
+				<div class="demo-section">
+  				<p class="demo-header">Default prioritytag - Static value</p>
+				<p><maximo-prioritytag id="prioritydemo" priority="3"></maximo-prioritytag></p>
+				<div class="code">
+  					<xmp><maximo-prioritytag id="prioritydemo" priority="3"></maximo-prioritytag></xmp>
+  				</div>
+  				</div>
+  				<div class="demo-section">
+  				<p class="demo-header">Default prioritytag - Static value</p>
+				<p><maximo-prioritytag id="prioritydemo" priority="0"></maximo-prioritytag></p>
+				<div class="code">
+  					<xmp><maximo-prioritytag id="prioritydemo" priority="0"></maximo-prioritytag></xmp>
+  				</div>
+  				</div>
+  			</div>
+			</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-prioritytag-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				querylist: {
+    		type: Array,
+    		value: [],
+    		notify: true
+    	},
+    		exampledata:{
+    			type:Number,
+    			notify:true,
+    			value:1
+    		},
+    		sampledata:{
+    			type:Number
+    		},
+    		priority:{
+    			type:Array,
+    			value:[0,1,2,3]
+
+    		},
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log(this.data[1]);
+				console.log(this.data[1].wopriority);
+				console.log(typeof this.data[1].wopriority);
+				this.sampledata=this.data[1];
+			},
+			ready : function(){
+  	}
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,89 @@
+<!--
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016-2017
+-->
+<link rel="import" href="../../components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../maximo-authcontext/maximo-authcontext.html">
+
+
+<dom-module id="maximo-login">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-login-css.html">
+	<style is="custom-style" include="maximo-login-css"></style>
+	
+	<template>
+		<maximo-resource id="userInfoResource"></maximo-resource>
+		<maximo-resource id="keepAlive"></maximo-resource>
+		<template id="resourceTemplate" is="dom-if" if="{{resources}}">
+			<div id="outer" class="loginpanel" data-style="true">
+				<div class="loginpanelsection">
+					<div class="mainDiv">
+						<div class="titleDiv">
+							 <div class="logos">
+							 	<img src="images/logo-suez.jpg" style="width: 400px" draggable="false"/>
+							 	<!--img class="maximo" src="images/logo1.png" style="width: 178px" draggable="false"/-->
+							 </div>
+							 <div class="mainTitle">
+								GMAO Suez R&V - Accès mobilité
+							 </div>
+						</div>
+						<div class="formDiv">
+							{{localize('uitext', 'login','log_in')}}:
+							<form autocomplete="off">
+								<maximo-text id="uname" placeholder="{{localize('uitext', 'login','user_name')}}" type="text" style="margin: 5px 0px 0px" autofocus="true" on-keypress="handleChange"></maximo-text>
+								<maximo-text id="pwd" autofill="true" type="password" placeholder="{{localize('uitext', 'login','password')}}" style="margin:5px 0px 0px" on-keypress="handleChange"></maximo-text>
+							</form>
+		
+							<div class="signinerror">
+								<template is="dom-if" if="{{signInError}}">
+									<maximo-label id="signInError" label="{{localize('uitext', 'login','error')}}"></maximo-label>
+								</template>
+								<maximo-label id="message" hidden="true"></maximo-label>
+							</div>
+		
+							<div class="signinbutton">
+								<maximo-button id="button" on-tap="handleLogin" label="{{localize('uitext', 'login','sign_in')}}" default="true"></maximo-button>
+							</div>
+						</div>
+				
+		
+					</div>
+					
+					<div class="copyrightsection">
+						<center id="saasNotice">
+							<div id="saasNotice_div" style="text-align:justify; width:90%;" class="saas">
+								<maximo-label id="saasLabel"></maximo-label>
+							</div><br> 
+						</center>
+						<div class="copyright">&copy; {{localize('uitext', 'login','copyright_0')}} 2016-2017. [[localize('uitext', 'login','copyright_1')]]<br class="copybr"> [[localize('uitext', 'login','copyright_2')]]</div>
+					</div>
+				</div>
+			</div>
+			<div id="loading" class="resourcesLoading">{{localize('uitext', 'login','loading_resources')}}<br><br><img src="../../../images/loading.gif" draggable="false"/></div>
+		</template>
+		<maximo-authcontext id="authenticator"></maximo-authcontext>
+		<maximo-collection 
+			id="personcollection" 
+			attribute-names="*,_imagelibref,user.logouttracking.attemptdate,location.location,location.description"
+			collection-data="{{personData}}"
+			debounce-duration="600"				
+			object-name="MXAPIPERUSER"
+		    key-search="{{personId}}"
+		    key-search-attribute-name="user.userid"
+			on-record-data-refreshed="_handleUserDataRefreshed"
+			on-data-error="_handleUserDataError"
+			additional-params='["maxuser.logouttracking.limit=1"]'>
+		</maximo-collection>
+	</template>
+	
+	<script src="maximo-login.js"></script>
+	
+</dom-module>

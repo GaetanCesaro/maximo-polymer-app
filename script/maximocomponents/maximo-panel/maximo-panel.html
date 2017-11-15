@@ -1,0 +1,44 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-panel">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-panel-css.html">
+	<style is="custom-style" include="maximo-panel-css"></style>
+  
+	<template>
+		<div id="wrapper" class="wrapper">
+			<div id="panel" class="panel border">
+				<maximo-header class="header" id="header">
+					<div class="bottom">
+						<div id="title" class="title" title="{{label}}">
+							<maximo-label label="{{label}}"></maximo-label>
+							<div id="headingInfo" class="headingInfo">{{count}}</div>
+						</div>
+						<div id="buttons" class="buttons">
+							<template is="dom-if" if="{{manualRefresh}}">
+		  						<span role="button" class="button" title="{{localize('uitext', 'mxapibase', 'Refresh')}}">
+		  							<iron-icon class="toggle" on-click="refresh" icon="refresh"></iron-icon>
+		  						</span>
+		  					</template>
+						</div>
+					</div>
+					<div id="additional" class="additional"></div>
+				</maximo-header>
+				<div id="internal" class="internal" on-scroll="_userActivity"><content></content></div>
+				<maximo-footer id="footer" class="footer"></div>
+			</div>
+		</div>
+	</template>
+
+	<script src="maximo-panel.js"></script>
+
+</dom-module>

@@ -1,0 +1,28 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-data-page">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-data-page-css.html">
+	<style is="custom-style" include="maximo-data-page-css"></style>
+	
+	<template>
+		<div class="pages" id="pages">
+			<iron-icon icon="icons:chevron-left" id="west" on-tap="previousPage"></iron-icon>
+			<span id="page">{{pageNum}}</span>/<span id="pagecount">{{totalPages}}</span>
+			<iron-icon icon="icons:chevron-right" id="east" on-tap="nextPage"></iron-icon>
+		</div>
+	</template>
+	
+	<script src="maximo-data-page.js"></script>
+	
+</dom-module>

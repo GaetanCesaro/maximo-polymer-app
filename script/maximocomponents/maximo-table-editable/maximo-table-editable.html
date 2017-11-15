@@ -1,0 +1,143 @@
+<!--
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../_behaviors/table-component.html"/>
+<link rel="import" href="../_behaviors/long-press.html"/>
+<link rel="import" href="../maximo-checkbox/maximo-checkbox.html">
+<link rel="import" href="../maximo-label/maximo-label.html">
+<link rel="import" href="../maximo-radiobuttongroup/maximo-radiobutton.html">
+<link rel="import" href="../maximo-text/maximo-text.html">
+<link rel="import" href="../maximo-select/maximo-select.html">
+
+<dom-module id="maximo-table-editable">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-table-editable-css.html">
+	<style is="custom-style" include="maximo-table-editable-css"></style>
+
+	<template>
+		<div id="wrapper" class="wrapper" style="width: {{width}}">
+			<div role="toolbar" aria-label="{{localize('uitext,'mxapibase','toolbar',[label])}}">
+				<div><maximo-label label="{{label}}"></maximo-label></div>
+				<div id="actions"></div>
+			</div>
+			<table id="table" summary="{{summary}}" style="{{_getWidth(width)}}">
+				<colgroup id="colgroup">
+					<template is="dom-repeat" id="columnList" items="{{_getAllColumns(_childColumns)}}" as="groupColumn" index-as="colGroupIndex">
+						<col id="col_{{colGroupIndex}}" style="{{_getColDetails(groupColumn, colGroupIndex)}}"></col>
+					</template>
+				</colgroup>
+				<thead id="header">
+<!-- Begin Header Row -->
+					<tr id="headerRow">
+						<th></th>
+						<th class="twisty"></th>
+						<th>
+							<template is="dom-if" if="{{_multiSelect(selectMode)}}">
+								<maximo-checkbox id="selectAll" class="selectAll" on-tap="_selectAll"></maximo-checkbox>
+							</template>
+						</th>
+						<template is="dom-repeat" id="tableHeadings" items='{{_childColumns}}' as="headingColumn" index-as="headerColumnIndex">
+							<th id="{{id}}_header_{{headingColumn.dataAttribute}}" class="headerTh" data-col-index$="{{headerColumnIndex}}" on-tap="_sortByColumn" title="{{_sortLabel(headingColumn)}}">
+								<template is="dom-if" if="{{headingColumn.dataAttribute}}">
+									<span class$="{{_sortClass(headingColumn)}}">{{_getColumnTitle(headingColumn)}}</span>
+									<template is="dom-if" if="{{_columnSortable(headingColumn)}}">		
+										<iron-icon class="sortIcon" id="sortIcon" icon$="{{headingColumn.sortIcon}}"></iron-icon>
+									</template>
+								</template>
+							</th>
+						</template>
+						<th></th>
+					</tr>
+<!-- End Header Row -->
+<!-- Begin Filter Row -->
+					<tr id="filterRow" class="filterRow" hidden$="{{!filterRow}}">
+						<th></th>
+						<th></th>
+						<th></th>
+						<template is="dom-repeat" id="tableFilters" items='{{_childColumns}}' as="filterColumn" index-as="filterColumnIndex">
+							<th class="filterTh" data-col-index$="{{headerColumnIndex}}">
+								<template is="dom-if" if="{{_filterField(filterColumn)}}">
+									<maximo-text id="filter" on-input="_filterInput" on-keypress="_filterKey" value="{{filterColumn.filterValue}}"></maximo-text>
+								</template>
+								<template is="dom-if" if="{{_filterCheckbox(filterColumn)}}">
+									<maximo-checkbox id="filter" on-change="_filterInput" tri-state></maximo-checkbox>
+								</template>
+								<template is="dom-if" if="{{_filterSlider(filterColumn)}}">
+									<maximo-checkbox id="filter" slider on-change="_filterInput" tri-state></maximo-checkbox>
+								</template>
+							</th>
+						</template>
+						<th class="filterActions">
+							<maximo-button id="applyFilter" icon="Maximo:Filter" on-tap="_applyFilter" title="{{localize('uitext','mxapibase','FilterTable')}}" action synchronous></maximo-button>
+							<maximo-button id="clearFilter" icon="Maximo:Reset" on-tap="_clearFilter" title="{{localize('uitext','mxapibase','ClearFilter')}}" action synchronous></maximo-button>							
+						</th>
+					</tr>
+	<!-- End Filter Row -->
+				</thead>
+				<tbody id="body" style="max-height: {{maxHeight}}">
+					<template is="dom-repeat" id="tableList" items="{{_data}}" as="record" index-as="recordIndex">
+<!-- Begin Table Data Row -->
+						<tr class="dataRow" on-mouseenter="_highlight" on-mouseleave="_highlight" data-row-index$="{{recordIndex}}" data-row-template$="{{_isTemplate(record)}}">
+							<td>
+								<template is="dom-if" if="{{_showRowSortHandle()}}">
+									<iron-icon id="dragIcon" icon="Maximo:Move" class=".dragHandle"></iron-icon>
+								</template>
+							</td>
+							<td class="twisty">
+								<template is="dom-if" if="{{_hasDetails()}}">
+									<maximo-button id="twisty_{{_getUniqueId(record)}}" icon="Maximo:Chevron" title="{{localize('uitext','mxapibase','ShowDetails')}}" action synchronous on-tap="_toggleDetails"></maximo-button>
+								</template>
+							</td>
+							<td>
+								<template is="dom-if" if="{{_multiSelect(selectMode)}}">
+									<maximo-checkbox id="selectRow" class="selectRow" on-tap="_selectRow"></maximo-checkbox>
+								</template>
+								<template is="dom-if" if="{{_singleSelect(selectMode)}}">
+									<maximo-radiobutton id="selectRow" group-id="{{id}}" class="selectRow"></maximo-radiobutton>
+								</template>
+							</td>
+							<template is="dom-repeat" id="columnList" items="{{_childColumns}}" as="column" index-as="columnIndex">
+								<td id="{{_getCellId(column,record)}}" colspan$="{{_getColSpan(column)}}" class$="{{_actionClass(column)}}"></td>{{_addCellChildren(column, record, recordIndex)}}
+							</template>
+						</tr>
+<!-- Begin Table Data Row -->
+<!-- Begin Table Details Row -->	
+<!--					
+						<template is="dom-if" if="{{_hasDetails()}}">
+							<tr class="detailRow" on-mouseenter="_highlight" on-mouseleave="_highlight" detail-row-index$="{{recordIndex}}">
+								<td class="detailCell" colspan$="{{_getColumnLength()}}"></td>
+							</tr>
+						</template>
+-->
+<!-- End Table Details Row -->
+					</template>
+					<template is="dom-if" if="{{_loading}}">
+						<tr>
+							<td colspan="100" id="loading" class="info">
+								{{localize('uitext','mxapibase','Loading')}}
+							</td>
+						</tr>
+					</template>
+					<template is="dom-if" if="{{_noRecords}}">
+						<tr>
+							<td colspan="100" id="norecords" class="info">
+								{{localize('uitext','mxapibase','NoRecords')}}
+							</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+		</div>
+	</template>
+	
+	<script src="maximo-table-editable.js"></script>
+
+</dom-module>

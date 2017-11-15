@@ -1,0 +1,367 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-workscape-css">
+	<template>
+    	<style>
+			.workscape {
+				height: 100%;
+				width: 100%;
+				clear: both; 
+				border-collapse: collapse;
+			}
+			.headerRow {
+				height: 50px;
+				max-height: 50px;
+			}
+			.headerbar, .footer {
+				z-index: 2000;
+			}
+			
+			header {
+			    width: 100%;
+			    background: var(--Primary-blue80);
+			    position: fixed;
+			    top: 0;
+			    height: 50px;
+			    font-family: "HelveticaNeue-Thin";
+				display: flex;
+    			align-items: center;
+    			justify-content: center;
+			}
+			
+			header > div {
+				margin: 0px;
+    			width: 100%;
+			}
+			
+			.customHeaderContent {
+				text-align: right;
+				display: inline-block !important;
+			}
+			
+			.customHeaderContent.rtl {
+				text-align: left;
+				display: inline-block !important;
+			}
+			
+			header, header * {
+				color: var(--Primary-white) !important;
+			}
+			
+			.content {
+			    padding-top: 50px;
+			    padding-bottom: 30px;
+			    vertical-align: top;
+				background: var(--Primary-white);
+			}
+			
+			.fixedpanel {
+			/* removed 
+				position: fixed; */	
+			}
+			
+			.content.div {
+				height:100%;
+				width: 100%;
+				display:table;
+			}
+			.footer {
+			    width: 100%;
+			    height: 30px;
+				max-height: 30px;
+			    bottom: 0px;
+			    position: fixed;
+			}
+
+			.footerToolbar {
+				width: 100%;
+				height: 43px;
+				max-height: 43px;
+		    	box-shadow: inset 0px 1px 1px #999;
+		    	background: #fff;
+				text-align: center;
+			}
+			
+			.footerToolbar maximo-button ::content button {
+				margin: 9px 15px 0px 15px !important;
+				font-size: 129%;
+			}
+			
+			.footerToolbar:empty {
+			    display: none;
+			}
+			
+			.footerBg {
+			    background: var(--Primary-blue80);
+				color: #fff;
+				display: inline-block;
+				width: 100%;
+				height: 30px;
+			}
+
+			.photo {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				-webkit-backface-visibility: hidden;
+				border: 1px solid #999;
+    			right: 10px;
+    			margin-top: 8px;
+				box-shadow: 1px 1px 4px #999;
+			}
+			.name, .label {
+				margin: 0px 10px;
+				display: inline-block;
+				font-weight: bold;
+			}
+			.label {
+				font-size: 120%;
+				letter-spacing: .5px;
+				line-height: 50px;
+				font-family: 'HelveticaNeue-Light' !important;
+			}
+			
+			.west .label{
+				font-size: 129%
+			}
+						
+			.name { 
+				font-family: 'HelveticaNeue-Light-Italic' !important;
+				font-size: 90%;
+    			right: 60px;
+    			top: 25px;
+    			white-space: nowrap;
+			}
+			
+			.footer .west { 
+				display: none;
+			}
+			
+			.west {
+				float: left;
+			}
+			
+			.east {
+				float: right;
+				margin: 0px 5px;
+			}
+			.west.rtl {
+				float: right;
+			}
+			.east.rtl {
+				float: left;
+			}
+			.west, .east, .west > div, .east > div, .title, .title > div {
+			    display: flex;
+	    		align-items: center;
+	    		height: 100%;
+	    		flex-grow: 1;
+			}
+			
+			.customHeaderContent > div {
+				display: inline-block;
+			}
+			
+			.title.div {
+			    font-family: 'HelveticaNeue-Thin' !important;
+    			font-size: 100%;
+			}
+			
+			.title > div {
+				white-space: nowrap;
+			}
+			
+			.user {
+				margin: 0px;
+				max-width: 45px;
+			}
+			
+			.maximo {
+				font-family: "HelveticaNeue-Bold" !important;
+				margin: 0px 5px;
+				font-size: 100%;
+				white-space: nowrap;
+			}
+
+			@media (min-width: 0px) and (max-width: 700px) {
+				.west .label {
+					max-width: 200px;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
+					display: inline-block;
+    				line-height: 50px;
+				}
+				
+				.user, .user .span * {
+					margin: 0px !important;
+				}
+								
+				.userimage {
+					display: none;
+				}
+				
+				.signout {
+					margin: 0px 5px !important;
+				}
+								
+				.footer .west {
+					display: inline !important;
+					line-height: 30px !important;
+					color: #fff !important;
+				}
+
+				.footer .west .label, .footer .west .maximo {
+					line-height: 30px !important;
+					color: #fff !important;
+				}
+				
+				.headerbar .west {
+					width: 32px;
+				}
+				
+				.headerbar .west > div {
+					display: none !important;
+				}
+				
+				.title {
+					left: 0px;
+			    	position: absolute;
+				}
+				
+			}
+			
+			.signout {
+				cursor: pointer;
+    			margin: 0px 8px;
+    			padding: 2px;
+    			transform: scale(1.2);
+			}
+			
+			.signout.rtl {
+				margin: 0px 20px 0px 0px;			
+			}
+			
+			iron-icon.signout ::content svg.rtl {
+				transform: scaleX(-1.2);
+			}
+			
+			.signout:hover {
+				color: var(--Primary-blue10);
+				fill: var(--Primary-blue10);
+				border-color: var(--Primary-blue10);
+			}
+			
+			.alertDialog {
+				background: var(--Primary-white);
+			}
+			
+			.alertMessageCell {
+				padding: 0px 0px 0px 15px;
+			}
+			
+			.alertMessageCell.rtl {
+				padding: 0px 15px 0px 0px;
+			}
+			
+			
+			.about { 
+				float: right;
+				margin: 0px 10px;
+				vertical-align: middle;
+    			line-height: 30px
+			}
+			
+			.about.rtl {
+				float: left; 
+			}
+			
+			.carouselController {
+				position: fixed;
+				bottom: 30px;
+				background: var(--Primary-white);
+				border-top: 1px solid var(--Cool-gray30);
+				width: 100%;
+			}
+			
+			.carouselController table {
+				width: 100%;
+			}
+			
+			.carouselController td {
+				padding: 0px 10px;
+			}
+			
+			.carouselController .dots {
+				width: 100%;
+				text-align: center;
+			}
+			
+			.carouselController .dots ul{
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.carouselController .dots ul .dot {
+				--iron-icon-height: 16px;
+    			--iron-icon-width: 16px;
+			}
+			
+			.carouselController .arrow {
+				--iron-icon-height: 64px;
+    			--iron-icon-width: 64px;
+    			fill: var(--Cool-gray30);
+			}
+	
+			.carouselController .arrow.rtl {
+				transform: rotate(180deg);
+			}
+		
+			.carouselController .arrow.touch {
+					
+			}
+			
+			.carouselController .arrow:hover {
+				fill: var(--Primary-blue10);
+			}
+
+			.dot {
+				background: var(--Cool-gray30);
+				border: 1px solid var(--Cool-gray30);
+			    display: inline-block;
+			    padding: 5px;
+			    margin: 5px;
+			    border-radius: 50%;
+			    transition: all .75s
+			}
+			
+			.dot.current {
+				background: var(--Primary-blue10);
+			}
+			
+			.carousel:before, .carousel:after {
+    			content: ' ';
+    			clear: both;
+    			display: table;
+    			height: 0;
+    			visibility: hidden;
+    		}
+			
+			.carousel{
+				position: relative;
+				left: 0px;
+				transition: left .5s;
+				background: var(--Primary-gray10); 
+			}
+			
+			.userimage ::content iron-icon {
+				fill: #fff;
+			}
+			
+		</style>
+	</template>
+</dom-module>

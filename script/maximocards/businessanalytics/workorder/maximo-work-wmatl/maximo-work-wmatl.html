@@ -1,0 +1,38 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+      
+<dom-module id="maximo-work-wmatl">
+
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-work-wmatl-css.html">
+	<style is="custom-style" include="maximo-work-wmatl-css"></style>
+	
+  <template>
+	<maximo-collection 			
+		    id="wodata" 
+			attribute-names="*"
+			collection-data="{{woData}}"
+			debounce-duration="600"
+			object-name="MXAPIWO" 
+			selected-query-name="uxwmatl"
+			group-by-attribute-names="worktype,count.*"
+			group-by-data="{{groupByData}}"
+			search-attribute-names="wopriority"
+			search-term-value="{{searchTerms}}"		
+			use-search-terms="true"
+			on-groupby-data-refreshed="_handleGroupByDataRefreshed"
+			on-record-data-refreshed="_handleWoDataRefreshed">
+	</maximo-collection>
+	<maximo-chart id="chart" frameclass="cardborder" charttype="piechart" allowedtypes="barchart,linechart,piechart" chartoptions="{{chartoptions}}" fulltitle="{{localize('uitext', 'mxapiwo', 'WaitingonMaterialWorkQuantity')}}" values="{{chartdata}}" labels="{{labels}}" width="540" height="170" hovertemplates="{{hovertemplates}}" abouttext="{{localize('uitext', 'mxapiwo', 'workMatAbout')}}"></maximo-chart>	
+  </template>
+  <script src="maximo-work-wmatl.js"></script>
+</dom-module>

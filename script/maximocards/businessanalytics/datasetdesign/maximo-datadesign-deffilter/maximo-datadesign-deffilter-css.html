@@ -1,0 +1,64 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-datadesign-deffilter-css">
+	<template>
+    	<style>
+			.outer > div {
+				display: inline-block;
+				vertical-align: top;
+			}
+			
+			.outer maximo-label:not(.queryDesc):not(.whereDesc) ::content > label {
+				font-size: 129%;
+				font-family: 'HelveticaNeue-Thin';
+			}
+			
+			.outer maximo-label.queryDesc ::content > label , .outer maximo-label.whereDesc ::content > label {
+				margin-bottom: 5px;
+			}
+			
+			maximo-searchbar ::content .wrapper, maximo-searchbar ::content .wrapper {
+				padding: 5px 0px;
+			}
+			
+			.outer > div:first-of-type {
+				margin: 0px 10px 0px 0px;
+			}
+			
+			.clauseColumn {
+				margin: -3px 0px 0px 0px;
+			}
+	
+			.buttons {
+				margin-top: 20px;
+				text-align: center;
+				max-width: 1100px;
+				padding: 20px;
+				display: block !important;
+			}
+
+    		.buttons > maximo-button ::content button {
+				margin: 0px 20px;
+    			padding: 0px 10px 0px 20px;
+    			font-size: 129%;
+			}
+    		
+    		.nextbutton ::content iron-icon {
+    			margin: 0px !important;
+    		}
+			
+    		.clauseColumn maximo-radiobuttongroup ::content .wrapper {
+    			margin: 0px;
+    		}
+    		
+    		maximo-textarea.fade ::content textarea {
+    			color: var(--Primary-gray30); 
+    		}
+    		
+		</style>
+	</template>
+</dom-module>

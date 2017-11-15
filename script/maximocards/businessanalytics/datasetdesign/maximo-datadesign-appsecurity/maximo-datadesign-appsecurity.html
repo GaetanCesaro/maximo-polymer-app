@@ -1,0 +1,47 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->     
+<dom-module id="maximo-datadesign-appsecurity">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-datadesign-appsecurity-css.html">
+	<style is="custom-style" include="maximo-datadesign-appsecurity-css"></style>		
+  <template>
+  <!-- TODO Need collection to go to maximo-->
+	<maximo-collection 
+		id="securitycollection" 
+		collection-data="{{availableRoles}}"
+		search-attribute-names="description"
+		test-url="script/maximocards/businessanalytics/datasetdesign/maximo-datadesign-appsecurity/demo/roles.json"
+		on-record-data-refreshed="_handleRecordDataRefreshed" >
+	</maximo-collection>
+	<div class="outer" style="padding: 0px 20px">
+		<div>
+			<maximo-label label="{{localize('uitext','mxapiwosdataset','available_analytic_roles')}}" block="true"></maximo-label>
+			<maximo-searchbar id="availrolessearch" collection="{{getLocalObject('securitycollection')}}" placeholder="{{localize('uitext','mxapiwosdataset','search_analytic_roles')}}"></maximo-searchbar>
+			<maximo-datalist id="roledatalist" class="roledatalist" display-attributes="description" drag-target="{{getLocalObject('chosenroleslist')}}" items="{{availableRoles}}" multi-select></maximo-datalist>
+		</div>
+		<div class="add">
+			<maximo-button id="addRolesButton" label="{{localize('uitext','mxapiwosdataset','add')}}" on-tap="_moveSelected" ></maximo-button>
+			<maximo-label id="addButtonCommentRoles" label="{{localize('uitext','mxapiwosdataset','single_or_multiple')}}" block="true"></maximo-label>
+		</div>
+		<div>
+			<maximo-label label="{{localize('uitext','mxapiwosdataset','selected_analytic_roles')}}" block="true"></maximo-label>
+			<maximo-searchbar id="selectedrolessearch" placeholder="{{localize('uitext','mxapiwosdataset','search_analytic_roles')}}"></maximo-searchbar>
+			<maximo-datalist id="chosenroleslist" display-attributes="description" items="{{chosenAnalyticRoles}}" add-event="addRoles" remove-event="removeRoles" drop-source="{{getLocalObject('roledatalist')}}"></maximo-datalist>
+		</div>
+	    <div class="buttons">
+			<maximo-button id="gobackroles" action label="{{localize('uitext','mxapiwosdataset','define_filters')}}" on-tap="_goback" icon="chevron-left"></maximo-button>
+			<maximo-button id="saveroles" action label="{{localize('uitext','mxapibase','save')}}" on-tap="_gonext" easticon="chevron-right"></maximo-button>
+		</div>
+	</div>
+  </template>
+  <script src="maximo-datadesign-appsecurity.js"></script>
+</dom-module>

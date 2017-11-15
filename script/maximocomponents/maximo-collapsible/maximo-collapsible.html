@@ -1,0 +1,42 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!--
+`<maximo-data-page>` element. Can be placed within a panel and will allow paging through data set.
+
+Example:
+
+    <maximo-data-page></maximo-data-page>
+
+-->
+<dom-module id="maximo-collapsible">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-collapsible-css.html">
+	<style is="custom-style" include="maximo-collapsible-css"></style>
+	
+	<template>
+		<div id="collapsible" class="collapsible">
+			<content></content>
+		</div>
+		<div id="fadeout" hidden$="{{!displayShowMore}}" class="fadeout" style="display:block"></div>
+		<div id="collapse_div_button" class="flex-equal-justified" >
+			<div>
+			<maximo-button id="collapse" hidden$="{{!displayShowMore}}" action="true" on-tap="toggleState"  label="{{label}}" class="toggleLabel"></maximo-button>
+			</div>
+			<div>
+			<maximo-button id="action_button" hidden$="{{!showActionButton}}" action="true" on-tap="fireAction" label="{{actionLabel}}" icon="{{actionIcon}}"></maximo-button>
+			</div>
+		</div>
+	</template>
+	
+	<script src="maximo-collapsible.js"></script>
+	
+</dom-module>

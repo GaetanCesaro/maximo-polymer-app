@@ -1,0 +1,27 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->  
+<dom-module id="maximo-field">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-field-css.html">
+	<style is="custom-style" include="maximo-field-css"></style>
+	
+	<template>
+		<div id="wrapper">
+			<maximo-label id="label" class="staticlabel" label="{{label}}:" ></maximo-label>
+			<maximo-label id="datalabel" hidden$="{{hideData}}" class="dynamiclabel" label="{{datalabel}}" ellipsis-size={{ellipsisSize}}></maximo-label>
+			<content></content>
+		</div>
+	</template>
+
+	<script src="maximo-field.js"></script>
+
+</dom-module>

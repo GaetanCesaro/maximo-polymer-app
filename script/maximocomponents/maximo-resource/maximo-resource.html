@@ -1,0 +1,160 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../maximo-authcontext/maximo-authcontext.html">
+
+<!--
+Use the maximo-resource component when an application has a need to fetch more details or 
+manipulate a record related to an Object Structure. 
+For example, update a record, delete a record or perform an action etc.
+-->
+
+
+<dom-module id="maximo-resource">
+  <template>
+		<iron-ajax
+			id="mxajaxFetchRecords"
+		    handle-as="json"
+		    on-response="_processFetchRecordsResponse"
+		    on-error="_processFetchRecordsResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxUpdateRecord"
+		    handle-as="json"
+		    on-response="_processUpdateRecordResponse"
+		    on-error="_processUpdateRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxUpdateActionRecord"
+		    handle-as="json"
+		    on-response="_processUpdateActionRecordResponse"
+		    on-error="_processUpdateActionRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxGetActionRecord"
+		    handle-as="json"
+		    on-response="_processGetActionRecordResponse"
+		    on-error="_processGetActionRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxBookmarkRecord"
+		    handle-as="json"
+		    on-response="_processBookmarkRecordResponse"
+		    on-error="_processBookmarkRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxAddImageRecord"
+		    handle-as="json"
+		    on-response="_processAddImageRecordResponse"
+		    on-error="_processAddImageRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxSubscribeEventRecord"
+		    handle-as="json"
+		    on-response="_processSubscribeEventRecordResponse"
+		    on-error="_processSubscribeEventRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxUnSubscribeEventRecord"
+		    handle-as="json"
+		    on-response="_processUnSubscribeEventRecordResponse"
+		    on-error="_processUnSubscribeEventRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxAllEventsForRecord"
+		    handle-as="json"
+		    on-response="_processAllEventsForRecordResponse"
+		    on-error="_processAllEventsForRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxAllNotificationsForRecord"
+		    handle-as="json"
+		    on-response="_processAllNotificationsForRecordResponse"
+		    on-error="_processAllNotificationsForRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxSubmitSession"
+		    handle-as="json"
+		    on-response="_submitSessionSuccessResponse"
+		    on-error="_processResourceError" 
+		    with-credentials></iron-ajax>	
+		<iron-ajax
+			id="mxajaxSetResourceValues"
+		    handle-as="json"
+		    on-response="_processSetResourceValuesResponse"
+		    on-error="_processResourceError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxSetAndSubmitSession"
+		    handle-as="json"
+		    on-response="_setAndsubmitSessionSuccessResponse"
+		    on-error="_processResourceError" 
+		    with-credentials></iron-ajax>				
+		<iron-ajax
+			id="mxajaxGetResource"
+		    handle-as="json"
+		    on-response="_processGetResourceResponse"
+		    on-error="_processError" 
+		    with-credentials></iron-ajax>			
+		<iron-ajax
+			id="mxajaxRemoveBookmarkRecord"
+		    handle-as="json"
+		    on-response="_processRemoveBookmarkRecordResponse"
+		    on-error="_processRemoveBookmarkRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxDeleteRecord"
+		    handle-as="json"
+		    on-response="_processDeleteRecordResponse"
+		    on-error="_processDeleteRecordResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxCreateAttachmentRecord"
+		    handle-as="json"
+		    on-last-progress-changed="_processCreateAttachmentProgress"
+		    on-response="_processCreateAttachmentResponse"
+		    on-error="_processCreateAttachmentResponseError" 
+		    with-credentials></iron-ajax>
+ 		<iron-ajax
+			id="mxajaxDeleteAttachmentRecord"
+		    handle-as="json"
+		    on-response="_processDeleteAttachmentResponse"
+		    on-error="_processDeleteAttachmentResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxCreateAttachmentToMemoryRecord"
+		    handle-as="json"
+		    on-last-progress-changed="_processCreateAttachmentToMemoryProgress"
+		    on-response="_processCreateAttachmentToMemoryResponse"
+		    on-error="_processCreateAttachmentToMemoryResponseError" 
+		    with-credentials></iron-ajax>
+ 		<iron-ajax
+			id="mxajaxDeleteAttachmentFromMemoryRecord"
+		    handle-as="json"
+		    on-response="_processDeleteAttachmentFromMemoryResponse"
+		    on-error="_processDeleteAttachmentFromMemoryResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxSnoozeEventRecord"
+			handle-as="json"
+			on-response="_processSnoozeEventRecordResponse"
+			on-error="_processSnoozeEventRecordResponseError" 
+			with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxGetURLType"
+			handle-as="json"></iron-ajax>
+		<iron-ajax
+			id="mxajaxDuplicateRecord"
+		    handle-as="json"
+		    on-response="_processDuplicateRecordResponse"
+		    on-error="_processDuplicateRecordResponseError" 
+		    with-credentials></iron-ajax>			
+
+    <maximo-authcontext id="myauthenticator"></maximo-authcontext>
+  </template>
+  <script src="maximo-resource.js"></script>
+</dom-module>

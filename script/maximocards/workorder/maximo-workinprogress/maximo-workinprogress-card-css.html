@@ -1,0 +1,82 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-workinprogress-card-css">
+	<template>
+    	<style>
+			.wipdescription ::content label,
+			.wiplaborlabel ::content label {
+				font-size: 93.3%;
+				
+			}
+			.wippriority {
+				font-color: var(--Alert-red);
+			}
+		 	.container {
+		      @apply(--layout-horizontal);
+		      @apply(--layout-justified);
+		    }	
+		    .container > div {
+				display: inline-block;
+			}
+
+			.flex-container {
+			    display: flex;
+			    flex-direction: row;
+			    flex-wrap: nowrap;
+			    justify-content: flex-end;
+			    align-content: flex-start;
+			    align-items: center;
+		    }
+			
+			.wiptypeclass ::content label, 
+			.wipnumclass ::content label,
+			.wippriorityclass ::content label {
+				font-size: 1.286em;
+				font-family: HelveticaNeue-Light;
+			}
+			
+			.wiplaborlabel {
+				white-space: nowrap;
+			}
+			
+			.wipchild1 {
+			    order: 0;
+			    flex: 0 1 auto;
+			    align-self: auto;
+		    }
+			
+			.wipchild2 {
+			    @apply(--layout-self-center);
+			    margin: 0px 5px;
+				font-family: HelveticaNeue-Italic;
+		    }
+			
+			.wipchild3 {
+			    order: 0;
+			    flex: 0 0 auto;
+			    align-self: auto;
+		    }
+		    
+		    .floater {
+		    	float: right;
+		    	padding: 0px 0px 10px 10px;
+		    	text-align: center;
+		    }
+		    
+		    .hiddensection ::content > div{
+		    	margin: 0px;
+		    	padding-left: 10px;
+		    	padding-right: 10px;
+		    }
+		    
+		    .regular {
+		    	font-family: HelveticaNeue;
+		    }
+		    
+		</style>
+	</template>
+</dom-module>

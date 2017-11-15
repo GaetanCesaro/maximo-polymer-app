@@ -1,0 +1,102 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-chartheader-css">
+	<template>
+    	<style>
+    		.section{
+    			display: inline-block;
+    			width: 100%;
+    			overflow: hidden;
+    		}
+    		
+    		.section[block]{
+    			display: block;
+    		}
+    		
+    		div.section[data-layout='full'] > ::content div {
+    			display: inline-block;
+    		}
+    		
+    		.header {
+		    	background-color:var(--Neutral-gray2);
+		    } 
+		    
+		    .header > label
+		    {
+	    		color: #3c4646;   			
+    			padding-left: 3px;
+    			font-size: 150%;
+		    }
+		    
+		    .icons {
+		    	transition: all .3s;
+		    }
+		    
+		    .more {
+		    	transition: all .3s;
+		    }
+		    
+		    .vert {
+		    	transform: rotate(90deg)
+		    }
+		    .chhdrtbl {
+		    	width:100%;
+		    	padding-left:10px;
+		    	margin:0px;
+		    	background-color:var(--Neutral-gray2);
+		    }
+		    .chhdrtbl td {
+		    	height: 30px;
+		    	padding: 0px;
+		    }
+		    .chhdrtbl td div {
+		    	height: 24px;
+		    }
+		    
+		    .labelsection {
+		    	float: left;
+		    }
+		    
+			.labelsection.rtl {
+		    	float: right;
+		    }
+		    
+		    .labelsection ::content label {
+		    	font-family :"HelveticaNeue-Light"
+		    }
+
+		    .iconsection {
+		    	display: none;
+		    	float: right;
+		    }
+		    
+		    .iconsection.rtl {
+		    	float: left;
+		    }
+		    
+		    
+		    
+		    iron-icon {
+		    	transition: all .3s;
+		    	fill: var(--Primary-gray50);
+		    }
+		    
+		    iron-icon:hover {
+		    	fill: var(--Primary-blue50);
+		    }
+		    
+		    .menuicon.rotate {
+		    	transform: rotate(90deg);
+		    }
+		    
+		    .menuicon.rotate.rtl {
+		    	transform: rotate(-90deg);
+		    }
+		    
+		    </style>
+	</template>
+</dom-module>

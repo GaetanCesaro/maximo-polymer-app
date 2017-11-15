@@ -1,0 +1,353 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-ongoingrequests-card-css">
+	<template>
+    	<style>
+		 	.container {
+		      @apply(--layout-horizontal);
+		      @apply(--layout-justified);
+		    }	
+		     .flex-horizontal {
+			    @apply(--layout-horizontal);
+			  }
+			  .flexchild {
+			    @apply(--layout-flex);
+			  }
+			  .flex1child {
+			    @apply(--layout-flex-1);
+			    width : 150px;
+			    text-align : right;
+			  }
+			  .flex5child {
+			    @apply(--layout-flex-5);
+			    
+			  }
+			  .flex-center-justified {
+			  	align-self:center;
+			    @apply(--layout-horizontal);
+			    @apply(--layout-center-justified);
+			  }	
+			  .flex-center-align {
+				    @apply(--layout-horizontal);
+				    @apply(--layout-center);
+				 
+				}	  
+			
+			   hr {
+		    		margin: 0px;
+		   		 }
+		   
+			.srticketidclass ::content label,
+			.srpriorityclass ::content label {
+				font-size: 18px;
+				color : #464646;
+				font-family: HelveticaNeue;
+				
+			}
+			.srreportdate ::content label{
+				font-size : 14px;
+				font-family: HelveticaNeue;
+				color:#010101;
+				text-align:right;
+			}
+			.srstatusclass ::content label {
+				font-size: 22px;
+				font-family: HelveticaNeue;
+				color: #5AAAFA;
+			
+			}
+			.overlay{
+				background: #FFFFFF;
+				opacity: 0.93;
+				position : absolute;
+				z-index:1;
+			}
+			.overlayChild{
+				position : relative;
+				padding-right : 28px;
+				padding-left : 28px;
+				top:50%;
+				transform: translateY(-50%);
+			} 
+			.overlayMessage::content label{
+				font-size:22px;
+			}
+			div.cardheader{
+				height: 38px;
+				
+				padding-right:10px;
+				padding-top:0px;
+				padding-bottom:0px;
+				text-align:center;
+				display : flex;
+			}
+			div.cardborder{
+				margin-left: 0px;
+				margin-right: 0px;
+				margin-bottom:10px;
+				position : relative;
+			}
+			div.cardContainer{
+				width:100%;
+				height:100%:
+			}
+			.srdescriptionclass ::content label{
+				font-size: 18px;
+				color: #000000;
+				
+			}
+			.srdueclass{
+				font-size:14px;
+				color:#000000;
+			} 
+			.srLocationDiv{
+				padding-top: 4px;
+			}
+			.srdueclass::content div{
+				margin-bottom:0px;
+			}
+			.srDescktopDueClass::content div{
+				margin-bottom:0px;
+			}
+			.srDesktopDueClass {
+				
+			}
+			.srDesktopDueClass::content label{
+				font-size : 18px;
+			}
+			.srlocationclass{
+				font-size:14px;
+				color:#000000;
+			}
+			.srLocationDiv{
+				
+			}
+			.srlocationclass::content div{
+				margin-bottom : 0px;
+			}
+			.srdescriptionclass {
+				text-align: left;
+			}
+			.bottomcardcontainer ::content label {
+				font-size: 14px;
+				font-family: HelveticaNeue;
+				color: #959595;
+			}
+			.buttonInsideOverlay::content label{
+				color:#5696e2;
+				font-size:20px;
+				cursor:pointer;
+			}
+			.buttonDivInsideOverlay{
+				padding-top:10px;
+				cursor:pointer;
+				width:100px;
+			}
+			 .buttonIconInsideOverlay{
+			 	margin-bottom:6px;
+			 	padding-left:10px;
+			 	cursor:pointer;
+			 } 
+			 .priorityIcon{
+			  	width:22px;
+			  	height:19px;
+			  	fill:#d74108;
+			  
+			  	padding-left:5px;
+			  	position : inherit;
+			  }
+			  .divleftButtons{
+			  	  height: 100%;
+				  padding: 5px 0px 4px 0px;
+			  }
+			  .divrightButtons{
+			  	height : 100%;
+			  	padding: 5px 0px 4px 0px;
+			  }
+			.showmapLabel::content label{
+				color: #5696e2;
+			}
+			.showmapIcon{
+				fill: #5696e2;
+				width: 15px;
+				height : 15px;
+			}
+			.ownerLabel::content label{		
+				font-family:HelveticaNeue-Italic;
+				font-size:14px;
+				color:#000000;
+				letter-spacing:0px;
+				text-align:left;
+			}
+			.attachmentIcon{
+				fill : #5696e2;
+				width:18px;
+				height:17px;
+			}
+			.commentIcon{
+				width:19px;
+				height:19px;
+			}
+			.showmapDiv{
+				display : none;
+			}
+		
+	    		.card {
+    			
+				outline-offset: -2px;
+				outline: 2px solid transparent;
+    		}
+    		
+/*     		.maximo-comments-card {
+				position:absolute ;
+				padding:0px;
+				background: #f9f9f9;
+				left: 0px;
+				width: 100%;
+				height: calc(100% - 37px);
+				border: none;
+				z-index: 1001;
+				margin: 0;
+    		} */
+	
+			.comments-card {
+				position:absolute ;	
+				padding:0px;
+				background: #ffffff;	
+				left: 0px;
+				width: 100%;
+				height: calc(100% - 50px);		/* 100% - headerbar */
+				border: none;
+				z-index: 1001;
+				margin: 0;
+			}
+			.attachment-card{
+				position:absolute ;
+				padding:0px;
+				background: #ffffff;
+				left: 0px;
+				width: 100%;
+				height: calc(100% - 50px);
+				border: none;
+				z-index: 1001;
+				margin: 0;
+			}
+			.details-card{
+				position:absolute ;
+				padding:0px;
+				background: #ffffff;
+				left: 0px;
+				width: 100%;
+				height: calc(100% - 50px);
+				border: none;
+				z-index: 1001;
+				margin: 0;
+			}
+			.ongoingsr::content .panelInternal {
+				background: var(--Primary-blue50);
+			}
+			.historysr.ongoingsr::content .panelInternal {
+					height : calc(100% - 89px);   /* title = 87px on desktop */
+			}
+			@media only screen and (min-device-width: 700px){
+				.ongoingsr ::content .panelHeader {
+					background-color: #ffffff;
+				    border-bottom: 1px solid #4178be;
+				    width: 100%;
+				    padding: 8px 12px;
+				}
+				.ongoingsr ::content .panelInternal {
+				 	padding: 20px 48px 0px 20px;
+				}
+				.ongoingsr ::content .panelTitle{
+					padding-left : 0px;
+				}	
+	 			.ongoingsr::content .panelInternal {
+					height : calc(100% - 46px);   /* title = 46px on desktop */
+				}
+				.historysr.ongoingsr::content .panelInternal {
+					height : calc(100% - 87px);   /* title = 87px on desktop */
+				}
+								
+			}
+			.viewSRDataList {
+				margin-bottom:20px;
+			}
+			
+			.cardDesktop {
+				@apply(--layout-horizontal);
+      			@apply(--layout-wrap);
+			}
+			
+			.cardDesktop maximo-sr-card {
+				--card-width: 350px;
+				margin-right: 20px;
+			}
+			
+			.viewSRDataListLabel ::content label {
+				font-family:HelveticaNeue-Light;
+				font-size:18px;
+				color:#ffffff;
+				letter-spacing:0px;
+				text-align:left;
+			},
+			
+			.viewSRDataListDiv {
+				border-bottom: 1px solid #325c80;
+				padding-bottom:5px;
+				margin-bottom:10px;
+			}
+			
+			.noSectionIcon {
+				width: 60px;
+				height: inherit;
+				color: var(--Neutral-gray10);
+				fill: var(--Neutral-gray10);
+				margin: 20px 0px 10px 0px;
+			}
+
+			.noSectionText {
+				font-family:HelveticaNeue-Light;
+				color: var(--Primary-white);
+				margin: 0px 0px 20px 0px;
+				font-size: 129%;
+			}
+			
+			.norecordcontainer {
+			    top: 0px;
+			    left: 0px;
+			    bottom: 0px;
+			    right: 0px;
+			    width: 100%;
+			    height: 100%;
+			    overflow-y: hidden;
+			    overflow-x: hidden;
+			
+			}
+			
+			.norecordchildposition{
+			    width: 100%;
+			    height: 100%;
+			    display: -webkit-box;
+			    display: -moz-box;
+			    display: -ms-flexbox;
+			    display: -webkit-flex;
+			    display: flex;
+			    -webkit-box-pack: center;
+			    -moz-box-pack: center;
+			    -ms-flex-pack: center;
+			    -webkit-justify-content: center;
+			    justify-content: center;
+			    -webkit-box-align: center;
+			    -moz-box-align: center;
+			    -ms-flex-align: center;
+			    -webkit-align-items: center;
+			    align-items: center;
+			}
+ 		</style>
+	</template>
+</dom-module>

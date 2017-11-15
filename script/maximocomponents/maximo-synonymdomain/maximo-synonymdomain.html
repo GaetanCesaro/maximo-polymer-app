@@ -1,0 +1,23 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../maximo-authcontext/maximo-authcontext.html">
+
+<dom-module id="maximo-synonymdomain">
+  <template>
+	<iron-ajax
+		id="mxajaxSynonymDomain"
+	    handle-as="json"
+	    on-response="_processSynonymDomainResponse"
+	    on-error="_processSynonymDomainResponseError" 
+	    with-credentials></iron-ajax>
+    <maximo-authcontext id="myauthenticator"></maximo-authcontext>
+  </template>
+  
+  <script src="maximo-synonymdomain.js"></script>
+  
+</dom-module>

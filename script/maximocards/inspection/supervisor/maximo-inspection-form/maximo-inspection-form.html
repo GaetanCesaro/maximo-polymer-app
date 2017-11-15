@@ -1,0 +1,127 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-inspection-form">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspection-form-css.html">
+	<style is="custom-style" include="maximo-inspection-form-css"></style>		
+	<template id="formTemplate">
+	
+		<maximo-resource id="questionResource" 
+			resource-uri="[[questionHref]]" 
+			on-record-duplicated="_handleRecordDuplicatedSuccess">
+		</maximo-resource>
+
+		<div id="mainPage" class="mainPage">
+
+			<div class="header">
+				<div>
+					<maximo-text id="formName" class="inlineInput" width="500px" label="{{localize('uitext', 'mxapibase','name')}}" 
+						placeholder="{{localize('uitext', 'mxapiinspection','enter_new_form_name')}}"
+						required value="{{formName}}"></maximo-text>
+				</div>
+				<div class="layout horizontal center margin">
+					<maximo-button id="instructions" icon="Maximo:Edit" label="{{localize('uitext','mxapiinspection','form_instructions')}}" on-tap="editFormInstructions" action></maximo-button>
+					<!-- maximo-checkbox id="checkbox" label="[[state.description]]" checked="{{booleanState}}" slider></maximo-checkbox-->
+					<maximo-field id="field" class="revField" label="{{localize('uitext', 'mxapiinspection','status')}}" datalabel="{{status}}"></maximo-field>
+					<maximo-field id="field" class="revField" label="{{localize('uitext', 'mxapiinspection','revision_1')}}" datalabel="[[showRevision(revisionNumber)]]"></maximo-field>
+				</div>
+			</div>
+			
+			<div id="pageDivCollapseSection" class="pageDiv">
+				<maximo-section id="inspectionformcollapse" class="instructionCollapse" collapsed="true">
+					<div class="instructionInput">
+						<maximo-richtexteditor id="instructionsRichtext" textareauniqueid="textareaInstructions" width="100%" placeholder="{{localize('uitext','mxapiinspection','form_instruction_placeholder')}}"></maximo-richtexteditor>
+						<maximo-footer id="footer" centered>
+		 					<maximo-button id="instructionCancel" label="{{localize('uitext','mxapibase','Cancel')}}" on-tap="cancelInstructions"  action></maximo-button>
+		 					<maximo-button id="instructionClose" label="{{localize('uitext','mxapibase','save')}}" on-tap="editFormInstructions" default></maximo-button>
+						</maximo-footer>
+					</div>
+				</maximo-section>
+			</div>
+				
+			<div id="pageDiv" class="pageDivQuestions">
+				<div class="layout horizontal justified">
+					<maximo-label id="form_questions" label="{{localize('uitext','mxapiinspection','form_questions')}}" class="questionTitle"></maximo-label>
+					<div>
+						<maximo-button id="groupQuestions" label="{{localize('uitext','mxapiinspection','create_grouping')}}" on-tap="_groupQuestion" disabled="{{_disableCreateGroup}}" action></maximo-button>
+						<maximo-button id="newQuestion" icon="Maximo:Add-New" label="{{localize('uitext','mxapiinspection','add_question')}}" class="addButton" default on-tap="_newQuestion"></maximo-button>
+					</div>
+				</div>
+				
+				<div id="questiontablediv" class="outer questionsPanel">
+					<table id="questionTable" class="questionTable datalistItem"
+						drop-source="[[getLocalObject('questionTable')]]" bindevents="[[_bindContainerDropEvents()]]">
+						<thead>
+							<tr class="questionHeader">
+								<th class="colGroupCB">
+									<!-- <maximo-checkbox class="cbgroupall" on-tap="_groupCheckedAll"></maximo-checkbox> -->
+								</th>
+								<th class="colGroupSeq"><maximo-label id="number_header" label="{{localize('uitext','mxapiinspection','number')}}"></maximo-label></th>
+								<th width="26px"></th>
+								<th class="colDescription"><maximo-label id="description_header" label="{{localize('uitext','mxapiinspection','question')}}"></maximo-label></th>
+								<th class="colRequired"><maximo-label id="required_header" label="{{localize('uitext','mxapiinspection','is_required')}}"></maximo-label></th>
+								<th class="colActions"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<template is="dom-if" if="[[!hasQuestions]]">
+								<tr id="question_none"><td colspan="6">
+								<div class="noRecords">
+									<div class="icon">
+										<object data="images/bee-shadow-large.svg" type="image/svg+xml" style="padding-top: 20px;"></object>
+									</div>
+									<p>{{localize('uitext','mxapiinspection','create_form_question')}}</p>
+								</div>
+								</td></tr>
+							</template>
+							<template id="inspectionQuestionTemplate" is="dom-repeat" items="{{questions}}" as="formQuestion">
+								<tr id="question" index="[[index]]" class$="questionRow {{_groupClass(formQuestion, index)}} datalistItem" bindevents="[[_bindEvents(formQuestion)]]">
+									<td class="colGroupCB">
+										<maximo-checkbox id="cb" hidden$="{{formQuestion.groupid}}" class="cbgroup" on-tap="_groupChecked"></maximo-checkbox>
+									</td>
+									<td class="colGroupSeq">{{_formatSequence(formQuestion)}}</td>
+									<td width="26px">
+										<iron-icon id="displayDuplicate" class="questCopied" title="{{localize('uitext', 'mxapiinspection', 'copied')}}" icon="Maximo:Copy"  style$="{{_showDup(formQuestion, index)}}"></iron-icon>
+									</td>
+									<td class$="colDescription {{colorCheck(formQuestion)}}">
+										<maximo-text id="description" value="{{formQuestion.description}}" on-tap="checkContent" placeholder$="{{getPlaceholder(formQuestion)}}" on-input="enableButton" maxlength="250"></maximo-text>
+									</td>
+									<td class="colRequired">
+										<maximo-label id="rt" label="{{_getRequiredLabel(formQuestion)}}"></maximo-label>
+									</td>
+									<td class="colActions">
+										<maximo-button id="actionEdit" hidden$="{{_isGroupHeader(formQuestion)}}" action on-tap="editQuestion" title="{{localize('uitext', 'mxapibase', 'edit')}}" icon="Maximo:Edit" data-args="{{formQuestion}}"></maximo-button>
+										<maximo-button id="actionInfo" hidden$="{{!_isGroupHeader(formQuestion)}}" action on-tap="showInfo" title="{{localize('uitext', 'mxapibase', 'info')}}" icon="Maximo:Info" data-args="{{formQuestion}}"></maximo-button>
+										<maximo-button id="actionDelete" action on-tap="deleteQuestion" title="{{localize('uitext', 'mxapibase', 'Delete')}}" icon="Maximo:Trash" data-args="{{formQuestion}}"></maximo-button>
+										<maximo-button id="actionDuplicate" action on-tap="duplicateQuestion" title="{{localize('uitext', 'mxapibase', 'duplicate')}}" icon="Maximo:Copy" data-args="{{formQuestion}}"></maximo-button>
+									</td>
+								</tr>
+							</template>
+						</tbody>
+					</table>
+				</div>			
+				
+		   </div>
+		</div>
+		
+		<div id="questionModal" class="modal">
+			<div class="modal-content">
+				<!-- <span id="close" on-tap="_closeModal">&times;</span> -->
+				<maximo-inspection-question-builder id="questionBuilder" on-cancel-question-builder="_closeModal"></maximo-inspection-question-builder>
+			</div>
+		</div>
+		  
+	</template>
+	<script src="maximo-inspection-form.js"></script>
+
+</dom-module>

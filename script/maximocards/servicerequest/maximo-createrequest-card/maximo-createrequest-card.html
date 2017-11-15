@@ -1,0 +1,80 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<link rel="import" href="./maximo-submitsr-wizard/maximo-submitsr-wizard.html" />
+
+<dom-module id="maximo-createrequest-card">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-createrequest-card-css.html">
+	<style is="custom-style" include="maximo-createrequest-card-css"></style>		
+	<template>
+	<maximo-collection
+	        auto
+		    id="tkclasscollection" 
+			attribute-names="*"
+			debounce-duration="600"
+			collection-data="{{recordData}}"
+			query-info="{{queryInfo}}"
+			refresh-listeners='["tk"]'		
+			page-size="600"	
+			object-name="MXAPITKCLASS" 
+			selected-record="{{selectedRecord}}"
+			selected-query-name="SERVICEREQUESTTKCLASS"			
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			on-data-error="_handleDataError">					
+	</maximo-collection>
+	<maximo-submitsr-wizard id="submitWizard" class="submitWizard panel-slide" hidden on-close-wizard="_wizardClosed" on-sr-created="_srCreated"></maximo-submitsr-wizard>
+	<div class="main">
+		<div class="bannerRepeat">	
+			<div class="bannerContent">
+				<div class="bannerLabelWrapper">
+					<maximo-label class="bannerLabel" label="{{localize('uitext', 'mxapisr', 'CatBannerTitle')}}"></maximo-label>
+				</div>
+			</div>	
+		</div>
+		<div class="content  flex-center-justified" style="display: none">
+			<div class="searchWrapper">				
+				<maximo-searchbar class="searchBar" placeholder="{{localize('uitext', 'mxapisr', 'CatSearch')}}"></maximo-searchbar>
+				<div align="left">
+					<maximo-label class="browseLabel" label="{{localize('uitext', 'mxapisr', 'CatSearchSub')}}"></maximo-label>
+				</div>
+			</div>
+		</div>
+		<div class="categories container flex-wrap flex-center-justified">
+			<template is="dom-repeat" items="{{recordData}}" as="tk" id="categoriesTamplate">	
+				<div class="catagoryItem">
+					<div class="categoryItemImge">
+						<maximo-imglib class="itemImage" id="itemImage" width="128px" height="128px" image="{{tk._imagelibref}}" noimageicon="maximo-based:no-image" rounded on-tap="_imgClicked"></maximo-imglib>
+					</div>
+					<div align="center">
+						<maximo-label class="itemLabel" label="{{tk.classificationdesc}}" fontsize="18px"></maximo-label>
+					</div>
+				</div>
+			</template>
+			
+		</div>
+		<div class="footerDiv">
+			<div class="labelWrapper">
+				<maximo-label class="cannotfindLabel" fontsize="18px" label="{{localize('uitext', 'mxapisr', 'CatManualMsg')}}"></maximo-label>
+			</div>
+			<div class="buttonWrapper">
+				<maximo-label class="buttonLabel" fontsize="18px" label="{{localize('uitext', 'mxapisr','CatManualLink')}}" on-tap="describeProblem"></maximo-label>
+				<iron-icon class="buttonIcon" icon="action-based:forward" on-tap="describeProblem"></iron-icon>
+			</div>
+		</div>
+	
+		</div>
+	</template>
+
+  <script src="maximo-createrequest-card.js"></script>
+
+</dom-module>

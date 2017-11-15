@@ -1,0 +1,50 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../components/app-route/app-route.html"/>
+<link rel="import" href="../../components/app-route/app-location.html"/>
+<dom-module id="maximo-context">
+	<link rel="import" href="maximo-context-css.html">
+	<style is="custom-style" include="maximo-context-css"></style>
+	<template>
+		<style>
+			.msgInternal {
+				display: flex;
+				padding-top: 15px;
+			}
+			
+			.msgInternal > div:first-of-type {
+				padding: 10px 15px 0px 0px;
+			}
+			
+			.msgInternal.rtl > div:first-of-type {
+				padding: 10px 0px 0px 15px;
+			}
+			
+			.msgInternal .sessionRemaining {
+				display: inline-block;
+				width: 2.25em;
+				text-align: center;
+				color: red;
+			}
+
+			[hidden] {
+ 				 display: none !important;
+			}
+			
+		</style>
+		<app-location route="{{route}}" use-hash-as-path></app-location>
+		<app-route id="contextAppRouter" route="{{route}}" pattern="/:workcenter" tail="{{subroute}}" data="{{routeData}}"></app-route>
+		
+	    <div id="alert" hidden="true" class="msgInternal">
+	    	<div class="dialogIcon">
+				<iron-icon class="messageIcon" style="transform: scale(2)" ></iron-icon>
+			</div>
+			<div class="alertMessageCell"></div>
+		</div>
+	</template>
+	<script src="maximo-context.js"></script>
+</dom-module>

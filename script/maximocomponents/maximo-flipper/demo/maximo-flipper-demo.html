@@ -1,0 +1,85 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->
+<dom-module id="maximo-flipper-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../maximo-flipper-back.html">
+	<link rel="import" href="../maximo-flipper-front.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+		<style>
+		 	.flipMe {
+		 		padding: 10px;
+		 		width: 100px;
+		 		height: 50px;
+		 	}
+		 	.flipMe1 {
+		 		padding: 10px;
+		 		width: 300px;
+		 		height: 300px;
+		 	}
+		 	
+		 	.grayBack {
+		 		background: #eee;
+		 		height: 100%;
+		 	}
+		 	
+		 	#front, #back {
+		 		text-align: center;
+		 	}
+		 	
+		 	.long {
+		 		height:100%;
+		 		overflow-y: auto;
+		 		text-align: left
+		 	}
+		 	
+		</style>
+  		<div class="outer">
+	  		<div class="flipMe" style="text-align: left" on-tap="flip">
+	  			<maximo-flipper id="flipper" border="1px solid #eee">
+		  			<maximo-flipper-front id="front">
+	  					Front
+		  			</maximo-flipper-front>
+		  			<maximo-flipper-back id="back">
+	  					<div class="grayBack">
+	  						Back
+	  					</div>
+		  			</maximo-flipper-back>
+	  			</maximo-flipper>
+			</div>
+	  		<div class="flipMe1" style="text-align: left" on-tap="flip">
+	  			<maximo-flipper id="flipper" border="1px solid #eee">
+		  			<maximo-flipper-front id="front">
+		  				This would be the front
+		  			</maximo-flipper-front>
+		  			<maximo-flipper-back id="back">
+		  				<div class="long">
+		  					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta ipsum at purus eleifend, ac bibendum risus scelerisque. Donec nec semper quam, nec pellentesque nisi. Nulla quis nibh nec magna iaculis scelerisque. Donec eget arcu dapibus, suscipit mauris nec, consectetur mauris. Aliquam erat volutpat. Morbi a lectus sed neque pulvinar eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi suscipit, risus in imperdiet rutrum, diam purus placerat mauris, ut viverra quam dui in lectus. Sed dictum sed velit in rhoncus. Vestibulum lobortis pellentesque orci vel imperdiet. Proin viverra nibh rutrum consequat imperdiet. Maecenas imperdiet, quam vel semper scelerisque, nisl justo imperdiet neque, nec dignissim magna massa ac eros. Donec semper metus metus, in vulputate tellus malesuada et. Donec mauris metus, tempus eu consequat vitae, cursus ut arcu. Vestibulum quis egestas risus.</p>
+		  					<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla et lectus nunc. Ut tristique venenatis vehicula. Nullam vitae mi varius, elementum dolor sed, lobortis augue. Etiam nisl augue, egestas sit amet volutpat et, lobortis eget augue. Fusce neque magna, bibendum in viverra ac, ultricies nec urna. Ut lobortis ante mollis odio tempus venenatis id ut nisi. Maecenas varius ante ac ultrices sollicitudin. Integer malesuada magna sem, eu sagittis mauris ullamcorper a. Quisque ut iaculis purus. Maecenas non augue nec enim commodo maximus in luctus eros. In hac habitasse platea dictumst. Aenean euismod lacus eu nisl accumsan elementum. Suspendisse nec orci consequat, faucibus libero sed, venenatis massa. Suspendisse commodo eros at rutrum interdum. Nunc dapibus nulla at ex commodo, quis congue nisi interdum.</p>
+		  				</div>
+		  			</maximo-flipper-back>
+	  			</maximo-flipper>
+	  		</div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-flipper-demo',
+			behaviors: [BaseComponent],
+			properties: {
+
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log('data loaded');
+			},
+			flip: function(e){
+				var flipper = $M.findElementParent(e.target,'MAXIMO-FLIPPER');
+				flipper.flipped = !flipper.flipped;
+			}
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,92 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-assignlabor-card-css">
+	<template>
+    	<style>
+    	
+    		/* :host div {
+    			border: 1px solid;
+    		} */
+    		
+    		.container, .container > div {
+    			padding: 5px;
+    		}
+    		
+    		.header {
+    			margin-bottom: 10px;
+    		}
+    		
+    		.laborcontainer {
+    			overflow-y: auto;
+    			height: 200px;
+    			/* @apply(--layout-vertical); */
+    		}
+    		
+    		.laborelement {
+    			@apply(--layout-horizontal);
+            	@apply(--layout-around-justified);
+    			@apply(--layout-center);
+    		}
+    		
+    		.laborcontainer td {
+    			margin: 0px 2px;
+    		}
+    		
+    		.norecords {
+	    		border: 1px solid;
+			    margin: 5px 2px;
+			    padding: 5px 2px;
+    		}
+    		
+    		.assetimg {
+    			@apply(--layout-self-center);
+    			margin: 0px 5px;
+    		}
+    		
+    		.maincontainer {
+				width: 100%;
+    		}
+    		
+    		.wodatadivsegment {
+    			@apply(--layout-vertical);
+    		}
+    		
+    		.flex-container {
+			    display: flex;
+			    flex-direction: column;
+			    flex-wrap: wrap;
+			    justify-content: flex-end;
+			    align-content: flex-end;
+			    align-items: center;
+			 }
+			
+			.flex-item:nth-child(1) {
+			    order: 0;
+			    flex: 1 1 auto;
+			    align-self: center;
+			 }
+			
+			.flex-item:nth-child(2) {
+			    order: 0;
+			    flex: 0 1 auto;
+			    align-self: center;
+			 }
+    
+    		.iconsize ::content iron-icon{
+    			height: 17px;
+    			width: 17px;
+    			padding-bottom: 2px !important;
+    		}
+    		.assignlink {
+    			padding:0px 5px 0px 10px;
+    			flex: 0 0 auto;
+    			align-self: flex-end;
+    		}
+    		
+		</style>
+	</template>
+</dom-module>

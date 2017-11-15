@@ -1,0 +1,55 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	  	<script src="../script/components/webcomponentsjs/webcomponents-lite.min.js"></script> 
+	  	<link href="../css/main.css" rel="stylesheet">
+	  	<script src="../script/libraries/jquery/jquery-2.2.0.js"></script>
+    
+	    <link rel="import" href="../script/maximocomponents/maximo-module/maximo-module.html"/>
+		<maximo-module id="module"></maximo-module>
+
+		<link rel="import" href="../script/maximocards/demo/maximo-user-card/maximo-user-card.html"/>
+		<link rel="import" href="../script/maximocards/demo/maximo-vette-card/maximo-vette-card.html"/>
+	    <script src="../demo/data/objects.js"></script>
+	</head>
+  	<body>
+		<maximo-workscape id="workscape" label="WorkScape">
+		    <maximo-panel id="panel1" label="Panel #1" width="400">
+		  		<maximo-table id="table1" context="people" headings='["First Name","Last Name"]'></maximo-table>
+		    </maximo-panel>
+		    <maximo-panel id="car" label="Car">
+		  		<maximo-vette-card id="vette_card" layout=""></maximo-vette-card>
+		    </maximo-panel>
+
+		    <maximo-panel id="panel3" label="Sections within panels" width="200px" height="200px">
+		    	<maximo-section id="panel4">
+		    		<maximo-image id="image2" src="../demo/images/raleigh.png"></maximo-image>
+		    	</maximo-section>
+		    	<maximo-section id="panel5">
+		    		<maximo-image id="image3" src="../demo/images/raleigh.png"></maximo-image>
+		    	</maximo-section>
+		    	<maximo-section id="panel5a" block="true">
+		    		<maximo-image id="image4" src="../demo/images/raleigh.png"></maximo-image>
+		    	</maximo-section>
+		    </maximo-panel>
+			
+			<maximo-panel id="panel6" label="Extra Panel">
+				<div style="width: 500px;height: 200px">
+					&nbsp;
+				</div>
+		    </maximo-panel>
+			
+			<maximo-panel id="panel7" label="Extra Panel">
+				<div style="width: 500px;height: 200px">
+					&nbsp;
+				</div>
+		    </maximo-panel>
+		</maximo-workscape>
+	</body>
+</html>

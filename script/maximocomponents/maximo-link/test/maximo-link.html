@@ -1,0 +1,106 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-link tests</title>
+		<script src="../../../main.js"></script>
+		<script src="../../../test.js"></script>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+		<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+		<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+		
+		<script src="mockData.js"></script>
+    
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		
+		<test-fixture id="link">
+			<template>
+				<maximo-link id="link0" link-name="watsoniot" ></maximo-link>
+			</template>
+		</test-fixture>
+		
+		<test-fixture id="linkAlias">
+			<template>
+				<maximo-link id="link1" link-name="watsonah" ></maximo-link>
+			</template>
+		</test-fixture>
+		
+		<test-fixture id="linkLabels">
+			<template>
+				<maximo-link id="link2" link-name="watsonah" label="watson ah" pre-label="pretext" post-label="postlabel" ></maximo-link>
+			</template>
+		</test-fixture>
+		<script>
+			suite('<maximo-link>', function() {
+				
+				var link, linkAlias, linkLabels;
+				
+				setup(function() {
+					link = fixture('link');
+					linkAlias = fixture('linkAlias');
+					linkLabels = fixture('linkLabels');
+				});
+				
+				test('Check proeperties set', function(done) {
+					
+					expect(linkLabels).to.have.property('preLabel', 'pretext');
+					expect(linkLabels).to.have.property('label', 'watson ah');
+					expect(linkLabels).to.have.property('postLabel', 'postlabel');
+					expect(linkLabels).to.have.property('linkName', 'watsonah');
+					
+					
+					done();
+				});
+
+				test('Visibility test', function(done) {
+					
+					expect(link.isLinkHidden).to.be.true;
+					expect(linkAlias.isLinkHidden).to.be.true;
+					
+					done();
+					
+				});
+
+				test('Fetching alias', function(done) {
+					
+					var name = linkAlias.fetchLinkName(linkAlias.linkName, mockedMap.linkMap);
+					var name2 = linkAlias.fetchLinkName('noalias', mockedMap.linkMap);
+
+					expect(name).to.be.a('string').to.equal('WATSONINTEGRATION', 'Function didnt fetch alias correctly.');
+					expect(name2).to.be.a('string').to.equal('noalias', 'Function didnt fetch alias correctly.');
+					
+					done();
+					
+				});
+				
+			});
+			</script>
+	</body>
+</html>

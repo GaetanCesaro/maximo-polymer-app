@@ -1,0 +1,81 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../components/iron-icons/iron-icons.html">
+<link rel="import" href="../../components/iron-input/iron-input.html">
+<link rel="import" href="../../components/iron-icon/iron-icon.html">
+<link rel="import" href="../maximo-button/maximo-button.html">
+
+
+<dom-module id="maximo-attachfile">
+	<style>
+		:host {
+                position: relative;
+        }
+        .fileInput {
+             bottom: 0;
+             height: 100%;
+             left: 0;
+             margin: 0;
+             opacity: 0;
+             padding: 0;
+             position: absolute;
+             right: 0;
+             top: 0;
+             width: 100%;
+         }
+        .fileInputx {
+             bottom: 0;
+             height: 100%;
+             left: 0;
+             margin: 0;
+             opacity: 0;
+             padding: 0;
+             position: absolute;
+             right: 0;
+             top: 0;
+             width: 100%;
+         }
+ 	</style>
+
+  <template>
+	<content>
+		
+	</content>
+	<input type="file" id="file" class="fileInput" capture="{{capture}}" multiple="{{multiple}}" accept="image/*" value="{{value}}" on-change="setFiles" >
+  </template>
+
+</dom-module>
+
+  <script>
+
+/*
+A component that can be used to attach file.
+*/
+    Polymer({
+		is: "maximo-attachfile",
+		
+		properties: {
+		
+			value: {
+				type: String,
+				notify: true
+			},
+			multiple: {
+				type: Boolean,
+				value: false
+			}
+		},
+		
+		setFiles: function(e, detail, sender)
+		{
+			console.log('setFiles called!');
+			this.fire("selectfiles", this.$.file.files);
+		}
+		    
+	});
+  </script>
+

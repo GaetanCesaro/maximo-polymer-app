@@ -1,0 +1,102 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-weather-card-css">
+	<template>
+    	<style>
+    	
+    		:host {
+    			min-width: 200px;
+    		}
+    		
+    		.card {
+    			border: 1px solid transparent; 
+    			border-right: 1px solid var(--Cool-gray20);
+    			margin: 0px;
+				padding: 5px;
+				@apply(--layout-vertical);
+				transition: all .3s;
+				background-color: var(--Primary-white);
+				height: 92px;
+				overflow-x: hidden;
+				overflow-y: auto;
+				outline-offset: -2px;
+				outline: 2px solid transparent;
+    		}
+    		
+    		.card:hover{
+				outline: 2px solid var(--Cool-gray30);
+    		}
+    		
+    		.carouselCard {
+    			border-top: 1px solid var(--Cool-gray30) !important;
+    			border-right: 0px !important;
+    		}
+    		
+    		.card > div {
+    			padding: 2px;
+    			margin: 2px;
+    		}
+    		
+    		.uppercontainer {
+            	height: 60px;
+    		}
+    		
+    		.indicon {
+    			@apply(--layout-self-center);
+    		}
+    		
+    		.main-data {
+    			@apply(--layout-horizontal);
+    			@apply(--layout-center);
+    		}
+    		
+    		.main-data > div {
+    			color: var(--Primary-blue50);
+    			font-family: HelveticaNeue-Light;
+    			
+    		}
+    		
+    		.uppercontainer, .cardFooter {
+    			@apply(--layout-horizontal);
+            	@apply(--layout-around-justified);
+    		}
+    		
+    		.big {
+				font-family: HelveticaNeue-Bold;
+    			font-size: xx-large;
+    		}
+    		
+    		.inddata {
+    			font-size: 36px;
+    		}
+    		
+			.indunit {
+				@apply(--layout-self-start);
+    			padding-left: 0px;
+    			margin-top: 5px;
+    			padding-top: 8px;
+    		}
+    		
+    		.label {
+    			font-size: 14px;
+    			font-family: HelveticaNeue;
+    			color: var(--Primary-blue60);
+    			text-align: center;
+    		}
+    		
+    		iron-icon {
+    			--iron-icon-height: 60px;
+        		--iron-icon-width: 60px;
+    		}
+    		
+    		/* :host div {
+    			border: 1px solid;
+    		} */
+    		
+		</style>
+	</template>
+</dom-module>

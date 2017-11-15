@@ -1,0 +1,31 @@
+{
+		"main_title":"Enterprise Asset Management",
+		"log_in":"Přihlásit se",
+		"user_name":"Jméno uživatele",
+		"password":"Heslo",
+		"sign_in":"Přihlásit se",
+		"error":"Zadejte prosím platná pověření.",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"Všechna práva vyhrazena.",
+		"copyright_2":"Podrobnosti viz licence na produkt.",
+		"loading_resources":"Načítá se",
+		"missing_config":"Konfigurační soubor {0} chybí. Použijí se výchozí nastavení.",
+		"unknown_error":"Vyskytla se neznámá chyba. {0}",
+		"resource_error":"Došlo k chybě během žádosti o prostředky řetězce. {0}",
+		"contact_admin":"Pokud problém trvá, kontaktujte administrátora systému.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"DŮLEŽITÁ POZNÁMKA: Jiné osobní informace než obchodní kontakty, které jsou na tomto systému označeny jako povinné a jsou nezbytné pro poskytování podpory, například citlivá finanční nebo zdravotní data a jakékoli identifikační informace o jednotlivci, BY NEMĚLY být do tohoto systému zadávány. Kdokoli, kdo zadává osobní informace, souhlasí, že je IBM může používat a přesouvat napříč hranicemi zemí dle <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">zásad ochrany soukromí IBM</a> za účelem poskytnutí požadovaných služeb. Pokud jste zaměstnanec nebo smluvní partner IBM a klient vás požádá o zadání jeho osobních informací, musíte mu přečíst toto upozornění a získat jeho svolení se zadáním jeho osobních informací.",
+		"session_timeout":"Čas vaší relace vypršel.",
+		"noworkscape" : "Není nadefinováno žádné pracovní centrum pro vaše ID uživatele",
+		"no_access_default":"Nemáte všechny požadované autorizace pro požadovanou lokalitu. Přejete si načíst výchozí aplikaci?",
+		"signout" : "Úspěšně jste se odhlásili. Zavřete prosím prohlížeč, nebo se přihlaste znovu. ",
+		"login_error" : "Chyba v přihlášení",
+		"login_error_invalid" :"Kombinace jména uživatele a hesla je neplatná. Zopakujte znovu.",
+		"return" : "Vrátit",
+		"logout" : "Odhlášení",
+		"logout_complete" : "Chcete-li se zcela odhlásit, musíte zavřít prohlížeč.",
+		"user_info_error" : "Chyba během načítání informací o uživateli. Obraťte se na administrátora systému. "
+}
+

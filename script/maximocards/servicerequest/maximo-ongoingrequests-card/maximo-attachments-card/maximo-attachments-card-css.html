@@ -1,0 +1,279 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-attachments-card-css">
+	<template>
+    	<style>
+    	.container {
+	      @apply(--layout-horizontal);
+	      @apply(--layout-justified);
+	    }	
+	    .flex-vertical {
+		    @apply(--layout-vertical);
+		  }
+		  .flexchild-vertical {
+		    @apply(--layout-flex);
+		  }
+    	:host {
+    	
+    	}
+    	
+		.attachmentPanel::content .panel{
+			height: 100%;
+		}
+		div.attachmentMain {
+			height : 100%;
+		}
+		.attachmentItem::content label{
+			color : #5696e2;
+			word-wrap : break-word;
+			cursor: pointer;
+		}
+		.attachmentItem::content label:hover{
+			text-decoration: underline;
+		}
+		.attachmentItemDiv {
+			border-bottom : 1px solid #e0e0e0;
+			padding-top : 6px;
+			padding-bottom : 5px;
+			margin-left : 6px;
+			margin-right : 6px;
+			position: relative;
+		} 
+		.attachmentPanel::content .panelHeader {
+			padding: 10px 0px 12px 0px;
+			background-color : #ffffff;
+		}
+		.attachmentPanel::content .panelTitle {
+			@apply(--layout-center-justified);			
+		}		
+		
+		.attachmentPanel::content .panelInternal{
+			height : calc(100% - 50px); 
+			padding: 0px 13px 0px 13px;
+			border-bottom : 0;
+		} 	
+		.trashIcon{
+			width : 16px;
+			bottom : 1px;
+			fill : #5696e2;
+		}
+		.deleteLabel::content label{
+			color : #5696e2;
+		}
+		.deleteLabel::content label:hover{
+			text-decoration: underline;
+			cursor: pointer;
+		}
+		.attachmentItemLeft{
+			width : calc(100% - 80px);
+			height: 22px;
+ 			line-height:24px;
+ 			vertical-align: middle;
+		}
+		.addButton{
+			width : 145px;
+			height : 35px;
+			background : #4278bb;
+			position: absolute;
+			bottom: 15px;
+			right : 15px;
+			line-height: 35px;
+			vertical-align: middle;
+			text-align: center;
+		}
+		.addButton:hover {
+			cursor: pointer;
+		}
+		.addAttachLabel{
+			right : 10px;
+			padding : 0px 0px 0px 0px;
+		}
+		.addAttachLabel::content label{
+			color : #f9f9f9;
+		}
+		.addAttachLabel::content label:hover {
+			cursor: pointer;
+		}
+		.addAttachIcon{
+			fill: #f9f9f9;
+		}
+		.mainWrapper{
+			width: 100%;
+			height : 100%;
+			position : absolute;
+			background-color : #000000;
+			z-index: 1;
+		}
+		.attachmentPreviewOverlay{
+			padding : 11px;
+			text-align : center;
+			width : 90%;
+			min-height:40%;
+			display : table;
+		}
+		.previewItem::content img{
+			max-width : 100%;
+		}
+		.imageWrapper{
+			width : 100%;
+			height : auto;
+		}
+		.overlayWrapper{
+			display : none;
+			display:table-cell; 
+			vertical-align:middle;
+			width: 100%;
+		}
+		.spinnerWrapperDiv{
+			height: 100%;
+			width : 100%;
+		}
+		.spinnerWrapperDiv::content .spinner{
+			position : absolute;
+			left : 0;
+			right : 0;
+			bottom : 0;
+			top : 0;
+			margin : auto;
+		}
+		.spinnerWrapperDiv::content .wait{
+			position : inherit;
+		}
+		.attachmentItemRight{
+/* 			width : 70px;
+ */			display : block;
+ 			height: 24px;
+ 			line-height:24px;
+ 			vertical-align: middle;
+		}
+		.attachmentItemRight:hover {
+			cursor: pointer;
+		}
+		.attachmentItemRight::content label:hover{
+			cursor: pointer;
+		}
+		
+		.filenameWrapper {
+			padding-bottom : 15px;
+			margin:auto;
+			width : 100%;
+		}
+		.attachmentName::content label{
+			color : #335c72;
+			word-wrap : break-word;
+		}
+		.attachmentPreviewCard{
+				position:absolute ;
+				padding:0px;
+				background: #ffffff;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+				border: none;
+				z-index: 1002;
+				margin: 0;
+		}
+		
+		.panel-slide {
+			-webkit-transition: margin 1s ease;
+            -moz-transition: margin 1s ease;
+            -o-transition: margin 1s ease;
+            transition: margin 1s ease;
+			margin-left: 100%;				
+		}
+		
+		.panel-slide-open {
+			margin-left: 0;
+		}
+		
+		.attachment-progress  {
+			border: 1px solid gray;
+			@apply(--layout-flex);
+			@apply(--layout-self-center);
+			height: 10px;
+		}
+	
+		.flex-horizontal {
+		    @apply(--layout-horizontal);
+		  }
+		  
+		.flexchild {
+		    @apply(--layout-flex);
+		    @apply(--layout-vertical);
+		 }		
+
+		.attachments-delete {
+			position:absolute ;	
+			padding:0px;
+			background: rgba(0, 0, 0, 0.4);
+			width: 100%;
+			height: 100%;		/* 100% - headerbar */
+			border: none;
+			z-index: 10;
+			margin: 0;
+		 }
+		 
+		 
+		 .attachment-progress ::content .progress {
+		 	background-color:#4178be;
+		 }
+		 
+	 	.addButton_disabled {
+			pointer-events: none;
+		}
+		
+		.addButton_disabled .addAttachIcon {
+			fill: var(--Primary-gray30);
+		} 
+		
+		.addButton_disabled ::content label{
+			color : var(--Primary-gray30);
+		}
+		
+		.errorNotification {
+			top: -1px;
+			position: absolute;
+			width: 100%;
+			height: 40px;
+			background-color: var(--Primary-orange10);
+			border-top : 1px solid var(--Primary-orange10);
+			border-bottom : 1px solid var(--Primary-orange10); 
+			@apply(--layout-horizontal);
+			@apply(--layout-center);
+			@apply(--layout-justified);
+			padding: 1px 6px 1px 5px;
+			box-sizing: border-box;
+		}		
+		
+		.errorMessage {
+			@apply(--layout-horizontal);
+		}
+		
+		.errorMessage-icon {
+			height: 22px;
+			width: 19px;
+		}
+		
+		.errorMessage-label {
+			@apply(--layout-left-justified);
+			padding-left: 10px;
+		}
+		.errorMessage-label ::content label {
+			color: #000000;
+		}
+		.errorMessage-button {
+			@apply(--layout-right-justified);
+			white-space: nowrap;
+		}
+		.errorMessage-button ::content iron-icon {
+			width: 15px;
+			height: 12px;
+		}	
+		
+		</style>
+	</template>
+</dom-module>

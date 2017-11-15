@@ -1,0 +1,137 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../maximo-authcontext/maximo-authcontext.html">
+
+<!--
+The `maximo-collection` element provides access to a set of maximo objects. 
+-->
+
+
+<dom-module id="maximo-collection">
+  <template>
+		<iron-ajax
+			id="mxajaxServiceProvider"
+		    handle-as="json"
+		    on-response="_processServiceProviderQueryResponse"
+		    on-error="_processServiceProviderQueryResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxFetchRecords"
+		    handle-as="json"
+		    on-response="_processFetchRecordsResponse"
+		    on-error="_processFetchRecordsResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxFetchRecordDetail"
+		    handle-as="json"
+		    on-response="_processFetchRecordDetailResponse"
+		    on-error="_processError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxFetchMoreRecords"
+		    handle-as="json"
+		    on-response="_processDataNextPageResponse"
+		    on-error="_processDataNextPageError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxCreateRecord"
+		    handle-as="json"
+		    on-response="_processRecordCreateResponse"
+		    on-error="_processRecordCreateError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxCreateChildRecord"
+		    handle-as="json"
+		    on-response="_processChildRecordCreateResponse"
+		    on-error="_processError" 
+		    with-credentials></iron-ajax>		    
+		<iron-ajax
+			id="mxajaxCreateNewRecord"
+		    handle-as="json"
+		    on-response="_recordCreateNewSuccessResponse"
+		    on-error="_processError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxRemoveNewRecordFromMemory"
+		    handle-as="json"
+		    on-response="_recordRemoveNewFromMemorySuccessResponse"
+		    on-error="_processError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxCreateNewResource"
+		    handle-as="json"
+		    on-response="_processCreateResourceResponse"
+		    on-error="_processError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxSaveNewRecord"
+		    handle-as="json"
+		    on-response="_recordSaveNewSuccessResponse"
+		    on-error="_processError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxCreateAttachmentRecord"
+		    handle-as="json"
+		    on-response="_processAttachmentResponse"
+		    on-error="_processAttachmentError" 
+		    with-credentials></iron-ajax>
+    	<iron-ajax
+			id="mxajaxGroupBy"
+		    handle-as="json"
+		    on-response="_processGroupByQueryResponse"
+		    on-error="_processGroupByQueryResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxCountNew"
+		    handle-as="json"
+		    on-response="_processCountNewResponse"
+		    on-error="_processError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxCollectionCount"
+		    handle-as="json"
+		    on-response="_processCollectionCountResponse"
+		    on-error="_processError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxCreateRecordBulk"
+		    handle-as="json"
+		    on-response="_processRecordCreateBulkResponse"
+		    on-error="_processError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxDistinct"
+		    handle-as="json"
+		    on-response="_processDistinctResponse"
+		    on-error="_processDistinctError" 
+		    with-credentials></iron-ajax>
+    	<iron-ajax
+			id="mxajaxInsight"
+		    handle-as="json"
+		    on-response="_processInsightResponse"
+		    on-error="_processInsightResponseError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxSaveThisQueryRecord"
+		    handle-as="json"
+		    on-response="_processSaveThisQueryResponse"
+		    on-error="_processSaveThisQueryError" 
+		    with-credentials></iron-ajax>
+		<iron-ajax
+			id="mxajaxInvokeActionRecord"
+		    handle-as="json"
+		    on-response="_processInvokeActionRecordResponse"
+		    on-error="_processInvokeActionRecordResponseError" 
+		    with-credentials></iron-ajax>
+    <maximo-authcontext id="myauthenticator"></maximo-authcontext>
+    <iron-meta id="meta" key="{{_cachedObjectName}}" value="{{_cachedQueryInfo}}"></iron-meta>
+  </template>
+  
+  <script src="maximo-collection.js"></script>
+  
+</dom-module>

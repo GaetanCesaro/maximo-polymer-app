@@ -1,0 +1,255 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-inspector-container-css">
+	<template>
+    	<style>   		
+
+			:host div {
+				/* border: 1px solid black; */
+			}
+			    			
+			.shell {
+				@apply(--layout-horizontal);
+				@apply(--layout-justified);
+    		}
+    		
+    		.lPanel {
+    			width: 40%;
+    			position: relative;
+    			@apply(--layout-vertical);
+    			background-color: var(--Primary-white);
+			}
+
+
+			
+			.fadeout {
+			    position: relative;
+			}
+			
+			.fadeout:after {
+			    content: "";
+			    width: 100%;
+			    height: 10em;
+			    display: block;
+			    position: fixed;
+			    background: linear-gradient(
+			        rgba(255, 255, 255, 0) 0%,
+			        rgba(255, 255, 255, 1) 70%
+			    ); 
+			    bottom: 0;
+			    pointer-events: none;
+			}
+			
+    		.rPanel {
+    			@apply(--layout-flex);
+    			@apply(--layout-vertical);
+    			background-color: var(--Primary-white);
+    			overflow: auto;
+			}
+			
+			.headerPanel {
+				@apply(--layout-vertical);
+				background-color: var(--Primary-blue60);
+				padding: 10px 10px 2px 10px;
+				border-bottom: 1px solid var(--Primary-white);
+			}
+			
+			.title {
+				@apply(--layout-horizontal);
+				@apply(--layout-justified);
+				margin-top: 5px;
+				margin-bottom: 10px;
+			}
+			
+			.title maximo-label ::content label {
+    			font-family:HelveticaNeue-Light;
+				font-size:22px;
+				letter-spacing:0;
+				color: var(--Primary-white);
+    		}
+    		
+    		.title maximo-button {
+    			outline: none;
+    		}
+    		
+    		.subtitle {
+    			@apply(--layout-horizontal);
+				@apply(--layout-justified);
+				margin-top: 5px;
+				margin-bottom: 10px;
+    		}
+    		
+    		.subtitle maximo-label ::content label {
+    			font-family:HelveticaNeue-Light;
+				letter-spacing:0;
+				color: var(--Primary-white);
+    		}
+			
+			.instruction {
+				position: absolute;
+				background-color: var(--Primary-blue60);
+			    text-align: left;
+			    overflow: auto;
+			    z-index: 99;
+			    width: 100%;
+    		}
+    		
+    		.innerInstruction {
+    			margin: 15px 25px 25px 15px;
+    		}
+    		
+    		.innerInstruction hr {
+    			width: 100%;
+    		}
+    		
+    		.innerInstruction maximo-button {
+    			margin-top: 10px;
+    		}
+    		
+    		.innerInstruction maximo-button ::content button {
+    			font-size: 1.286em;
+    		}
+    		
+    		.instructions ::content p,
+    		.innerInstruction maximo-label ::content label {
+    			color: var(--Primary-white);
+    		}
+    		
+    		.innerInstruction > maximo-label:nth-child(odd) ::content label {line-height: 22px;}
+			.innerInstruction > maximo-label:nth-child(even) ::content label {line-height: 18px;}
+    		
+    		.innerInstruction maximo-label:first-child ::content label {
+    			font-size: 1.57em;
+    			line-height: 26px;
+    		}
+			
+			.hiddenContent {
+    			display: none;
+    		}
+    		
+    		.content {
+				@apply(--layout-vertical);
+				@apply(--layout-flex);
+    		}
+    		
+    		.list {
+				@apply(--layout-flex);
+				overflow: auto;
+    		}
+    		
+    		.datalist ::content div.wrapper, 
+    		.datalist ::content div.wrapper div.datalist {
+    			width: 100%;
+    		}
+
+			.bottomPanel {
+				@apply(--layout-vertical);
+				background-color: var(--Primary-blue80);
+				padding: 10px 20px;
+    			position: relative;
+			}
+			
+			.bottomPanel > div {
+				margin-top: 5px;
+				margin-bottom: 10px;
+			}
+			
+		 	.progressLabel {
+				margin-bottom: 2px;
+		 	}
+		 	
+			.progressLabel maximo-label ::content label, 
+			.progressLabel label {
+				font-size: 18px;
+				color: var(--Primary-white);
+			}
+			
+			.inspectionProgress {
+				border: 0px;
+				height: 10px;
+				--progress-color: var(--Primary-green30);
+				--remaining-color: var(--Primary-green10);
+			}
+			
+			.inspectionProgress ::content .remainProgress{
+				opacity: 0.5;
+			}
+			
+			.buttonsWrapper {
+				@apply(--layout-horizontal);
+				@apply(--layout-around-justified);
+			}
+			
+			.buttonsWrapper > maximo-button ::content button {
+				padding-top: 5px;
+    			padding-bottom: 5px;
+				font-size: 18px;
+			}
+			
+			.datalist ::content li[required] > label:before {
+    			content: '* ';
+    			font-size: 110%;
+    			color : var(--Primary-orange50);
+    		}
+    		
+    		.darkBgLink ::content button,
+    		.darkBgLink ::content button iron-icon {
+    			color: var(--Primary-blue30) !important;
+    		}
+    		
+    		.datalist {
+    			--chevron-color: var(--Primary-blue50);
+    			--line-height: 44px;
+    			--dl-border: 0px;
+    			--dl-item-border : {
+    				border-top: 1px solid var(--Primary-gray10);
+    			};
+    		}
+    		
+    		/* Done button customization */
+    		
+    		.buttonsWrapper > maximo-button:last-child ::content button > iron-icon.west {
+				fill: var(--Primary-green30);
+				color: var(--Primary-green30);
+				--iron-icon-fill-color: var(--Primary-green30);
+			}
+			
+			.buttonsWrapper > maximo-button:last-child ::content button > iron-icon.west ::content svg,
+			.buttonsWrapper > maximo-button:last-child ::content button:hover > iron-icon.west ::content svg,
+			.buttonsWrapper > maximo-button:last-child ::content button:focus > iron-icon.west ::content svg {
+				fill: var(--Primary-green30);
+			}
+			
+			.buttonsWrapper > maximo-button:last-child ::content button:not(.action):not([aria-disabled]):hover, 
+			.buttonsWrapper > maximo-button:last-child ::content button:not(.action):not([aria-disabled]):focus {
+				background: var(--Primary-blue50);
+				color: var(--Primary-white);
+			}
+			
+			.buttonsWrapper > maximo-button:last-child ::content button[aria-disabled]:not(.action) { 
+				background: var(--Primary-blue80);
+				color: var(--Primary-gray30);
+				cursor: default;
+				border-color: var(--Primary-gray30);
+			}
+			
+			.buttonsWrapper > maximo-button:last-child ::content button[aria-disabled]:not(.action) > iron-icon.east ::content svg {
+				fill: var(--Primary-gray30);
+			}
+			
+			.hiddenIcon ::content button > iron-icon.west {
+				/* visibility: hidden; */
+				display: none;
+			}
+			
+			.scroll {
+				overflow: auto;
+			}
+    		
+		</style>
+	</template>
+</dom-module>

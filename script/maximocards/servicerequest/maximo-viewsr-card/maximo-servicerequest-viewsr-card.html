@@ -1,0 +1,147 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<link rel="import" href="../maximo-srdetail-card/maximo-srdetail-card.html" />
+<link rel="import" href="../maximo-sredit-card/maximo-sredit-card.html" />
+     
+<dom-module id="maximo-servicerequest-viewsr-card">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-servicerequest-viewsr-card-css.html">
+	<style is="custom-style" include="maximo-servicerequest-viewsr-card-css"></style>
+	<template id="viewsr-template">
+	  	<maximo-collection 
+		    id="oneservicerequestcollection" 
+			attribute-names="ticketid,description,status,status_description,allowedstates,statusdate,memo"
+			collection-data="{{srRecordData}}"
+			debounce-duration="600"
+			object-name="UXSR" 
+			search-attribute-names="ticketid"
+			search-term-value="{{filterTicketID}}"
+			selected-query-name="All"
+			use-search-terms="true"
+			on-data-error="_handleDataError"  >
+		</maximo-collection>  
+		<maximo-collection 
+		    auto
+		    id="servicerequestcollection" 
+			attribute-names="reportedpriority,description_longdescription,ticketid,description,reportdate,affecteddate,changedate,actualstart,actualfinish,statusdate,reportedby,person.displayname,person._imagelibref,impact,internalpriority,status,statusdesc.description,asset.location,assetnum,asset.description,asset._imagelibref,location,location.description,location._imagelibref,cinum,ci.description,owner,ownerperson.displayname,ownerperson._imagelibref,affectedperson.displayname,affectedpersonid,siteid,commodity,commoditygroup,worklog._dbcount,worklog{*}"
+			collection-data="{{recordData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"
+			filter-data="{{srFilterData}}"
+			order-by-attribute-names="%2Breportedpriority,%2Breportdate"
+			query-info="{{queryInfo}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			on-dynamic-attribute-data-fetched="_showSRDetails"
+			page-size="50"
+			refresh-listeners='["sr"]'		
+			object-name="UXSR" 
+			search-attribute-names="ticketid,description,status,reportdate,affectedperson"
+			selected-query-name="{{selectedQueryName}}"
+			selected-record="{{selectedRecord}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			use-search-terms="true"
+			on-data-error="_handleDataError"  >					
+		</maximo-collection>
+		   	
+		 <maximo-resource id="recordResource" resource-uri="{{_getSolutionUrl(recordData)}}"></maximo-resource> 	
+		<maximo-panel id="viewsr" label="{{localize('View Service Request')}}" headinginfo="{{recordCount}}" width="350px" height="470px"  collections="servicerequestcollection">
+		<!--  select filtering (all, new, inprog, resolved, queued) -->
+			<maximo-searchbar id="myteamswork-searchbar" collection="{{getLocalObject('servicerequestcollection')}}" placeholder="{{localize('Filter Service Request')}}" ></maximo-searchbar>
+			<maximo-content-selector id="contentSelector" class="horizontal center-justified layout selectedFilter" block="true">		
+				<maximo-label id="maximo_status_label1" intvalue="All" on-tap="onSelectedStatus" label="{{localize('All')}}"></maximo-label>
+				<maximo-label id="maximo_status_label2" intvalue="NEW" on-tap="onSelectedStatus" label="{{localize('New')}}"></maximo-label>
+				<maximo-label id="maximo_status_label3" intvalue="PENDING" on-tap="onSelectedStatus" label="{{localize('Pending')}}"></maximo-label>
+				<maximo-label id="maximo_status_label3" intvalue="INPROG" on-tap="onSelectedStatus" label="{{localize('In Progress')}}"></maximo-label>			
+				<maximo-label id="maximo_status_label4" intvalue="QUEUED" on-tap="onSelectedStatus" label="{{localize('Queued')}}"></maximo-label>
+				<maximo-label id="maximo_status_label5" intvalue="RESOLVED" on-tap="onSelectedStatus" label="{{localize('Resolved')}}"></maximo-label>
+			</maximo-content-selector>
+			<iron-list id="viewSRDataTemplate" items="{{recordData}}" as="sr">
+		 		<template>	
+					<div>
+						<div id="viewsr_card" class="cardborder">	
+							<div id="viewsr_card_header" class="cardheader">
+								<div class="flex-equal-justified">
+									<div id="viewsr_inner_div10">
+										<maximo-label id="viewsr-label-ticketid" class="srticketidclass" label="{{sr.ticketid}}"></maximo-label>
+										<maximo-label id="viewsr-label-status" class="srstatusclass" label="{{sr.statusdesc.description}}"></maximo-label>	
+										<maximo-label id="viewsr-label-reportdate" class="srreportdateclass" label="{{_mountCompletionString(sr)}}"></maximo-label>	
+									</div>
+									<div class="flex-horizontal" hidden$="{{showPriority(sr)}}" >
+										<maximo-label id="viewsr-label-priority" class="srpriorityclass" label="{{showPriorityTag(sr,'reportedpriority')}}"></maximo-label>
+										<maximo-prioritytag id="srdetails_section_prioritytag" priority="{{sr.reportedpriority}}"></maximo-prioritytag>
+									</div>
+								</div>
+							</div>
+							<div id="viewsr_card_container" class="cardcontainer">
+								<div class="flex-equal-justified">
+									<maximo-label id="viewsr-label-description" class="srdescriptionclass" label="{{sr.description}}"></maximo-label>
+									<div>
+										<maximo-label id="viewsr-label-reportedbytext" class="srreportedbyclass" label="{{localize('by')}}"></maximo-label>
+										<maximo-label id="viewsr-label-reportedby" class="srreportedbyclass" label="{{sr.reportedby}}"></maximo-label>
+									</div>	
+								</div>
+								<maximo-section id="mainsection" label="{{localize('More')}}" alternate-label="{{localize('Less')}}" class="hiddensection" collapsed="true" fontsize="100%"  block no-icon show-bottom-toggler>
+									<hr>
+									<hr>
+									<maximo-section id="viewsr_relatedpeople" class="hiddeninnersection" label="{{localize('Related People')}}" summary="{{Related people}}" collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+										<maximo-field id="viewsr_relatedpeople_reportedby" label="{{localize('Reported by')}}" datalabel="{{sr.person.displayname}}"></maximo-field>
+										<maximo-field id="viewsr_relatedpeople_affectedperson" label="{{localize('Affected person')}}" datalabel="{{sr.affectedperson.displayname}}"></maximo-field>
+										<maximo-field id="viewsr_relatedpeople_ownerperson" label="{{localize('Owner')}}" datalabel="{{sr.ownerperson.displayname}}"></maximo-field>
+									</maximo-section>
+									<hr>
+									<maximo-section id="viewsr_timetracking" class="hiddeninnersection" label="{{localize('Time Tracking')}}" summary="{{Time table}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+										<maximo-field id="viewsr_timetracking_reportdate" label="{{localize('Reported')}}" datalabel="{{getDate(sr.reportdate)}}"></maximo-field>
+										<maximo-field id="viewsr_timetracking_affecteddate" label="{{localize('Affected')}}" datalabel="{{getDate(sr.affecteddate)}}"></maximo-field>
+										<maximo-field id="viewsr_timetracking_statusdate" label="{{localize('Status Changed')}}" datalabel="{{getDate(sr.statusdate)}}"></maximo-field>
+										<maximo-field id="viewsr_timetracking_changedate" label="{{localize('Request Changed')}}" datalabel="{{getDate(sr.changedate)}}"></maximo-field>
+										<maximo-field id="viewsr_timetracking_actualstart" label="{{localize('Actual Start')}}" datalabel="{{getDate(sr.actualstart)}}"></maximo-field>
+										<maximo-field id="viewsr_timetracking_actualfinish" label="{{localize('Actual Finished')}}" datalabel="{{getDate(sr.actualfinish)}}"></maximo-field>
+									</maximo-section>
+									<hr>
+									<maximo-section id="viewsr_assetinfo" class="hiddeninnersection" label="{{localize('Asset Information')}}" summary="{{Asset information}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+										<maximo-field id="viewsr_assetinfo_assetnum" label="{{localize('Number')}}" datalabel="{{sr.assetnum}}"></maximo-field>
+										<maximo-field id="viewsr_assetinfo_description" label="{{localize('Description')}}" datalabel="{{sr.asset.description}}"></maximo-field>
+										<maximo-field id="viewsr_assetinfo_location" label="{{localize('Location')}}" datalabel="{{sr.asset.location}}"></maximo-field>
+									</maximo-section>
+									<hr>
+									<maximo-section id="viewsr_commodity" class="hiddeninnersection" label="{{localize('Commodity Information')}}" summary="{{Commodity information}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+										<maximo-field id="viewsr_commodity_name" label="{{localize('Name')}}" datalabel="{{sr.commodity}}"></maximo-field>
+										<maximo-field id="viewsr_commodity_group" label="{{localize('Group')}}" datalabel="{{sr.commoditygroup}}"></maximo-field>
+									</maximo-section>
+									<hr>
+									<maximo-section id="viewsr_reqdesc" class="hiddeninnersection" label="{{localize('Request Description')}}" summary="{{Request Description}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+										<maximo-field id="viewsr_reqdesc_desc" label="{{localize('Description')}}" datalabel="{{sr.description_longdescription}}"></maximo-field>
+									</maximo-section>
+									<hr>
+									<hr>	
+								</maximo-section>
+								<maximo-footer id="viewsr-panel-footer" block="true">
+									<div class="container flex-equal-justified">
+										<div>
+											<maximo-button id="viewsr-label-link-reassign" action="true" on-tap="srEdit" label="{{localize('Edit')}}"></maximo-button>
+										</div>
+										<div>
+												<maximo-button id="viewsr-label-link-viewdetails" action="true" on-tap="srDetail" icon="action-based:view" title="{{localize('Show Detail')}}"></maximo-button>
+										</div>
+									
+									</div>
+									<hr>
+								</maximo-footer>
+							</div>
+						</div>
+					</div>
+				</template>
+			</iron-list>
+		</maximo-panel> 
+	 </template>
+	<script src="maximo-servicerequest-viewsr-card.js"></script>
+</dom-module>

@@ -1,0 +1,184 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<script>
+	/**
+	 * This is used for csv and watson export
+	 *
+	 * @polymerBehavior MaxExport
+	 */
+	MaxExport = {
+		properties : {
+			displayWatsonIcon: {
+				type: Boolean,
+				value: false
+			},
+			endpointData: {
+				type: Object,
+				notify: true
+			}	
+		},
+		
+		showWatsonIcon: function(){
+			if (!this.displayWatsonIcon){ // only need to check creds for first data set
+				var maxauth = $M.getMaxauth();
+				this.displayWatsonIcon = false;
+				try{
+					if (maxauth && maxauth.whoami.ibmId && $M.getGlobalResource('endpointcollection')){
+						var authEndpoint = $M.getGlobalResource('endpointcollection').collectionData[0];		
+						if (authEndpoint && authEndpoint.maxendpointdtl){
+							this.clientId = this._getPropertyValue(authEndpoint.maxendpointdtl, 'CONSUMERKEY');
+							this.redirectUri = this._getPropertyValue(authEndpoint.maxendpointdtl, 'REDIRECTURI');
+							this.authUrl = this._getPropertyValue(authEndpoint.maxendpointdtl, 'AUTHORIZATIONURL');
+							if (this.clientId && this.redirectUri && this.authUrl){
+								this.displayWatsonIcon = true;
+							}
+						}
+					}
+				} catch(e){
+					console.log('displayWatsonIcon error:' + e);
+				}
+			}
+			return !this.displayWatsonIcon; // return inverse... used in hidden$="showWatsonExport()"
+		},
+
+		_getPropertyValue: function(propArray, propName){
+			var value = null;
+			if (propArray){
+				for (var i = 0; i < propArray.length; i++){
+					if (propArray[i].property === propName){
+						value = propArray[i].value;
+						break;
+					}
+				}
+			}
+			return value;
+		},
+
+		buildDataSetQuery: function(record, name, watsonExport){
+			if (name === undefined){
+				name = this._getDatasetExportName(record);
+			}
+			var query = '';
+			if (record){
+				var appPrefix = '';
+				if (record.query && record.query.app){
+					appPrefix = record.query.app + ':';
+				}
+				var clausename = record.clausename ? '&savedQuery=' + encodeURI(appPrefix + record.clausename): '';
+				var template = record.templatename ? '&querytemplate=' + encodeURI(record.templatename): '';
+				query = $M.getMaxauth().baseUri + '/oslc/os/' + record.intobjectname + '?lean=1&titleasheader=1&appendattrname=0&_format=csv&name=' + name + clausename + template;
+				if (watsonExport){
+					query = query + '&async=1&wanalytics=1&dataset=' + record.analyticdatasetnum;
+				}
+			}
+			return query;
+		},
+		
+		_getDatasetExportName: function(record){
+			return encodeURI(record.analyticdatasetnum) + '_' + (new Date()).getTime();
+		},		
+		
+		watsonExport: function(eventOrRecord){
+			/* watson exports can not be handled by a cron task until 2-legged oauth2 is implemented
+			 * for now we will perform the watson api call here by doing the following:
+			 * 1. sumbit request to watson for authentication code
+			 * 2. watson replies to our servlet which exchanges auth code for access/refresh tokens (stored in cookies)
+			 * 3. when auth is complete, authComplete is called.  authComplete does the actual file export request
+			 * 4. access/refresh token is stored in fileexportreqqueue, async cron picks up export request, uses stored access token
+			*/ 
+			window.authCallback = this.authComplete;
+			window.authCallbackContext = this;
+			this.exportDataset = eventOrRecord.target?this.$.datasetTemplate.itemForElement(e.target):eventOrRecord;
+			var watsonUrl = this.authUrl + '?response_type=code&client_id=' + this.clientId + '&scope=userContext&redirect_uri=' + this.redirectUri;
+			this.authWin = window.open(watsonUrl, 'watsonAuth', 'width=350,height=500,top=250,left=700');
+		},
+		
+		authComplete: function(){
+			var self = window.authCallbackContext;
+			var exportName = self._getDatasetExportName(self.exportDataset);
+			var query = self.buildDataSetQuery(self.exportDataset, exportName, true);
+			self.authWin.close();
+			$j.ajax({
+				url: query,
+				type: 'GET',
+				dataType: 'text',
+				error: function(jqXHR, textStatus, errorThrown ) {
+					console.log(errorThrown);
+				},
+				success: function(data, textStatus, jqXHR) {
+					self.$.datasetcollection.refreshRecords();
+					// check status - location header contains url to check status
+					self._checkDatasetStatus(exportName, jqXHR.getResponseHeader('Location'));
+				},
+				complete: function(jqXHR, textStatus){
+					// cleanup
+					self.exportDataset = null;
+					self.authWin = null;
+					window.authCallbackContext = null;
+					window.authCallback = null;
+				}
+			});
+		},
+		
+		_checkDatasetStatus: function(name, statusURL){
+			console.log('checking dataset status for ' + name);
+			// check status in the fileexportreqqueue
+			if (statusURL){  // url to check status should come back in a location header
+				this._doStatusCheck(name, statusURL);
+			} else {  // if there's no url, we need to build one ourselves - this should be uncommon
+				// http://localhost:7001/maximo/oslc/os/UXFILEQUEUE?_lid=abby&_lpwd=abby&lean=1&oslc.where=name=%22WOSASSET_TEST1%22
+				var query = location.origin + $M.getMaxauth().baseUri + '/oslc/os/UXFILEQUEUE';
+				var self = this;
+				$j.ajax({
+					url: query,
+					type: 'GET',
+					dataType: 'json',
+					data: {
+						'lean': '1',
+						'oslc.select': 'fileexportreqqueueid',
+						'oslc.where': 'name="' + name + '"'
+					},
+					error: function(jqXHR, textStatus, errorThrown ) {
+						console.log(errorThrown);
+					},
+					success: function(data, textStatus, jqXHR) {
+						var id = '';
+						if (data && data.member[0]){
+							id = data.member[0].fileexportreqqueueid;
+						}
+						var query2 = location.origin + $M.getMaxauth().baseUri + '/oslc/fileasync/' + id;
+						self._doStatusCheck(name, query2);
+					}
+				});
+			}
+		},
+		_doStatusCheck: function(name, statusURL){
+			var self = this;
+			$j.ajax({
+				url: statusURL,
+				type: 'GET',
+				dataType: 'json',
+				error: function(jqXHR, textStatus, errorThrown ) {
+					console.log(errorThrown);
+				},
+				success: function(data, textStatus, jqXHR) {
+					if (data && data.iscomplete){
+						$M.notify(data.name + ' exported.', 'info');
+						self.$.datasetcollection.refreshRecords();
+					}
+					else{
+						self.async(function(){
+							self._doStatusCheck(name, statusURL);
+						}, 10*1000);
+					}
+				}
+			});
+		}
+		
+	};
+</script>

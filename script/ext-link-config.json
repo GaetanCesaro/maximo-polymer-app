@@ -1,0 +1,8 @@
+{
+
+	"disableAllLinks": false,
+	
+	"linkMap" : [
+		{"alias":"watsonah", "name":"WATSONINTEGRATION"}
+	]
+}

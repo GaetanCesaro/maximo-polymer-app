@@ -1,0 +1,25 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-audio">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-audio-css.html">
+	<style is="custom-style" include="maximo-audio-css"></style>
+	
+	<template>
+  		<audio id="{{id}}" controls>
+  			<source src="{{src}}">
+  		</audio>
+	</template>
+
+	<script src="maximo-audio.js"></script>
+
+</dom-module>

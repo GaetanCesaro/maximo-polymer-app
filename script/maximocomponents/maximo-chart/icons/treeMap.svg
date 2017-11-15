@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xml:space="preserve" style="enable-background:new 0 0 64 64;" viewBox="0 0 64 64" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<g>
+	<path d="M60,12v40H4V12H60 M62,10H2v44h60V10L62,10z" fill="currentColor"/>
+</g>
+<g>
+	<path d="M36,18v11H9V18H36 M38,16H7v15h31V16L38,16z" fill="currentColor"/>
+</g>
+<g>
+	<rect height="13" width="13" fill="currentColor" y="35" x="8"/>
+	<path d="M20,36v11H9V36H20 M22,34H7v15h15V34L22,34z" fill="currentColor"/>
+</g>
+<g>
+	<rect height="13" width="13" fill="currentColor" y="17" x="42"/>
+	<path d="M54,18v11H43V18H54 M56,16H41v15h15V16L56,16z" fill="currentColor"/>
+</g>
+<g>
+	<path d="M55,36v11H27V36H55 M57,34H25v15h32V34L57,34z" fill="currentColor"/>
+</g>
+</svg>

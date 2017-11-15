@@ -1,0 +1,40 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-weather-zone-card">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-weather-zone-card-css.html">
+	<style is="custom-style" include="maximo-weather-zone-card-css"></style>		
+	<template>
+	
+  		<div id="zoneContainer" class="container">
+			<div id="tile" class="dataSetCard" on-tap="_editZone">
+					<div class="flex-vertical" align="Left">
+						<maximo-field id="zone-name" label="{{schema.properties.zone.title}}" datalabel="{{record.zone}}"></maximo-field>
+						<maximo-field id="zone-description" label="{{localize('uitext','weatheradmin','zonedesc')}}" datalabel="{{record.description}}"></maximo-field>
+						<maximo-field id="zone-adresscode" label="{{schema.properties.addresscode.title}}" datalabel="{{record.addresscode}}"></maximo-field>
+						<maximo-field id="zone-latitude" label="{{schema.properties.latitudey.title}}" datalabel="{{record.latitudey}}"></maximo-field>
+						<maximo-field id="zone-longitude" label="{{schema.properties.longitudex.title}}" datalabel="{{record.longitudex}}"></maximo-field>
+						<maximo-field id="zone-radius" label="{{schema.properties.radius.title}} ({{record.radiusuom_description}})" datalabel="{{record.radius}}" width="20px"></maximo-field>
+						<div class="flex-equal-justified" style="padding-top:10px">
+							<maximo-checkbox id="checkbox" label="{{localize('uitext','mxweatheradmin','Registered')}}" label-false="{{localize('uitext','weatheradmin','Unregistered')}}" checked="{{_getChecked(record)}}" slider on-tap="_stopTap" on-change="_processZoneRegistry"></maximo-checkbox>
+							<maximo-button id="trashOpt" align="Right" style="font-family:HelveticaNeue;font-size:18px;line-height:36px;" icon="Maximo:Trash" on-tap="_delete" action></maximo-button>
+						</div>
+					</div> 
+			</div>
+		</div>
+		
+		
+	</template>
+	<script src="maximo-weather-zone-card.js"></script>
+
+</dom-module>

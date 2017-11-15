@@ -1,0 +1,73 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+      
+<dom-module id="maximo-kpi-indicator">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-kpi-indicator-css.html">
+	<style is="custom-style" include="maximo-kpi-indicator-css"></style>
+	
+  <template>
+  		<maximo-collection 
+			auto
+		    id="kpidata" 
+			attribute-names="kpiname,kpivalue,lastkpivalue,description,cautionmin,cautionmax,format,description_longdescription"
+			collection-data="{{kpiData}}"
+			debounce-duration="600"
+			object-name="MXAPIKPIMAIN" 
+			selected-query-name="All"
+			key-search-attribute-name="kpiname"
+			key-search = "{{kpiname}}"
+			on-record-data-refreshed="_handleKpiRecordDataRefreshed">
+		</maximo-collection>
+  		<maximo-collection 
+		    id="historycollection" 
+			attribute-names="kpihistoryid,kpivalue,recordedon"
+			collection-data="{{kpiHistory}}"
+			collection-uri="{{kpihistoryuri}}"
+			order-by-attribute-names="%2Brecordedon"
+			debounce-duration="600"
+			object-name="MXAPIKPIMAIN" 
+			selected-query-name="All"
+			on-record-data-refreshed="_handleKpiHistoryRefreshed"
+			page-size="12">
+		</maximo-collection>
+		
+	  	<div id="carddiv" class="card" on-tap="expandKpi">
+
+			<div class="uppercontainer">	  	
+	  			<div id="maindata" class="main-data">
+	  				<iron-icon id="icon" icon="icons:arrow-forward" class="trendicon" style="{{trendstyle}}"></iron-icon>
+	  				<div id="data" class="kpidata">{{data}}</div>
+					<div id="decimal" class="kpidecimal">{{decimal}}</div>
+					<div id="unit" class="kpiunit">{{unit}}</div>	
+	  				<template is="dom-if" if="{{warndisplay}}">
+	  					<iron-icon id="warningicon" icon="action-based:warn" class="warningicon"></iron-icon>
+	  				</template>
+		  		</div>
+	  		</div>
+	  		<div id="label" title="{{kpiData.0.description}}" class="label">{{kpiData.0.description}}</div>
+	  		
+	  	</div>
+	  	
+		<maximo-overlay id="kpisection" opened="{{overlayOpened}}">
+		  	<div id="exp_carddiv" class="expanded">
+		  		<div id="exp_label" class="label explabel" style="font-weight: bold;" title="{{kpiData.0.description}}">{{kpiData.0.description}}</div>
+				<maximo-longdesc id="exp_longdesc" height="50px" text="{{kpiData.0.description_longdescription}}"></maximo-longdesc>		  		
+				<maximo-chart id="chart" allowedtypes="barchart,linechart,piechart" charttype="linechart" chartoptions="{{chartoptions}}" fulltitle="{{localize('uitext', 'mxapikpimain', 'KPIHistory')}}" values="{{chartdata}}" labels="{{labels}}" width="360" height="280"></maximo-chart>
+		  	</div>		
+ 		</maximo-overlay>	  		
+  </template>
+
+  <script src="maximo-kpi-indicator.js"></script>
+
+</dom-module>

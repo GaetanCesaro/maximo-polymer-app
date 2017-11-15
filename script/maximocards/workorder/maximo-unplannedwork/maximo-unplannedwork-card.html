@@ -1,0 +1,101 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../../handlers/handler-workorder/handler-workorder.html"/>
+<link rel="import" href="../../workorder/maximo-assignlabor-card/maximo-assignlabor-card.html" />
+
+<dom-module id="maximo-unplannedwork-card">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-unplannedwork-card-css.html">
+	<style is="custom-style" include="maximo-unplannedwork-card-css"></style>		
+  <template>
+  <maximo-resource id="unplannedWorkResource" resource-uri="{{record.href}}"></maximo-resource>
+	<maximo-collection
+		auto
+	    id="unplannedWOCollection" 
+		attribute-names="wonum,workorderid,description,assetnum,asset._imagelibref,location,location.description,allowedstates,asset.description,wopriority,schedstart,schedfinish,statusdate,worktype,owner,changeby,statusdate,assignment.craft.description,assignment.craftskill.description"
+		collection-data="{{recordData}}"
+		debounce-duration="600"
+		dynamic-attribute-names="{{dynamicAttributeNames}}"	
+		filter-data="{{woFilterData}}"			
+		object-name="MXAPIWODETAIL"
+		order-by-attribute-names="%2Bwopriority,%2Bstatusdate"
+		page-size="500"
+		query-info="{{queryInfo}}" 
+		schema="{{unplannedschema}}"
+		search-attribute-names="wopriority,description,worktype,wonum"
+		search-term-value="{{searchTermValue}}"
+		selected-query-name="{{selectedQueryName}}"
+		selected-record="{{selectedRecord}}"
+		selected-record-index="{{selectedRecordIndex}}"
+		use-search-terms="true"
+		on-record-data-refreshed="_handleRecordDataRefreshed"
+		on-dynamic-attribute-data-fetched="_showWODetails" 
+		refresh-listeners='["wmassignment"]'>
+	</maximo-collection>
+	<maximo-collection
+	    id="woWithAvailableLaborCollection" 
+		attribute-names="wonum,workorderid"
+		collection-data="{{woLaborRecordData}}"
+		debounce-duration="600"	
+		filter-data="{{woLaborFilterData}}"
+		object-name="MXAPIWODETAIL"
+		query-info="{{queryInfo}}">
+	</maximo-collection>
+		
+	<maximo-panel id="unplannedWorkPanel" label="{{localize('uitext', 'mxapiwodetail', 'AssignUnplannedWork')}}"  headinginfo="{{recordCount}}" width="[[panelWidth]]" height="470px" collections="unplannedWOCollection">
+		 <maximo-searchbar id="searchbar" collection="{{getLocalObject('unplannedWOCollection')}}" placeholder="{{localize('uitext', 'mxapibase', 'Search')}}"></maximo-searchbar>
+		  <maximo-norecordfound id="unplanned_norecord"  collection="{{getLocalObject('unplannedWOCollection')}}" message="{{localize('uitext', 'mxapiwodetail', 'NoassignmentsarewaitingtobeassignedIfyoue')}}"></maximo-norecordfound>
+		  <iron-list id="unplannedWorkPanelIronList" items="{{recordData}}" as="workorder">
+		  
+			 <template id="maximoPanelWorktoassignTemplate">
+				 <div id="outerdiv_unplannedWorkCard">	
+					<div id="unplannedWorkCard" class="cardborder">
+					
+						<div id="unplannedWorkCardHeader" class="cardheader">
+							<div id="unplannedWork_divA" class="flex-equal-justified">
+								<div id="unplannedWork_divB">
+									<maximo-label id="unplannedWork_divB-label-worktype" class="wtatypeclass" label="{{workorder.worktype}}"></maximo-label>
+									<maximo-label id="unplannedWork_divB-label-wonum" class="wtanumclass" label="{{workorder.wonum}}"></maximo-label>	
+								</div>
+								<div id="unplannedWork_divC" hidden$="{{showPriority(workorder)}}" class="flex-horizontal">
+									<maximo-label id="unplannedWork_divC_section_label2" class="wtapriorityclass" label="{{unplannedschema.properties.wopriority.title}}"></maximo-label>
+									<maximo-prioritytag id="unplannedWork_divC_section_prioritytag" priority="{{workorder.wopriority}}"></maximo-prioritytag>
+								</div>
+							</div>
+						</div>
+			
+						<div id="unplannedWorkCardContainer" class="cardcontainer">
+							<maximo-collapsible id="unplannedWorkCardContainer_collapsible_section" action-label="{{localize('uitext', 'mxapiwodetail', 'FindLabor')}}" action-fire="fireFindLabor" height="100">
+					 			<div id="unplannedWorkCardContainer_div30" style="text-align:left;">
+					 				<div style="padding: 0px 15px; float: right;">
+										<maximo-imglib id="openwork-label-labor-image" width="85px" height="85px" image="{{workorder.asset._imagelibref}}" noimageicon="maximo-based:no-image" rounded></maximo-imglib>																	
+									</div>
+									
+									<div id="unplannedwork_carddescription" class="carddescription" style$="{{cardDescription(workorder.description)}}">
+										<maximo-label id="maximo_openwork_field_description" label="{{workorder.description}}"></maximo-label>
+									</div>
+									
+									<maximo-field id="maximo_openwork_field_location" label="{{unplannedschema.properties.location.title}}" datalabel="{{workorder.location.description}}"></maximo-field>
+									<maximo-field id="maximo_openwork_field_Asset" label="{{unplannedschema.properties.assetnum.title}}" datalabel="{{workorder.asset.description}}"></maximo-field>														
+								</div>
+							</maximo-collapsible>
+						</div>			
+					</div>
+				</div>			
+			</template>
+		</iron-list>				
+	</maximo-panel>  	
+  </template>
+
+  <script src="maximo-unplannedwork-card.js"></script>
+
+</dom-module>

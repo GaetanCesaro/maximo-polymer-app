@@ -1,0 +1,83 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../../../maximocomponents/maximo-synonymdomain/maximo-synonymdomain.html" />
+
+<dom-module id="maximo-comments-card">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-comments-card-css.html">
+	<style is="custom-style" include="maximo-comments-card-css"></style>
+		
+	<template>
+	<maximo-collection 
+		    id="commentcollection" 
+			attribute-names="createby,createdate,description,description_longdescription,logtype,class,clientviewable,recordkey,person.personid,person.firstname,person.lastname,person._imagelibref,person.primaryphone,person.primaryemail"
+			collection-data="{{recordData}}"
+			debounce-duration="600"
+			order-by-attribute-names="%2Bcreatedate"
+			search-attribute-names="recordkey"
+		    search-term-value="{{searchTerms}}"
+		    use-search-terms="true"
+			page-size="50"	
+			object-name="MXAPIWORKLOG" 
+			selected-query-name="WORKLOGRELATEDTOSR"		
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			on-data-error="_handleDataError">	
+	   </maximo-collection>	
+	   <maximo-synonymdomain
+			id="maxsynonymdomain"
+			domainid="TKCLASS"
+			maxvalue="SR"
+			on-value-data-refreshed="_handleGetValueFromDomain"
+			on-value-data-error="_handleGetValueFromDomainError">
+	   </maximo-synonymdomain>
+	   <maximo-resource id="commentResource" resource-uri="{{sr.href}}"></maximo-resource>
+		<div id="main" class="commentMain">
+		   <maximo-simple-panel  class="commentPanel" id="commentPanel" title="{{localize('uitext', 'mxapisr', 'Comments')}}"count="({{recordCount}})" back-button="true" on-close="close">
+				<maximo-overlay id="personInformation" class="personInfo">
+					<div id="personInfoPictureBorder" class="personInfoPictureBorder"></div>
+					<div id="personInfoContentWrapper" class="personInfoContentWrapper"> 
+						<div align="center" class="personInfoNameWrapper">
+							<maximo-label id="personInfoName" style="font-family:HelveticaNeue;font-size:16px;color:#335c7e;letter-spacing:0px;text-align:center;"></maximo-label>
+						</div>			
+						<div id="personInfoIconContainerPhone" class="personInfoIconContainerPhone personInfoIconContainer">
+							<a href="" class="personInfoEmailLink"><iron-icon class="personInfoMail personInfoIcon" icon="maximo-based:email"></iron-icon></a>
+							<a href="" class="personInfoPhoneLink"><iron-icon class="personInfoPhone personInfoIcon" icon="maximo-based:phone"></iron-icon></a>
+						</div>
+						<div id="personInfoIconContainerDesktop" class="personInfoIconContainerDesktop personInfoIconContainer">
+							<a href="" class="personInfoPhoneLink personInfoLinkDesktop"><span id="personInfoPhoneContent" class="personInfoPhone " ></span></a>
+							<a href="" class="personInfoEmailLink personInfoLinkDesktop"><span id="personInfoEmailContent" class="personInfoMail"></span></a>
+						</div>
+					</div>
+ 					<div id="personInfoPictureWrapper" class="personInfoPictureWrapper">
+						<maximo-imglib id="personInfoImage" class="personInfoImage" width="48px" height="48px" noimageicon="maximo-based:no-user" rounded on-tap="_imgClicked"></maximo-imglib>
+					</div>
+ 				</maximo-overlay>
+
+				<template is="dom-repeat" items="{{recordData}}" as="wl">
+					<maximo-chatbubble class="messageBubble" label="{{_getDescription(wl)}}" date="{{wl.createdate}}" direction$="{{_getDirection(wl)}}" maxwidth$="{{_getMessageWidth()}}" person-image="{{wl.person._imagelibref}}" person-firstname="{{wl.person.firstname}}" additional-info="{{wl.person}}" on-clickimage="_showPersonInfo"></maximo-chatbubble>
+				</template>
+			</maximo-simple-panel>
+			
+	    	<div class="inputCommentDiv flex-horizontal">
+		     	<div class="inputCommentChildDiv">
+		     		<maximo-text id="inputComment" class="inputComment" placeholder="{{localize('uitext', 'mxapisr', 'TypeMessage')}}" on-keypress="_handleChange"></maximo-text>
+		     	</div>
+		     	<div>
+		     		<iron-icon class="sendMessageButtonIcon" icon="maximo-based:sendMessage" on-click="_addComment"></iron-icon>
+		     	</div>
+	 		</div>
+		    
+		</div>
+	</template>
+	
+	<script src="maximo-comments-card.js"></script>
+</dom-module>

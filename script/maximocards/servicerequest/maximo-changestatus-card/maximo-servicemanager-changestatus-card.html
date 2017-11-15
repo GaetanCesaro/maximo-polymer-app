@@ -1,0 +1,34 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-servicemanager-changestatus-card">
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-servicemanager-changestatus-card-css.html">
+	<style is="custom-style" include="maximo-servicemanager-changestatus-card-css"></style>		
+  	
+  	<template id="maximo_servicemanager_changestatus_dialog">
+  		<maximo-resource id="recordResource" resource-uri="{{record.href}}"></maximo-resource>
+		<maximo-section id="status_section">
+			<maximo-field id="changestatus_section_label1" label="{{localize('Ticket ID')}}" datalabel="{{record.ticketid}}"></maximo-field><br>
+			<maximo-field id="changestatus_section_label2" label="{{localize('Description')}}" datalabel="{{record.description}}"></maximo-field><br>
+			<maximo-field id="changestatus_section_label3" label="{{localize('Status')}}" datalabel="{{record.status}}"></maximo-field><br>
+			<maximo-field id="changestatus_section_label4" label="{{localize('Status Date')}}" datalabel="{{getDate(record.statusdate)}}"></maximo-field><br>			
+		</maximo-section>				
+		
+		<maximo-select id="selectStatus" label="{{localize('New Status')}}" values="{{_statusList(record)}}" internal-label="true" style="margin-top: 30px;" required="true"></maximo-select><br>		
+		<maximo-text id="changestatusMemo" label="{{localize('Memo')}}" value="{{record.memo}}"></maximo-text>
+	
+		 <maximo-footer id="footer">
+		 	<maximo-button id="changestatus_footer_Cancel" label="{{localize('Cancel')}}" on-tap="close"></maximo-button>
+	  		<maximo-button id="changestatus_footer_ok" label="{{localize('Ok')}}" on-tap="changeStatus" default="true"></maximo-button>
+	  	</maximo-footer>	
+  	</template>
+
+	<script src="maximo-servicemanager-changestatus-card.js"></script>
+
+</dom-module>

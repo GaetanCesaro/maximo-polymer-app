@@ -1,0 +1,27 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->
+
+<dom-module id="maximo-radiobutton">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-radiobutton-css.html">
+	<style is="custom-style" include="maximo-radiobutton-css"></style>
+	
+	<template>
+ 		<div id$="{{id}}_radio" role="radio" aria-labelledby$="label{{record.href}}" group-id$="{{groupId}}" class$="{{_className}}" on-tap="_select" on-keyup="_arrowKeyHandler" aria-checked$="{{_ariaChecked}}">
+			<div class="radiobutton" tabindex$="{{tabindex}}"><div class="mark"></div></div>
+			<label id="label{{record.href}}">{{label}}</label>
+		</div>
+	</template>
+
+	<script src="maximo-radiobutton.js"></script>
+
+</dom-module>

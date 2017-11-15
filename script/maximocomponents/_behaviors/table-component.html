@@ -1,0 +1,30 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+	/**
+	 * This component can be plaed on a table
+	 *
+	 * @polymerBehavior TableComponent
+	 */
+	TableComponent = {
+		properties: {
+			tableInfo: {
+				type: Object,
+				value: function(){
+					return {};
+				}
+			}
+		},
+		allowedOnTable: function(){
+			return true;	
+		},
+		getTableDataBindInfo: function(){
+			//must be overridden by component.
+			console.error(this.tagName + ' is not allowed on a table.');
+		}
+	};
+</script>

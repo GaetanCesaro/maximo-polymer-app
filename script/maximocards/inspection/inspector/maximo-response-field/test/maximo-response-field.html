@@ -1,0 +1,226 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-response-field tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<script src="../../../../../main.js"></script>
+		<script src="../../../../../test.js"></script>
+		<script src="../../../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../../../components/iron-test-helpers/mock-interactions.js"></script>
+		<link rel="import" href="../../../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<link rel="import" href="../maximo-response-field.html" />
+		<script src="mockData.js"></script>
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="textResponseField">
+			<template>
+				<maximo-response-field id="textResponseField"></maximo-response-field>
+			</template>
+		</test-fixture>
+		<test-fixture id="numericResponseField">
+			<template>
+				<maximo-response-field id="numericResponseField"></maximo-response-field>
+			</template>
+		</test-fixture>
+		<test-fixture id="txtResponses">
+			<template>
+				<maximo-response-field id="txtResponses"></maximo-response-field>
+			</template>
+		</test-fixture>	
+		<test-fixture id="numResponses">
+			<template>
+				<maximo-response-field id="numResponses"></maximo-response-field>
+			</template>
+		</test-fixture>		
+		<test-fixture id="SelectResponse">
+			<template>
+				<maximo-response-field id="SelectResponse"></maximo-response-field>
+			</template>
+		</test-fixture>			
+						
+		<script>
+			suite('Text Response Field', function() {
+				
+				var textResponseField;
+	
+				setup(function() {
+					textResponseField = fixture('textResponseField');
+					textResponseField.resultrecord = resultRecord[0];
+					textResponseField.item = field[0];
+				});
+	
+				test('Maximo-Response-Field: Checking if label is built.', function(done) {
+					textResponseField.attached();										
+					var label = $j(textResponseField).find('label');
+					expect(label).to.be.a('object');
+					expect($j(textResponseField).find('#label').html()).to.equal('Text Response 1 for Question A (Not Required):', 'Label not found on Maximo-Text');
+					done();
+				});
+				
+				test('Maximo-Response-Field: Checking Maximo-Text is type text.', function(done) {
+					textResponseField.attached();
+					var maximotext = $j(textResponseField).find('maximo-text');
+					expect(maximotext.attr('type')).to.equal('text', 'Input should be text');
+					expect(maximotext.attr('style')).to.equal('text-align:left;', 'Text is not aligned left');
+					done();
+				});
+				
+				test('Maximo-Response-Field: Checking if Text Field is Required', function(done) {		
+					textResponseField.item = requiredfield[0];
+					textResponseField.attached();
+					var label = $j(textResponseField).find('label');
+					var required = $j('label').attr('required');
+					expect(required).to.equal('required', 'Label should have required asterik.');						
+					done();
+				});
+	
+				test('Maximo-Response-Field: Checking text Field Validation icon exists', function(done) {
+					textResponseField.attached();
+					var icon = $j(textResponseField).find('#validationicon');
+					expect(icon).to.be.a('object');
+					done();
+				});
+			});
+			
+			suite('Numeric Response Field', function() {
+				
+				var numericResponseField;
+	
+				setup(function() {
+					numericResponseField = fixture('numericResponseField');
+					numericResponseField.resultrecord = resultRecord[0];
+					numericResponseField.item = numericfield[0];
+				});
+	
+				test('Maximo-Response-Field: (Numeric) Checking if label is built.', function(done) {
+					numericResponseField.attached();										
+					var label = $j(numericResponseField).find('label');
+					expect(label).to.be.a('object');
+					expect($j(numericResponseField).find('#label').html()).to.equal('Numeric Response 1 for Question A (Not Required):', 'Label not found on Maximo-Text');
+					done();
+				});
+				
+				test('Maximo-Response-Field: (Numeric) Checking Maximo-Text is type numeric and aligned left.', function(done) {
+					numericResponseField.attached();
+					var maximotext = $j(numericResponseField).find('maximo-text');
+					
+					//changed to text instead of numeric to match code change.
+					expect(maximotext.attr('type')).to.equal('text', 'Input should be number');
+					
+					expect(maximotext.attr('style')).to.equal('text-align:left;', 'Text is not aligned left');
+					done();
+				});
+				
+				test('Maximo-Response-Field: (Numeric) Checking if field is Required', function(done) {	
+					numericResponseField.item = requirednumericfield[0];
+					numericResponseField.attached();
+					var label = $j(numericResponseField).find('label');
+					var required = $j('label').attr('required');
+					expect(required).to.equal('required', 'Label should have required asterik.');						
+					done();
+				});
+	
+				test('Maximo-Response-Field: (Numeric) Checking text Field Validation icon exists', function(done) {
+					numericResponseField.item = requirednumericfield[0];
+					numericResponseField.attached();
+					var icon = $j(numericResponseField).find('#validationicon');
+					expect(icon).to.be.a('object');
+					done();
+				});
+			});			
+			
+			suite('Text Field with Response', function() {
+				
+				var txtFieldResponse;
+				var numFieldResponse;
+	
+				setup(function() {
+					txtFieldResponse = fixture('txtResponses');
+					numFieldResponse = fixture('numResponses');
+				});
+	
+				test('Maximo-Response-Field-Value Verification: TxtField', function(done) {
+					txtFieldResponse.item = textfieldwithresponse[0];
+					txtFieldResponse.resultrecord = resultRecordWithResponse[0];
+					txtFieldResponse.attached();									
+					var maximotext = $j(txtFieldResponse).find('maximo-text');
+					expect(maximotext.attr('value')).to.equal('Answer to Question1 Response', 'Answer Response not found');
+					done();
+				});
+				
+				test('Maximo-Response-Field-Value Verification: NumField', function(done) {
+					numFieldResponse.item = numericfieldwithresponse[0];
+					numFieldResponse.resultrecord = resultRecordWithResponse[0];
+					numFieldResponse.attached();										
+					var maximotext = $j(numFieldResponse).find('maximo-text');
+					expect(maximotext.attr('value')).to.equal('100.50', 'Answer Response not found');
+					done();
+				});
+				
+			
+			});		
+			
+			suite('Select Response', function() {
+				
+				var selectFieldResponse;
+	
+				setup(function() {
+					selectFieldResponse = fixture('SelectResponse');
+					selectFieldResponse.item = itemfield[0];
+					selectFieldResponse.resultrecord = selectResultRecord[0];
+				});
+	
+				test('Maximo-Select-Field Verification: Select Response', function(done) {
+					selectFieldResponse.attached();
+					var maximoselect = $j(selectFieldResponse).find('maximo-select');
+					expect(maximoselect[0].$.label.innerHTML).to.equal('Single Choice Label - NOT REQUIRED', 'Single Choice Label - NOT REQUIRED expected');
+					expect($j(maximoselect[0]).find('option')).to.have.length(4);
+					expect($j(maximoselect[0]).find('option')[0].value).to.equal('','Place Holder value is not empty.')
+					done();
+				});
+				
+				test('Maximo-Select-Field Verification: Verify required is applied', function(done) {
+					selectFieldResponse.attached();
+					$j(selectFieldResponse)[0].setAttribute('required','');
+					expect($j(selectFieldResponse)[0].getAttribute('required')).to.equal('','Required flag not found');
+					done();
+				});
+				
+				test('Maximo-Select-Field Verification: Verify label is hidden when required and label is empty', function(done) {
+					selectFieldResponse.item.required=true;
+					selectFieldResponse.item.description='';
+					selectFieldResponse.attached();
+					expect($j(selectFieldResponse).find('label').attr('hidden')).to.equal('hidden','Label should be hidden, but its not.')
+					done();
+				});
+				
+			
+			});				
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,174 @@
+e<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-inspection-form tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<script src="../../../../../main.js"></script>
+		<script src="../../../../../test.js"></script>
+		<script src="../../../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../../../components/iron-test-helpers/mock-interactions.js"></script>
+		<link rel="import" href="../../../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<link rel="import" href="../maximo-inspection-form.html" />
+		<script src="mockData.js"></script>
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="maximo-inspection-form">
+			<template>
+				<maximo-inspection-form id="maximoInspectionFormTest"></maximo-inspection-form>
+			</template>
+		</test-fixture>
+<script>
+suite('<maximo-inspection-form>', function() {
+	var maximoinspectionform;
+	//var maximoinspectionlist;
+	setup(function() {
+		maximoinspectionform = fixture('maximo-inspection-form');
+	});
+
+	test('maximo-inspection-form - Instruction Section tests.', function(done) {
+		//check section is closed by default
+		expect($j('#maximoInspectionFormTest_inspectionformcollapse_maximoSectionIronCollapse')[0].opened).to.equal(false, 'Instruction section is open, when it should be closed by default.');
+		
+		//tap Form Instructions Link, verify section expandsa
+		MockInteractions.tap(maximoinspectionform.$.instructions);		
+		expect($j('#maximoInspectionFormTest_inspectionformcollapse_maximoSectionIronCollapse')[0].opened).to.equal(true, 'Instruction section is closed, when it should be open');
+		
+		//tap Close button, verify section closes.
+		MockInteractions.tap(maximoinspectionform.$.instructionClose);	
+		expect($j('#maximoInspectionFormTest_inspectionformcollapse_maximoSectionIronCollapse')[0].opened).to.equal(false, 'Instruction section did not close, when close button was clicked.');
+		
+		tinymce.activeEditor.on('init',function(){
+	    	  
+	    	  //test select all text and making everything bold.
+	    	  tinymce.activeEditor.setContent('test 123');
+	    	  expect(tinymce.activeEditor.getContent()).to.equal("<p>test 123</p>", 'Instruction area does not have the correct text.');
+	    	  
+	    	  //test instructions clear button
+	    	  MockInteractions.tap(maximoinspectionform.$.instructionClear);	
+	    	  expect(tinymce.activeEditor.getContent()).to.equal("", 'Instruction area should be empty.');
+	    	  
+	    	  done();
+		});
+		
+	});
+
+	test('Test delete question process', function(done) {
+		//Check the function exists
+		expect(maximoinspectionform.deleteQuestion).to.be.a('function');
+		console.log(maximoinspectionform);
+		maximoinspectionform.addEventListener('delete', function(e) {
+			// it should get in here if delete works
+			console.log(e);
+			//expect(e).to.be.a('event');
+			done();				
+		});
+		
+		maximoinspectionform.deleteQuestion(mockDelEvent);
+		done();
+	});
+	
+	test('Test edit question process', function(done) {
+		//Check the function exists
+		expect(maximoinspectionform.editQuestion).to.be.a('function');
+		//test the function
+		maximoinspectionform.editQuestion(mockEditEvent);
+		//Check that it opened the modal
+		var modal = maximoinspectionform.$.questionModal;
+		expect(modal.style.display)=== 'block';
+		done();
+	});
+	
+	test('Test duplicate question process', function(done) {
+		//Check the function exists
+		expect(maximoinspectionform.duplicateQuestion).to.be.a('function');
+		// test the function
+		maximoinspectionform.duplicateQuestion(mockDupEvent);
+		
+		done();
+	});
+	
+	test('Test Create Group process', function(done) {
+		//Check the function exists
+		expect(maximoinspectionform._groupQuestion).to.be.a('function');
+		// test the function
+		maximoinspectionform.questions = testTableData;
+		maximoinspectionform._groupQuestion(mockDupEvent);
+		
+		done();
+	});
+	test('Test if create group event is being called', function(done) {
+		//Check the function exists
+		expect(maximoinspectionform._groupQuestion).to.be.a('function');
+		// test the function
+		maximoinspectionform.tableData = testTableData;
+		maximoinspectionform.addEventListener('_groupQuestion', function() {
+			return true;
+		});
+		var res = maximoinspectionform.fire('_groupQuestion',mockDupEvent);
+		expect(res.returnValue).to.equal(true, 'Group question is not being called');
+		done();
+	});
+	test('Test Create Group process, checking if the sequence is being updated', function(done) {
+		//Check the function exists
+		expect(maximoinspectionform._groupQuestion).to.be.a('function');
+		// test the function
+		maximoinspectionform.tableData = testTableData;
+		maximoinspectionform.addEventListener('resequenceQuestions', function() {
+			return true;
+		});
+		var res = maximoinspectionform.fire('_groupQuestion',mockDupEvent);
+		expect(res.returnValue).to.equal(true, 'Group question is not being called');
+		done();
+	});
+	test('Test Create Group process, checking if _findFirstSelected is being called', function(done) {
+		//Check the function exists
+		expect(maximoinspectionform._groupQuestion).to.be.a('function');
+		// test the function
+		maximoinspectionform.tableData = testTableData;
+		maximoinspectionform.addEventListener('_findFirstSelected', function() {
+			return true;
+		});
+		var res = maximoinspectionform.fire('_groupQuestion',mockDupEvent);
+		expect(res.returnValue).to.equal(true, 'Group question is not being called');
+		done();
+	});
+	test('Test Create Group process, checking if _clearCheckboxes is being called', function(done) {
+		//Check the function exists
+		expect(maximoinspectionform._groupQuestion).to.be.a('function');
+		// test the function
+		maximoinspectionform.tableData = testTableData;
+		maximoinspectionform.addEventListener('_clearCheckboxes', function() {
+			return true;
+		});
+		var res = maximoinspectionform.fire('_groupQuestion',mockDupEvent);
+		expect(res.returnValue).to.equal(true, 'Group question is not being called');
+		done();
+	});
+});
+</script>
+	</body>
+</html>

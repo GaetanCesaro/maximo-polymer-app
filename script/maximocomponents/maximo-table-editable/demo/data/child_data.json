@@ -1,0 +1,58 @@
+{
+  "responseInfo" : {
+	  "schema" : {
+	  "title":"SAMPLESET",
+	  "$schema":"http://json-schema.org/draft-04/schema#",
+	  "description":"Json Schema for SAMPLESET",
+	  "$ref":"http://192.168.1.68:7001/maximo/oslc/jsonschemas/sampleset",
+	  "properties":{ "address":{
+		  				"title":"Aaddress",
+		  				"maxLength":20,
+		  				"subType":"ALN",
+		  				"remarks":"Address",
+		  				"type":"string"},
+		  			 "city":{
+		  				 "title":"City",
+		  				 "maxLength":20,
+		  				 "subType":"ALN",
+		  				 "remarks":"City",
+		  				 "type":"string"},
+		  			  "state":{
+		  				 "title":"State",
+		  				 "maxLength":2,
+		  				 "subType":"ALN",
+		  				 "remarks":"State",
+		  				 "type":"string"},
+	  				"zip":{
+		  				 "title":"Zip Code",
+		  				 "maxLength":5,
+		  				 "subType":"ALN",
+		  				 "remarks":"Zip Code",
+		  				 "type":"string"}
+		  			,		  			  
+	  "required":[],
+	  "type":"object",
+	  "pk":["first_name","last_name","company"] } 
+ 	},
+ "href":"HREFhttp://192.168.1.68:7001/maximo/oslc/os/samplset",
+ "member":[{},
+		{"_id":"2","href":"HREF2","first_name":"Stephanie","last_name":"Fernandez","gender":"Female","company":"Youfeed","test_boolean":true},
+		{"_id":"3","href":"HREF3","first_name":"Frances","last_name":"Sims","gender":"Female","company":"Twitterbridge","test_boolean":false},
+		{"_id":"4","href":"HREF4","first_name":"Joseph","last_name":"Arnold","gender":"Male","company":"Talane","test_boolean":false},
+		{"_id":"5","href":"HREF5","first_name":"Judith","last_name":"Armstrong","gender":"Female","company":"Meezzy","test_boolean":false},
+		{"_id":"6","href":"HREF6","first_name":"Joan","last_name":"Allen","gender":"Female","company":"Gabspot","test_boolean":false},
+		{"_id":"7","href":"HREF7","first_name":"Melissa","last_name":"Gordon","gender":"Female","company":"Fivechat","test_boolean":true},
+		{"_id":"8","href":"HREF8","first_name":"Sharon","last_name":"Hunt","gender":"Female","company":"Zava","test_boolean":false},
+		{"_id":"9","href":"HREF9","first_name":"Walter","last_name":"Collins","gender":"Male","company":"Quatz","test_boolean":false},
+		{"_id":"10","href":"HREF10","first_name":"Justin","last_name":"Watkins","gender":"Male","company":"Edgeblab","test_boolean":true},
+		{"_id":"11","href":"HREF11","first_name":"Nicole","last_name":"Wood","gender":"Female","company":"Oba","test_boolean":false},
+		{"_id":"12","href":"HREF12","first_name":"Jack","last_name":"Brown","gender":"Male","company":"Oyondu","test_boolean":false},
+		{"_id":"13","href":"HREF13","first_name":"Julia","last_name":"Kelly","gender":"Female","company":"Mymm","test_boolean":false},
+		{"_id":"14","href":"HREF14","first_name":"Andrew","last_name":"Long","gender":"Male","company":"Blognation","test_boolean":false},
+		{"_id":"15","href":"HREF15","first_name":"Justin","last_name":"Burton","gender":"Male","company":"DabZ","test_boolean":false},
+		{"_id":"16","href":"HREF16","first_name":"Gregory","last_name":"Barnes","gender":"Male","company":"Dynazzy","test_boolean":false},
+		{"_id":"17","href":"HREF17","first_name":"Margaret","last_name":"Franklin","gender":"Female","company":"Feednation","test_boolean":false},
+		{"_id":"18","href":"HREF18","first_name":"Ruth","last_name":"Sanders","gender":"Female","company":"Browsedrive","test_boolean":false},
+		{"_id":"19","href":"HREF19","first_name":"Theresa","last_name":"Boyd","gender":"Female","company":"Quaxo","test_boolean":false},
+		{"_id":"20","href":"HREF20","first_name":"George","last_name":"Crawford","gender":"Male","company":"Jabberbean","test_boolean":false}]
+}

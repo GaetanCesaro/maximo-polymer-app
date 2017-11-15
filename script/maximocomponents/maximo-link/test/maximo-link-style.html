@@ -1,0 +1,84 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+<head>
+<title>maximo-link style tests</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+<script src="../../../main.js"></script>
+<script src="../../../test.js"></script>
+<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+<script src="../../../components/web-component-tester/browser.js"></script>
+<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+
+<link rel="import"
+	href="../../../maximocomponents/maximo-module/maximo-module.html" />
+
+<style is="custom-style">
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	
+	.alternative {
+		--link-color: #7fff00;
+		--font-color: #008080;
+	}
+	
+</style>
+</head>
+<body>
+	<maximo-module id="module"></maximo-module>
+	<test-fixture id="link">
+		<template> 
+			<maximo-link id="link0" link-name="watsoniot" label="watson link" pre-label="pre" post-label="post"></maximo-link>
+		</template>
+	</test-fixture>
+	<test-fixture id="linkAlt">
+		<template> 
+			<maximo-link id="link0" class="alternative" link-name="watsoniot" label="watson link" pre-label="pre" post-label="post"></maximo-link>
+		</template>
+	</test-fixture>
+	<script>
+		suite('<maximo-link>', function() {
+	    	  
+			var link, linkAlt;
+			setup(function() {
+				link = fixture('link');
+				linkAlt = fixture('linkAlt');
+			});
+	
+			test('check link style', function(done) {
+				
+				expect(rgb2hex(getStyleProperty(link.$$('a'), 'color'))).to.equal('#5aaafa', 'Link color is incorrect.');
+				expect(rgb2hex(getStyleProperty(link.$$('label'), 'color'))).to.equal('#ffffff', 'label color is incorrect.');
+	        	done();
+			});
+			
+			test('check link alternative style', function(done) {
+				
+				expect(rgb2hex(getStyleProperty(linkAlt.$$('a'), 'color'))).to.equal('#7fff00', 'Link color is incorrect.');
+				expect(rgb2hex(getStyleProperty(linkAlt.$$('label'), 'color'))).to.equal('#008080', 'label color is incorrect.');
+	        	done();
+			});
+	        
+		});      
+	</script>
+</body>
+</html>

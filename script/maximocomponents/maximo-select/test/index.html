@@ -1,0 +1,36 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <title>maximo-select tests</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../../components/web-component-tester/browser.js"></script>
+    <link rel="stylesheet" href="../../../../css/test.css">
+  </head>
+
+  <body>
+    <script>
+	    var name = 'select';
+	    var suites = [];
+	    suites.push('maximo-'+name+'.html');
+	    suites.push('maximo-'+name+'-style.html');
+	    suites.push('maximo-'+name+'-a11y.html');
+	    WCT.loadSuites(suites);
+    </script>
+  </body>
+</html>

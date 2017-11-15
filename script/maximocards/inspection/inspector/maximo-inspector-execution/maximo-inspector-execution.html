@@ -1,0 +1,74 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-inspector-execution">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspector-execution-css.html">
+	<style is="custom-style" include="maximo-inspector-execution-css"></style>
+	
+	<link rel="import" href="../maximo-response-field/maximo-response-field.html">
+	
+	<template>
+		<div id="inspectorExecutionDiv">				
+			<div id="inspectorExecutionScrollerDiv" class="layout horizontal wrap executionContainer" style="display:block;">
+				<div id="groupInstructions" class="slideIn" style="display:none;">
+					<div id="groupInstructionsTitle" class="main highlight" align="center"></div><hr>
+					<div id="groupInstructionsText" class="highlight main"></div>
+					<div id="groupInstructionsButtons" align="center">
+		 				<maximo-button  id="groupInstructionClose" align="center" label="{{localize('uitext','mxapibase','OK')}}" default on-tap="closeInstructions" ></maximo-button>
+					</div>
+				</div>				
+				<template id="repTemplateGroupQuestion" is="dom-repeat" items="{{questions}}" as="question">
+						<div id="questionContainerDiv" class="questionContainer" data-questionnum="[[question.inspquestionnum]]">
+							<div id="inspectorExecutionGroupContainer" class$="{{highlightHeader(question)}} container">
+								<div id="inspectorExecutionGroupMain" class="main" required$={{question.required}}>
+									{{question.groupseq}}. {{question.description}}
+									<maximo-button action="true" class="info" id="showInfo" hidden$={{hideInfoIcon(question)}} synchronous tabindex="0" on-tap="_dropDownInstructions"" question="[[question]]" icon="action-based:get-information"></maximo-button>
+								</div>
+								<div id="inspectorExecutionGroupProgress" class="progress">
+									<iron-icon id="inspectorExecutionIconGroupConfirm"	icon="Maximo:Confirm" hidden$="{{!isDone(question,_done)}}"></iron-icon>
+									<iron-icon id="inspectorExecutionIconGroupCircle"	icon="Maximo:Circle" hidden$="{{isDone(question,_done)}}"></iron-icon>						
+								</div>
+							</div>
+								
+							<template id="repTemplateQuestion" is="dom-repeat" items="{{question.children}}" as="qchild">	
+								<div id="inspectorExecutionContainer" class="container questionContainer" data-questionnum="[[qchild.inspquestionnum]]">
+									<div id="inspectorExecutionMain" class="main" required$={{qchild.required}}>
+										{{qchild.groupseq}}. {{qchild.description}}
+									</div>
+									<div id="inspectorExecutionProgress" class="progress">
+										<iron-icon id="inspectorExecutionIconConfirm"	icon="Maximo:Confirm" hidden$="{{!isDone(qchild,_done)}}"></iron-icon>
+										<iron-icon id="inspectorExecutionIconCircle"	icon="Maximo:Circle" hidden$="{{isDone(qchild,_done)}}"></iron-icon>						
+									</div>
+								</div>						
+								<template id="repTemplateField1" is="dom-repeat" items="{{qchild.inspfield}}" as="fieldg">
+									<div style="padding-bottom:10px;">
+										<maximo-response-field id="inspectorExecutionMaximoResponseField1" resultrecord="[[record]]" item="[[fieldg]]" question="[[qchild]]"></maximo-response-field>					
+									</div>
+								</template>	
+								<span class="seperator"></span>
+							</template>
+							
+							<template id="repTemplateField2" is="dom-repeat" items="{{question.inspfield}}" as="field">
+								<div>
+									<maximo-response-field id="inspectorExecutionMaximoResponseField2" resultrecord="[[record]]" item="[[field]]" question="[[question]]"></maximo-response-field>					
+								</div>
+							</template>
+						<span class$="seperator {{isGroup(question)}}"></span>
+						</div>
+				</template> 
+			</div>
+		</div>				
+	</template>
+	<script src="maximo-inspector-execution.js"></script>
+
+</dom-module>

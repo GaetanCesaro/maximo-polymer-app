@@ -1,0 +1,105 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<link rel="import" href="../maximo-solutiondetail-card/maximo-servicemanager-solutiondetail-card.html" />
+<link rel="import" href="../maximo-createsr-card/maximo-servicerequest-createsr-card.html" />     
+<dom-module id="maximo-servicemanager-searchsol-card">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-servicemanager-searchsol-card-css.html">
+	<style is="custom-style" include="maximo-servicemanager-searchsol-card-css"></style>		
+  <template id="searchsol-template">
+	<maximo-collection 
+	    auto
+	    id="searchsolutioncollection" 
+		attribute-names="solution,description,classstructure.hierarchypath,type,classstructure.description,problemcode_longdescription,fr1code_longdescription,fr2code_longdescription,status,selfservaccess"
+		collection-data="{{recordData}}"
+		debounce-duration="600"
+		dynamic-attribute-names="{{dynamicAttributeNames}}"
+		filter-data="{{srFilterData}}"
+		order-by-attribute-names="%2Bsolution"
+		query-info="{{queryInfo}}"
+		selected-record-index="{{selectedRecordIndex}}"
+		on-dynamic-attribute-data-fetched="_showSolutionDetails"
+		refresh-listeners='["sol"]'		
+		object-name="MXAPISOLUTION" 
+		search-attribute-names="solution,description,classstructure.hierarchypath,type"
+		search-term-value="{{searchTermValue}}"
+		selected-query-name="All"
+		selected-record="{{selectedRecord}}"
+		on-record-data-refreshed="_handleRecordDataRefreshed"
+		use-search-terms="true"  
+		page-size="20">					
+	</maximo-collection> 
+	<maximo-collection id="helpfulcollection" 
+		auto
+		object-name="MXAPISR" 
+		attribute-names="ticketid,description,reportdate,reportedby,person.displayname,internalpriority,status,statusdesc.description,assetnum,asset.description,asset._imagelibref,location,location.description,location._imagelibref,cinum,ci.description,owner,ownerperson.displayname,ownerperson._imagelibref,affectedperson,affectedperson.displayname,affectedperson._imagelibref,relatedrecord,worklog._dbcount,worklog{*}"
+		on-record-created="_handleRecordCreationSuccess"
+		on-record-creation-failed="_handleRecordCreationFailure">
+	</maximo-collection>
+ 	<maximo-resource id="recordResource" resource-uri="{{_getSolutionUrl(recordData)}}"></maximo-resource> 	
+	
+	<maximo-panel id="searchsol" label="{{localize('Search Solution')}}" headinginfo="{{recordCount}}" width="[[panelWidth]]" height="470px" collections="searchsolutioncollection">
+		<maximo-searchbar id="myteamswork-searchbar" collection="{{getLocalObject('searchsolutioncollection')}}" placeholder="{{localize('Search Solution')}}"></maximo-searchbar>
+		<maximo-content-selector id="contentSelector" class="horizontal center-justified layout selectedFilter" block="true">		
+				<maximo-label id="maximo_solutionstatus_label1" intvalue="ALL" on-tap="onSelectedSolutionStatus" label="{{localize('All')}}"></maximo-label>
+				<maximo-label id="maximo_solutionstatus_label2" intvalue="ACTIVE" on-tap="onSelectedSolutionStatus" label="{{localize('Active')}}"></maximo-label>
+				<maximo-label id="maximo_solutionstatus_label3" intvalue="INACTIVE" on-tap="onSelectedSolutionStatus" label="{{localize('Inactive')}}"></maximo-label>
+				<maximo-label id="maximo_solutionstatus_label4" intvalue="DRAFT" on-tap="onSelectedSolutionStatus" label="{{localize('Draft')}}"></maximo-label>
+			</maximo-content-selector>
+		<iron-list id="viewSRDataTemplate" items="{{recordData}}" as="sol">
+			<template id="searchsolDataTemplate">
+	 			<div>	
+					<div id="searchsol_card" class="cardborder">
+						<div class="cardheader">
+							<div class="flex-equal-justified">
+								<div id="searchsol_inner_div10">
+									<maximo-label id="searchsol-label-solution" class="solutionclass" label="{{sol.solution}}"></maximo-label>
+									<maximo-label id="searchsol-label-status" class="searchsolstatusclass" label="{{sol.status}}"></maximo-label>							
+									<maximo-label id="searchsol-label-type" class="searchsoltypeclass" label="{{sol.type}}"></maximo-label>
+								</div>
+								<div class="flex-horizontal">
+									<div>
+										<maximo-label id="searchsol-label-description" class="descriptionclass" label="{{sol.description}}"></maximo-label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="viewsr_card_container" class="cardcontainer">
+							<div class="flex-equal-around-justified">
+								<maximo-htmlfield id="searchsol-label-longdescription" class="longdescriptionclass" datalabel="{{sol.problemcode_longdescription}}" ellipsis-data></maximo-htmlfield>
+							</div>
+						</div>			
+						<maximo-footer id="searchsol-panel-footer" block="true">
+							<div class="flex-equal-justified">
+								<div class="viewsr_footer_div11">
+									<input type="checkbox" class="searchsol-checkbox-selfaccess" checked="{{checkSelfAccess(sol.selfservaccess)}}" on-tap="changeSelfAccess" value="selfservaccess"></input>
+									<maximo-label id="searchsol-label-checkbox" class="selfservaccesscheckbox" label="{{localize('Self-Service Access')}}"></maximo-label>	
+								</div>
+								<div class="flex-equal-justified">
+									<div class="searchsol-footer-buttons">
+										<maximo-button id="searchsol-label-link-detail" action="true" on-tap="solutionDetail" label="Detail"></maximo-button>
+									</div>
+									<div class="searchsol-footer-buttons">
+										<maximo-button id="searchsol-label-link-helpful" action="true" on-tap="_addResolved" label="Edit"></maximo-button>
+									</div>
+								</div>
+							</div>
+						</maximo-footer>
+					</div>
+				</div>
+			</template>
+		</iron-list>
+	</maximo-panel>  	
+</template>
+<script src="maximo-servicemanager-searchsol-card.js"></script>
+</dom-module>

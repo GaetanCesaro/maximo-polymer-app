@@ -1,0 +1,91 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!--
+A list composed by labor cards of team members with search functionality
+
+Example:
+
+    <maximo-teamlist-card></maximo-teamlist-card>
+
+@demo
+-->      
+<dom-module id="maximo-servicemanager-ownerlist-card">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-servicemanager-ownerlist-card-css.html">
+	<style is="custom-style" include="maximo-servicemanager-ownerlist-card-css"></style>
+	
+	<template>	
+		<maximo-collection 
+			auto
+		    id="personcollection" 
+			attribute-names="rel.labor{rel.laborcraftrate{rel.craft{description},rel.uxcraftskill{description},defaultcraft}}, personcal.shift.description, personcal.calendar.description, displayname, _imagelibref, primarysms,addressline1,city,stateprovince,postalcode,country,phone.phonenum,email.emailaddress,user.defsite,user.defsite.description,personid"
+			collection-data="{{personData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"	
+			filter-data="{{filterData}}"			
+			object-name="MXAPIPERUSER" 
+			order-by-attribute-names="%2Bdisplayname"
+			query-info="{{queryInfo}}" 
+			search-term-value="{{searchTermValue}}"
+			search-attribute-names="labor.laborcraftrate.craft.description,labor.laborcraftrate.uxcraftskill.description,personcal.shiftnum,personcal.calnum,personcal.calendar.description,personcal.shift.description,displayname,user.defsite,addressline1,city,stateprovince,country,personid"
+			selected-query-name="All"
+			selected-record="{{selectedRecord}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			use-search-terms="true"
+			on-record-data-refreshed="_handleRecordDataRefreshed" 
+			on-dynamic-attribute-data-fetched="_handleRecordDataRefreshed">
+		</maximo-collection>
+			
+		<maximo-resource id="myteamlistResource" resource-uri="{{owner.href}}"></maximo-resource>
+		<maximo-resource id="ticketResource" resource-uri="{{record.href}}"></maximo-resource>
+		<maximo-panel id="myteamlist" label="{{localize('Team members')}}" headinginfo="{{recordCount}}" collections="personcollection" width="500px" height="470px">
+			<maximo-label id="currentowner" class="ownerlist_currentowner" label="{{showCurrentOwner(record)}}"></maximo-label>
+			<maximo-searchbar id="myteamlist-searchbar" collection="{{getLocalObject('personcollection')}}" placeholder="{{localize('Search')}}"></maximo-searchbar>
+			<iron-list id="myteamlistIronList" items="{{personData}}" as="owner">
+				<template id="myteamlistTemplate">
+					<div  id="myteamlistTemplate_innerdiv">
+						<div id="myteamlist_section_div1" class="cardborder" on-tap="onSelectOwner">
+						    <!-- <div id="mytemlist_owner" style="display:none;">{{owner.displayname}}</div> -->								
+							<div class="cardheader container flex-equal-justified"">
+								<div>
+									<maximo-label id="myteamlist_label1" class="contactName" label="{{owner.displayname}}" on-tap="onSelectOwner"></maximo-label>
+								</div>
+							</div>
+							<div class="cardcontainer">
+								<div class="flex-start-justified">
+									<div id="myteamlist_section_div1_div2" style="text-align: left;flex:1">
+										<maximo-field id="myteamlist_section_label0" label="{{localize('Site')}}" datalabel="{{owner.user.defsite.description}}"></maximo-field>
+										<maximo-field id="myteamlist_section_label1" label="{{localize('Craft')}}" datalabel="{{owner.labor.0.laborcraftrate.0.craft.0.description}}"></maximo-field>
+										<maximo-field id="myteamlist_section_label2" label="{{localize('Skill Level')}}" datalabel="{{owner.labor.0.laborcraftrate.0.uxcraftskill.0.description}}"></maximo-field>
+										<maximo-field id="myteamlist_section_label3" label="{{localize('Calendar')}}" datalabel="{{owner.personcal.calendar.description}}"></maximo-field>
+										<maximo-field id="myteamlist_section_label4" label="{{localize('Shift')}}" datalabel="{{owner.personcal.shift.description}}"></maximo-field>					
+								  	</div>
+									<div class="container flex-vertical">
+										<div id="myteamlist_section_div1_div1" style="align: center;flex:.75;" >
+											<div><maximo-imglib id="myteamlist_assetimage" width="100px" height="100px" image="{{owner._imagelibref}}" noimageicon="icons:perm-identity" rounded></maximo-imglib></div>
+										</div>
+										
+									</div>
+								</div>
+							</div>						
+	
+						</div>
+					</div>				 	
+				</template>
+			</iron-list>
+		</maximo-panel>
+		
+	</template>
+
+	<script src="maximo-servicemanager-ownerlist-card.js"></script>
+
+</dom-module>

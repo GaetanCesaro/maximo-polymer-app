@@ -1,0 +1,25 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-video">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-video-css.html">
+	<style is="custom-style" include="maximo-video-css"></style>
+	
+	<template>
+  		<video id="{{id}}" width$="{{width}}" height$="{{height}}" controls>
+  			<source src="{{src}}">
+  		</video>
+	</template>
+
+	<script src="maximo-video.js"></script>
+
+</dom-module>

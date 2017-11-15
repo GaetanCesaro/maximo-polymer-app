@@ -1,0 +1,39 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+
+     
+<dom-module id="maximo-detailcard-title">
+
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	<link rel="import" href="maximo-detailcard-title-css.html">
+	<style is="custom-style" include="maximo-detailcard-title-css"></style>	
+	
+	class$="{{getTicketColorClass(detailRecord.internalpriority)}}"
+
+	<template>
+			<div>
+				<div id="dclabel" class$="{{labelClass}}">{{dclabel}}
+					<iron-icon id="overflow" icon="Maximo:Comment" on-mouseenter="_fireDetailHoverEvent" hidden$="{{!showblur}}" class="overflowicon"></iron-icon>
+			    </div>
+			</div>
+			
+  </template>
+  <script src="maximo-detailcard-title.js"></script>
+
+</dom-module>

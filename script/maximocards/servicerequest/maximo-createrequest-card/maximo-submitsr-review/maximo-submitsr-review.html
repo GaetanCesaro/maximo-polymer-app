@@ -1,0 +1,86 @@
+w<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-submitsr-review">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-submitsr-review-css.html">
+	<style is="custom-style" include="maximo-submitsr-review-css"></style>		
+	<template>
+			<div class="reviewMain">
+				<div class="titlePanel">	
+					<div class="templateHeader">
+						<maximo-label class="templateHeaderLabel" fontsize="22px" label="{{localize('uitext', 'mxapisr', 'ReviewStep')}}"></maximo-label>			
+						<div class="triangleLeft" style="display:block;"></div>
+					</div>
+					<div class="submitDiv">
+						<maximo-checkbox class="checkUrgentCheckbox" id="checkUrgentDesktop" label="{{localize('uitext', 'mxapisr', 'UrgentRequest')}}"></maximo-checkbox>
+						<div class="submitButtonDiv">
+							<maximo-button class="submitButton" id="submitButton" label="{{localize('uitext', 'mxapisr', 'SubmitRequest')}}" on-tap="_onSubmit" icon="action-based:confirm"></maximo-button>
+						</div>
+					</div>
+				</div>
+				<div class="dataPanel">
+					<div class="dataWrapperDiv" id="contactInfoDiv">
+						<maximo-label class="titleLabel" id="contactInfoTitle" label="{{localize('uitext', 'mxapisr', 'ContactInformation')}}"></maximo-label>
+						<div class="contactInfoDataDiv">
+							<div class="DataWrapper nameDataWrapper">
+								<maximo-label class="contactInfoDataLabel" id="fullName" label="{{requestorName}}"></maximo-label>
+							</div>
+							<div class="DataWrapper" id="emailWrapper">
+								<maximo-label class="contactInfoDataLabel" id="email" label="{{getRequestorEmail()}}"></maximo-label>
+							</div>
+							<div class="DataWrapper" id="affectedpersonWrapper">
+								<maximo-label class="contactInfoDataLabel" id="affectedPerson" label="{{getAffectedPerson()}}"></maximo-label>
+							</div>
+<!-- 							<div class="DataWrapper" style="display:none">
+								<maximo-label class="contactInfoDataEdit" label="{{localize('uitext', 'mxapisr', 'EditContactInformation')}}" on-tap=""></maximo-label>	
+							</div>	 -->			
+						</div>
+					</div>
+					<div class="stackDataWrapperDiv" id="stackInfoDiv"><!-- stack data div -->
+						<template is="dom-repeat"  items="[[dataList]]" as="data" id="stackDatalist" class="stackDatalist">	
+							<div class="stackWrapper">	
+								<maximo-label class="stackTitleLabel" id="stackInfoTitle" label="{{data.topic}}"></maximo-label>
+								<div class="stackDataWrapper" data-step="{{data.step}}">
+<!-- 									<iron-icon class="editIcon" icon="action-based:edit"></iron-icon>  -->
+									<maximo-label class="DataLabel" id="stackData" label="{{data.data}}"></maximo-label>
+									<template is="dom-if" if="{{_showLocationLabel(data.step)}}">
+										<div class="subLabel" id="locationDataLabel">
+											<maximo-label class="subItemLabel" id="bcLabel" label="{{data.breadcrumb}}"></maximo-label>
+										</div>
+									</template>
+									<template is="dom-if" if="{{_showFileLabel(data.step)}}">
+										<div class="subLabel verticalLabel" id="fileDataLabel">
+											<template is="dom-repeat"  items="{{data.files}}" as="file" index-as="fileIndex">	
+												<maximo-label class="subItemLabel" label="{{_getFileIndex(fileIndex)}}. {{file.description}}"></maximo-label>
+											</template>
+										</div>
+									</template>
+								</div>
+							</div>	
+						</template>	
+						</iron-list>
+					</div>
+				</div>
+				<div class="submitDivPhone">
+					<maximo-checkbox class="checkUrgentCheckbox" id="checkUrgent" label="{{localize('uitext', 'mxapisr', 'UrgentRequest')}}"></maximo-checkbox>
+					<div class="submitButtonDiv">
+						<maximo-button class="submitButton" id="submitButton" label="{{localize('uitext', 'mxapisr', 'SubmitRequest')}}" on-tap="_onSubmit" icon="action-based:confirm"></maximo-button>
+					</div>
+				</div>
+			
+			</div>	
+	</template>
+
+  <script src="maximo-submitsr-review.js"></script>
+
+</dom-module>

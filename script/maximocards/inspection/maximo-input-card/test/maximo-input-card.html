@@ -1,0 +1,152 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016,2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <title>maximo-input-card tests</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <script src="../../../../main.js"></script>
+    <script src="../../../../test.js"></script>
+    <script src="../../../../components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../../../../components/web-component-tester/browser.js"></script>
+    <script src="../../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+    <link rel="import" href="../../../../maximocomponents/maximo-module/maximo-module.html"/>
+    <link rel="import" href="../maximo-input-card.html"/>
+    
+    <script src="mockData.js"></script>
+    
+	<style is="custom-style">
+		body {
+		  margin: 0;
+		  padding: 0;
+		}
+	</style>
+    
+</head>
+<body>
+  
+  	<maximo-module id="module"></maximo-module>
+    
+    <test-fixture id="rawInputCard">
+    	<template>
+    		<maximo-input-card></maximo-input-card>
+    	</template>
+    </test-fixture>
+    
+    <test-fixture id="textResponseCard1">
+    	<template>
+    		<maximo-input-card index="1" label="Foo" field="" ></maximo-input-card>
+    	</template>
+    </test-fixture>
+    <test-fixture id="neResponseCard1">
+    	<template>
+    		<maximo-input-card index="1" label="Foo" field="" ></maximo-input-card>
+    	</template>
+    </test-fixture>
+    
+   	<script>
+   	
+		suite('Check maximo-input-card component', function() {
+			
+			var rawInputCard, textResponseCard1, neResponseCard1;
+			
+			setup(function() {
+				
+				rawInputCard = fixture('rawInputCard');
+				textResponseCard1 = fixture('textResponseCard1');
+				neResponseCard1 = fixture('neResponseCard1');
+				neResponseCard1.field=SEfield;
+				textResponseCard1.field = emptyField;
+				
+			});
+          
+			
+			test('Initial state - without attributes', function(done) {
+				
+				expect(rawInputCard.isQuestionRequired).to.equal(false, 'Initial state of question required should be false');
+				expect(rawInputCard.descValue).to.equal(null, 'descValue property should be initialized as null');
+				expect(rawInputCard.field).to.equal(null, 'descValue property should be initialized as null');
+				expect(rawInputCard.type).to.equal(null, 'descValue property should be initialized as null');
+				
+				expect(rawInputCard).to.have.property('isCopy').to.be.false;
+				expect(rawInputCard).to.have.property('constructorTypes').to.have.length.above(0);
+				
+				done();
+			});
+			
+			test('Check computed label', function(done) {
+				
+				rawInputCard.index = 2;
+				rawInputCard.label = 'Field Response';
+				
+				expect(rawInputCard._label).to.equal('3. Field Response', 'Input title not computed correctly.');
+				expect(textResponseCard1._label).to.equal('2. Foo', 'Input title not computed correctly.');
+				done();
+			});
+			
+			test('Switch required flag', function(done) {
+				
+				rawInputCard.isQuestionRequired = true;
+				
+				expect(rawInputCard.isQuestionRequired).to.be.true;
+				expect(textResponseCard1.isQuestionRequired).to.be.false;
+				
+				rawInputCard.switchRequired(false);
+				textResponseCard1.switchRequired(true);
+				
+				expect(rawInputCard.isQuestionRequired).to.be.false;
+				expect(textResponseCard1.isQuestionRequired).to.be.true;
+				
+				done();
+			});
+			
+			test('Fetch field object reference', function(done) {
+			
+				var obj2 = textResponseCard1.fetchResponseFieldObject();
+				
+				expect(obj2).to.be.a('object');
+				
+				done();
+				
+			});
+
+			test('Fetch field object reference for Numeric Entry/SE', function(done) {
+			
+				var test = textResponseCard1.fetchResponseFieldObject();
+				
+				expect(test).to.be.a('object');
+				
+				done();
+				
+			});
+			test('Test if mount event for SE is called', function(done) {
+			
+				var test = neResponseCard1.fetchResponseFieldObject();
+				
+				expect(test).to.be.a('object');
+				done();
+				
+			});
+			
+		});
+		
+		
+    </script>
+  </body>
+</html>

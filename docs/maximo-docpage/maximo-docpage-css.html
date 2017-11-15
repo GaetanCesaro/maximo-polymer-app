@@ -1,0 +1,155 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-docpage-css">
+  <template>
+    <style>
+      :host {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        @apply(--layout-fit);
+        @apply(--layout);
+        @apply(--layout-vertical);
+        overflow: hidden;
+        background: var(--paper-grey-50);
+      }
+
+      p {
+        max-width: 20em;
+      }
+      
+	  .paper-header.style-scope.maximo-docpage.animate {
+        background: var(--paper-indigo-500);
+        font-weight: bold;
+        color: white !important;
+        padding: 0 30px;
+      }
+
+      #content {
+        display: block;
+        background: var(--paper-grey-50);
+      }
+      
+      #nodocs {
+        background: var(--paper-grey-50);
+        font-size: 24px;
+        font-weight: 400;
+        color: var(--paper-grey-400);
+      }
+
+      #view > * {
+        display: none;
+      }
+
+      #view > .iron-selected {
+        display: block;
+      }
+
+      #docs {
+        max-width: var(--iron-component-page-max-width, 80em);
+        @apply(--iron-component-page-container);
+        padding: 20px;
+        margin: 0 auto;
+      }
+
+      #active {
+        font-size: 0px;
+        font-family: Roboto, Noto;
+        border: 0;
+        background: transparent;
+      }
+
+      #cart-icon {
+        margin-left: 10px;
+        cursor: pointer;
+      }
+
+      .no-docs {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        @apply(--layout-fit);
+      }
+
+      .docs-header {
+        @apply(--layout-flex);
+      }
+      
+      .paper-drawer-panel-0 #drawer.paper-drawer-panel > [drawer] {
+        height: 100%;
+      }
+
+	  #headerPanel {
+	  	backgroud:var(--google-grey-300);
+	  }
+	  #componentlist {	  
+	  }
+      #paperDrawerPanel [drawer] {
+        border-right: 1px solid var(--google-grey-300);
+      }
+
+      #paperDrawerPanel[right-drawer] [drawer] {
+        border-left: 1px solid var(--google-grey-300);
+      }
+
+      paper-item {
+        --paper-item: {
+          cursor: pointer;
+        };
+      }
+  
+      paper-item.focus {
+        --paper-item-focused: {
+          background: var(--paper-indigo-500);
+          font-weight: bold;
+          color: white !important;
+        };
+        --paper-item-focused-before: {
+          opacity: 0;
+        };
+      }
+     
+      input[is=iron-input] {
+        width:100%;
+    	padding:2px 10px;
+    	
+	    border-color: var(--Cool-gray20);
+	    color: var(--Primary-gray50);
+	     
+        font-size: 17px;
+      }
+      
+      paper-icon-button {
+        color: var(--paper-red-300);
+        --paper-icon-button-ink-color: var(--paper-red-a100);
+        width: 23px; /* 15px + 2*4px for padding */
+        height: 23px;
+        padding: 0px 4px;
+      }
+      
+      iron-collapse {
+        box-shadow: 6px;
+      }
+      
+      #viewDemo, #viewDoc, #unitTest {
+      	display: none;
+        margin: 0px 10px;
+      	cursor: pointer;
+      	border-bottom: 3px solid transparent;
+      	transition: border .3s;
+      }
+      
+      #viewDemo.current, #viewDoc.current {
+    	  border-bottom: 3px solid #5aaafa;  
+      }
+      
+      #viewDemo:hover iron-icon ::content svg, #viewDoc:hover iron-icon ::content svg, #unitTest:hover iron-icon ::content svg {
+      	  fill: #5aaafa; 
+      }	
+      .main-header{
+      padding-left:15px;
+      }
+    </style>
+</template>
+</dom-module>

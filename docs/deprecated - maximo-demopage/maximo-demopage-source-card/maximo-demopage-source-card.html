@@ -1,0 +1,30 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../../script/components/polymer/polymer.html"/>
+
+<dom-module id="maximo-demopage-source-card">
+
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="../../../script/components/iron-ajax/iron-ajax.html">
+	<link rel="import" href="../../../script/components/iron-autogrow-textarea/iron-autogrow-textarea.html">	
+
+	<link rel="import" href="./maximo-demopage-source-card-css.html">
+ 	<style is="custom-style" include="maximo-demopage-source-card-css"></style>
+	
+ 	<template>
+	    <iron-ajax id="ajax" url="{{srcFile}}" handle-as="text" on-response="_handleAjaxResponse" on-error="_handleError"></iron-ajax>
+ 		<iron-autogrow-textarea class="srceditor" id="texteditor" max-rows="20" autocomplete="off" bind-value="{{contents}}"></iron-autogrow-textarea>
+	</template>
+
+	<script src="maximo-demopage-source-card.js"></script>
+
+</dom-module>

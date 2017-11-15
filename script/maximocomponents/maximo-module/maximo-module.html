@@ -1,0 +1,136 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+ 
+<script src="../../libraries/moment.js"></script>
+<script src="../../libraries/treegrid/Grid/GridE.js" type="text/javascript"></script>
+<script src="../../libraries/jquery/jquery-2.2.0.js"></script>
+
+
+<script src="../../libraries/jquery/jquery-ui/jquery-ui.js"></script>
+<script src="../../libraries/tinymce/js/tinymce/tinymce.min.js"></script>
+<link rel="stylesheet" href="../../libraries/jquery/jquery-ui/jquery-ui.min.css">
+<link rel="stylesheet" href="../../libraries/jquery/jquery-ui/jquery-ui.structure.min.css">
+<link rel="stylesheet" href="../../libraries/jquery/jquery-ui/jquery-ui.theme.min.css">
+<link rel="stylesheet" href="../../../css/jquery-ui-override.css">
+
+<script src="../../libraries/plotly/dist/plotly.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../libraries/jstat/dist/jstat.min.js"></script>
+<link rel="import" href="../../components/polymer/polymer.html"/>
+<link rel="import" href="../_behaviors/base-component.html"/>
+<link rel="import" href="../_behaviors/dragscroll-component.html"/>
+<link rel="import" href="../_behaviors/arrowkey-component.html"/>
+<link rel="import" href="../_behaviors/logger.html"/>
+<link rel="import" href="../_behaviors/formatter.html"/>
+<link rel="import" href="../_behaviors/loading-component.html"/>
+<link rel="import" href="../_behaviors/long-press.html"/>
+<link rel="import" href="../_behaviors/table-component.html"/>
+<link rel="import" href="../_behaviors/undo-behavior.html"/>
+<link rel="import" href="../maximo-context/maximo-context.html">
+<link rel="import" href="../maximo-appmenu/maximo-appmenu.html"> 
+<link rel="import" href="../maximo-attachfile/maximo-attachfile.html">
+<link rel="import" href="../maximo-authcontext/maximo-authcontext.html" />
+<link rel="import" href="../maximo-panel/maximo-panel.html"/>
+<link rel="import" href="../maximo-button/maximo-button.html"/>
+<link rel="import" href="../maximo-checkbox/maximo-checkbox.html"/>
+<link rel="import" href="../maximo-content-selector/maximo-content-selector.html" />
+<link rel="import" href="../maximo-collection/maximo-collection.html" />
+<link rel="import" href="../maximo-data-page/maximo-data-page.html">
+<link rel="import" href="../maximo-datalist/maximo-datalist.html">
+<link rel="import" href="../maximo-dialog/maximo-dialog.html">
+<link rel="import" href="../maximo-field/maximo-field.html">
+<link rel="import" href="../maximo-flipper/maximo-flipper.html">
+<link rel="import" href="../maximo-footer/maximo-footer.html">
+<link rel="import" href="../maximo-header/maximo-header.html">
+<link rel="import" href="../maximo-help/maximo-help.html">
+<link rel="import" href="../maximo-htmlfield/maximo-htmlfield.html">
+<link rel="import" href="../maximo-image/maximo-image.html">
+<link rel="import" href="../maximo-label/maximo-label.html">
+<link rel="import" href="../maximo-navigationmenu/maximo-navigationmenu.html"> 
+<link rel="import" href="../maximo-longdesc/maximo-longdesc.html">
+<link rel="import" href="../maximo-notification/maximo-notification.html">
+<link rel="import" href="../maximo-radiobuttongroup/maximo-radiobuttongroup.html">
+<link rel="import" href="../maximo-resource/maximo-resource.html">
+<link rel="import" href="../maximo-schema/maximo-schema.html">
+<link rel="import" href="../maximo-allowed-actions/maximo-allowed-actions.html">
+<link rel="import" href="../maximo-allowed-states/maximo-allowed-states.html">
+<link rel="import" href="../maximo-singlevalue-info/maximo-singlevalue-info.html">
+<link rel="import" href="../maximo-detailcard-title/maximo-detailcard-title.html">
+<link rel="import" href="../maximo-section/maximo-section.html">
+<link rel="import" href="../maximo-searchbar/maximo-searchbar.html">
+<link rel="import" href="../maximo-select/maximo-select.html">
+<link rel="import" href="../maximo-selectfilter/maximo-selectfilter.html">
+<link rel="import" href="../maximo-systeminfo/maximo-systeminfo-dialog.html">
+<link rel="import" href="../maximo-table/maximo-table.html">
+<link rel="import" href="../maximo-table-editable/maximo-table-editable.html">
+<link rel="import" href="../maximo-simple-paginator/maximo-simple-paginator.html">
+<link rel="import" href="../maximo-text/maximo-text.html">
+<link rel="import" href="../maximo-textarea/maximo-textarea.html">
+<link rel="import" href="../maximo-texteditor/maximo-texteditor.html">
+<link rel="import" href="../maximo-richtexteditor/maximo-richtexteditor.html">
+<link rel="import" href="../maximo-tooltip/maximo-tooltip.html">
+<link rel="import" href="../maximo-usermenu/maximo-usermenu.html">
+<link rel="import" href="../maximo-wait/maximo-wait.html">
+<link rel="import" href="../maximo-wizard/maximo-wizard.html">
+<link rel="import" href="../maximo-workscape/maximo-workscape.html">
+<link rel="import" href="../maximo-imglib/maximo-imglib.html">
+<link rel="import" href="../maximo-badge/maximo-badge.html">
+<link rel="import" href="../maximo-chartheader/maximo-chartheader.html">
+<link rel="import" href="../maximo-overlay/maximo-overlay.html">
+<link rel="import" href="../maximo-chart/maximo-chart.html">
+<link rel="import" href="../maximo-typelabel/maximo-typelabel.html">
+<link rel="import" href="../maximo-prioritytag/maximo-prioritytag.html">
+<link rel="import" href="../maximo-collapsible/maximo-collapsible.html">
+<link rel="import" href="../maximo-norecordfound/maximo-norecordfound.html">
+<link rel="import" href="../maximo-navbar/maximo-navbar.html">
+<link rel="import" href="../maximo-navitem/maximo-navitem.html">
+<link rel="import" href="../maximo-simple-panel/maximo-simple-panel.html">
+<link rel="import" href="../maximo-chatbubble/maximo-chatbubble.html">
+<link rel="import" href="../maximo-video/maximo-video.html">
+<link rel="import" href="../maximo-audio/maximo-audio.html">
+<link rel="import" href="../maximo-progress/maximo-progress.html">
+<link rel="import" href="../maximo-numberinput/maximo-numberinput.html">
+<link rel="import" href="../maximo-treegrid/maximo-treegrid.html">
+<link rel="import" href="../maximo-systemproperty/maximo-systemproperty.html">
+<link rel="import" href="../_behaviors/maximo-treegrid-behavior.html">
+<link rel="import" href="../maximo-link/maximo-link.html">
+
+<link rel="import" href="../../components/iron-icon/iron-icon.html">
+<link rel="import" href="../../components/iron-icons/iron-icons.html">
+<link rel="import" href="../../components/iron-icons/editor-icons.html">
+<link rel="import" href="../../components/iron-icons/social-icons.html">
+<link rel="import" href="../../components/iron-icons/places-icons.html">
+<link rel="import" href="../../components/iron-icons/maps-icons.html">
+<link rel="import" href="../../components/iron-icons/av-icons.html">
+<link rel="import" href="../../components/iron-icons/image-icons.html">
+<link rel="import" href="../../components/iron-iconset/iron-iconset.html">
+<link rel="import" href="../../components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../components/iron-signals/iron-signals.html">
+<link rel="import" href="../../components/iron-meta/iron-meta.html">
+<link rel="import" href="../../components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../components/iron-pages/iron-pages.html">
+<link rel="import" href="../../components/iron-selector/iron-selector.html">
+<link rel="import" href="../../components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../components/google-map/google-map.html"/>
+<link rel="import" href="../../components/iron-media-query/iron-media-query.html"/>
+<link rel="import" href="../../components/iron-list/iron-list.html">
+<link rel="import" href="../../components/iron-image/iron-image.html">
+
+<!-- Watson Custom Icons -->
+<link rel="import" href="../../../images/svg/action-based.html"/>
+<link rel="import" href="../../../images/svg/formatting.html"/>
+<link rel="import" href="../../../images/svg/glyphs.html"/>
+<link rel="import" href="../../../images/svg/object-based.html"/>
+<link rel="import" href="../../../images/svg/weather.html">
+<link rel="import" href="../../../images/svg/maximo-based.html">
+<link rel="import" href="../../../images/svg/Maximo.html">
+
+<dom-module id="maximo-module">
+	<template>
+	    <maximo-context id="maximo"></maximo-context>
+	</template>
+	<script src="maximo-module.js"></script>
+</dom-module>

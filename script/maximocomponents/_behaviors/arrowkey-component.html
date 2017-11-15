@@ -1,0 +1,105 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+	/**
+	 * Provides arrow key navigation
+	 *
+	 *	component must have _arrowKeyInfo object with following: String:Required:selector(used to find elements), 
+	 *															 Boolean:click(trigger click on focus - default is false), 
+	 *															 Boolean:wrap(wrap to top/bottom - default is true)
+	 *															 Boolean:allowDisabled(allow focus on disabled elements, default is false)
+	 *														 	 String:focusSelector(used to find focus element within element)
+	 *															 Element: parentElement (used to define outer wrapper for walking if mulitple levels should be flattened)
+	 *
+	 * @polymerBehavior ArrowKeys
+	 */
+	ArrowKeys = {
+		attached: function(){
+			if(this._arrowKeyInfo){
+				this._arrowKeyInfo.originalSelector = this._arrowKeyInfo.selector;
+				this._arrowKeyInfo.selector += ':visible';
+				if(!this._arrowKeyInfo.allowDisabled){
+					this._arrowKeyInfo.selector += ':not([disabled])';
+				}
+			}
+		},
+		_findArrowElement: function(navElements, index, offset){
+			var element = navElements[index + offset]; 
+			if($j(element).find(this._arrowKeyInfo.focusSelector).length>0){
+				return element 
+			}
+			if(index+offset+offset>navElements.length){
+				return this._findArrowElement(navElements, -1, 1);
+			}
+			else if(index===0){
+				return this._findArrowElement(navElements, navElements.length, -1);
+			}
+			return this._findArrowElement(navElements, index, offset+offset);
+		},
+		_findNextArrowElement: function(target, offset){
+			var navElements = $j(this.$[this._arrowKeyInfo.parentElementId]).find(this._arrowKeyInfo.selector);
+			var currentIndex = -1;
+			var nextElement = null;
+			navElements.each(function(index){
+				if(this===target){
+					currentIndex = index;
+				}
+			});
+			if(!this._arrowKeyInfo.focusSelector){
+				return navElements[currentIndex + offset]
+			}
+			return this._findArrowElement(navElements, currentIndex, offset);   
+		},
+	  	_arrowKeyHandler: function(e){
+	  		if(!this._arrowKeyInfo){
+	  			return;
+	  		}
+	  		var target;
+			var parent = this._arrowKeyInfo.parentElementId?$j(this.$[this._arrowKeyInfo.parentElementId]):$j(e.currentTarget).parent();			
+	  		switch(e.keyCode){
+	  			case $M.keyCode.UP:
+	  			case $M.keyCode.LEFT:
+	  				target = $j(e.currentTarget).prev(this._arrowKeyInfo.selector)[0];
+	  	  			if(!target){
+	  	  				target = this._findNextArrowElement(e.currentTarget, -1);
+	  	  			}
+	  				if(!target && this._arrowKeyInfo.wraps!==false){
+	  	  				target = parent.find(this._arrowKeyInfo.selector+':last')[0];
+	  	  			}
+	  				break;
+	  			case $M.keyCode.DOWN:
+	  			case $M.keyCode.RIGHT:
+	  	  			target = $j(e.currentTarget).next(this._arrowKeyInfo.selector)[0];
+	  	  			if(!target){
+	  	  				target = this._findNextArrowElement(e.currentTarget, 1);
+	  	  			}
+	  	  			if(!target && this._arrowKeyInfo.wraps !== false){
+	  	  				target = parent.find(this._arrowKeyInfo.selector+':first')[0];
+	  	  			}
+	  				break;
+	  		}
+	  		if(target){
+	  			if(this._arrowKeyInfo.click===true){
+	  				var newEvent = jQuery.Event('click');
+	  				newEvent.ctrlKey = e.ctrlKey;
+	  				newEvent.shiftKey = e.shiftKey;
+	  				$j(target).trigger(newEvent);
+	  			}
+	  			if(this._arrowKeyInfo.focusSelector){
+	  				$j(target).find(this._arrowKeyInfo.focusSelector).focus();
+  					e.stopPropagation();
+  					e.preventDefault();
+	  			}
+	  			else {
+	  				$j(target).focus();
+	  				e.stopPropagation();
+  					e.preventDefault();
+	  			}
+	  		}
+	  	}
+	};
+</script>

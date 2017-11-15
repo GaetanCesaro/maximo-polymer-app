@@ -1,0 +1,49 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<!--
+Maximo weather card. It stamps a value, unit, location, label and an icon.
+
+Example:
+
+    <maximo-weather-card></maximo-weather-card>
+
+-->
+<dom-module id="maximo-weather-card">
+
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-weather-card-css.html">
+	<style is="custom-style" include="maximo-weather-card-css"></style>
+	
+ 	<template>
+  	
+	  	<div id="carddiv" class="card" on-tap="openLink">
+	  	
+	  		<div id="cardinfo" class="uppercontainer">
+	  			<div id="maindata" class="main-data">
+	  				<div id="data" class="inddata">{{data}}</div>
+	  				<div id="unit" class="indunit">{{unit}}</div>
+	  			</div>
+	  			<div id="cardicon" class="indicon">
+		  			<iron-icon id="icon" icon="{{icon}}"></iron-icon>
+		  		</div>
+	  		</div>
+	  		<div id="cardfooter" class="cardFooter">
+	  			<div id="location" class="label">{{location}}</div>
+	  		</div>	
+	  	</div>
+  	
+	</template>
+
+	<script src="maximo-weather-card.js"></script>
+
+</dom-module>

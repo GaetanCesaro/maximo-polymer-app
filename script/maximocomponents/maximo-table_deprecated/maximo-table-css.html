@@ -1,0 +1,129 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-table-css">
+	<template>
+    	<style>
+    		.wrapper {
+    			background-color: var(--Primary-white);
+    			border-radius: 3px;
+    		}
+    	
+			.table
+		    {
+		        margin: 5px 0px;
+		        border-spacing: 0px;
+		        width: 100%;
+		    }
+		    
+		    th, td {
+				font-size: 80%;
+				padding: 5px;
+				text-align: left;
+		    }
+		    
+		    thead .headerstyle {
+		    	font-size: 14px;
+		    	color: var(--Primary-gray50);
+		    }
+		    
+		    thead {
+		    	background: var(--Primary-blue60);
+		    }
+		    
+		    thead th {
+		    	color: var(--Primary-white);
+		    }
+		    
+		    th.rtl, td.rtl {
+		    	text-align: right;
+		    }
+		    
+		    tr {
+		    	background-color: transparent;
+		    }
+		    
+		    tbody tr td {
+		    	transition: all .2s;
+				border-bottom: 1px solid var(--Neutral-gray3);
+			}
+			
+						
+			tbody tr:nth-child(even) {
+				background: var(--Primary-gray10);
+			}
+			
+		    .title
+		    {
+    			margin: 5px;
+    			font-weight: bold;
+		    }
+		    
+		    .title > span {
+		       font-size: 150%;
+		       margin: 5px 20px;
+		    }
+		    
+		    .title:empty {
+		    	display: none;
+		    }
+		    .Heading
+		    {
+		        display: table-row;
+		        font-weight: bold;
+		        font-size: 90%;
+		        padding: 4px 5px;
+		    }
+		    
+		    tbody tr:hover td:not([stopHover]) { 
+		    	color: var(--Primary-gray100);
+		    	background: var(--Primary-blue10);
+		    }
+			
+			.noRows {
+				text-align: center;
+				color: var(--Primary-orange50);
+			}
+			
+		    @media screen and (max-width: 500px) {
+			    table, tbody {
+        			display: block;
+        			width: 100%;
+    			}
+    			table tr,
+			    table th,
+			    table td {
+			        display: block;
+			        padding: 0;
+			        text-align: left;
+			        white-space: normal;
+			    }
+			    thead {
+		    		display: none;
+		    	}
+		    	tbody tr {
+		    		border: 1px solid var(--Neutral-gray3);
+		    		margin: 3px 0px;
+		    		padding: 5px;
+		    	}
+		        tbody tr td {
+					border: 0px !important;
+				}
+			
+		    }
+		    
+		    .button {
+		    	font-size: 80%;
+		   		padding: 3px 10px;
+    			line-height: 15px;
+		    }
+		    
+		    .label ::content {
+		    	font-size: 100%;
+		    }
+		</style>
+	</template>
+</dom-module>

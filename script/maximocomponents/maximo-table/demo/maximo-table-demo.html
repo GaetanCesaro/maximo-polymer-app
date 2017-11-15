@@ -1,0 +1,162 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../../maximocomponents/maximo-button/maximo-button.html">
+<link rel="import" href="../../../components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../components/iron-icons/editor-icons.html">
+<link rel="import" href="../../../components/iron-icons/social-icons.html">
+<link rel="import" href="../../../components/iron-icons/places-icons.html">
+<link rel="import" href="../../../components/iron-icons/maps-icons.html">
+<link rel="import" href="../../../components/iron-icons/av-icons.html">
+<link rel="import" href="../../../components/iron-icons/image-icons.html">
+<link rel="import" href="../../../components/iron-iconset/iron-iconset.html">
+<link rel="import" href="../../../../images/svg/Maximo.html">
+
+<dom-module id="maximo-table-demo">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+
+	
+	<template>
+		<style>
+			.cardborder {
+				display: inline-block;
+			}
+			
+			.cardborder h4 {
+			    margin: 0px;
+		    	padding: 3px 10px;
+				background-color: var(--Primary-yellow10);
+			}
+			
+			.outer > div {
+				display: inline-block;
+			}
+			
+		</style>
+  		<maximo-collection 
+			auto	
+			id="collection" 
+			collection-data="{{tabledata}}"
+			test-url="{{resolveUrl('data/real_data.json')}}">
+  		</maximo-collection>
+  		<maximo-collection 
+  			auto
+  			id="collection_short" 
+  			collection-data="{{tabledata_short}}"
+  			test-url="{{resolveUrl('data/real_data_two_rows.json')}}">
+		</maximo-collection>
+				<maximo-table id="table0a" actions="{{actions}}" collection="{{getLocalObject('collection_short')}}" width="100%" summary="demo table 0a" columns="{{columns}}"></maximo-table>
+				<maximo-table id="table" actions="{{actions}}" collection="{{getLocalObject('collection_short')}}" width="auto" max-column-length="10" white-space='initial' selected-index="[0]" summary="demo table 1" columns="{{columns}}"></maximo-table>
+<!--   		<div id="outer" class="outer">
+  			<div style="text-align: left">
+  				Empty<br>
+  				<maximo-table id="table0" items="[]" selected-index="[0]" summary="demo table 1" columns="{{columns}}"></maximo-table>
+			</div>
+			<br><br>
+			<div style="text-align: left;width: 100%">
+				<maximo-table id="table0a" actions="{{actions}}" collection="{{getLocalObject('collection_short')}}" width="100%" summary="demo table 0a" columns="{{columns}}"></maximo-table>
+			</div>
+			<br><br>
+			<div style="text-align: left">
+				<maximo-table id="table" actions="{{actions}}" collection="{{getLocalObject('collection_short')}}" width="auto" max-column-length="10" white-space='initial' selected-index="[0]" summary="demo table 1" columns="{{columns}}"></maximo-table>
+			</div>
+			<br><br>
+  			<div style="text-align: left">
+  				<maximo-table id="table1" collection="{{getLocalObject('collection')}}" max-column-length="10" white-space='initial' selected-index="[0]" summary="demo table 1" columns="{{columns}}"></maximo-table>
+			</div>
+			<br><br>
+  			<div style="text-align: left">
+  				<maximo-table id="table2" collection="{{getLocalObject('collection_short')}}" selected-index="[0]" summary="demo table 1" columns='[{"attribute":"first_name","title":"First Name","sortable":true},{"attribute":"last_name","sortable":true},{"attribute":"first_name","title":"First Name"},{"attribute":"last_name"},{"attribute":"first_name","title":"First Name"},{"attribute":"last_name"},{"attribute":"first_name","title":"First Name"},{"attribute":"last_name"}]'></maximo-table>
+			</div>
+			<br><br>
+  			<div style="text-align: left">
+  				<maximo-table id="table2a" max-width="300px" collection="{{getLocalObject('collection_short')}}" selected-index="[0]" summary="demo table 1" columns='[{"attribute":"first_name","title":"First Name"},{"attribute":"last_name"},{"attribute":"first_name","title":"First Name"},{"attribute":"last_name"},{"attribute":"first_name","title":"First Name"},{"attribute":"last_name"},{"attribute":"first_name","title":"First Name"},{"attribute":"last_name"}]'></maximo-table>
+			</div>
+
+			<br><br>
+			<div style="text-align: left">
+  				<maximo-table id="table3" items="{{tabledata}}" selected-index="[0]" select-mode="multiple" summary="demo table 1" columns="{{columns}}"></maximo-table>
+  			</div>
+  			<br><br>
+	  		<div style="text-align: left">
+	  			Width (200px)<br>
+  				<maximo-table id="table4" items="{{tabledata}}" summary="demo table 2" max-width="200px" columns="{{columns}}"></maximo-table>
+  			</div>
+  			<br><br>
+	  		<div style="text-align: left">
+	  			Internal column definitions<br>
+  				<maximo-table id="table5" items="{{tabledata}}" summary="demo table 3" max-width="auto">
+  					<maximo-tablecol  id="tablecol0" title="First Name" attribute="first_name"></maximo-tablecol>
+  					<maximo-tablecol  id="tablecol1" title="Last Name" attribute="last_name"></maximo-tablecol>
+  				</maximo-table>
+  			</div>
+  			<br><br>
+	  		<div style="text-align: left">
+	  			columns defined both ways - (should use property and ignore internals)<br>
+				<maximo-table id="table6" items="{{tabledata}}" summary="demo table 4" columns="{{columns}}" max-width="auto">
+					<maximo-tablecol id="tablecol2" title="First Name" attribute="first_name"></maximo-tablecol>
+					<maximo-tablecol id="tablecol3" title="Last Name" attribute="last_name"></maximo-tablecol>
+				</maximo-table>
+			</div>
+
+			</div>
+-->
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-table-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				columns: {
+					type: Array,
+					value: [{"attribute":"first_name","title":"First Name"},{"attribute":"last_name"},{"attribute":"company","title":"Company Name"}]
+				},
+				showtable: {
+					type: Boolean,
+					value: function(){
+						return false;
+					}
+				},
+				actions:{
+					type: Object,
+					value: function(){
+						return {
+							header:{
+								width: window.innerWidth/5+ "px"
+							},
+							list:[
+								{
+									icon:'Maximo:Edit',
+									action: 'editzone',
+									style: 'color:#4b8400;height:50px',
+									label: 'action1'
+								},
+								{
+									icon:'Maximo:Trash',
+									action: 'deletezone',
+									label:'action2'
+								},
+								{
+									action: 'registerzone',
+									label:'action3'
+								}
+							]
+						}
+					}
+				}
+			},
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,71 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-htmlfield-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+		<style>
+			.outer > div {
+				text-align: left;
+			}
+		</style>
+  		<div class="outer">
+  			<div style="width: 100px">
+  				<maximo-htmlfield id="text1" datalabel="This is a <b><i>test</i></b>.<br> You can turn this label a <font color='red'>description</font> <marquee>field</marquee>.<br><br> <font color='blue'>Its a publishing-extensible field type for defining rich HTML content</font>" ellipsis-size="50"></maximo-htmlfield>
+			</div>
+		</div>
+		<div class="outer">
+  			<div style="width: 100px">
+  				<maximo-htmlfield id="text2" datalabel="This is a <b><i>test</i></b>.<br> You can turn this label a <font color='red'>description</font> <marquee>field</marquee>.<br><br> <font color='blue'>Its a publishing-extensible field type for defining rich HTML content</font>"></maximo-htmlfield>
+  			</div>
+  		</div>
+		<div class="outer">
+			<div style="width: 100px">
+				<maximo-htmlfield id="text2" max-height="468px" datalabel="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus tincidunt dolor, interdum facilisis lectus convallis ut. Cras varius dictum aliquam. Nulla facilisi. Etiam vel sem egestas, pellentesque tellus et, imperdiet dolor. Phasellus vulputate dolor urna, non posuere orci interdum vel. Curabitur eu ultricies magna. Suspendisse vel ipsum nisi. Aliquam nec molestie neque."></maximo-htmlfield>
+			</div>
+		</div>
+  		<div class="outer">
+			<div style="width: 100px">
+				<maximo-htmlfield id="text3" max-height="200px" datalabel="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus tincidunt dolor, interdum facilisis lectus convallis ut. Cras varius dictum aliquam. Nulla facilisi. Etiam vel sem egestas, pellentesque tellus et, imperdiet dolor. Phasellus vulputate dolor urna, non posuere orci interdum vel. Curabitur eu ultricies magna. Suspendisse vel ipsum nisi. Aliquam nec molestie neque."></maximo-htmlfield>
+			</div>
+		</div>
+		<div class="outer" style="width: 100px;background: #e7e7e7;">
+			<div style="width: 100px">
+				<maximo-htmlfield id="text3" max-height="200px" datalabel="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus tincidunt dolor, interdum facilisis lectus convallis ut. Cras varius dictum aliquam. Nulla facilisi. Etiam vel sem egestas, pellentesque tellus et, imperdiet dolor. Phasellus vulputate dolor urna, non posuere orci interdum vel. Curabitur eu ultricies magna. Suspendisse vel ipsum nisi. Aliquam nec molestie neque."></maximo-htmlfield>
+			</div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-htmlfield-demo',
+			behaviors: [BaseComponent],
+			listeners: {
+				'_handleRecordDataRefreshed' : '_handleRecordDataRefreshed'
+			},
+			properties: {
+				_textValue: {
+					type: String,
+					value: '',
+					observer: '_changed'
+				}
+			},
+			ready: function(){
+				$M.demoMode = true;
+				$j('body').css({'background': '#efefef','text-align':'center'});
+			},
+			_handleRecordDataRefreshed: function(){
+			//	this._textValue = this.data[0].children[0].description;
+				this._textValue = this.data[0].	description;
+		    },
+		    _changed: function(value){
+		    	if(this.data){
+		    		this.data[0].description = value;
+		    	}
+		    }
+		});
+	</script>
+</dom-module>

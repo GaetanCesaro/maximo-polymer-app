@@ -1,0 +1,215 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-datalist-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+		<maximo-collection 
+			auto="true"
+			id="hierarchycollection" 
+  			collection-data="{{hierarchyData}}"
+  			test-url="{{resolveUrl('data/hierarchy.json')}}" >
+  		</maximo-collection>
+  		<maximo-collection 
+			auto="true"	
+			id="flatcollection" 
+			collection-data="{{flatData}}"
+			search-attribute-names="upperattribute"
+			search-term-value="{{searchTermValue}}"
+			test-url="{{resolveUrl('data/flat.json')}}" >
+  		</maximo-collection>
+	 	<style>
+			.outer > div {
+				display: inline-block;
+			}
+		</style>
+  		
+  		<div class="outer">
+	  		<div>
+				No Data<br>
+				<maximo-datalist id="test" items='[]' select-event="xx" numbered></maximo-datalist>
+			</div>
+  			<div>
+  				String Array<br>
+  				<maximo-datalist id="test1" items='["one","two"]' select-event="xx" numbered></maximo-datalist>
+  			</div>
+  			<div>
+				String Array - no initial selection<br>
+				<maximo-datalist id="test1" items='["one","two"]' select-event="xx" numbered stop-initial-selection></maximo-datalist>
+			</div>
+  			<div>
+	  			Hierarchical <br>
+	  			<maximo-datalist id="hierachical_datalist" display-attributes="description" maintain-user-changes select-event="xx" child-attribute="children" items='[[hierarchyData]]'></maximo-datalist>
+	  		</div>
+	  		<div>
+	  			Hierarchical with icons <br>
+	  			<maximo-datalist id="hierachical_datalist" display-attributes="description" select-event="xx" 
+	  				child-attribute="children" icon-attribute="elementicon" expand-all="true" items='[[hierarchyData]]'></maximo-datalist>
+	  		</div>
+	  		<div>
+	  			Flat<br>
+	  			<maximo-searchbar id="flatsearch" collection="{{getLocalObject('flatcollection')}}" placeholder="Filter"></maximo-searchbar>
+	  			<maximo-datalist id="flat_datalist" display-attributes="upperattribute,description" items='[[flatData]]' numbered></maximo-datalist>
+	  		</div>
+	  		<div>
+	  			Multi Select<br>
+	  			<maximo-datalist id="flat_datalist_multi" display-attributes="upperattribute,description" multi-select items='[[flatData]]'></maximo-datalist>
+	  		</div>
+	  		<div>
+	  			Drag and Drop Example<br>
+	  			<maximo-datalist id="dd_datalist" multi-select="true" drag-target="[[getLocalObject('dd_datalist1')]]" display-attributes="upperattribute,description" items='[[flatData]]' multi-select></maximo-datalist>
+	  			<maximo-datalist id="dd_datalist1" multi-select="true" add-event="addItems" remove-event="removeItems" drop-source="[[getLocalObject('dd_datalist')]]" display-attributes="upperattribute,description" items='[]' edit-event="editItem" iteminfo-event="showInfo" reorder="true" reorder-event="reorderChosen" numbered></maximo-datalist>
+	  		</div>
+		</div>
+	</template>
+  <script>
+
+      Polymer({
+        is: 'maximo-datalist-demo',
+        behaviors: [BaseComponent],
+      	listeners: {
+    		'addItems': '_addItems',
+    		'removeItems': '_removeItems',
+    		'showInfo': '_showInfo',
+    		'maximo-searchbar-filter-changed':'_filterChosen',
+    		'datalist-move-up': '_datalistMoveUp',
+    		'_changeSortOrder':'_changeSortOrder',
+    		'datalist-refreshed':'_datalistRefreshed',
+    		'editItem':'_editItem'
+      	},
+        properties: {
+
+        },
+        _addItems: function(e){
+        	if(this._add(e.detail.eventIndex, this.$.dd_datalist1.items, e.detail.records, '_noDuplicates')){
+        		this.$.dd_datalist1.refresh();
+        	}
+        },
+    	_removeItems: function(e){
+    		var startLength = this.$.dd_datalist1.items.length; 
+    		this.$.dd_datalist1.items = this._removeRecords(this.$.dd_datalist1.items, e.detail);
+    		if(startLength!==this.$.dd_datalist1.items.length){
+    			this.$.dd_datalist1.refresh();
+    		}
+    	},
+        _noDuplicates: function(array, record){
+    		for(var checkIndex=0;checkIndex<array.length;checkIndex++){
+    			if(array[checkIndex].href === record.href){
+    				return false;
+    			} 
+    		}
+    		return true;
+    	},
+    	_add: function(index, array, records, allowed){
+    		var card = this;
+    		var added = false;
+    		records.forEach(function(record){
+    			var canAdd = true;
+    			if(allowed!==undefined){
+    				canAdd = false;
+    				if(card[allowed]){
+    					canAdd = card[allowed](array,record);
+    				}
+    				else {
+    					canAdd = allowed(array,record);
+    				}
+    			}
+    			if(canAdd){
+    				if(index>=0){
+    					array.splice(index, 0, record);
+    					index++;
+    					added = true;
+    				}
+    				else {
+    					array.push(record);
+    					added = true;
+    				}
+    			}
+    		});
+    		return added;
+    	},
+    	_removeRecords: function(array, records){
+    		if(records.length===0){
+    			return array;
+    		}
+    		var tempList = JSON.parse(JSON.stringify(array));
+    		var removed = 0;
+    		array.forEach(function(picked,index){
+    			records.forEach(function(record){
+    				if(picked.href === record.href){
+    					tempList.splice(index-removed, 1);
+    					removed++;
+    				}
+    			});
+    		});
+    		return tempList;
+    	},
+    	_showInfo: function(e){
+    		var infoButton = $j(e.detail.item).find('button[originalEvent=info]');
+   			$M.showTooltip('this is a test',infoButton[0]);	
+    	},
+    	_datalistRefreshed: function(e){
+    		var demo = this;
+    		if(e.detail.id === '_flat_datalist'){
+    			$j('#_flat_datalist').find('li').each(function(){
+    				var record = e.detail.itemForElement(this);
+    				var button = e.detail.addCustomToolbarButton(this, {"event":"_changeSortOrder","icon":"sort","title":"Sort"});
+    				if(record.sort===undefined){
+    					record['sort']='asc';
+    				}
+    				$j(button).css({'transform':record.sort==='asc'?'scaleY(-1)':''});
+    			});
+    			
+    		}
+    	},
+    	_changeSortOrder: function(e){
+    		var item = $j('#_flat_datalist')[0].items[parseInt($j(e.detail.item).attr('datalist-index'))];
+    		item.sort = item.sort==='desc'?'asc':'desc';
+   			$j(e.detail.button).css({'transform':item.sort==='asc'?'scaleY(-1)':''});
+    	},
+    	_editItem: function(e){
+    		var datalist = e.target; 
+    		var card = this;
+    		if(datalist === this.$.dd_datalist1){
+    			var li = e.detail.item;
+    			var editable = $j(li).find('div[data-attribute=description]');
+    			editable.attr({'contentEditable':'true'});
+    			var width = $j(li).width()-$j(li).find('div').first().width() - ($j(editable).offset().left-$j(li).offset().left);
+    			editable.css({'white-space':'nowrap','background':'#fff','width':width+'px'});
+    			editable.focus();
+    			var range = document.createRange();
+        		range.selectNodeContents(editable[0]);
+        		var sel = window.getSelection();
+        		sel.removeAllRanges();
+        		sel.addRange(range);
+        		$j(li).find('.toolbar').css({'opacity':'0'});
+        		var keys = editable.on('keydown', function(e){
+        			e.stopPropagation();
+        			if(e.keyCode===13){
+        				$j(e.currentTarget).trigger('blur');
+        				return false;
+        			}
+        			return (e.currentTarget.innerText.length <= 80);
+    			});
+        		var blur = editable.on('blur', function(e){
+        			card.$.dd_datalist1.items[parseInt($j(li).attr('datalist-index'))].description = e.currentTarget.innerText;
+        			$j(e.currentTarget).css({'background':'transparent','width':'auto'});
+        			$j(e.currentTarget).attr({'contentEditable':'false'});
+        			$j(li).find('.toolbar').css({'opacity':'1'});
+        			$j(li).focus();
+        			blur.off();
+        			keys.off();
+        			$M.removeTextSelection();
+    			});
+    		}
+    		
+    	},
+
+      });
+
+  </script>
+</dom-module>

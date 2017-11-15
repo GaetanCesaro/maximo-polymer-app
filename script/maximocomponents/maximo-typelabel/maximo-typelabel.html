@@ -1,0 +1,31 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!--
+Maximo label element. Behaves as normal label plus a few more properties 
+
+Example:
+
+    <maximo-typelabel></maximo-typelabel>
+
+-->  
+<dom-module id="maximo-typelabel">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-typelabel-css.html">
+	<style is="custom-style" include="maximo-typelabel-css"></style>
+	
+	<template>
+		<label id="type" class="type">{{type}}</label>
+	</template>
+
+	<script src="maximo-typelabel.js"></script>
+	
+</dom-module>

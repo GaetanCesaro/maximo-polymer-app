@@ -1,0 +1,44 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-datadesign-save-css">
+	<template>
+    	<style>
+			.outer > div {
+				display: inline-block;
+				vertical-align: top;
+			}
+			
+			.outer maximo-label ::content > label {
+				font-size: 129%;
+				font-family: 'HelveticaNeue-Thin';
+				margin-bottom: 5px;
+			}
+			maximo-searchbar ::content .wrapper, maximo-searchbar ::content .wrapper {
+				padding: 5px 0px;
+			}
+			
+			.buttons {
+				margin-top: 20px;
+				text-align: center;
+				max-width: 1100px;
+				padding: 20px;
+				display: block !important;
+			}
+			
+    		.buttons > maximo-button ::content button {
+				margin: 0px 20px;
+    			padding: 0px 10px 0px 20px;
+    			font-size: 129%;
+			}
+    		
+    		.savebutton ::content iron-icon {
+    			margin: 2px 5px 2px -8px !important;
+    		}
+			
+		</style>
+	</template>
+</dom-module>

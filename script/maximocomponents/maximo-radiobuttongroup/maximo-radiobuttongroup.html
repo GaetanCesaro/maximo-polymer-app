@@ -1,0 +1,29 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="maximo-radiobutton.html">
+
+<dom-module id="maximo-radiobuttongroup">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-radiobuttongroup-css.html">
+	<style is="custom-style" include="maximo-radiobuttongroup-css"></style>
+	
+	<template>
+		<div id="wrapper"  role="radiogroup" class$="{{_getClassName(horizontal)}}">
+			<template id="radioRepeater" is="dom-repeat" items="{{items}}" as="record">
+				<maximo-radiobutton id$="{{_getId(record)}}" group-id="{{id}}" checked$="{{_getChecked(record)}}" hidden$="{{_getHidden(record)}}" label$="{{_getLabel(record)}}" tabindex$="{{_getTabIndex(record)}}"></maximo-radiobutton>
+			</template>
+		</div>
+	</template>
+
+	<script src="maximo-radiobuttongroup.js"></script>
+
+</dom-module>

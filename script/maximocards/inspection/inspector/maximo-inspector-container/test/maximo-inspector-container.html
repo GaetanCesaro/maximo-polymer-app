@@ -1,0 +1,166 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-inspector-container tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<script src="../../../../../main.js"></script>
+		<script src="../../../../../test.js"></script>
+		<script src="../../../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../../../components/iron-test-helpers/mock-interactions.js"></script>
+		<link rel="import" href="../../../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<link rel="import" href="../maximo-inspector-container.html" />
+		<script src="mockData.js"></script>
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="progressbar">
+			<template>
+				<maximo-inspector-container id="progressbar"></maximo-inspector-container>
+			</template>
+		</test-fixture>
+		<script>
+			suite('Progress bar', function() {
+				
+				var progressbar, mockedContext;
+	
+				setup(function() {
+					$M.workScape = {
+							getHeight: function() { return 0;}
+					};
+					progressbar = fixture('progressbar');
+				});
+	
+				test('Empty questions set', function(done) {
+					
+					//var response = progressbar._fetchQuestionProgress([]);
+					var response = progressbar.progress;
+
+					expect(response).to.be.a('object');
+					expect(response).to.have.property('total', 0);
+					expect(response).to.have.property('completed', 0);
+					expect(response).to.have.property('reqtotal', 0);
+					expect(response).to.have.property('reqcompleted', 0);
+					
+					done();
+				});
+				
+				test('Check calculation', function(done) {
+					
+					var response = progressbar.computeQuestionProgress(mockedQuestionSet);
+					
+					expect(response).to.be.a('object');
+					expect(response).to.have.property('total', 2);
+					expect(response).to.have.property('completed', 1);
+					expect(response).to.have.property('reqtotal', 1);
+					expect(response).to.have.property('reqcompleted', 1);
+					
+					done();
+				});
+	
+			});
+			
+			suite('Toggle button', function() {
+				
+				var toggle;
+				setup(function() {
+					toggle = fixture('progressbar');
+				});
+				
+				test('hide/show optional questions', function(done) {
+
+					toggle._setOriginalDataListQuestions(mockedQuestionSetToggleTest);
+					toggle.dataListQuestions = mockedQuestionSetToggleTest;
+
+					//How many questions initially
+					expect(toggle.dataListQuestions).to.be.an('array').to.have.lengthOf(5);
+					
+					//perform the toggle
+					MockInteractions.tap(toggle.$.checkbox.$.checkbox);
+					expect(toggle.$.checkbox.checked).to.equal(true, 'Toggle should be on after first change');
+					
+					//How many questions show
+					expect(toggle.dataListQuestions).to.have.lengthOf(4);
+					
+					done();
+				});
+				
+			});
+			
+			suite('Tabs filter', function() {
+				
+				var container;
+				setup(function() {
+					container = fixture('progressbar');
+				});
+				
+				test('hide/show incomplete and complete questions', function(done) {
+					
+					container._setOriginalDataListQuestions(mockedQSetTabTest1);
+					container.dataListQuestions = mockedQSetTabTest1;
+					
+					expect(container.dataListQuestions).to.be.an('array').to.have.lengthOf(7);
+					
+					MockInteractions.tap(container.$.incompleteOption);
+					expect(container.dataListQuestions).to.have.lengthOf(2);
+					
+					MockInteractions.tap(container.$.completeOption);
+					expect(container.dataListQuestions).to.have.lengthOf(5);
+					
+					MockInteractions.tap(container.$.allOption);
+					expect(container.dataListQuestions).to.have.lengthOf(7);
+					
+					done();
+				});
+				
+				test('hide/show incomplete and complete questions with level', function(done) {
+					
+					container._setOriginalDataListQuestions(mockedQSetTabTest2);
+					container.dataListQuestions = mockedQSetTabTest2;
+					
+					expect(container.dataListQuestions).to.be.an('array');
+					var total = container.countQuestions(container.dataListQuestions);
+					expect(total).to.equal(10);
+					
+					MockInteractions.tap(container.$.incompleteOption);
+					var incomplete = container.countQuestions(container.dataListQuestions);
+					expect(incomplete).to.equal(2);
+					
+					MockInteractions.tap(container.$.completeOption);
+					var complete = container.countQuestions(container.dataListQuestions);
+					expect(complete).to.equal(8);
+					
+					MockInteractions.tap(container.$.allOption);
+					total = container.countQuestions(container.dataListQuestions);
+					expect(total).to.equal(10);
+					
+					done();
+				});
+				
+			});
+			
+		</script>
+	</body>
+</html>

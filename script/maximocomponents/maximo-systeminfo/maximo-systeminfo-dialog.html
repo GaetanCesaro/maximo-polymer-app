@@ -1,0 +1,71 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../maximo-systeminfo/maximo-systeminfo.html">
+
+<dom-module id="maximo-systeminfo-dialog">
+
+<style>
+	.wrapper {
+		webkit-touch-callout: initial; /* iOS Safari */
+  		-webkit-user-select: initial;   /* Chrome/Safari/Opera */
+  		-khtml-user-select: initial;    /* Konqueror */
+  		-moz-user-select: initial;      /* Firefox */
+  		-ms-user-select: initial;       /* IE/Edge */
+  		user-select: initial;  
+	}
+	
+	.infoCard {
+	    border: 2px solid #eee;
+    	margin: 5px 0px;
+    	padding-top: 5px; 
+	}
+  
+ 	.infoCard label {
+		color: var(--Primary-gray50);
+		padding: 5px;
+    }
+    
+    .infoCard div {
+    	margin: 15px 5px 5px 5px;
+    	font-size: 80%;
+    	color: var(--Primary-gray90);
+    }
+</style>
+
+  <template>
+		<maximo-systeminfo  id="maxsysinfo"  system-data="{{maxData}}"></maximo-systeminfo>
+		<div class="wrapper">
+			<div class="infoCard">			
+		  		<label for="appserver">{{localize('uitext', 'mxapibase', 'AppServer')}}</label><div id="appserver" readonly>{{maxData.appserver}}</div>
+		  	</div>
+			<div class="infoCard">
+		  		<label for="osinfo">{{localize('uitext', 'mxapibase', 'ServerOperatingSystem')}}</label><div id="osinfo">{{maxData.osinfo}}</div>
+			</div>
+			<div class="infoCard">
+		  		<label for="dbinfo">{{localize('uitext', 'mxapibase', 'ServerDatabase')}}</label><div id="dbinfo">{{maxData.dbinfo}}</div>
+			</div>
+			<div class="infoCard">
+				<label for="version">{{localize('uitext', 'mxapibase', 'Version')}}</label>
+				<div id="version">
+		 			<template is="dom-repeat" items={{maxData.appversion}} as ="versionInfo">
+						{{versionInfo.versionKey}}<br><br>
+					</template>
+				</div>
+			</div>
+		</div>
+		<div class="infoCard">
+		  	<label for="deviceinfo">{{localize('uitext', 'mxapibase', 'DeviceInformation')}}</label><div id="deviceinfo"><div id="browserinfo"></div><div id="screeninfo"></div></div>
+		</div>
+		
+	  	<maximo-footer id="footer">
+	  		<maximo-button id="about_footer_OK" label="{{localize('uitext', 'mxapibase', 'Ok')}}" on-tap="ok"></maximo-button>
+	  	</maximo-footer>
+  </template>
+
+</dom-module>
+
+<script src="maximo-systeminfo-dialog.js"></script>

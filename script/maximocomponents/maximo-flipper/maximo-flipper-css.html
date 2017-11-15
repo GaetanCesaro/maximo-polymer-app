@@ -1,0 +1,39 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->
+<dom-module id="maximo-flipper-css">
+	<template>
+    	<style>
+	    	.flip-container {
+	    		perspective: 1000px;
+	    		height: 100%;
+	    	}
+	    	
+	    	/* flip the pane when hovered */
+	    	.flip-container.flipped .flipper {
+	    		transform: rotateY(180deg);
+	    	}
+	    	
+	    	/* flip the pane when hovered */
+	    	.flip-container.rtl.flipped .flipper {
+	    		transform: rotateY(-180deg);
+	    	}
+	    	
+	    	.flipper {
+	    		transition: all .5s;
+	    		transform-style: preserve-3d;
+	    		position: relative;
+	    		height: 100%;
+	    		box-sizing: border-box;
+	    	}
+	    	
+	    	.flip-container.flipped .flipper ::content maximo-flipper-front ::content.front {
+	    		transform: rotate
+	    	}
+	    	
+		</style>
+	</template>
+</dom-module>

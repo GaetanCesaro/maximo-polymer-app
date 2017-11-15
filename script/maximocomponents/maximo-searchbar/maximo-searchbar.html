@@ -1,0 +1,30 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-searchbar">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-searchbar-css.html">
+	<style is="custom-style" include="maximo-searchbar-css"></style>
+	
+	<template>
+		<div class="wrapper">
+			<div class="container flex-horizontal outerDiv" id="outerdiv">
+				<div title="{{localize('uitext', 'mxapibase', 'ApplyFilter')}}">
+				<iron-icon id="searchicon" class="searchIcon" icon="action-based:search" on-click="doFilter"></iron-icon>
+				</div>
+				<div class="flexchild"><input id="inputval" on-search="doFilter" on-focus="dofocus" on-keyup="changeValue" on-tap="cleared" on-change="doFilter" on-blur="doblur" type="search" value="{{value}}" placeholder="{{placeholder}}"/></div> 		
+			</div>
+		</div>
+	</template>
+
+	<script src="maximo-searchbar.js"></script>
+
+</dom-module>

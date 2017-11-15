@@ -1,0 +1,58 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-submitsr-describeissue-css">
+	<template>
+    	<style>
+  			.description_input ::content .wrapper {
+  				width: 100%;
+  			}
+  			.description_input ::content #comments_texteditor,
+  			.description_input ::content .wrapper{
+  				height : 150px !important; 
+  			}
+  			.description_input ::content #textarea{
+	  			font-family:HelveticaNeue-Light;
+				font-size:18px;
+				color:#000000;
+				text-align:left;
+  			}
+  			
+			.saveButton ::content .button:not(.action){
+				border : 1px solid #ffffff;
+				color : #ffffff;
+				background : #4178be;
+				padding-left : 25px;
+				padding-right : 18px;
+				font-family:HelveticaNeue-Light;
+				font-size : 18px;
+				height : 37px;
+				width : 158;
+			}
+			.saveButton ::content iron-icon
+			{
+				fill : #ffffff;
+    			width: 9px;
+    			height: 15px;
+    			padding-bottom: 2px;
+			}
+			.descriptionWrapper{
+				text-align : center;
+			} 
+			
+			.saveButton ::content button[aria-disabled]:not(.action) { 
+				color: var(--Primary-gray30);
+				cursor: default;
+				border: 1px solid var(--Primary-gray30);
+			}
+			
+			.saveButton ::content button[aria-disabled]:not(.action) iron-icon ::content svg {
+				fill: var(--Primary-gray30);
+			}
+			  			
+		</style>
+	</template>
+</dom-module>

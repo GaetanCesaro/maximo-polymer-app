@@ -1,0 +1,122 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <title>maximo-button tests</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <script src="../../../main.js"></script>
+    <script src="../../../test.js"></script>
+    <script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../../../components/web-component-tester/browser.js"></script>
+    <script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+    <link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+    <style is="custom-style">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  	<maximo-module id="module"></maximo-module>
+    <test-fixture id="button">
+    	<template>
+    		<maximo-button id="testButton"  label="Test Button" ></maximo-button>
+    	</template>
+    </test-fixture>
+    <test-fixture id="button1">
+		<template>
+			<maximo-button id="testButton1"  label="Test Button1" disabled ></maximo-button>
+		</template>
+	</test-fixture>
+	<test-fixture id="button2">
+		<template>
+			<maximo-button id="testButton2"  label="Test Button2" icon="Maximo:Time"></maximo-button>
+		</template>
+	</test-fixture>
+	<test-fixture id="button3">
+		<template>
+			<maximo-button id="testButton3"  label="Test Button3"></maximo-button>
+		</template>
+	</test-fixture>
+	<test-fixture id="button4">
+		<template>
+			<maximo-button id="testButton4"  label="Test Button4"></maximo-button>
+		</template>
+	</test-fixture>
+	<test-fixture id="actionbutton">
+		<template>
+			<maximo-button id="actionButton"  label="Action Button" action></maximo-button>
+		</template>
+	</test-fixture>
+   <script>
+      suite('<maximo-button>', function() {
+          var button, button1, button2, button3;
+          var actionButton;
+          setup(function() {
+        	  button = fixture('button');
+        	  button1 = fixture('button1');
+        	  button2 = fixture('button2');
+        	  button3 = fixture('button3');
+        	  button3.addEventListener('click', function() {
+        		  if(!button3.hasAttribute('disabled')){
+        			  button3.setAttribute('tapped','true');
+        		  }
+        	  });
+        	  button4 = fixture('button4');
+        	  actionButton = fixture('actionbutton');
+          });
+          
+          test('button base - checks states', function(done) {
+        	  expect(innerText(button)).to.equal( button.label, 'button does not have correct label');
+        	  expect(button1.$.button.getAttribute('disabled')).to.equal( 'disabled', 'button1 is not disabled');
+        	  
+        	  assert.isDefined($j(button2).find('iron-icon')[0], 'button2 does not contain an iron-icon');
+
+        	  expect(innerText(button2)).to.equal(button2.label, 'button2 does not have correct label');
+        	  flush(function() {
+        		  expect(button.$$('iron-icon.icon.west')).to.not.exist;
+        		  expect(button.$$('iron-icon.icon.east')).to.not.exist;
+        		  
+        		  done();
+        	  });
+        	  
+          });
+          
+          test('button click', function(done) {
+        	  MockInteractions.tap(button3);
+        	  expect(button3.hasAttribute('tapped')).to.equal(true, 'button3 was not properly tapped');
+        	  
+        	  done();
+          });
+          
+          test('disabled button click', function(done) {
+        	  button3.setAttribute('disabled', true);
+        	  MockInteractions.tap(button3);
+        	  expect(button3.hasAttribute('tapped')).to.equal(false, 'button3 is not properly disabled');
+        	  
+        	  done();
+          });
+      });
+      
+    </script>
+  </body>
+</html>

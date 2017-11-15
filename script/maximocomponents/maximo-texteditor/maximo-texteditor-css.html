@@ -1,0 +1,52 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-texteditor-css">
+	<template>
+    	<style>
+    		.wrapper {
+    			display: block;
+    			text-align : center;
+    		}
+    		
+    		iron-autogrow-textarea {
+    			/* width:100%; */
+    			padding: 3px 3px;
+    			transition: all .5s;
+    			border: 1px solid var(--Cool-gray30);
+    			outline: none;
+    			margin-top:3px;
+    			margin-bottom: 3px;
+    			border-radius: 2px;
+    			line-height: 27px;
+    			min-width: 150px;
+    			text-align: left;
+    			background-color: #ffffff;
+    		}
+    		
+    		iron-autogrow-textarea:focus {
+    			border-color: var(--Primary-blue30);
+    		}
+    		
+
+    		iron-autogrow-textarea[disabled]{
+				background: var(--Cool-gray10);
+    		}
+
+    		label {
+				color: var(--Cool-gray30);
+				display: block;	
+    		}
+    		
+    		label[required]:before {
+    			content: '* ';
+    			font-size: 110%;
+    			color : orange;
+    		}
+
+		</style>
+	</template>
+</dom-module>

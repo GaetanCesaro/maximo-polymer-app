@@ -1,0 +1,96 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-field tests</title>
+		<script src="../../../main.js"></script>
+		<script src="../../../test.js"></script>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+		<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+		<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="tf_field1">
+			<template>
+				<maximo-field id="field1" label="Testing Field" datalabel="Now"></maximo-field>
+			</template>
+		</test-fixture>
+		<test-fixture id="tf_field2">
+			<template>
+				<maximo-field id="field2"  label="Testing Field" datalabel="Now" hide-when-empty="true"></maximo-field>
+			</template>
+		</test-fixture>
+		<test-fixture id="tf_field3">
+			<template>
+				<maximo-field id="field3"  label="" datalabel="" hide-when-empty="true"></maximo-field>
+			</template>
+		</test-fixture>
+<script>
+suite('<maximo-field>', function() {
+	var tf_field1,tf_field2;
+	setup(function() {
+		tf_field1 = fixture('tf_field1');
+		tf_field2=fixture('tf_field2');
+		tf_field3=fixture('tf_field3');
+	});
+	test('field base - checks states', function(done) {
+		expect(tf_field1.$$('.staticlabel').hasAttribute('hidden')).to.equal(false, 'wrong type of field shown');
+		expect(tf_field1.$$('.staticlabel').hasAttribute('bold')).to.equal(false, 'wrong type of label shown');
+		expect(tf_field1.$$('.staticlabel').hasAttribute('block')).to.equal(false, 'wrong type of label shown');
+		expect(tf_field1.$$('.staticlabel').getAttribute('label')).to.equal(null, 'Wrong type of label shown');
+		expect(innerText(tf_field1.$$('.staticlabel'))).to.equal('Testing Field:', 'Field does not have correct label value');
+		expect(innerText(tf_field1.$$('.dynamiclabel'))).to.equal('Now', 'Field does not have correct label value');
+		done();
+	});
+	test('field base - hide-when-empty=true and has a value', function(done) {
+		expect(tf_field2.$$('.staticlabel').hasAttribute('hidden')).to.equal(false, 'wrong type of field shown');
+		expect(tf_field2.$$('.staticlabel').hasAttribute('bold')).to.equal(false, 'wrong type of label shown');
+		expect(tf_field2.$$('.staticlabel').hasAttribute('block')).to.equal(false, 'wrong type of label shown');
+		expect(tf_field2.$$('.staticlabel').getAttribute('label')).to.equal(null, 'Wrong type of label shown');
+		expect(innerText(tf_field2.$$('.staticlabel'))).to.equal('Testing Field:', 'Field does not have correct label value');
+		expect(innerText(tf_field2.$$('.dynamiclabel'))).to.equal('Now', 'Field does not have correct label value');
+		done();
+	});
+	test('field base - hide-when-empty=true and has not a value', function(done) {
+		expect(tf_field3.$$('.staticlabel').hasAttribute('hidden')).to.equal(false, 'wrong type of field shown');
+		expect(tf_field3.hasAttribute('hidden')).to.equal(false, 'wrong type of field shown');
+		expect(tf_field3.$$('.staticlabel').hasAttribute('bold')).to.equal(false, 'wrong type of label shown');
+		expect(tf_field3.$$('.staticlabel').hasAttribute('block')).to.equal(false, 'wrong type of label shown');
+		expect(tf_field3.$$('.staticlabel').getAttribute('label')).to.equal(null, 'Wrong type of label shown');
+		expect(innerText(tf_field3.$$('.staticlabel'))).to.equal(':', 'Field does not have correct label value');
+		expect(innerText(tf_field3.$$('.dynamiclabel'))).to.equal('', 'Field does not have correct label value');
+		done();
+	});
+	a11ySuite('tf_field1');
+	a11ySuite('tf_field2');
+});
+</script>
+	</body>
+</html>

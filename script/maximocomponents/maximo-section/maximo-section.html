@@ -1,0 +1,53 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-section">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-section-css.html">
+	<style is="custom-style" include="maximo-section-css"></style>
+
+	<template>
+  		<div id="title" class="header">
+	  		<table width="100%">
+		  		<tr id="defautrow">
+			  		<td align="left" style="padding: 12px 0px;">
+				  		<template is="dom-if" if="{{haveIcon(icon)}}">
+				  			<iron-icon id="myteam-iron-icon-social" icon="{{icon}}" style="height:30px;width:30px;vertical-align:bottom; margin-right:10px;"></iron-icon>
+				  		</template>
+						<maximo-label  id="maximoSectionLabel" hidden$="{{showAlternateLabel}}" label="{{label}}" fontweight="{{fontweight}}" on-tap="toggleCollapse"></maximo-label>
+						<maximo-label  id="maximoSectionLabelAlternate" hidden$="{{!showAlternateLabel}}" label="{{alternateLabel}}" fontweight="{{fontweight}}" on-tap="toggleCollapse"></maximo-label>
+			  		</td>
+			  		<td align="right" style="padding-left: 15px;" nowrap>
+			  			<maximo-label  id="summaryLabel" label="{{summary}}" class="summary" on-tap="toggleCollapse"></maximo-label>
+			  			<iron-icon id="sectionCollapseIcon" hidden$="{{noIcon}}" icon="{{collapseIcon}}" class="chevronstyle" on-tap="toggleCollapse"></iron-icon>
+			  		</td>
+		  		</tr>
+		  		<tr id="modestrow" style="display: none;">
+			  		<td align="left">
+				  		<maximo-label  id="maximoSectionLabel2" label="{{label}}" on-tap="toggleCollapse"></maximo-label>
+			  			<iron-icon id="sectionCollapseIcon2" icon="icons:chevron-right" on-tap="toggleCollapse"></iron-icon>
+			  		</td>
+		  		</tr>
+	  		</table>
+  		</div>
+		<div id="maximoContentSection" class="section" block$="{{block}}">
+			<iron-collapse id="maximoSectionIronCollapse" opened="true">
+				<div id="maximoContentInnerSection" class="innerSection">
+					<content class="content"></content>
+					<maximo-label  id="maximoSectionLabelAlternateFooter" hidden$="{{!showBottomToggler}}" label="{{alternateLabel}}" fontsize="{{fontsize}}" fontweight="{{fontweight}}" on-tap="toggleCollapse"></maximo-label>
+				</div>
+			</iron-collapse>
+		</div>
+	</template>
+		
+	<script src="maximo-section.js"></script>
+
+</dom-module>

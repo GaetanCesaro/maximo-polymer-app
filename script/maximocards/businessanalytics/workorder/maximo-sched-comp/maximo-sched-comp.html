@@ -1,0 +1,59 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+      
+<dom-module id="maximo-sched-comp">
+
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-sched-comp-css.html">
+	<style is="custom-style" include="maximo-sched-comp-css"></style>
+	
+  <template>
+  	<maximo-collection 
+			auto
+		    id="siteinfo" 
+			attribute-names="mapname,rel.mapsites{*}"
+			collection-data="{{mapInfo}}"
+			debounce-duration="600"
+			object-name="MXAPIMAPMANAGER"
+			selected-query-name="All"
+			key-search-attribute-name="mapname"
+			key-search = "UXMAPMAN"			
+			on-record-data-refreshed="_handleSiteInfoRefreshed">
+	</maximo-collection>
+	<maximo-collection 
+		    id="wodata1" 
+			attribute-names="*"
+			collection-data="{{woData1}}"
+			debounce-duration="600"
+			object-name="MXAPIWO"
+			selected-query-name="uxschedcomp1" 
+			group-by-attribute-names="siteid,count.*"
+			group-by-data="{{groupByData1}}"
+			on-groupby-data-refreshed="_handleGroupByDataRefreshed1"
+			on-record-data-refreshed="_handleWoDataRefreshed1">
+	</maximo-collection>
+	<maximo-collection 
+		    id="wodata2" 
+			attribute-names="*"
+			collection-data="{{woData2}}"
+			debounce-duration="600"
+			object-name="MXAPIWO"
+			selected-query-name="uxschedcomp2" 
+			group-by-attribute-names="siteid,count.*"
+			group-by-data="{{groupByData2}}"
+			on-groupby-data-refreshed="_handleGroupByDataRefreshed2"
+			on-record-data-refreshed="_handleWoDataRefreshed2">
+	</maximo-collection>
+		
+	<maximo-chart id="chart" frameclass="cardborder" charttype="mapchart" allowedtypes="mapchart" abouttext="This chart shows the number of work orders that have been completed either before or to the Scheduled Finish date of the work order.  These values are grouped by Sites.  Task work orders are not included in these values." chartoptions="{{chartoptions}}" fulltitle="{{localize('Schedule Compliance')}}" values="{{chartdata}}" labels="{{labels}}" width="540" height="400" hovertemplates="{{hovertemplates}}"></maximo-chart>
+  </template>
+  <script src="maximo-sched-comp.js"></script>
+</dom-module>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xml:space="preserve" style="enable-background:new 0 0 64 64;" viewBox="0 0 64 64" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<g>
+	<g>
+		<path d="M32,22c-4.4,0-8-3.6-8-8s3.6-8,8-8s8,3.6,8,8S36.4,22,32,22z M32,8.1c-3.3,0-5.9,2.7-5.9,5.9s2.7,5.9,5.9,5.9
+			s5.9-2.7,5.9-5.9S35.3,8.1,32,8.1z" fill="currentColor"/>
+	</g>
+	<g>
+		<circle r="7" cy="35" cx="32" fill="currentColor"/>
+		<path d="M32,43c-4.4,0-8-3.6-8-8c0-4.4,3.6-8,8-8s8,3.6,8,8C40,39.4,36.4,43,32,43z M32,29.1c-3.3,0-5.9,2.7-5.9,5.9
+			s2.7,5.9,5.9,5.9s5.9-2.7,5.9-5.9S35.3,29.1,32,29.1z" fill="currentColor"/>
+	</g>
+	<g>
+		<path d="M14,58c-4.4,0-8-3.6-8-8s3.6-8,8-8s8,3.6,8,8S18.4,58,14,58z M14,44.1c-3.3,0-5.9,2.7-5.9,5.9
+			s2.7,5.9,5.9,5.9s5.9-2.7,5.9-5.9S17.3,44.1,14,44.1z" fill="currentColor"/>
+	</g>
+	<g>
+		<path d="M50,58c-4.4,0-8-3.6-8-8s3.6-8,8-8s8,3.6,8,8S54.4,58,50,58z M50,44.1c-3.3,0-5.9,2.7-5.9,5.9
+			s2.7,5.9,5.9,5.9s5.9-2.7,5.9-5.9S53.3,44.1,50,44.1z" fill="currentColor"/>
+	</g>
+	<g>
+		<rect height="9.7" width="2" fill="currentColor" transform="matrix(0.7071 0.7071 -0.7071 0.7071 36.8002 -3.0797)" y="38" x="21.1"/>
+	</g>
+	<g>
+		<rect height="9.7" width="2" fill="currentColor" y="20.4" x="31"/>
+	</g>
+	<g>
+		<rect height="2" width="9.7" fill="currentColor" transform="matrix(0.7071 0.7071 -0.7071 0.7071 42.3653 -16.515)" y="41.9" x="36.3"/>
+	</g>
+</g>
+</svg>

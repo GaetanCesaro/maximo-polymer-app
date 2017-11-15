@@ -1,0 +1,46 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+
+     
+<dom-module id="maximo-singlevalue-info">
+
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	<link rel="import" href="maximo-singlevalue-info-css.html">
+	<style is="custom-style" include="maximo-singlevalue-info-css"></style>	
+	
+
+	<template>
+			<div id="svbox" class="svbox">						
+				<maximo-detailcard-title id="singlevaltitle" tooltip="svt" on-title-overflow-event="_handleOverflowEvent" dcparent="singlevalue" singlevaluetitlefontcolor="{{titleFontColor}}" singlevaluetitlesize="{{titleSize}}" dclabel="{{title}}"></maximo-detailcard-title>
+				<div id="svvalue" class="svvalue"> {{value}}</div>
+				<iron-icon id="svinfoIcon" icon="action-based:get-information" on-mouseenter="_fireInfoHoverEvent" class="svinfoicon">
+			    </iron-icon>
+			</div>
+			<maximo-tooltip id="sv_card_title">
+		    	<div id="svt">
+		    		<div id="svtitle" style="padding-bottom:14px;">
+    					<maximo-label id="detail_title" label="{{svToolTip}}" style="font-family: 'HelveticaNeue-Bold';"></maximo-label>
+					</div>
+		    	</div>
+	    	</maximo-tooltip>	
+			
+  </template>
+  <script src="maximo-singlevalue-info.js"></script>
+
+</dom-module>

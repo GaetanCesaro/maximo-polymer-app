@@ -1,0 +1,87 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <title>maximo-prioritytag style tests</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <script src="../../../main.js"></script>
+    <script src="../../../test.js"></script>
+    <script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../../../components/web-component-tester/browser.js"></script>
+    <script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+    <link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+    <style is="custom-style">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  	 <maximo-module id="module"></maximo-module>
+        <test-fixture id="tf_priority">
+          <template>
+            <maximo-prioritytag id="priority"></maximo-prioritytag>
+          </template>
+        </test-fixture>
+        <test-fixture id="tf_priority1">
+          <template>
+            <maximo-prioritytag id="priority1" priority="1"></maximo-prioritytag>
+          </template>
+        </test-fixture>
+        <test-fixture id="tf_priority2">
+          <template>
+            <maximo-prioritytag id="priority2" priority="2"></maximo-prioritytag>
+          </template>
+        </test-fixture>
+        <test-fixture id="tf_priority3">
+          <template>
+            <maximo-prioritytag id="priority3" priority="3"></maximo-prioritytag>
+          </template>
+        </test-fixture>
+   <script>
+      suite('<maximo-prioritytag>', function() {
+        var tf_priority,tf_priority1,tf_priority2,tf_priority3;
+        setup(function() {
+          tf_priority=fixture('tf_priority');
+          tf_priority1 = fixture('tf_priority1');
+          tf_priority2=fixture('tf_priority2');
+          tf_priority3=fixture('tf_priority3');
+        });
+
+        test('base prioritytag style', function(done) {
+        	// expect(getStyleProperty(tf_priority.$$('.text'), 'font-size')).to.equal('90%', 'static label font-size is not correct');
+          expect(rgb2hex(getStyleProperty(tf_priority.$$('.text'), 'color'))).to.equal('#000000', 'dynamiclabel color is not correct');
+        	expect(rgb2hex(getStyleProperty(tf_priority.$$('.text'), 'background'))).to.equal('#000000', 'staticlabel background color is not correct');
+          expect(rgb2hex(getStyleProperty(tf_priority.$$('.text'), 'background'))).to.equal('#000000', 'dynamiclabel background color is not correct');
+        	done();
+         });
+          
+        test('prioritytag base - priority 1', function(done) {
+          expect(rgb2hex(getStyleProperty(tf_priority1.$$('.text'), 'color'))).to.equal('#000000', 'dynamiclabel color is not correct');
+          expect(rgb2hex(getStyleProperty(tf_priority1.$$('.text'), 'background'))).to.equal('#000000', 'staticlabel background color is not correct');
+          expect(rgb2hex(getStyleProperty(tf_priority1.$.container, 'background-color'))).to.equal('#000000', 'dynamiclabel background color is not correct');
+        	done();  
+          });
+      });      
+    </script>
+  </body>
+</html>

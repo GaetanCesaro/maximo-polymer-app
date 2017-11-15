@@ -1,0 +1,110 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-inspector-list-css">
+	<template>
+    	<style>   		
+    			
+			.mainPage {
+				width: 100%;
+				/* max-width: 1150px; */
+				display: inline-block;
+    			padding: 0px 0px 20px 0px;
+    		}
+    		.container {
+		      @apply(--layout-vertical);
+		    }
+		    .flexchild {
+		      width: 95%;
+		    }
+    
+    		.header {
+    			background-color: var(--Primary-white);
+    			padding: 0px 30px 15px 30px;
+    			/* width: 100%; */
+    		}
+    		
+    		.title {
+				font-family: HelveticaNeue;
+				font-size: 22px;
+				color: var(--Primary-blue60);
+				text-align:left;
+				padding-bottom: 10px;
+				border-bottom: 1px solid #E0E0E0;
+				font-weight:normal;
+			}
+			
+			.addButton ::content button {
+				padding: 10px;
+			}
+			
+			.pageDiv {
+    			@apply(--layout-vertical);
+				background: var(--Neutral-gray2);
+				text-align: left;
+				padding: 13px 30px 20px 30px;
+				/* display: inline-block; */
+			}
+			
+			.pageDiv.rtl {
+				/* padding: 0px 20px 0px 0px; */
+			}
+			
+			.inspectorListSearchBar ::content div, .searchbar ::content div div {
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.inspectorListTileDiv {
+    			@apply(--layout-vertical);
+				background: var(--Neutral-gray2);
+				text-align: left;
+				padding: 13px 30px 20px 30px;
+				/* display: inline-block; */
+			}
+			
+			.inspectorListTileDiv.rtl {
+				/* padding: 0px 20px 0px 0px; */
+			}
+			
+			.count {
+				margin-bottom: 16px;
+			}
+			
+			.noRecords {
+				text-align: center;
+			}
+			
+			.noRecords iron-icon {
+				--iron-icon-height: 100px;
+    			--iron-icon-width: 100px;
+    			--iron-icon-fill-color: var(--Primary-gray10);
+    			
+    			/* -webkit-filter: drop-shadow(0px 45px 10px rgba(0,0,0,0.2));
+				filter: drop-shadow(0px 45px 10px rgba(0,0,0,0.2)); */
+			}
+			
+			.noRecords p { 
+				font-family:HelveticaNeue-Light-Italic;
+				font-size:22px;
+				color:var(--Primary-blue60);
+			}
+			
+			.inspectorListDataScrollerDiv {
+    			text-align: left;
+    		}
+    		
+    		.inspectorListDataScrollerDiv.rtl {
+    			text-align: right;
+    		}
+    		.scroll{
+    			overflow: auto;
+				max-height: 75vh;
+    		}
+    		
+		</style>
+	</template>
+</dom-module>

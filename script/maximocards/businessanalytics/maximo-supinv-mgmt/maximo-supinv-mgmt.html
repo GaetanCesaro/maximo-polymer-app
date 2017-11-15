@@ -1,0 +1,29 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../po/maximo-asset-classification/maximo-asset-classification.html" />
+<link rel="import" href="../workorder/maximo-asset-failure/maximo-asset-failure.html" />
+      
+<dom-module id="maximo-supinv-mgmt">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-supinv-mgmt-css.html">
+	<style is="custom-style" include="maximo-supinv-mgmt-css"></style>
+	
+  <template>
+	<maximo-panel id="supinvmgmtpnl" label="{{localize('uitext', 'mxapipo', 'DataManagement')}}" width="600px" height="600px">
+		<maximo-asset-classification id="asset"></maximo-asset-classification>
+		<maximo-asset-failure id="failure"></maximo-asset-failure>	
+	</maximo-panel>
+  </template>
+
+  <script src="maximo-supinv-mgmt.js"></script>
+</dom-module>

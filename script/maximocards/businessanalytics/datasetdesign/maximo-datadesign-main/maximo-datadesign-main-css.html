@@ -1,0 +1,56 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-datadesign-main-css">
+	<template>
+    	<style>
+
+    		.mainPage {
+				width: 1150px;
+				max-width: 1150px;
+				display: inline-block;
+    			padding: 0px 0px 20px 0px;
+    		}
+    		
+    		.cardtext ::content label {
+				font-family: "HelveticaNeue";
+			}
+			.datasetheader ::content label {
+				font-size: 128%;
+			}
+			.statuserror ::content label {
+				color: var(--Primary-orange50);
+			}
+			.pageDiv {
+				width: 1150px;
+				max-width: 1150px;
+				background: var(--Neutral-gray2);
+				text-align: left;
+				padding: 0px 0px 20px 0px;
+				display: inline-block;
+			}
+			.pageDiv.rtl {
+				padding: 0px 20px 0px 0px;
+			}
+			
+			.buttons > maximo-button ::content button {
+				margin-right: 20px;
+			}
+			
+			
+			maximo-wizard ::content .maindiv {
+				background: transparent;
+			}
+			
+			maximo-wizard ::content maximo-wizard-step ::content .outer, maximo-wizard ::content maximo-wizard-step ::content label,
+			maximo-wizard ::content maximo-wizard-step ::content .state{
+				max-width: 165px;
+				width: 165px;
+			}
+			
+		</style>
+	</template>
+</dom-module>

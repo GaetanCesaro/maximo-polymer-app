@@ -1,0 +1,62 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-inspector-complete">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspector-complete-css.html">
+	<style is="custom-style" include="maximo-inspector-complete-css"></style>		
+	<template>
+		
+		<div id="inspectorStartMainDiv" class="mainPage">
+		
+			<div id="inspectorCompleteHeaderDiv" class="header">
+				<div>
+					<maximo-label id="inspFormName" label="[[formName]]"></maximo-label>
+				</div>
+			</div>
+			<div id="completeDate" class="subheader">
+				<maximo-label id="completionDate" label="[[completeDate]]"></maximo-label>
+			</div>
+
+			<hr/>
+						
+			<div id="inspectorCompleteContainerDiv" class="container">
+			
+				<div id="completeDetails" class="vertical layout">
+					
+					<object data="images/Inspection-Complete.svg" type="image/svg+xml" class="self-center" height="110px" width="111px" style="margin-top: 30px"></object>
+					<maximo-label id="completionMessage" label="[[completeMessage]]" class="detailsColor"></maximo-label>
+					
+					<div id="inspectorInstructions" class="refObjectContainer">
+						<maximo-label id="completeObjType" label="[[resultObjReference.type]]"></maximo-label>
+						<maximo-label id="completeObjDescription" label="[[resultObjReference.description]]" class="detailsColor"></maximo-label>
+					</div>
+					
+				</div>
+				
+				<div id="completeAction">
+					<div class="horizontal justified layout">
+						<maximo-button id="updateResponse" label="[[localize('uitext','mxapiinspresult','update_answers')]]" icon="chevron-left" on-tap="updateResponses" action></maximo-button>
+						<maximo-button id="exit" class="exitBtn" label="[[localize('uitext','mxapiinspresult','exit')]]" easticon="chevron-right" on-tap="exitCompletion" default ></maximo-button>
+					</div>
+					<maximo-button id="workcenter" label="[[localize('uitext','mxapiinspresult','return_to_workcenter')]]" icon="Maximo:Work-Center" on-tap="goToWorkCenter" action></maximo-button>
+					
+				</div>
+			
+			</div>
+			
+		</div>
+  
+	</template>
+	<script src="maximo-inspector-complete.js"></script>
+
+</dom-module>

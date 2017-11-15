@@ -1,0 +1,49 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->     
+<dom-module id="maximo-datadesign-content">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-datadesign-content-css.html">
+	<style is="custom-style" include="maximo-datadesign-content-css"></style>		
+  <template>
+  	<maximo-resource id="dataDesignResource" resource-uri="{{record.href}}"></maximo-resource>
+  	<maximo-schema id="schemacollection" object-name="{{objectset.intobjectname}}" fullresponse="{{schemaInfo}}" fetch-all="true" useschemadesc="true"></maximo-schema>
+
+	<div id="outer" class="outer" style="padding: 0px 20px">
+		<div>
+			<maximo-label label="{{localize('uitext','mxapiwosdataset','available_fields')}}" block="true"></maximo-label>
+			<maximo-searchbar id="availsearch" collection="{{getLocalObject('schemacollection')}}" placeholder="{{localize('uitext','mxapiwosdataset','search_fields')}}"></maximo-searchbar>
+			<maximo-datalist id="dataSetdatalist" label="{{localize('uitext','mxapiwosdataset','object_sets')}}" items="{{objectdatalist}}" display-attributes="description" select-event="chooseObject" expand-all="true" child-attribute="children" select-first="true"></maximo-datalist>
+			<maximo-datalist id="attributedatalist" label="{{localize('uitext','mxapiwosdataset','fields')}}" items="{{availableList}}" display-attributes="upperattribute,title" multi-select="true" drag-target="{{getLocalObject('chosendatalist')}}" stop-initial-selection iteminfo-event="showInfo" select-event="attrSelectedChanged" ></maximo-datalist>
+			<br>
+			<maximo-checkbox id="mySwitch" slider label="{{localize('uitext', 'mxapiwosdataset', 'Requireddatabasefieldsonly')}}"></maximo-checkbox>
+		</div>
+		<div class="add">
+			<maximo-button id="addButton" default disabled label="{{localize('uitext','mxapiwosdataset','add')}}" easticon="maximo-based:forward" wait-timer=".25" on-tap="moveSelected" ></maximo-button>
+			<maximo-label id="addButtonComment" label="{{localize('uitext','mxapiwosdataset','single_or_multiple')}}" block="true"></maximo-label>
+		</div>
+		<div>
+			<div>
+				<maximo-label label="{{localize('uitext','mxapiwosdataset','selected_fields')}}"></maximo-label><maximo-button disabled id="resetChosen" class="reset" icon="action-based:reset" label="{{localize('uitext','mxapiwosdataset','reset')}}" on-tap="resetChosen" action="true" wait-timer=".25"></maximo-button><br>
+				<maximo-searchbar id="selectedsearch" class="selectedsearch" placeholder="{{localize('uitext','mxapiwosdataset','search_fields')}}"></maximo-searchbar>
+				<maximo-datalist id="chosendatalist" items="{{pickedList}}" picked-list={{dataset.pickedList}} placeholder="{{localize('uitext','mxapiwosdataset','ChoosenDatalistTxt')}}" display-attributes="objectdescription,title" remove-event="removePickedItems" add-event="addPickedItems" drop-source="{{getLocalObject('attributedatalist')}}" drag-target="{{getLocalObject('ordereddatalist')}}" multi-select="true" stop-initial-selection expand-all="true" height="313px" edit-event="editPicked" iteminfo-event="showInfo" reorder-event="reorderChosen" select-event="chosenListChanged" numbered></maximo-datalist>					
+			</div>
+			<div style="margin-top: 10px;display: block">
+				<div>
+					<maximo-label label="{{localize('uitext', 'mxapiwosdataset', 'sort_by')}}"></maximo-label><maximo-button disabled id="moveOrdered" class="moveOrdered" easticon="action-based:forward" label="{{localize('uitext','mxapiwosdataset','add')}}" on-tap="moveChosen" action="true" wait-timer=".25"></maximo-button><br>
+					<maximo-datalist id="ordereddatalist" items="{{orderedList}}" ordered-list={{dataset.orderedList}} display-attributes="objectdescription" remove-event="removeOrderedItems" add-event="addOrderedItems" drop-source="{{getLocalObject('chosendatalist')}}" reorder-event="reorderOrdered"  multi-select="true" stop-initial-selection expand-all="true" height="75px" numbered select-event="orderedListChanged"></maximo-datalist>
+				</div>
+			</div>
+		</div>
+	</div>
+  </template>
+  <script src="maximo-datadesign-content.js"></script>
+</dom-module>

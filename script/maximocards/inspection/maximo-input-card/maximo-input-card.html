@@ -1,0 +1,132 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-input-card">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-input-card-css.html">
+	<style is="custom-style" include="maximo-input-card-css"></style>		
+	<template>
+	
+		<div id="outercard" class="outercard">
+		<div id="card" class="card" on-dragenter="_handleDragEnter" on-dragleave="_handleDragLeave" >
+			<div class="header">
+				<div id="titleSet">
+					<maximo-label id="title" class="title" label="[[_label]]"></maximo-label>
+					<maximo-label id="copyFlag" hidden$="{{!isCopy}}" class="copy" label="([[localize('uitext', 'mxapiinspection','copy')]])"></maximo-label>
+				</div>
+				<div id="actionSet" class="actionSet">
+					<iron-icon id="deleteIcon" icon="Maximo:Trash" on-tap="_fireDelete"></iron-icon>
+					<iron-icon id="copyIcon" icon="Maximo:Copy" on-tap="_fireCopy"></iron-icon>
+					<!-- <iron-icon id="moveIcon" icon="Maximo:Move" on-mouseover="_addDragProp" on-mouseout="_removeDragProp"></iron-icon> -->
+				</div>
+			</div>
+			<div id="content" class="content">
+				<div id="constructorSection" class="flex layout vertical">
+					<maximo-text id="questionPartDesc" class="inlineInput bottom-padding" label="{{localize('uitext', 'mxapibase','description')}}" 
+						placeholder="{{localize('uitext', 'mxapiinspection','enter_description')}}" value="{{descValue}}" on-input="_unsetCopy" maxlength="250"></maximo-text>
+					<!-- <content select=".constructor"></content> -->
+					<div id="constructor" class="constructor flex">
+					
+					</div>
+					<div class="required">
+						<maximo-label label="{{localize('uitext', 'mxapiinspection','is_required')}}"></maximo-label>
+						<maximo-checkbox id="required" label="{{requiredStatus}}" checked="{{isQuestionRequired}}" slider></maximo-checkbox>
+					</div>
+						
+				</div>
+				<div id="previewSection" class="preview" style="padding-left: 20px;">
+					<maximo-label id="previewTitle" class="previewTitle bottom-padding" label="{{previewTitle}}:"></maximo-label>
+					<!-- <content select=".preview"></content> -->
+					<!-- <maximo-label id="previewLabel" label="[[descValue]]"></maximo-label> -->
+					<div id="preview" class="previewSection">
+					
+					</div>
+				</div> 
+			</div>
+		</div>
+		</div>
+		
+		<div id="typeOptionsHolder" style="display: none;">
+		
+			<div id="trOptionHolder">
+				<div class="build" >
+				
+				</div>
+				<div class="prev">
+					<!-- <maximo-textarea id="textResponseSample" value="Inspector long answer." readonly></maximo-textarea> -->
+					<!-- <input id="input" name="input" is="iron-input" id="input" placeholder="[[localize('uitext', 'mxapiinspection','inspector_answer')]]" disabled type="text" /> -->
+					<maximo-text id="trPrevInput" label="[[computePreviewLabel(descValue)]]" 
+						placeholder="{{localize('uitext', 'mxapiinspection','inspector_answer')}}" readonly></maximo-text>					
+				</div>
+			</div>
+			<!-- <div id="nrOptionHolder">
+				<div class="build" >
+					<maximo-label id="neOptions" class="neOptions" label="Options" required></maximo-label>
+					<maximo-text id="neRangeFrom" class="ne neRangeFrom" label="Range: " 
+						placeholder="1" value="{{rangeValue}}"></maximo-text>
+					<maximo-text id="neRangeTo" class="ne neRangeTo" label="to" 
+						placeholder="10" value="{{toValue}}"></maximo-text>
+					<maximo-text id="neStepSize" class="ne neStepSize" label="Step Size: " 
+						placeholder="1" value="{{stepValue}}"></maximo-text>
+					<maximo-text id="neInitialLabel" class="ne neInitialLabel" label="Initial Label: " 
+						placeholder="Bad" value="{{initialValue}}"></maximo-text>
+					<maximo-text id="neFinalLabel" class="ne neFinalLabel" label="Final Label: " 
+						placeholder="Good" value="{{finalValue}}"></maximo-text>
+
+				</div>
+				<div class="prev">
+					
+					<maximo-text id="trPrevInput" label="[[computePreviewLabel(descValue)]]" 
+						placeholder="{{localize('uitext', 'mxapiinspection','inspector_answer')}}" readonly></maximo-text>					
+				</div>
+			</div> -->
+			<div id="neOptionHolder">
+				<div class="build" >
+				</div>
+				<div class="prev">
+					<!-- <maximo-textarea id="textResponseSample" value="Inspector long answer." readonly></maximo-textarea> -->
+					<!-- <input id="input" name="input" is="iron-input" id="input" placeholder="[[localize('uitext', 'mxapiinspection','inspector_answer')]]" disabled type="text" /> -->
+					<maximo-text id="trPrevInput" label="[[computePreviewLabel(descValue)]]" 
+						placeholder="{{localize('uitext', 'mxapiinspection','inspector_answer')}}" readonly></maximo-text>					
+				</div>
+			</div>
+			
+			<div id="soOptionHolder">
+				<div class="build" >
+					<div id="optionsHolder">
+						<template id="inspectionOptionSet" is="dom-repeat" items="{{optionSet}}" as="option">
+							<div id="options" class="options">
+								<label id="label" class="optionlabel" required="true">{{computeOptionLabel(index)}}</label>
+								<iron-icon id="menos" class="optionminus" icon="Maximo:Remove" on-tap="_removeOption"></iron-icon>
+								<iron-icon id="mais" class="optionplus" icon="Maximo:Add-New" on-tap="_addOption"></iron-icon>
+				    			<input id="optioninput" class="optioninput" name="input" is="iron-input" id="input" placeholder="{{localize('uitext', 'mxapiinspection','enter_option')}}" autofocus="{{autofocus}}" autocapitalize="none" autocomplete="off" maxlength="200" value="{{option.description::input}}" data-href="{{option.href}}" data-fieldid="{{option.inspfieldoptionid}}" data-deleted="{{option.isDeleted}}" on-input="selectObserver"/>
+				    			<iron-icon id="validationicon" class="validationicon" icon={{icon}} title="teste"></iron-icon>
+							</div>
+						</template>
+					</div>
+				</div>
+				<div class="prev">
+					<!-- select preview placeholder -->
+				</div>
+			</div>
+			<!-- <div id="options" class="neOptions">
+				<label id="label" required="true">[[_optionLabel]]</label>
+				<iron-icon id="mais" class="" icon="Maximo:Add-New" on-tap="_addOption"></iron-icon>
+				<iron-icon id="menos" class="" icon="Maximo:Add-New" on-tap="_removeOption"></iron-icon>
+    			<input id="input" name="input" is="iron-input" id="input" placeholder="example" autofocus="{{autofocus}}" autocapitalize="none" autocomplete="off" maxlength="200" value="{{optionDesc}}"/>
+			</div> -->
+		</div>
+		
+	</template>
+	<script src="maximo-input-card.js"></script>
+
+</dom-module>

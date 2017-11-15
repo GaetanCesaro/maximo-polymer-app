@@ -1,0 +1,66 @@
+<!--
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+      
+<link rel="import" href="../maximo-submitsr-detail/maximo-submitsr-detail.html" />
+<link rel="import" href="../maximo-submitsr-detail/maximo-submitsr-location/maximo-submitsr-location.html" />
+<link rel="import" href="../maximo-submitsr-defineissue/maximo-submitsr-defineissue.html" />
+<link rel="import" href="../maximo-submitsr-review/maximo-submitsr-review.html" />
+<link rel="import" href="../../../../maximocomponents/maximo-synonymdomain/maximo-synonymdomain.html" />
+      
+<dom-module id="maximo-submitsr-wizard">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-submitsr-wizard-css.html">
+	<style is="custom-style" include="maximo-submitsr-wizard-css"></style>
+	
+	<template>
+		<maximo-collection id="csrcollection" 
+			auto
+			object-name="MXAPISR" 
+			on-new-record-created="_handleNewRecordCreated"
+			on-new-record-saved="_handleNewRecordSaved"
+			on-data-error="_handleRecordCreationFailure"
+			on-new-record-removed="_handleNewRecordRemoved"
+			>
+		</maximo-collection>
+		<maximo-synonymdomain
+			id="maxsynonymdomain"
+			domainid="TKCLASS"
+			maxvalue="SR"
+			on-value-data-refreshed="_handleGetValueFromDomain"
+			on-value-data-error="_handleGetValueFromDomainError">
+		</maximo-synonymdomain>
+		<div id="panel" class="panel">
+			<div id="panelHeader" class="panelHeader">
+				<maximo-button class="backButton" action="true" on-tap="_prevStep" layout="default" label="{{localize('uitext', 'mxapisr', 'Back')}}" icon="maximo-based:previous"></maximo-button>
+				
+				<maximo-wizard id="submitsrWizard" class="submitsrWizard selectedFilter flex" on-change-wizard-step="_changeTab"> 
+					<maximo-wizard-step id="defineissue_tab" intvalue="0" label="{{localize('uitext', 'mxapisr', 'Issue')}}">
+					</maximo-wizard-step>
+					<maximo-wizard-step id="addcomment_tab" intvalue="1" label="{{localize('uitext', 'mxapisr', 'Details')}}">
+					</maximo-wizard-step>
+					<maximo-wizard-step id="review_tab" intvalue="2" label="{{localize('uitext', 'mxapisr', 'Submit')}}">
+					</maximo-wizard-step>
+				</maximo-wizard>
+			</div>
+			<div id="pageDiv" class="pageDiv">
+				<iron-pages class="stepPages" id="pages" selected="{{selectedtab}}">
+ 					<maximo-submitsr-defineissue id="defineissue" on-go-next="_nextStep"></maximo-submitsr-defineissue>
+					<maximo-submitsr-detail id="detail" on-go-next="_nextStep" on-submit-info="_onSubmitInfo" on-remove-submit-info="_onRemoveSubmitInfo" sr-href={{newSrHref}}></maximo-submitsr-detail>
+					<maximo-submitsr-review id="reviewsr" on-sr-submit="_onSrSubmit"></maximo-submitsr-review>
+ 				</iron-pages>
+			</div>   	 
+		</div>
+  </template>
+
+  <script src="maximo-submitsr-wizard.js"></script>
+
+</dom-module>

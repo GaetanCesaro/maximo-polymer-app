@@ -1,0 +1,74 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<link rel="import" href="../../behaviors/question-groups.html" />
+<link rel="import" href="../maximo-inspection-list/maximo-inspection-list.html" />
+<link rel="import" href="../maximo-inspection-form/maximo-inspection-form.html" />
+<link rel="import" href="../maximo-inspection-question-builder/maximo-inspection-question-builder.html" />
+<link rel="import" href="../../maximo-input-card/maximo-input-card.html" />
+
+<dom-module id="maximo-inspection-main">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspection-main-css.html">
+	<style is="custom-style" include="maximo-inspection-main-css"></style>		
+  	<template>
+  
+		<maximo-collection 
+		    id="inspformcollection" 
+			attribute-names="*,inspquestion{*},personchange.displayname,personcreate.displayname,inspectionformstatus{*},inspfieldoption{*},inspectionresult{*}"
+			collection-data="{{recordData}}"
+			debounce-duration="600"
+			object-name="MXAPIINSPFORM" 
+			search-attribute-names="name"
+			order-by-attribute-names="%2Bname,-revision"
+			order-by-child-attribute-names="{{questionSort}}"
+			page-size="-1"
+			additional-params='["internalvalues=1"]' 
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			on-data-error="_handleError"
+			on-new-record-created="_handleNewRecordCreated"
+			on-record-created="_handleRecordCreated"
+			on-new-record-saved="_handleRecordSaved"
+			on-child-record-created="_handleChildRecordCreated">					
+		</maximo-collection>
+		
+		<maximo-collection
+			auto
+		    id="formstatusdomain" 
+			attribute-names="*"
+			debounce-duration="600"
+			collection-data="{{domainStatusCollection}}"
+			object-name="MXAPIDOMAIN" 
+			filter-data="{{domainFilter}}" 
+			on-record-data-refreshed="_handleStatusDomainSet"
+			on-data-error="_handleStatusDomainSetError">					
+		</maximo-collection>
+		
+		<maximo-resource id="inspecFormResource" 
+			resource-uri="[[inspecFormHref]]" 
+			on-record-duplicated="_handleRecordDuplicatedSuccess"
+			on-record-updated="_handleRecordUpdated">
+		</maximo-resource>
+		
+		<!-- search-attribute-names="endpointname"
+		search-term-value="WATSONOAUTH"
+		use-search-terms="true" -->
+	
+  		<iron-pages id="pages" selected="{{selectedPage}}" attr-for-selected="name">
+			<maximo-inspection-form id="formEdition" name="form" record="[[mbo]]" form-status-set="[[formStatusSet]]"></maximo-inspection-form>
+			<maximo-inspection-list id="formList" name="list" data-set="[[recordData]]" status-set="[[formStatusSet]]" collection-ref="{{getLocalObject('inspformcollection')}}"></maximo-inspection-list>
+  		</iron-pages>
+
+  </template>
+  <script src="maximo-inspection-main.js"></script>
+
+</dom-module>

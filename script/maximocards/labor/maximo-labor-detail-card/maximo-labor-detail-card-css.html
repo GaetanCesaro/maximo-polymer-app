@@ -1,0 +1,39 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-labor-detail-card-css">
+	<template>
+    	<style>
+    		.container {
+    			@apply(--layout-horizontal);
+    		}
+    		
+    		.leftcolumn {
+				margin-left: 10px;
+			}
+			
+			.rightcolumn {
+				@apply(--layout-vertical);
+				@apply(--layout-around-justified);
+				margin-right: 10px;
+			}
+			
+			.rightcolumn > div {
+				@apply(--layout-vertical);
+				margin-bottom: 10px;
+			}
+			
+			.container > div {
+    			padding: 5px;
+    		}
+						
+			/* :host div {
+				border: 1px solid;
+			} */
+			
+		</style>
+	</template>
+</dom-module>

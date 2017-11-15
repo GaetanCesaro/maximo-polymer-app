@@ -1,0 +1,207 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+HandlerWorkOrder = {
+      
+	properties: {
+		
+	},
+	workOrderTest : function (e) {
+		var rec = e.target;
+		var record = this.$.openworksection.itemForElement(rec);
+		alert('my function called' + record.wonum);		
+	},
+	/**
+	 *  Process Work Order Completeness percentage.
+	 *  
+	 */
+	calculateCompleteness : function(workorder) {
+		this.failureIncomplete = true;
+		this.taskIncomplete = true;
+		this.actualToolIncomplete = true;
+		this.actualLaborIncomplete = true;
+		this.actualMaterialIncomplete = true;
+		
+		//TODO data below is for testing purposes
+		var total=0;
+		var complete=0;
+		if(workorder.worktype && (workorder.worktype==='EM' || workorder.worktype==='CM')){
+			total++;
+			if(workorder.failurecode){
+				complete++;
+			} else {
+				this.failureIncomplete = false;
+			}
+		}
+		
+		var tasks = workorder.childtask;
+		if(tasks && tasks.length>0){
+			total++;
+			
+			//loop through childtask to check complete
+			var isComplete = true;
+			
+			tasks.forEach(function(task){
+				if(task.status!=='COMP'){
+					isComplete = false;
+					return;
+				}
+			});
+			
+			if(isComplete===true){
+				complete++;
+			} else {
+				this.taskIncomplete = false;
+			}
+		}
+		
+		if(workorder.wpmaterial && workorder.wpmaterial.length>0){
+			total++;
+			if(workorder.uxshowactualmaterial){
+				complete++;
+			} else {
+				this.actualMaterialIncomplete=false;
+			}
+		}
+		
+		if(workorder.wptool && workorder.wptool.length>0){
+			total++;
+			if(workorder.uxshowactualtool){
+				complete++;
+			} else {
+				this.actualToolIncomplete = false;
+			}
+		}
+		
+		if(workorder.wplabor && workorder.wplabor.length>0){
+			total++;
+			if(workorder.uxshowactuallabor){
+				complete++;
+			} else {
+				this.actualLaborIncomplete=false;
+			}
+		}
+		
+		var calculateCompleteness = 0;
+		if(complete===0 && total===0){
+			calculateCompleteness = 100;
+		} else {
+			calculateCompleteness = (complete/total)*100;
+		}
+		
+		return Math.ceil(parseInt(calculateCompleteness));
+	},
+	
+	/**
+	 * Render the work status indicator icon style based on date conditions.
+	 * 
+	 *  Gray   : If Scheduled Start Date or Target Start Date have not been specified
+	 *  Green  : If Scheduled Start Date or Target Start Date < 2 Days overdue
+	 *  Yellow : If Scheduled Start Date or Target Start Date < 6 Days overdue
+	 *  Red    : If Scheduled Start Date or Target Start Date < 12 Days overdue
+	 */
+	buildTimerStyle: function(workorder){
+		var style;
+		if(!workorder.scheduledate && !workorder.finishdate){
+			style='color:grey; font-weight: bold';
+		} else {
+			var date = new Date();
+			var currentDateTime = date.setDate(date.getDate());
+			
+			var schedStartDate = new Date(workorder.scheduledate);
+			var schedStartDateTwoDaysOverdue = schedStartDate.setDate(schedStartDate.getDate()+2);
+			
+			var targStartDate = new Date(workorder.finishdate);
+			var targStartDateTwoDaysOverdue = targStartDate.setDate(targStartDate.getDate()+2);
+			
+			schedStartDate = new Date(workorder.scheduledate);
+			var schedStartDateSixDaysOverdue = schedStartDate.setDate(schedStartDate.getDate()+6);
+			
+			targStartDate = new Date(workorder.finishdate);
+			var targStartDateSixDaysOverdue = targStartDate.setDate(targStartDate.getDate()+6);
+			
+			if(workorder.scheduledate){
+				if(currentDateTime<schedStartDateTwoDaysOverdue){
+					style='color:#4b8400; font-weight: bold';
+				} else if(currentDateTime>=schedStartDateTwoDaysOverdue && currentDateTime<schedStartDateSixDaysOverdue){
+					style='color:#be9b00; font-weight: bold';
+				} else {
+					style='color:#d74108; font-weight: bold';
+				}
+			} else if (workorder.finishdate){
+				if(currentDateTime<targStartDateTwoDaysOverdue){
+					style='color:#4b8400; font-weight: bold';
+				} else if(currentDateTime>=targStartDateTwoDaysOverdue && currentDateTime<targStartDateSixDaysOverdue){
+					style='color:#be9b00; font-weight: bold';
+				} else {
+					style='color:#d74108; font-weight: bold';
+				}
+			}
+		}
+		return style;
+	},
+	
+	getTimeStatus: function(scheduledStart){
+		
+		if (!scheduledStart){
+			return $M.localize('Not started');
+		}
+		
+		var date = new Date();
+		var currentDateTime = date.setDate(date.getDate());
+			
+		var schedStartDate = new Date(scheduledStart);
+		var schedStartDateTwoDaysOverdue = schedStartDate.setDate(schedStartDate.getDate()+2);
+		
+		if(currentDateTime<schedStartDateTwoDaysOverdue){
+			return $M.localize('On time');
+		}
+			
+		schedStartDate = new Date(scheduledStart);
+		var schedStartDateSixDaysOverdue = schedStartDate.setDate(schedStartDate.getDate()+6);
+		
+		if(currentDateTime<schedStartDateSixDaysOverdue){
+			return $M.localize('Overdue');
+		}
+		
+		
+		return $M.localize('Overdue');
+		
+	},
+	
+	/**
+	 * DEPRECATED - instead use maximo-typelabel
+	 *
+	 * Render the work type indicator font color.
+	 * 
+	 *  Red    : for EM Emergency Maintenance
+	 */
+	buildTypeStyle: function (type){
+		var style = '';
+		if (type) {
+			switch(type.toLowerCase()) {
+			    case 'em':
+			        style='color:#d74108';
+			        break;
+			}
+		}
+		return style;
+	},
+	
+	/**
+	* Apply a bottom margin if value exists otherwise hide the value.
+	*/
+	cardDescription: function(value){
+		if(value && value!=null && value!=''){
+			return 'margin-bottom: 7px';
+		} else {
+			return 'display:none';
+		}
+	}
+};
+</script>
+

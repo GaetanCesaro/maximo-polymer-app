@@ -1,0 +1,33 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!--
+`<maximo-norecordfound>` element. Can be placed within a panel and will display maessage if no records found
+
+Example:
+
+    <maximo-norecordfound></maximo-norecordfound>
+
+-->
+<dom-module id="maximo-norecordfound">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-norecordfound-css.html">
+	<style is="custom-style" include="maximo-norecordfound-css"></style>
+	
+	<template>
+		<div class="norecords" id="norecordid">
+			<maximo-label id="norecords" label="{{message}}"></maximo-label>
+		</div>
+	</template>
+	
+	<script src="maximo-norecordfound.js"></script>
+	
+</dom-module>

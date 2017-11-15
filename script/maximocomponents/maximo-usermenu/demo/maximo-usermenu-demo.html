@@ -1,0 +1,61 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->
+<dom-module id="maximo-usermenu-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../../../components/iron-icon/iron-icon.html">
+	<link rel="import" href="../../../components/iron-icons/iron-icons.html">
+	<link rel="import" href="../../../../images/svg/Maximo.html">
+	<link rel="import" href="../../maximo-overlay/maximo-overlay.html">
+	<link rel="import" href="../../maximo-imglib/maximo-imglib.html">
+	
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+		<style>
+		
+			.outer {
+				float: right;
+			    margin: 0px !important;
+			    margin-top: -50px !important;
+			    position: relative;
+			    z-index: 2000;
+			    padding: 0px !important;
+			}
+	
+		</style>
+  		<div class="outer">
+	  		<div style="text-align: left;background: #1d3649">
+	  			<maximo-usermenu id="navmenu"></maximo-usermenu>
+			</div>
+		</div>
+	</template>
+	<script>
+		var maxauth  = {
+			whoami : {
+				workcenters : {
+					'technician': {'description':'Technician','apptype':'WC','hidden':false},
+					'businessanalyst': {'description':'Business Analyst','apptype':'WC','hidden':false},
+					'supervisor': {'description':'Supervisor','apptype':'WC','hidden':false},
+					'inspectorsup': {'description':'Inspector Supervisor','apptype':'APP','hidden':false},
+					'datasetdesigner': {'description':'Design Data Sets','apptype':'APP','hidden':false},
+					'test':{'apptype':'APP','description':'','hidden':true},
+					'welcome':{'apptype':'APP','description':'','hidden':true}			
+				}
+			}
+		};
+		sessionStorage.setItem('maxauth', JSON.stringify(maxauth));
+		Polymer({
+			is: 'maximo-usermenu-demo',
+			behaviors: [BaseComponent],
+			properties: {
+
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log('data loaded');
+			}
+		});
+	</script>
+</dom-module>

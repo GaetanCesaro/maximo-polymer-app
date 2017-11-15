@@ -1,0 +1,144 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-tooltip-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<style>
+		.outer {
+			margin: 0px !important;
+			padding: 5px !important;
+			box-shadow: none !important;
+		}
+		
+		.info {
+			position: fixed;
+			width: 100%;
+			margin-top: 100px;
+		}
+		
+		table {
+			width: 100%; 
+			height: 150%;
+	    	border-collapse: collapse;
+		}
+		
+		td {
+			padding: 0px;
+		}
+		
+		table tr:first-of-type  td {
+			vertical-align: top;
+		}
+		
+		table tr:last-of-type  td {
+			vertical-align: bottom;
+		}
+		
+		table tr td:last-of-type {
+		    text-align: right;
+		}
+		table tr td:first-of-type {
+		    text-align: left;
+		}
+		
+	</style>
+	<template>
+		<div style="height: 1500px">
+			<div class="info">Click on any target to see a tooltip. CTRL+click to see a longer tooltip built using html elements.</div>
+			<table>
+				<tr>
+					<td width="33%">
+						<div class="outer" on-tap="_showToolTip">
+							<iron-icon icon="action-based:click" ></iron-icon>
+						</div>
+					</td>
+					<td width="33%">
+						<div class="outer" on-tap="_showToolTip">
+							<iron-icon icon="action-based:click"></iron-icon>
+						</div>
+					</td>
+					<td width="33%">
+						<div class="outer" on-tap="_showToolTip">
+							<iron-icon icon="action-based:click" ></iron-icon>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="33%">
+						<div class="outer" on-tap="_showToolTip">
+							<iron-icon icon="action-based:click" ></iron-icon>
+						</div>
+					</td>
+					<td width="33%">
+						<div class="outer" on-tap="_showToolTip">
+							<iron-icon icon="action-based:click" ></iron-icon>
+						</div>
+					</td>
+					<td width="33%">
+						<div class="outer" on-tap="_showToolTip">
+							<iron-icon icon="action-based:click" ></iron-icon>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="33%">
+						<div class="outer" on-tap="_showToolTip">
+							<iron-icon icon="action-based:click" ></iron-icon>
+						</div>
+					</td>
+					<td width="33%">
+						<div class="outer" on-tap="_showToolTip">
+							<iron-icon icon="action-based:click" ></iron-icon>
+						</div>
+					</td>
+					<td width="33%">
+						<div class="outer" on-tap="_showToolTip">
+							<iron-icon icon="action-based:click" ></iron-icon>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-tooltip-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				tooltipmessage: {
+					type: String,
+					value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sagittis libero, sed ornare magna. Ut quis odio aliquet, imperdiet risus vel, porttitor mauris. '
+				}
+			},
+			_showToolTip: function(e) {
+				if(e.detail.sourceEvent.ctrlKey){
+					var stuffAndJunkAndThings = document.createElement('div');
+					var stuffAndJunk = document.createElement('div');
+					stuffAndJunk.style.color = 'red';
+					stuffAndJunk.innerText = this.tooltipmessage;
+					stuffAndJunkAndThings.appendChild(stuffAndJunk);
+					
+					var stuffAndJunk1 = document.createElement('div');
+					stuffAndJunk1.innerText = this.tooltipmessage;
+					stuffAndJunkAndThings.appendChild(stuffAndJunk1);
+					
+					
+					var stuffAndJunk2 = document.createElement('div');
+					stuffAndJunk2.style.color = 'blue';
+					stuffAndJunk2.innerText = this.tooltipmessage;
+					stuffAndJunkAndThings.appendChild(stuffAndJunk2);
+					
+					$M.showTooltip(stuffAndJunkAndThings, e.currentTarget);
+				}
+				else {
+					$M.showTooltip(this.tooltipmessage, e.currentTarget);
+				}
+				
+			}
+		});
+	</script>
+</dom-module>

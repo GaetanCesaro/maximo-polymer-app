@@ -1,0 +1,68 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-inspector-complete-css">
+	<template>
+    	<style>
+    	
+    		:host div {
+    			//border: 1px solid black;
+    		}
+    		
+    		.header {
+    			background-color: var(--Primary-blue60);
+    			line-height: 60px;
+    		}
+    		
+    		.header maximo-label ::content label {
+    			color: var(--Primary-white);
+    			line-height: 27px;
+    			font-size: 1.571em;
+    		}
+    		
+    		.subheader {
+    			padding-top: 15px;
+    			padding-bottom: 15px;
+    		}
+    		
+    		.container {
+    			width: 500px;
+    			margin: auto;
+    		}
+    		
+    		.container > div,
+    		.container > div > * {
+    			margin-bottom: 15px;
+    		}
+    		
+    		.container maximo-label ::content label,
+    		.container maximo-button ::content button {
+    			font-size: 1.286em;
+    		}
+    		
+    		.refObjectContainer {
+    			@apply(--layout-vertical);
+    			padding-top: 25px;
+    		}
+    		
+    		.refObjectContainer > * {
+    			line-height: 22px;
+    			margin-bottom: 10px
+    		}
+    		
+    		.exitBtn ::content button {
+    			padding-top: 5px;
+    			padding-bottom: 5px;
+    		}
+    		
+    		.detailsColor  ::content label {
+    			color: var(--Primary-gray100);
+    			 
+    		}
+    	   		
+		</style>
+	</template>
+</dom-module>

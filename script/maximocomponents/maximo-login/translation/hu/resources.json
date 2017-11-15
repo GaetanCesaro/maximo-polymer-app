@@ -1,0 +1,31 @@
+{
+		"main_title":"Nagyvállalati eszközkezelés",
+		"log_in":"Bejelentkezés",
+		"user_name":"Felhasználónév",
+		"password":"Jelszó",
+		"sign_in":"Bejelentkezés",
+		"error":"Adjon meg érvényes hitelesítési adatokat.",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"Minden jog fenntartva.",
+		"copyright_2":"A további részleteket a termék licencszerződésében találja.",
+		"loading_resources":"Betöltés",
+		"missing_config":"{0} konfigurációs fájl hiányzik. A rendszer az alapértelmezett értékeket használja.",
+		"unknown_error":"Ismeretlen hiba történt. {0}",
+		"resource_error":"Hiba történt karaktersorozat erőforrások kérése közben. {0}",
+		"contact_admin":"Ha a probléma továbbra is fennáll, akkor lépjen kapcsolatba a rendszergazdával.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"FONTOS MEGJEGYZÉS: Olyan nem üzleti kapcsolattartási információkat, amelyek kötelezőként vannak jelezve a rendszeren és amelyek megadására szükség van a terméktámogatás biztosításához, személyes információkat, például pénzügyi és egészségügyi adatokat, illetve olyan információkat, amelyek azonosíthatják az egyént, NEM lehet megadni ezen a rendszeren. Azok a személyek, akik személyes információkat adnak meg, belegyeznek abba, hogy az IBM felhasználhassa és átadja az országok között az <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM adatvédelmi irányelvei</a> alapján a kért szolgáltatások biztosításához. Ha Ön az IBM alkalmazottja vagy alvállalkozója, egy ügyfél pedig személyes információinak megadására kéri, Önnek fel kell olvasnia számára ezt a nyilatkozatot, hogy a személyes információi megadása előtt megszerezze az ügyfél beleegyezését.",
+		"session_timeout":"A munkamenet túllépte az időkorlátot.",
+		"noworkscape" : "Felhasználói azonosítójához nincs meghatározva munkaközpont",
+		"no_access_default":"Nem rendelkezik minden szükséges jogosultsággal a kért helyekhez. Kívánja betölteni az alapértelmezett alkalmazást?",
+		"signout" : "Sikeresen kijelentkezett. Zárja be a böngészőt vagy jelentkezzen be újra.",
+		"login_error" : "Bejelentkezési hiba",
+		"login_error_invalid" :"A megadott felhasználónév és jelszó kombináció érvénytelen. Próbálkozzon újra.",
+		"return" : "Visszatérés",
+		"logout" : "Kijelentkezés",
+		"logout_complete" : "A kijelentkezés lezárásához be kell zárnia a böngészőt.",
+		"user_info_error" : "Hiba a felhasználói adatok betöltésekor. Lépjen kapcsolatba a rendszeradminisztrátorral."
+}
+

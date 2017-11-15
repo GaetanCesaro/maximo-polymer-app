@@ -1,0 +1,29 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../maximo-authcontext/maximo-authcontext.html">
+
+<dom-module id="maximo-systemproperty">
+  <template>
+	<iron-ajax
+		id="mxajaxSystemProperty"
+	    handle-as="json"
+	    on-response="_processSystemPropertyResponse"
+	    on-error="_processSystemPropertyResponseError" 
+	    with-credentials></iron-ajax>
+	<iron-ajax
+		id="mxajaxSetSystemProperty"
+	    handle-as="json"
+	    on-response="_processSetSystemPropertyResponse"
+	    on-error="_processSetSystemPropertyResponseError" 
+	    with-credentials></iron-ajax>
+    <maximo-authcontext id="myauthenticator"></maximo-authcontext>
+  </template>
+  
+  <script src="maximo-systemproperty.js"></script>
+  
+</dom-module>

@@ -1,0 +1,104 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+HandlerWeather = {
+      
+	properties: {
+		
+	},
+		
+	_convertWeatherIcon : function (iconCode) {
+		
+		var weatherArray = this._getWeatherConversionArray();
+		if (iconCode) {
+			for (var i in weatherArray) {
+				if (weatherArray[i].iconCode == iconCode){
+					return 'weather:' + weatherArray[i].iconImg;
+				}
+			}
+		}
+
+		return ("weather:default");
+	},
+	
+	_getWeatherConversionArray : function () {
+		var array = [
+			{iconCode: '00', iconImg: 'tornado'},
+			{iconCode: '01', iconImg: 'hurricane'},
+			{iconCode: '02', iconImg: 'hurricane'},
+			{iconCode: '03', iconImg: 'strong-t-storms'},
+			{iconCode: '04', iconImg: 'strong-t-storms'},
+			{iconCode: '05', iconImg: 'wintry-mix'},
+			{iconCode: '06', iconImg: 'freezing-rain'},
+			{iconCode: '07', iconImg: 'wintry-mix'},
+			{iconCode: '08', iconImg: 'freezing-drizzle'},
+			{iconCode: '09', iconImg: 'light-rain'},
+			{iconCode: '10', iconImg: 'freezing-rain'},
+			{iconCode: '11', iconImg: 'light-rain'},
+			{iconCode: '12', iconImg: 'rain'},
+			{iconCode: '13', iconImg: 'flurries'},
+			{iconCode: '14', iconImg: 'snow'},
+			{iconCode: '15', iconImg: 'blowing-snow'},
+			{iconCode: '16', iconImg: 'snow'},
+			{iconCode: '17', iconImg: 'sleet'},
+			{iconCode: '18', iconImg: 'sleet'},
+			{iconCode: '19', iconImg: 'fog'},
+			{iconCode: '20', iconImg: 'fog'},
+			{iconCode: '21', iconImg: 'fog'},
+			{iconCode: '22', iconImg: 'fog'},
+			{iconCode: '23', iconImg: 'wind'},
+			{iconCode: '24', iconImg: 'wind'},
+			{iconCode: '25', iconImg: 'blowing-snow'},
+			{iconCode: '26', iconImg: 'cloudy'},
+			{iconCode: '27', iconImg: 'mostly-cloudy-night'},
+			{iconCode: '28', iconImg: 'mostly-cloudy'},
+			{iconCode: '29', iconImg: 'partly-cloudy-night'},
+			{iconCode: '30', iconImg: 'partly-cloudy'},
+			{iconCode: '31', iconImg: 'clear-night'},
+			{iconCode: '32', iconImg: 'sun'},
+			{iconCode: '33', iconImg: 'mostly-clear-night'},
+			{iconCode: '34', iconImg: 'mostly-sunny'},
+			{iconCode: '35', iconImg: 'freezing-rain'},
+			{iconCode: '36', iconImg: 'sun'},
+			{iconCode: '37', iconImg: 'isolated-t-storms'},
+			{iconCode: '38', iconImg: 'scattered-t-storms'},
+			{iconCode: '39', iconImg: 'light-rain'},
+			{iconCode: '40', iconImg: 'heavy-rain'},
+			{iconCode: '41', iconImg: 'scattered-snow'},
+			{iconCode: '42', iconImg: 'heavy-snow'},
+			{iconCode: '43', iconImg: 'heavy-snow'},
+			{iconCode: '44', iconImg: 'default'},
+			{iconCode: '45', iconImg: 'scattered-showers-night'},
+			{iconCode: '46', iconImg: 'scattered-snow-night'},
+			{iconCode: '47', iconImg: 'scattered-t-storms-night'}
+		];
+		return array;
+	},
+	
+	_convertWeatherUnit : function (unit) {
+		
+		var unitArray = this._getWeatherUnit();
+		for (var i in unitArray) {
+			if (unitArray[i].unit == unit){
+				return unitArray[i].localUnit;
+			}
+		}
+
+		return ("weather:default");
+	},
+	
+	_getWeatherUnit : function () {
+		var array = [
+			{unit: 'e', localUnit: 'F'},
+			{unit: 'm', localUnit: 'C'},
+			{unit: 'h', localUnit: 'K'}
+		];
+		return array;
+	}
+};
+</script>
+

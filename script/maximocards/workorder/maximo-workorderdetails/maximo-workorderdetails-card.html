@@ -1,0 +1,291 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../common/maximo-changestatus/maximo-changestatus-card.html" />
+<link rel="import" href="../../../handlers/handler-workorder/handler-workorder.html"/>
+<!-- link rel="import" href="../maximo-reportActuals/maximo-reportActuals-card.html" /-->
+
+      
+<dom-module id="maximo-workorderdetails-card">
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-workorderdetails-card-css.html">
+	<style is="custom-style" include="maximo-workorderdetails-card-css"></style>		
+  	
+  	<template id="workorder-details">
+		
+		<maximo-resource id="woresource" resource-uri="{{record.href}}"></maximo-resource>
+		<maximo-resource id="workorderResource" resource-uri="{{_getWorkorderUrl(workorderRecordData)}}"></maximo-resource>
+		 
+		<!-- Collection for the Task Table -->
+		<maximo-collection 
+		    id="workordertasks" 
+			attribute-names="wonum,taskid,description,estdur,siteid,status,workorderid,parentchgsstatus,uxsynonymdomain.description,allowedstates"
+			collection-data="{{wotaskData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"			
+			object-name="MXAPIWODETAIL" 
+			search-attribute-names="description,status,uxsynonymdomain.description"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name="All"
+			selected-record="{{selectedAssignmentRecord}}"
+			refresh-interval="300"
+			page-size="50"
+			total-count="{{totalTaskCount}}"
+			page-num="{{taskPagenum}}"
+			total-pages="{{totalTaskPages}}"
+			use-search-terms="true">					
+		</maximo-collection>
+		
+		<!-- Collection for the Planned Material Table -->
+		<maximo-collection 
+		    id="wpmaterial" 
+			attribute-names="itemnum,description,itemqty,taskid,location"
+			collection-data="{{wpmaterialData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"			
+			object-name="MXAPIWODETAIL" 
+			search-attribute-names="itemnum,description,itemqty,location"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name="All"
+			page-size="50"
+			total-count="{{totalMaterialCount}}"
+			page-num="{{materialPagenum}}"
+			total-pages="{{totalMaterialPages}}"
+			selected-record="{{selectedAssignmentRecord}}"
+			refresh-interval="300"
+			use-search-terms="true">					
+		</maximo-collection>
+
+		<!-- Collection for the Planned Tool Table -->
+		<maximo-collection 
+		    id="wptool" 
+			attribute-names="itemnum,description,itemqty,hours,taskid"
+			collection-data="{{wptoolData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"			
+			object-name="MXAPIWODETAIL" 
+			search-attribute-names="itemnum,description,itemqty"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name="All"
+			page-size="50"
+			total-count="{{totalToolCount}}"
+			page-num="{{toolPagenum}}"
+			total-pages="{{totalToolPages}}"
+			selected-record="{{selectedAssignmentRecord}}"
+			refresh-interval="300"
+			use-search-terms="true">					
+		</maximo-collection>
+
+		<!-- Collection for the Planned Labor Table -->
+		<maximo-collection 
+		    id="wplabor" 
+			attribute-names="laborcode,quantity,laborhrs,craft,skilllevel,taskid,labor.person.displayname"
+			collection-data="{{wplaborData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"			
+			object-name="MXAPIWODETAIL" 
+			search-attribute-names="laborcode,quantity,skilllevel,craft"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name="All"
+			page-size="50"
+			total-count="{{totalLaborCount}}"
+			page-num="{{laborPagenum}}"
+			total-pages="{{totalLaborPages}}"
+			selected-record="{{selectedAssignmentRecord}}"
+			refresh-interval="300"
+			use-search-terms="true">					
+		</maximo-collection>
+
+		<maximo-collection 
+		    id="wocollection" 
+			attribute-names="wonum,asset.description,location.description,status,np_statusmemo,statusdate,workorderid,description,assetnum,allowedstates"
+			collection-data="{{workorderRecordData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"	
+			filter-data="{{woFilterData}}"			
+			object-name="MXAPIWODETAIL"
+			search-attribute-names="workorderid"
+			search-term-value="{{filterWorkOrderID}}"
+			selected-query-name="All"
+			selected-record="{{selectedRecord}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			use-search-terms="true"
+			refresh-interval="300"
+			refresh-listeners='["completecollection"]'> 
+		</maximo-collection>
+		
+		<maximo-content-selector id="contentSelector" class="horizontal center-justified layout selectedFilter" block="true">		
+			<maximo-label id="maximo_workorder_details"  on-tap="switchContent" label="{{localize('uitext', 'mxapiwodetail', 'Details')}}"></maximo-label>
+			<maximo-label id="maximo_workorder_tasks"  on-tap="switchContent" label="{{localize('uitext', 'mxapiwodetail', 'Tasks')}}"></maximo-label>						
+			<maximo-label id="maximo_workorder_material"  on-tap="switchContent" label="{{localize('uitext', 'mxapiwodetail', 'PlannedMaterial')}}"></maximo-label>
+			<maximo-label id="maximo_workorder_tools"  on-tap="switchContent" label="{{localize('uitext', 'mxapiwodetail', 'PlannedTools')}}"></maximo-label>
+			<maximo-label id="maximo_workorder_labor"  on-tap="switchContent" label="{{localize('uitext', 'mxapiwodetail', 'PlannedLabor')}}"></maximo-label>
+		</maximo-content-selector>
+		
+		<div id="maincontainer" style="margin-top: 15px;">
+		
+			<div id="section_details">
+			
+				<div class="flex-equal-justified">
+		 			<div id="openwork_inner_div10">
+	 					<!-- <maximo-label id="openwork_label_wonum" label="{{record.wonum}}" class="ownumclass"></maximo-label> -->
+					</div>
+		 		</div>
+				<div>
+					<div id="openwork_inner_div20" hidden$="{{showPriority(record)}}" style="float: right">
+						<maximo-label id="wopenwork_prioritylabel" class="owpriorityclass" label="{{localize('uitext', 'mxapiwodetail', 'Priority')}}"></maximo-label>
+						<maximo-prioritytag id="openwork_priorityvaluetag" priority="{{record.wopriority}}" class="ptag"></maximo-prioritytag>
+					</div>
+					<maximo-label id="openwork_label_worktype" class="owtypeclass" label="{{record.worktype}}"></maximo-label>
+					<iron-icon id="workinprogress-panel-header-div-timer" icon="maximo-based:watch" style$="{{buildTimerStyle(record)}}" style="height:50px;width:50px;"></iron-icon>
+					<maximo-label id="workinprogress-panel-header-div_description" label="{{getTimeStatus(record.assignment.scheduledate)}}" style$="{{buildTimerStyle(record)}}"></maximo-label><br>
+					<!-- maximo-button id="openwork_label3" action="true" on-tap="openWorkorder" label="{{localize('uitext', 'mxapiwodetail', 'Editworkorder')}}" icon="action-based:edit"></maximo-button-->
+				</div>
+				<hr id="sep1"></hr>		
+				<div>
+					<maximo-imglib id="wodetails_section_img1"  image="{{record.asset._imagelibref}}" width="100px" height="100px" class="picture" noimageicon="maximo-based:no-image" rounded></maximo-imglib>
+					<maximo-field id="wodetails_section_label0" label="{{localize('uitext', 'mxapiwodetail', 'CurrentStatus')}}" datalabel="{{record.status}}"></maximo-field>
+					<maximo-field id="wodetails_section_label1" label="{{localize('uitext', 'mxapiwodetail', 'Craft')}}" datalabel="{{record.assignment.craft.description}}"></maximo-field>
+					<maximo-field id="wodetails_section_label2" label="{{localize('uitext', 'mxapiwodetail', 'SkillLevel')}}" datalabel="{{record.uxassignment.craftskill.description}}"></maximo-field>
+					<maximo-field id="wodetails_section_label3" label="{{localize('uitext', 'mxapiwodetail', 'Description')}}" datalabel="{{record.description}}"></maximo-field>
+					<maximo-field id="wodetails_section_label4" label="{{localize('uitext', 'mxapiwodetail', 'Location')}}" datalabel="{{record.location.description}}"></maximo-field>
+					<maximo-field id="wodetails_section_label5" label="{{localize('uitext', 'mxapiwodetail', 'Asset')}}" datalabel="{{record.asset.description}}"></maximo-field>
+					<maximo-field id="wodetails_section_label6" label="{{localize('uitext', 'mxapiwodetail', 'ScheduledStart')}}" datalabel="{{getDateTime(record.assignment.scheduledate)}}"></maximo-field>
+					<maximo-field id="wodetails_section_label7" label="{{localize('uitext', 'mxapiwodetail', 'ScheduledFinish')}}" datalabel="{{getDateTime(record.assignment.finishdate)}}"></maximo-field>
+				</div>
+			</div>
+									
+			<div id="section_tasks" style="display: none;">
+				<!-- <maximo-section id="wo_tasks_detail_dialog" block="true"> -->
+					<maximo-searchbar id="myteamlist-searchbar" collection="{{getLocalObject('workordertasks')}}" placeholder='Search'></maximo-searchbar>
+					<div id="nodatasection_tasks" hidden$="{{_showNoData(totalTaskCount)}}" style="text-align:center;">
+						<maximo-label id="nodatalabel_tasks" label="{{localize('uitext', 'mxapibase', 'NoRecords')}}"></maximo-label>
+					</div>	
+					<iron-list id="maximoPanelWorktoassignTasksIronList" items="{{wotaskData}}" as="tasks">
+						<template id="section_tasks_template_detail_dialog">
+							<div id="section_tasks_template_detail_dialog_innerDiv" class="cardLayout">
+							 	<div id="availLaborsectionCard" class="cardborder">
+									<div class="cardheader">
+										<maximo-label id="availLaborsectionCard_div_div_div2_field_curstatus" class="headerLabel" label="{{localize('uitext', 'mxapiwodetail', 'Task')}} {{tasks.taskid}}"></maximo-field>
+									</div>				 	
+							 		<div id="availLaborsectionCard_div" class="cardcontainer">
+										<div id="availLaborsectionCard_div_div_div2" >
+											<maximo-label id="availLaborsectionCard_div_div_div2_field_Asset"  label="{{tasks.description}}" class="description"></maximo-label><br>
+											<maximo-field id="availLaborsectionCard_div_div_div2_field_location" label="{{localize('uitext', 'mxapiwodetail', 'Duration')}}" datalabel="{{tasks.estdur}}" format="HhMm"></maximo-field>
+											<div class="flex-equal-justified">
+												<maximo-field id="availLaborsectionCard_div_div_div3_field_craft" label="{{localize('uitext', 'mxapiwodetail', 'Status')}}" datalabel="{{tasks.status_description}}"></maximo-field>
+												<maximo-button id="workorderdetails_section_1_tasks_table_status_button" hidden$="{{hideTaskStatus(tasks)}}" action="true" label="Update Status" on-tap="changeTaskStatus"></maximo-button>	
+											</div>
+										</div>	
+									</div>
+								</div>
+							</div>
+						</template>
+					</iron-list>				
+				<!-- </maximo-section> -->
+				<maximo-data-page id="wodetail_wptasks_page"  collection="{{getLocalObject('workordertasks')}}"></maximo-data-page>		
+			</div>
+
+			<div id="section_material" style="display: none;">
+				<!-- <maximo-section id="wo_material_detail_dialog" block="true"> -->
+				<maximo-searchbar id="myteamlist-searchbar"  collection="{{getLocalObject('wpmaterial')}}" placeholder='Search'></maximo-searchbar>
+				<div id="nodatasection_material"  style="text-align:center;">
+					<maximo-label id="nodatalabel_material" hidden$="{{_showNoData(totalMaterialCount)}}" label="{{localize('uitext', 'mxapibase', 'NoRecords')}}" ></maximo-label>
+				</div>	
+				<iron-list id="maximoPanelWorktoassignMaterialIronList" items="{{wpmaterialData}}" as="material">
+					<template id="workorderdetails_section_1_Material">
+						<div id="workorderdetails_section_1_Material_innerDiv" class="cardLayout">
+						 	<div id="workorderdetails_section_1_Material_card" class="cardborder">
+								<div id="workorderdetails_section_1_Material_cardheader" class="cardheader">
+									<maximo-label id="workorderdetails_section_1_Material_headerlabel" class="headerLabel" label="{{localize('uitext', 'mxapiwodetail', 'Item')}} {{material.itemnum}}"></maximo-field>
+								</div>				 	
+						 		<div id="workorderdetails_section_1_Material_div" class="cardcontainer">
+									<div id="workorderdetails_section_1_Material_div_div_div2" >
+										<maximo-label id="workorderdetails_section_1_Material_div_div_div2_field_Asset"  label="{{material.description}}" class="description"></maximo-label><br>
+										<maximo-field id="workorderdetails_section_1_Material_div_div_div2_field_Asset"  label="{{localize('uitext', 'mxapiwodetail', 'Task')}}" datalabel="{{material.taskid}}" ></maximo-field>
+										<maximo-field id="workorderdetails_section_1_Material_div_div_div2_field_location" label="{{localize('uitext', 'mxapiwodetail', 'Quantity')}}" datalabel="{{material.itemqty}}"></maximo-field>									
+										<maximo-field id="workorderdetails_section_1_Material_div_div_div3_field_craft" label="{{localize('uitext', 'mxapiwodetail', 'Storeroom')}}" datalabel="{{material.location}}"></maximo-field>									
+									</div>	
+								</div>
+							</div>
+						</div>
+					</template>
+				</iron-list>						
+				<!-- </maximo-section> -->
+				<maximo-data-page id="wodetail_wpmaterial_page"  collection="{{getLocalObject('wpmaterial')}}" ></maximo-data-page>
+			</div>
+
+			<div id="section_tools" style="display: none;">
+				<!-- <maximo-section id="wo_tool_detail_dialog" block="true"> -->
+				<maximo-searchbar id="myteamlist-searchbar"  collection="{{getLocalObject('wptool')}}" placeholder='Search'></maximo-searchbar>		
+				<div id="nodatasection_tools" style="text-align: center">
+					<maximo-label  hidden$="{{_showNoData(totalToolCount)}}" id="nodatalabel_tools" label="{{localize('uitext', 'mxapibase', 'NoRecords')}}" ></maximo-label>
+				</div>
+				<iron-list id="maximoPanelWorktoassignToolIronList" items="{{wptoolData}}" as="tool">
+					<template id="workorderdetails_section_1_Tools">
+					 	<div id="workorderdetails_section_1_Tools_innerDiv" class="cardLayout">
+						 	<div id="workorderdetails_section_1_Tools_card" class="cardborder">
+								<div id="workorderdetails_section_1_Tools_cardheader" class="cardheader">
+									<maximo-label id="workorderdetails_section_1_Tools_headerlabel" class="headerLabel" label="{{localize('Tool')}} {{tool.itemnum}}"></maximo-label>
+								</div>
+						 		<div id="workorderdetails_section_1_Tools_div" class="cardcontainer">
+									<div id="workorderdetails_section_1_Tools_div_div_div2" >
+										<maximo-label id="workorderdetails_section_1_Tools_div_div_div2_field_Asset"  label="{{tool.description}}" class="description"></maximo-label><br>
+										<maximo-field id="workorderdetails_section_1_Tools_div_div_div2_field_Asset"  label="{{localize('uitext', 'mxapiwodetail', 'Task')}}" datalabel="{{tool.taskid}}" ></maximo-field>
+										<maximo-field id="workorderdetails_section_1_Tools_div_div_div2_field_location" label="{{localize('uitext', 'mxapiwodetail', 'Quantity')}}" datalabel="{{tool.itemqty}}"></maximo-field>									
+										<maximo-field id="workorderdetails_section_1_Tools_div_div_div3_field_craft" label="{{localize('uitext', 'mxapiwodetail', 'ToolHours')}}" datalabel="{{tool.hours}}" format="HhMm"></maximo-field>									
+									</div>	
+								</div>
+							</div>
+						</div>
+					</template>	
+				</iron-list>						
+				<!-- </maximo-section> -->
+				<maximo-data-page id="wodetail_wplabor_page"  collection="{{getLocalObject('wplabor')}}" ></maximo-data-page>
+			</div>
+						
+			<div id="section_labor" style="display: none;">
+				<!-- <maximo-section id="wo_tool_detail_dialog" block="true"> -->
+				<maximo-searchbar id="myteamlist-searchbar" collection="{{getLocalObject('wplabor')}}" placeholder='Search'></maximo-searchbar>
+				<div id="nodatasection_labor" style="text-align: center">
+					<maximo-label  hidden$="{{_showNoData(totalLaborCount)}}" id="nodatalabel_labor" label="{{localize('uitext', 'mxapibase', 'NoRecords')}}" ></maximo-label>
+				</div>
+				<iron-list id="maximoPanelWorktoassignLaborIronList" items="{{wplaborData}}" as="labor">
+					<template id="workorderdetails_section_1_Labor_table">
+						<div id="workorderdetails_section_1_Labor_innerDiv" class="cardLayout">
+						 	<div id="workorderdetails_section_1_Material_card" class="cardborder">
+								<div id="workorderdetails_section_1_Material_cardheader" class="cardheader">
+									<maximo-label id="workorderdetails_section_1_Material_headerlabel" class="headerLabel" label="{{localize('uitext', 'mxapiwodetail', 'Labor')}} {{labor.labor.person.displayname}}"></maximo-field>
+								</div>				 	
+						 		<div id="workorderdetails_section_1_Material_div" class="cardcontainer">
+									<div id="workorderdetails_section_1_Material_div_div_div2" >
+										<maximo-field id="workorderdetails_section_1_Material_div_div_div2_field_Asset"  label="{{localize('uitext', 'mxapiwodetail', 'Task')}}" datalabel="{{labor.taskid}}" ></maximo-field>
+										<maximo-field id="workorderdetails_section_1_Material_div_div_div2_field_location" label="{{localize('uitext', 'mxapiwodetail', 'Craft')}}" datalabel="{{labor.craft}}"></maximo-field>									
+										<maximo-field id="workorderdetails_section_1_Material_div_div_div2_field_location" label="{{localize('uitext', 'mxapiwodetail', 'SkillLevel')}}" datalabel="{{labor.skilllevel}}"></maximo-field>
+										<maximo-field id="workorderdetails_section_1_Material_div_div_div3_field_craft" label="{{localize('uitext', 'mxapiwodetail', 'Hours')}}" datalabel="{{labor.laborhrs}}" format="HhMm"></maximo-field>									
+									</div>	
+								</div>
+							</div>
+						</div>
+					</template>
+				</iron-list>
+				<!-- </maximo-section> -->
+				<maximo-data-page id="wodetail_wplabor_page"  collection="{{getLocalObject('wplabor')}}" ></maximo-data-page>
+			</div>
+		</div>
+	  	
+	  	<maximo-footer id="footer" centered>
+	  		<maximo-button id="workorderdetails_footer_Cancel" label="{{localize('uitext', 'mxapibase', 'Cancel')}}" on-tap="cancel" action="true"></maximo-button>
+	  		<maximo-button id="workorderdetails_footer_OK" label="{{localize('uitext', 'mxapiwodetail', 'Complete')}}" on-tap="completeWO" default></maximo-button>
+	  	</maximo-footer>
+	  	
+  	</template>
+
+	<script src="maximo-workorderdetails-card.js"></script>
+
+</dom-module>

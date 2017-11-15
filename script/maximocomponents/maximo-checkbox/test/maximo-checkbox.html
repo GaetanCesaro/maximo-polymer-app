@@ -1,0 +1,221 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-checkbox tests</title>
+		<script src="../../../main.js"></script>
+		<script src="../../../test.js"></script>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+		<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+		<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="checkbox">
+			<template>
+				<maximo-checkbox id="checkbox0"  label="Test Checkbox" ></maximo-checkbox>
+			</template>
+		</test-fixture>
+		<test-fixture id="slider">
+			<template>
+				<maximo-checkbox id="slider0"  label="Test Slider" slider></maximo-checkbox>
+			</template>
+		</test-fixture>
+		<test-fixture id="slider_dynamic">
+			<template>
+				<maximo-checkbox id="slidera"  label="yes" label-false="no" slider></maximo-checkbox>
+			</template>
+		</test-fixture>
+		<test-fixture id="triStateSlider">
+			<template>
+				<maximo-checkbox id="slider0a"  label="Test Slider - tri-state" slider tri-state></maximo-checkbox>
+			</template>
+		</test-fixture>
+		<test-fixture id="readonly_checkbox">
+			<template>
+				<maximo-checkbox id="checkbox1"  label="Readonly Checkbox" readonly ></maximo-checkbox>
+			</template>
+		</test-fixture>
+		<test-fixture id="readonly_slider">
+			<template>
+				<maximo-checkbox id="slider1"  label="Readonly Slider" slider readonly></maximo-checkbox>
+			</template>
+		</test-fixture>
+<script>
+suite('<maximo-checkbox>', function() {
+	var checkbox, slider, readonlyCheckbox, readonlySlider, slider_dynamiclabel;
+	setup(function() {
+		checkbox = fixture('checkbox');
+		slider = fixture('slider');
+		triStateSlider = fixture('triStateSlider');
+		readonlyCheckbox = fixture('readonly_checkbox');
+		readonlySlider = fixture('readonly_slider');
+		slider_dynamiclabel = fixture('slider_dynamic');
+	});
+	test('checkbox base - checks states', function(done) {
+		expect(checkbox.$$('.checkbox').hasAttribute('hidden')).to.equal(false, 'wrong type of checkbox shown');
+		expect(checkbox.$$('.switch').hasAttribute('hidden')).to.equals(true, 'wrong type used');
+		
+		expect(checkbox._getCheckbox().getAttribute('role')).to.equal('checkbox', 'incorrect role on checkbox');
+		expect(checkbox._getCheckbox().getAttribute('aria-label')).to.equal(checkbox.label, 'checkbox does not have correct aria-label');
+		expect(innerText(checkbox.$.label.$.label)).to.equal(checkbox.label, 'checkbox does not have correct label');
+		expect(checkbox.checked).to.equal(false, 'checkbox should not have been checked');
+		
+		var mark = checkbox.$$('.mark');
+		expect(getStyleProperty(mark, 'display')).to.equal('none', 'checkbox mark should be hidden');
+		
+		expect(checkbox.hasAttribute('checked')).to.equal(false, 'checkbox should not have checked atttribute');
+		expect(checkbox._getCheckbox().getAttribute('aria-checked')).to.equal('false', 'checkbox should have aria-checked==false');
+		
+		checkbox.checked = true;
+		
+		expect(checkbox.checked).to.equal(true, 'checkbox should not have been checked');
+		expect(checkbox.hasAttribute('checked')).to.equal(true, 'checkbox should not have checked atttribute');
+		expect(checkbox._getCheckbox().getAttribute('aria-checked')).to.equal('true', 'checkbox should have aria-checked==false');
+		
+		done();
+	});
+	test('checkbox taps - checks states when tapped', function(done) {
+		var mark = checkbox.$$('.mark');
+		//tap to checked
+
+		MockInteractions.tap(checkbox._getCheckbox());
+		expect(checkbox.checked).to.equal(true, 'checkbox should now be checked');
+		expect(checkbox.hasAttribute('checked')).to.equal(true, 'checkbox should now have checked attribute');
+		expect(checkbox._getCheckbox().getAttribute('aria-checked')).to.equal('true', 'checkbox should have aria-checked=true');
+		expect(getStyleProperty(mark, 'display')).to.equal('block', 'checkbox mark should be shown');
+
+		//and then back off again
+		MockInteractions.tap(checkbox._getCheckbox());
+		expect(checkbox.checked).to.equal(false, 'checkbox should no longer be checked');
+		expect(checkbox.hasAttribute('checked')).to.equal(false, 'checkbox should not have checked attribute');
+		expect(checkbox._getCheckbox().getAttribute('aria-checked')).to.equal('false', 'checkbox should have aria-checked=false');
+		expect(getStyleProperty(mark, 'display')).to.equal('none', 'checkbox mark should be hidden');
+
+		done();
+	});
+     
+	test('slider base - checks states', function(done) {
+		expect(slider.$$('.checkbox').hasAttribute('hidden')).to.equal(true, 'wrong type shown');
+		expect(slider.$$('.switch').hasAttribute('hidden')).to.equal(false, 'wrong type shown');
+		
+		//slider
+		expect(slider.$.checkbox.getAttribute('role')).to.equal('checkbox', 'slider requires role=checkbox');
+		expect(slider.$.checkbox.getAttribute('aria-label')).to.equal(slider.label, 'slider aria-label is not as expected');
+		expect(innerText(slider.$.label.$.label)).to.equal(slider.label, 'slider label is not as expected');
+		expect(slider.hasAttribute('checked')).to.equal(false, 'slider should not have checked attribute');
+		expect(slider.$.checkbox.getAttribute('aria-checked')).to.equal('false', 'slider should have aria-checked=false');
+		
+		//This is not in style test because the slider position is a required behavior for the slider to function.
+		expect(parseInt(getStyleProperty(slider.querySelector('.slider'), 'left'))).to.equal(0);
+		
+		done();
+	});
+	
+	
+	test('slider base - checks states', function(done) {
+		//triStateSlider
+		expect(triStateSlider.getChecked()).to.equal('mixed', 'triStateSlider should have mixed check state');
+		
+		MockInteractions.tap(triStateSlider._getCheckbox());
+
+		expect(triStateSlider.getChecked()).to.equal('true', 'triStateSlider should have mixed check state');
+		
+		MockInteractions.tap(triStateSlider._getCheckbox());
+		
+		expect(triStateSlider.getChecked()).to.equal('false', 'triStateSlider should have mixed check state');
+
+		done();
+	});
+	
+ 
+	test('slider tap check', function(done) {
+		//tap to checked
+		MockInteractions.tap(slider.$.checkbox);
+		expect(slider.checked).to.equal(true, 'slider should be checked');
+		expect(slider.hasAttribute('checked')).to.equal(true, 'slider should have checked attribute');
+		expect(slider.$.checkbox.getAttribute('aria-checked')).to.equal('true', 'slider should have aria-checked=true');
+		
+		//and then back off again
+		slider.checked = true
+		MockInteractions.tap(slider.$.checkbox);
+		expect(slider.checked).to.equal(false, 'slider should not be checked');
+		expect(slider.hasAttribute('checked')).to.equal(false, 'slider should not have checked attribute');
+		expect(slider.$.checkbox.getAttribute('aria-checked')).to.equal('false', 'slider should have aria-checked=false');
+		
+		done();
+	});
+
+	test('checkbox - verify that setting to readonly works using attribute or setting programmatically', function(done) {
+		//marked as readonly with attribute
+		MockInteractions.tap(readonlyCheckbox._getCheckbox());
+		expect(readonlyCheckbox.hasAttribute('checked')).to.equal(false, 'readonly checkbox should not be checked');
+		expect(readonlyCheckbox._getCheckbox().getAttribute('aria-checked')).to.equal('false', 'readonly checkbox should have aria-checked=false');
+		
+		//programmatic
+		checkbox.readonly = true;
+		MockInteractions.tap(checkbox._getCheckbox());
+		expect(checkbox.hasAttribute('checked')).to.equal(false, 'readonly checkbox should not be checked');
+		expect(checkbox._getCheckbox().getAttribute('aria-checked')).to.equal('false', 'readonly checkbox should have aria-checked=false');
+		
+		done();
+	});
+
+	test('slider - verify that setting to readonly works using attribute or setting programmatically', function(done) {
+		//marked as readonly with attribute
+		MockInteractions.tap(readonlySlider.$.checkbox);
+		expect(readonlySlider.hasAttribute('checked')).to.equal(false, 'readonly slider should not be checked');
+		expect(readonlySlider.$.checkbox.getAttribute('aria-checked')).to.equal('false', 'readonly slider should have aria-checked=false');
+		
+		//programmatic
+		slider.readonly = true;
+		MockInteractions.tap(slider.$.checkbox);
+		expect(slider.hasAttribute('checked')).to.equal(false, 'readonly slider should not be checked');
+		expect(slider.$.checkbox.getAttribute('aria-checked')).to.equal('false', 'readonly slider should have aria-checked=false');
+		
+		done();
+	});
+
+	test('slider - verify that dynamic labels works', function(done) {
+		expect(innerText(slider_dynamiclabel.$.label.$.label)).to.equal('no');
+		expect(slider_dynamiclabel.$.wrapper.getAttribute('title')).to.equal('no');
+		//marked as readonly with attribute
+		slider_dynamiclabel.checked = true;
+		
+		expect(innerText(slider_dynamiclabel.$.label.$.label)).to.equal('yes');
+		expect(slider_dynamiclabel.$.wrapper.getAttribute('title')).to.equal('yes');
+		done();
+	});
+	
+	a11ySuite('readonly_checkbox');
+	a11ySuite('readonly_slider');
+});
+</script>
+	</body>
+</html>

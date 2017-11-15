@@ -1,0 +1,71 @@
+		<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-radiobuttongroup-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<style>
+		.outer > div {
+			text-align: left;
+		}
+		
+		.outer.rtl > div {
+			text-align: right;
+		}
+	</style>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+  		
+  		<maximo-collection 
+			auto="true"	
+			id="collection1" 
+			collection-data="{{data1}}"
+			test-url="{{resolveUrl('data/data1.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+  		<div class="outer">
+	  		<div>
+	  			<button on-tap="_resetData">Reload data</button><br>
+	  			Vertical (default)<br>
+  				<maximo-radiobuttongroup id="group1" items="{{data}}" attribute="myBoolean" label-attribute="description"></maximo-radiobuttongroup><br>
+  				<button on-tap="_resetData1">Reload data</button><br>
+	  			Horizontal<br>
+	  			<maximo-radiobuttongroup id="group2" items="{{data1}}" horizontal attribute="myBoolean" label-attribute="description"></maximo-radiobuttongroup>
+			</div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-radiobuttongroup-demo',
+			behaviors: [BaseComponent],
+			listeners: {
+				'radio-button-selected' : '_changeSelection'
+			},
+			properties: {
+
+			},
+			_handleRecordDataRefreshed: function(e){
+
+			},
+			_changeSelection: function(e){
+				console.log('selection changed');
+				console.dir(e.detail);
+			},
+			_resetData: function(){
+				this.$.collection.refreshRecords();
+			},
+			_resetData1: function(){
+				this.$.collection1.refreshRecords();
+			}
+		});
+	</script>
+</dom-module>

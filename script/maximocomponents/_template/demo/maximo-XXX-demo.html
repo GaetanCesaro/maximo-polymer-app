@@ -1,0 +1,36 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->
+<dom-module id="maximo-XXX-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data_with_schema.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+  		<div class="outer">
+	  		<div style="text-align: left">
+	  			<maximo-XXX></maximo-XXX>
+			</div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-XXX-demo',
+			behaviors: [BaseComponent],
+			properties: {
+
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log('data loaded');
+			}
+		});
+	</script>
+</dom-module>

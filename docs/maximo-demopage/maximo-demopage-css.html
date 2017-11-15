@@ -1,0 +1,81 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-demopage-css">
+  <template>
+    <style>
+    	.left-panel {
+    		width:50%;
+    		height:100%;
+    		float:left;
+    		padding:5px;
+    		box-sizing:border-box;
+    	}
+    	.right-panel {
+    		width:50%;
+    		height:100%;
+    		float:right;
+    		padding:5px;
+    		box-sizing:border-box;
+    	}
+    	.flex-vertical {
+    @apply(--layout-vertical);
+    height: 100%;
+  }
+  .flexchild-vertical {
+    @apply(--layout-flex);
+  }
+    	.paper-header {
+		   background: var(--paper-indigo-500);
+    	   font-weight: bold;
+     	   color: white !important;
+    	   padding: 0 40px;
+    	   padding:3px;
+		}
+			
+		paper-header-panel {
+			width:100%;
+		}	
+    	
+    	.content {
+	        display: block;
+	        background: var(--paper-grey-100);
+	        width:100%;
+	        box-sizing:border-box;
+	    }
+	    
+	    maximo-demopage-source-card ::content iron-autogrow-textarea {
+	        padding: 5px;
+	        box-sizing:border-box;
+	    }
+	    
+	    #result{
+	    	background: white;
+	    	
+	    }
+	    #source{
+	    	background: var(--paper-grey-200);
+	    }
+	    #example{
+	    	background: white;
+	    }
+	    iron-page {
+	    	width: 100%;
+	    }
+	    
+	    .blue .content {
+           background: linear-gradient(white, #b3e5fc);
+        }
+        
+        #exampleCard {
+        	height: 50%;
+        }
+        #resultCard {
+        	height: 50%;
+        }
+	    
+    </style>
+</template>
+</dom-module>

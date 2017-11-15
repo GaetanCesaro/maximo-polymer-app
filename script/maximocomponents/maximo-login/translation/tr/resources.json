@@ -1,0 +1,31 @@
+{
+		"main_title":"Kurumsal Varlık Yönetimi",
+		"log_in":"Oturum Aç",
+		"user_name":"Kullanıcı Adı",
+		"password":"Parola",
+		"sign_in":"Oturum Aç",
+		"error":"Lütfen geçerli kimlik bilgilerini girin.",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"Her hakkı saklıdır.",
+		"copyright_2":"Ayrıntılar için ürün lisansına bakın.",
+		"loading_resources":"Yükleniyor",
+		"missing_config":"{0} yapılandırma dosyası eksik. Varsayılan kullanılıyor.",
+		"unknown_error":"Bilinmeyen bir hata oluştu. {0}",
+		"resource_error":"Dizgi kaynakları istenirken sorun oluştu. {0}",
+		"contact_admin":"Sorun devam ederse Sistem Yöneticinizle iletişim kurun.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"ÖNEMLİ NOT: Destek sağlamak için gerekli olan ve bu sistemde zorunlu olarak belirtilen iş iletişim bilgileri dışındaki kişisel bilgiler (hassas finansal ya da tıbbi veriler ve herhangi bir kimlik bilgisi gibi) bu sisteme GİRİLMEMELİDİR. Kişisel bilgi giren herkes, IBM'in bu bilgileri istenen hizmetleri sağlamak üzere <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM gizlilik ilkelerine</a> uygun olarak kullanabileceğini ve ülke sınırları genelinde aktarabileceğini kabul etmiş olur. Bir IBM çalışanı ya da yüklenicisiyseniz ve bir müşteri sizden kişisel bilgilerini girmenizi isterse, kişisel bilgileri girmeden önce iznini almak üzere müşteriye bu uyarıyı okumanız gerekir.",
+		"session_timeout":"Oturumunuz zaman aşımına uğradı.",
+		"noworkscape" : "Kullanıcı kimliğiniz için tanımlı İş Merkezi yok",
+		"no_access_default":"İstenen konum için tüm gerekli yetkilere sahip değilsiniz. Varsayılan bir uygulama yüklemek istiyor musunuz?",
+		"signout" : "Başarıyla oturumu kapattınız. Lütfen tarayıcınızı kapatın ya da yeniden oturum açın.",
+		"login_error" : "Oturum Açma Hatası",
+		"login_error_invalid" :"Kullanıcı adı ve parola birleşiminiz geçersiz. Yeniden deneyin.",
+		"return" : "Dönüş",
+		"logout" : "Oturum Kapatma",
+		"logout_complete" : "Oturumu tamamen kapatmak için, tarayıcınızı kapatmanız gerekir.",
+		"user_info_error" : "Kullanıcı bilgileri yüklenirken hata oluştu. Sistem Yöneticinize başvurun"
+}
+

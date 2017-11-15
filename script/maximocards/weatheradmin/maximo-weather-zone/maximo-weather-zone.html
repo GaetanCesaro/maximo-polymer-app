@@ -1,0 +1,120 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016,2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<link rel="import" href="../../../components/polymer/polymer.html"/>
+<link rel="import" href="../../../maximocomponents/_behaviors/base-component.html"/>
+<link rel="import" href="maximo-weather-add-zone/maximo-weather-add-zone.html" />
+<link rel="import" href="maximo-weather-zone-card/maximo-weather-zone-card.html" />
+
+<dom-module id="maximo-weather-zone">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+  <link rel="import" href="maximo-weather-zone-css.html">
+  <style is="custom-style" include="maximo-weather-zone-css"></style>
+
+  <template>
+    <maximo-collection
+      id="weatherzone"
+      attribute-names="*"
+      page-size="50"
+      debounce-duration="600"
+	  order-by-attribute-names="{{collectionOrderBy}}"
+	  search-term-value="{{searchTermValue}}"
+      object-name="MXAPIWEATHERZONE"
+      use-search-terms="true"
+      on-record-data-refreshed="_handleRecordDataRefreshed"
+      on-table-insert="_handleRecordDataRefreshed"
+	  on-data-error="_handleRecordDataError"
+      collection-data="{{recordData}}"
+	  page-size="[[pageSize]]"
+	  page-num="{{pageNum}}"
+	  total-pages="{{totalPages}}"
+      schema="{{schema}}"
+      content-localized="true" 
+      on-record-created="refresh"
+      on-new-record-created="_handleNewRecord">
+    </maximo-collection>
+
+	<maximo-systemproperty
+		id="radiusuomproperty"
+		property-name="weatherapi.defaulradiusuom"
+		on-property-data-refreshed="_handleRadiusUOMRefreshed"
+	  	on-data-error="_handleRecordDataError"
+		on-property-data-error="_handleRadiusUOMError">
+	</maximo-systemproperty>
+	
+    <maximo-resource 
+    	id="dataresource" 
+    	resource-uri="{{href}}"
+      	content-localized="true" 
+    	on-record-delete-error="_handleRecordDataError">
+    </maximo-resource>
+	<maximo-resource id="registerResource" 
+		resource-uri="{{registerResourceUri}}" 
+		on-record-data-refreshed="_handleRegisterSuccess"
+	  	on-data-error="_handleRecordDataError">
+	</maximo-resource>
+
+    <div id="main" class="main">
+      <div>
+        <span id="section_title" class="title">{{localize('uitext','weatheradmin','WeatherZones')}}</span>
+      </div>
+	    <div style="text-align: right;">
+  		</div>
+
+    </div>
+
+	    <div style="padding-top:10px;" align="Left">
+	    	<span id="section_title" class="title" width="500px">{{localize('uitext','weatheradmin','ZoneGelpText1')}} {{radiusUOM}} {{localize('uitext','weatheradmin','ZoneGelpText2')}}</span>
+	    </div>
+
+	    <div style="padding-top:25px;">
+	    </div>
+
+		<div class="flex-horizontal">
+			<div id="zoneSearchBarDiv" style="width:75%;display:inline-block;float:left;">
+				<maximo-searchbar id="zoneSearch" collection="{{getLocalObject('weatherzone')}}" placeholder="{{localize('uitext','mxapiiotcfg','Search')}}" width="800px"></maximo-searchbar>
+  			</div>
+	    	<div style="text-align:right;width:10%;padding-top:5px;">
+   				<maximo-button id="switchToCard" action icon="{{switchIcon}}" label="{{switchLabel}}" on-tap="_switch"></maximo-button>
+  			</div>
+	    	<div style="text-align:right;width:15%;padding-top:5px;">
+     			<maximo-button id="addZone" label="{{localize('uitext','weatheradmin','AddWeatherZone')}}" icon="icons:add" on-tap="_openAddWeatherZoneDialog" default="true"></maximo-button>
+  			</div>
+  		</div>
+	    <div style="padding-top:15px;">
+	    </div>
+  		<iron-pages selected="{{selected}}">
+		    <div>
+				<maximo-table items={{recordData}} columns={{columns}} actions={{actions}} max-height="500px" collection-order-by={{collectionOrderBy}} summary="WeatherZoneTable"></maximo-table>
+				<div class="flex-horizontal flex-center-justified">
+					<maximo-simple-paginator id="zonePaginator" page-num=[[pageNum]] total-pages=[[totalPages]] style="margin-top:10px"></maximo-simple-paginator>
+				</div>
+	  		</div>
+			<div id="dataScroller" class="layout horizontal wrap">
+				<template id="weatherZoneTemplate" is="dom-repeat" items="[[recordData]]" as="zoneForm">
+					<maximo-weather-zone-card id="inspForm_tile_record" data-id="[[zoneForm.zone]]" record="{{zoneForm}}" schema={{schema}}
+						form-status-set="[[statusSet]]"></maximo-weather-zone-card>
+				</template>
+			</div>
+  		</iron-pages>
+
+  </template>
+
+  <script src="maximo-weather-zone.js"></script>
+</dom-module>

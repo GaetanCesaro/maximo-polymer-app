@@ -1,0 +1,140 @@
+<html>
+	<head>
+    	<title>Maximo Asset Management</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	  	<meta name="apple-mobile-web-app-capable" content="yes" />
+	  	<script src="script/libraries/jquery/jquery-2.2.0.js"></script>
+	  	<script src="script/loginResourceLoader.js"></script>
+    	<link href="css/main.css" rel="stylesheet">
+	  	<link rel="apple-touch-icon" href="images/lightning-icon.png">
+		<link rel="shortcut icon" href="images/lightning.ico">
+    	<style>
+			body {
+				text-align: center;
+				font-family: 'HelveticaNeue-Light' !important;
+				font-size: 14px;
+				padding-top: 20vh;
+				overflow: hidden;
+			}
+			
+			
+			body > div {
+				display: inline-block;
+	    		max-width: 500px;
+				min-width: 200px;
+				border: 1px solid #999;
+				padding: 20px;
+				margin: 0px 20px;
+			}
+			    		
+			.warnImg {
+			    vertical-align: middle;
+		    	fill: #4178be;	
+		    	margin-top: 15px;
+		    	height: 40px;
+		    	width: 40px;
+			}
+			
+			.ibmImg {
+				float: right;
+				width: 70px;
+			}
+			
+			button{
+	    	    height: 40px;
+				margin: 10px 0px;
+		    	padding: 0px 20px;
+				border: 1px solid transparent;
+			    background: #4178be;
+		    	color: #ffffff;
+				transition: all .2s;
+			}
+			
+			button:hover {
+				background: #325c80
+			}
+			
+			button:focus {
+				border-color: #5aaafa;
+			}
+	
+			.mainDiv {
+				margin: 40px 0px 20px 0px;
+				display: flex;
+			}
+			
+			.mainDiv div {
+				text-align: left;
+				margin: 5px 10px 5px 0px;
+			}
+			
+			.mainDiv #messageTitle {
+				font-size: 150%;
+			}
+			
+			.mainDiv #message {
+				font-size: 129%;
+				margin-top: 10px;
+			}
+			
+			#return_button {
+				float: right;
+			}
+			
+			@media screen and (max-height: 425px) {
+				
+				body {
+					padding-top: 10vh;
+				}
+			}
+			
+		</style>
+    </head>
+	<body>
+		<div>
+			<div>
+				<img class="ibmImg" src="script/maximocomponents/maximo-login/images/logo.png" draggable="false"/>
+			</div>
+			<div class="mainDiv">
+				<div>
+					<svg viewBox="0 0 24 24" class="warnImg">
+						<g>
+							<path d="M12,1.9L1,21h22L12,1.9z M12,4.9l8.5,14.7H3.5L12,4.9z"/>
+							<polygon points="11.3,10 11.3,11.5 11.6,15.1 12.4,15.1 12.7,11.5 12.7,10 	"/>
+							<circle cx="12" cy="16.6" r="0.7"/>
+						</g>	
+					</svg>
+				</div>
+				<div>
+					<label id="messageTitle"></label><br>
+					<label id="message"></label>
+				</div>
+			</div>
+			<form id="returnForm" method="POST" action="index.html">
+				<div class="buttonDiv">
+					<button id="return_button" type="submit"></button>
+				</div>
+			</form>
+		</div>
+	</body>
+	<script>
+	$(function() {
+		fillResources = function(resources){
+			document.getElementById('messageTitle').innerText = resources['login_error'];
+			document.getElementById('return_button').innerText = resources['return'];
+			var query = window.location.search.substring(1);
+			var pairs = query.split('&')
+			var messageKey = 'login_error_invalid';
+			pairs.forEach(function(pair){
+				var split = pair.split('=')
+				if(split[0] === 'messageKey'){
+					messageKey = split[1]; 
+				}
+			});
+			document.getElementById('message').innerText = resources[messageKey];
+		};
+		loadLoginResources();
+	});
+	</script>
+</html>

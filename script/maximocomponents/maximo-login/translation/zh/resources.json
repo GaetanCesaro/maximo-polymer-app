@@ -1,0 +1,31 @@
+{
+		"main_title":"企业资产管理",
+		"log_in":"登录",
+		"user_name":"用户名",
+		"password":"密码",
+		"sign_in":"登录",
+		"error":"请输入有效凭证。",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"All rights reserved. ",
+		"copyright_2":"请参阅产品许可证以获取详细信息。",
+		"loading_resources":"正在装入",
+		"missing_config":"缺少“{0}”配置文件。使用缺省值。",
+		"unknown_error":"发生未知错误。 {0}",
+		"resource_error":"请求字符串资源时发生错误。{0}",
+		"contact_admin":"如果此问题仍存在，请与您的系统管理员联系。",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"重要注释：除系统系统上指示为必填且提供支持所需的业务联系人信息外，不应在此系统中输入任何个人信息（例如，敏感的财务或医疗数据）和任何标识为个人的信息。 任何人输入个人信息即表示同意 IBM 根据 <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM 隐私策略</a>跨国家或地区使用和传输这些信息来提供请求的服务。如果您是 IMB 员工或合同商，并且客户要求您输入其个人信息，那么必须向客户传达此声明以获取客户同意，然后再输入其个人信息。",
+		"session_timeout":"会话超时。",
+		"noworkscape" : "没有为您的用户标识定义 Work Center",
+		"no_access_default":"您并非具有所请求位置的所有必需权限。是否要装入缺省应用程序？",
+		"signout" : "您已成功注销。请关闭浏览器，或重新登录。",
+		"login_error" : "登录错误",
+		"login_error_invalid" :"用户名与密码的组合无效。请重试。",
+		"return" : "退回",
+		"logout" : "注销",
+		"logout_complete" : "要完全注销，必须关闭浏览器。",
+		"user_info_error" : "装入用户信息时发生错误。请与系统管理员联系"
+}
+

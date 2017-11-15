@@ -1,0 +1,31 @@
+{
+		"main_title":"Enterprise Asset Management",
+		"log_in":"Prijava",
+		"user_name":"Uporabniško ime",
+		"password":"Geslo",
+		"sign_in":"Prijava",
+		"error":"Vnesite veljavne poverilnice.",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"Vse pravice so pridržane.",
+		"copyright_2":"Za podrobnosti si oglejte licenco za izdelek.",
+		"loading_resources":"Nalaganje",
+		"missing_config":"Manjka konfiguracijska datoteka ({0}). Uporabljene bodo privzete vrednosti.",
+		"unknown_error":"Prišlo je do neznane napake. {0}",
+		"resource_error":"Med zahtevanjem virov niza je prišlo do napake. {0}",
+		"contact_admin":"Če težave še vedno ne morete odpraviti, se obrnite na svojega skrbnika sistema.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"POMEMBNA OPOMBA: v ta sistem NE vnašajte nobenih osebnih podatkov, kot so na primer občutljivi finančni ali medicinski podatki in katerekoli informacije, ki omogočajo prepoznavanje oseb, vnesete pa lahko poslovne kontaktne informacije, ki so v tem sistemu naznačene kot obvezne in so potrebne za zagotovitev podpore. Vsak uporabnik, ki vnese osebne podatke, se strinja, da jih IBM lahko uporabi in prenese prek državnih meja v skladu z <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM-ovimi pravilniki o zasebnosti</a>, da lahko nudi zahtevane storitve. Če ste IBM-ov uslužbenec ali pogodbenik in vas stranka prosi, da vnesete njene osebne podatke, ji morate pred vnašanjem osebnih podatkov prebrati to obvestilo, da pridobite njeno soglasje.",
+		"session_timeout":"Vaši seji je potekla časovna omejitev.",
+		"noworkscape" : "Za vaš ID uporabnika ni definiran noben delovni center",
+		"no_access_default":"Nimate vseh potrebnih avtorizacij za zahtevano lokacijo. Ali želite naložiti privzeto aplikacijo?",
+		"signout" : "Uspešno ste se odjavili. Zaprite brskalnik ali se znova prijavite.",
+		"login_error" : "Napaka pri prijavi",
+		"login_error_invalid" :"Kombinacija uporabniškega imena in gesla ni veljavna. Poskusite znova.",
+		"return" : "Vrni se",
+		"logout" : "Odjava",
+		"logout_complete" : "Da bi se odjavili v celoti, morate zapreti brskalnik.",
+		"user_info_error" : "Napaka pri nalaganju informacij o uporabniku. Obrnite se na skrbnika sistema."
+}
+

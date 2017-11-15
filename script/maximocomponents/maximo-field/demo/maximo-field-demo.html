@@ -1,0 +1,108 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-field-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../maximo-select.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<link rel="import" href="../maximo-field.html">
+	<link rel="import" href="../../maximo-label/maximo-label.html">
+	<link rel="import" href="../../maximo-button/maximo-button.html">
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+		<div class="outer">
+			
+			<div class="demo-section">
+				<p class="demo-header">Default label</p>
+				<p>
+				<maximo-field id="label1" label="Your favorite" datalabel="Field"></maximo-field>
+				</p>
+				<div class="code">
+  					<xmp><maximo-field id="label1" label="Your favorite" datalabel="Field"></maximo-field></xmp>
+  				</div>
+
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Label using a value binded</p>
+				<maximo-field label="Your favorite" datalabel="{{exampledata}}"></maximo-field>
+				<div class="code">
+  					<xmp><maximo-field label="Your favorite" datalabel="{{exampledata}}"></maximo-field></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Demo hide-when-empty propertie = true but has a value</p>
+				<maximo-field id="label2" label="Your favorite field" datalabel="Field" hide-when-empty="true"></maximo-field>
+				<div class="code">
+  					<xmp><maximo-field id="label2" label="Your favorite field" datalabel="Field" hide-when-empty="true"></maximo-field></xmp>
+  				</div>
+				
+				<p class="demo-header">Demo hide-when-empty propertie = true and it doens't have an attribute defined</p>
+				<maximo-field id="label2" label="Your favorite field" datalabel="" hide-when-empty="true"></maximo-field>
+				<div class="code">
+  					<xmp><maximo-field id="label2" label="Your favorite field" datalabel="" hide-when-empty="true"></maximo-field></xmp>
+  				</div>
+
+			</div>
+  		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-field-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				querylist: {
+    		type: Array,
+    		value: [],
+    		notify: true
+    	},
+    		exampledata:{
+    			type:String,
+    			notify:true,
+    			value:"binded"
+    		}
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log(this.data);
+				var demoData=this.data;
+				demoData.forEach(function(d) {
+					this.querylist=d.description;
+					console.log(d.description);	
+			});
+				console.log(this.querylist);
+			},
+			ready : function(){
+  			var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        this.classList.toggle("active");
+        this.nextElementSibling.classList.toggle("show");
+    }
+}
+  	},
+  			lfunc:function(){
+  				alert("Your favorite label here too! :)");
+  			}
+  			,
+  			accordion:function(e){
+  		console.log(this);
+        this.classList.toggle("active");	
+        var panel=document.getElementsByClassName("codeexample");
+        console.log(panel);
+        console.log(panel[0].classList);
+        panel[0].classList.toggle("show");
+}
+  			
+		});
+	</script>
+</dom-module>

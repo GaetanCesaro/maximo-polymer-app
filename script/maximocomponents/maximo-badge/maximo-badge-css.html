@@ -1,0 +1,34 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-badge-css">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: absolute;
+        outline: none;
+      }
+
+      :host([hidden]) {
+        display: none !important;
+      }
+      
+      .badge {
+        @apply(--layout);
+        @apply(--layout-center-center);
+
+        border-radius: var(--maximo-badge-border-radius, 25%);
+        margin-left: var(--maximo-badge-margin-left, 0px);
+        margin-bottom: var(--maximo-badge-margin-bottom, 0px);
+        width: var(--maximo-badge-width, 20px);
+        height: var(--maximo-badge-height, 20px);
+        background-color: var(--maximo-badge-background, --accent-color);
+        opacity: var(--maximo-badge-opacity, 1.0);
+      }
+    </style>
+  </template>
+</dom-module>

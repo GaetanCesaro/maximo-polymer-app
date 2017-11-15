@@ -1,0 +1,49 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-chartheader">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-chartheader-css.html">
+	<style is="custom-style" include="maximo-chartheader-css"></style>
+
+	<template>
+  		<div id="title" class="header">
+	  		<table class="chhdrtbl">
+		  		<tr>
+			  		<td align="left">
+			  			<div>
+				  			<div id="labelsection" class="labelsection">
+								<maximo-label label="{{label}}" fontsize="{{fontsize}}" fontweight="{{fontweight}}"></maximo-label>
+							</div>
+							<div id="iconsection" class="iconsection">
+						  			<iron-icon id="{{id}}_openfull" title="{{localize('uitext', 'mxapibase', 'ViewFullScreen')}}" icon="open-in-new" on-tap="openFull"></iron-icon>
+						  			<iron-icon id="{{id}}_download" title="{{localize('uitext', 'mxapibase', 'DownloadasanImage')}}" icon="file-download" on-tap="download"></iron-icon>
+						  			<iron-icon id="{{id}}_changetype" title="{{localize('uitext', 'mxapibase', 'ChangeChartType')}}" icon="editor:insert-chart" on-tap="changetype"></iron-icon>
+						  			<iron-icon id="{{id}}_showabout" title="{{localize('uitext', 'mxapibase', 'MoreInformation')}}" icon="help-outline" on-tap="showabout"></iron-icon>				  							  		
+							</div>														
+						</div>			  												  		
+			  		</td>
+			  		<td align="right" style="width:36px">
+			  			<div>
+				  			<iron-icon class="menuicon moreicons" id="{{id}}_moreicons" icon="more-vert" title="{{localize('uitext', 'mxapibase', 'ShowChartOptions')}}" style="margin-right:10px;" on-tap="toggleSwitch"></iron-icon>
+			  			</div>
+			  		</td>
+		  		</tr>
+	  		</table>
+  		</div>
+		<div id="maximoContentSection" class="section" block$="{{block}}">
+			<iron-collapse id="maximoSectionIronCollapse" opened="true">
+				<content class="content"></content>
+			</iron-collapse>
+		</div>
+	</template>		
+	<script src="maximo-chartheader.js"></script>
+</dom-module>

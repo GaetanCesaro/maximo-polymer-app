@@ -1,0 +1,50 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+	/**
+	 * Provides data formatting capabilities
+	 *
+	 * @polymerBehavior Formatter
+	 */
+	Formatter = {
+		HHMM : function(value) {
+		 	  if(value && value.length>0 && value.indexOf(':')){
+		 	  	return value;
+		 	  }
+	  		  var hrs = parseInt(Number(value));
+	  		  var min = Math.round((Number(value)-hrs) * 60);
+	  		  var duration = hrs+':'+min;
+	  		  if(duration=='NaN:NaN'){
+	  		  	return $M.getNoDataString();
+	  		  }
+	  		  min = (min < 10) ? ( '0'+min ) : min;
+	  		  return hrs+':'+min;
+	  	},
+	  	
+	  	HhMm : function(value) {
+		 	  if(value && value.length>0 && value.indexOf('h')){
+		 	  	return value;
+		 	  }
+	  		  var hrs = parseInt(Number(value));
+	  		  var min = Math.round((Number(value)-hrs) * 60);
+	  		  var duration = hrs+':'+min;
+	  		  if(duration=='NaN:NaN'){
+	  		  	return $M.getNoDataString();
+	  		  }
+	  		  min = (min < 10) ? ( '0'+min ) : min;
+	  		  return hrs+'h '+min+'m';
+	  	},
+
+	  	/**
+	  	 * Extract date from Date object
+	  	 */
+	  	fetchDateOnly : function (/*Date*/date) {
+	  		
+	  		return (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear();
+	  	},
+	};
+</script>

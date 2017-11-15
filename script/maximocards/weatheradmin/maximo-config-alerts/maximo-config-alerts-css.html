@@ -1,0 +1,63 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016,2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<dom-module id="maximo-config-alerts-css">
+  <template>
+    <style>
+      :host {
+        background: white;
+        border-radius: 3px;
+        display: block;
+        margin: 15px 18px;
+        opacity: 1;
+        position: relative;
+        transition: opacity 0.4s;
+      }
+
+      :host([narrow-viewport]) .header {
+        @apply(--layout-vertical);
+      }
+
+      :host(:not([narrow-viewport])) .header {
+        @apply(--layout-horizontal);
+      }
+
+      :host(:not([narrow-viewport])) .header > div:not(.actions) {
+        margin: 0 0 13px 10px;
+      }
+      
+      .maininfo {
+      	@apply(--layout-horizontal);
+        @apply(--layout-justified);
+      }
+      
+      .title {
+      	font-size: 18px;
+      	color: #325C80;
+      }
+      
+      .space {
+		padding-bottom:15px;
+      }
+      
+      .border {
+      	border-bottom: 1px solid #e0e0e0;
+      	padding-bottom:10px;
+      	font-size:22px;
+      	color:#4b8400;
+      }
+      
+    </style>
+  </template>
+</dom-module>

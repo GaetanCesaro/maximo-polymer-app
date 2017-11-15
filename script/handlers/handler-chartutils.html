@@ -1,0 +1,43 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+HandlerChartUtils = {
+
+	_replaceNulls : function(list, newvalue) {
+  		for (var i = 0; i < list.length;i++) {
+  			if (!list[i]) {
+  				list[i] = newvalue;
+  			}
+  		}
+	},
+	
+	_replaceNullsForAttribute : function(list, newvalue, attribute) {
+  		for (var i = 0; i < list.length;i++) {
+  			if (!list[i][attribute]) {
+  				list[i][attribute] = newvalue;
+  			}
+  		}
+	},
+	
+	_createUniqueAttrArrayFromRecords : function(array,attribute) {
+		var keymap = {};
+		var returnArray = [];
+		if (array !== null) {
+			for (var i = 0; i < array.length;i++) {
+				var val = array[i][attribute];
+				if (!keymap[val]) {									
+					returnArray.push(val);
+					keymap[val] = 't';
+				}
+			}
+		}
+		return returnArray;
+	}
+
+};
+</script>
+

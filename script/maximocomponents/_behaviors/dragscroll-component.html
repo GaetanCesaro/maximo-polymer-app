@@ -1,0 +1,62 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+	/**
+	 * Allows dragging within a component to make it scroll
+	 *
+	 * @polymerBehavior dragscroll-component
+	 */
+	DragScrollComponent = {
+			attached : function() {
+				if(this.dragScrollElement){
+					var scroller = this;
+					this.dragInfo = { };
+					var nameSpace = '.'+this.id;
+					$j(this.dragScrollElement).on('mousedown'+nameSpace, function(e){
+						if(e.target.tagName !== 'CANVAS' && !$M.dragScroller && (scroller.dragScrollElement.scrollWidth>scroller.dragScrollElement.clientWidth || scroller.dragScrollElement.scrollHeight>scroller.dragScrollElement.clientHeight)){ 	
+							scroller.dragInfo.scrollStart ={'x': scroller.dragScrollElement.scrollLeft,
+															'y': scroller.dragScrollElement.scrollTop };
+							scroller.dragInfo.startPos = {	'x':e.pageX,
+															'y':e.pageY }
+							$j('body').on('mousemove'+nameSpace, function(e){
+								e.preventDefault();
+								e.stopPropagation();
+								if((!scroller.dragInfo.scrollDirection || scroller.dragInfo.scrollDirection === 'horizontal') && Math.abs(scroller.dragInfo.startPos.x - e.pageX)>10){
+									scroller.dragInfo.scrollDirection = 'horizontal';
+									$M.dragScroller = scroller;
+									scroller.dragScrollElement.scrollLeft = scroller.dragInfo.scrollStart.x + ((scroller.dragInfo.startPos.x - e.pageX) * 2);
+								}
+								if((!scroller.dragInfo.scrollDirection || scroller.dragInfo.scrollDirection === 'vertical') && Math.abs(scroller.dragInfo.startPos.y - e.pageY)>10){
+									scroller.dragInfo.scrollDirection = 'vertical';
+									$M.dragScroller = scroller;
+									scroller.dragScrollElement.scrollTop = scroller.dragInfo.scrollStart.y + ((scroller.dragInfo.startPos.y - e.pageY) * 2);
+								}
+							});
+							var off = function(){
+								$j('body').off('mousemove'+nameSpace);
+								$j('body').off('mouseup'+nameSpace);
+								$j(window).off('mouseleave'+nameSpace);
+								$j(scroller.dragScrollElement).off('mouseup'+nameSpace);
+								$j(scroller.dragScrollElement).off('mouseleave'+nameSpace);
+								scroller.dragInfo = { };
+								$M.dragScroller = null;
+							};
+							$j(scroller.dragScrollElement).on('mouseup'+nameSpace, function(e){ //+' mouseleave'+nameSpace, function(e){
+								off();
+							});
+							$j('body').on('mouseup'+nameSpace, function(e){ //+' mouseleave'+nameSpace, function(e){
+								off();
+							});
+							$j(document).on('mouseleave '+nameSpace, function(e){ //+' mouseleave'+nameSpace, function(e){
+								off();
+							});
+						}
+					});
+			}
+		}
+	};
+</script>

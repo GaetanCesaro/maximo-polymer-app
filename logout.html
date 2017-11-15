@@ -1,0 +1,136 @@
+<html>
+	<head>
+    	<title>Maximo Asset Management</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	  	<meta name="apple-mobile-web-app-capable" content="yes" />
+	  	<script src="script/libraries/jquery/jquery-2.2.0.js"></script>
+	  	<script src="script/loginResourceLoader.js"></script>
+	  	<link href="css/main.css" rel="stylesheet">
+	  	<link rel="apple-touch-icon" href="images/lightning-icon.png">
+		<link rel="shortcut icon" href="images/lightning.ico">
+    	<style>
+    		body {
+    			text-align: center;
+    			font-family: 'HelveticaNeue-Light' !important;
+    			font-size: 14px;
+    			padding-top: 20vh;
+    			overflow: hidden;
+    		}
+    		
+    		
+    		body > div {
+    			display: inline-block;
+	    		max-width: 500px;
+    			min-width: 200px;
+    			border: 1px solid #999;
+    			padding: 20px;
+    			margin: 0px 20px;
+    		}
+    		    		
+    		.infoImg {
+    		    vertical-align: middle;
+    	    	fill: #4178be;	
+    	    	margin-top: 15px
+    		}
+    		
+    		.ibmImg {
+    			float: right;
+    			width: 70px;
+    		}
+    		
+    		button{
+	    	    height: 40px;
+    			margin: 10px 0px;
+    	    	padding: 0px 20px;
+    			border: 1px solid transparent;
+    		    background: #4178be;
+    	    	color: #ffffff;
+    			transition: all .2s;
+    		}
+    		
+    		button:hover {
+    			background: #325c80
+    		}
+    		
+    		button:focus {
+    			border-color: #5aaafa;
+    		}
+
+    		.mainDiv {
+    			margin: 40px 0px 20px 0px;
+    			display: flex;
+    		}
+    		
+    		.mainDiv div {
+    			text-align: left;
+    			margin: 5px 10px 5px 0px;
+    		}
+    		
+    		.mainDiv #messageTitle {
+    			font-size: 150%;
+    		}
+    		
+    		.mainDiv #message {
+    			font-size: 129%;
+    			margin-top: 10px;
+    		}
+    		
+    		#return_button {
+    			float: right;
+    		}
+    		
+    		@media screen and (max-height: 425px) {
+    			
+    			body {
+    				padding-top: 10vh;
+    			}
+    		}
+    		
+    	</style>
+    </head>
+	<body>
+		<div>
+			<img class="ibmImg" src="script/maximocomponents/maximo-login/images/logo.png" draggable="false"/>
+			<div class="mainDiv">
+				<div>
+					<svg class="infoImg" width="40px" height="40px" viewBox="0 0 24 24">
+						<g id="Info">
+							<polygon points="13.6,10.4 8.9,10.4 8.9,12 10.4,12 10.4,16.7 8.9,16.7 8.9,18.3 15.1,18.3 15.1,16.7 13.6,16.7"/>
+							<circle cx="12" cy="7.3" r="1.6"/>
+							<path d="M12,1C5.9,1,1,5.9,1,12s4.9,11,11,11s11-4.9,11-11S18.1,1,12,1z M12,21.4c-5.2,0-9.4-4.2-9.4-9.4S6.8,2.6,12,2.6
+							s9.4,4.2,9.4,9.4S17.2,21.4,12,21.4z"/>
+						</g>
+					</svg>
+				</div>
+				<div>
+					<label id="messageTitle"></label><br>
+					<label id="message"></label>
+				</div>
+			</div>
+			<form id="returnForm" method="POST" action="index.html">
+				<button id="return_button"></button>
+			</form>
+		</div>
+	</body>
+	<script>
+	$(function() {
+		fillResources = function(resources){
+			document.getElementById('messageTitle').innerText = resources['logout'];
+			document.getElementById('return_button').innerText = resources['return'];
+			var query = window.location.search.substring(1);
+			var pairs = query.split('&')
+			var messageKey = 'logout_complete';
+			pairs.forEach(function(pair){
+				var split = pair.split('=')
+				if(split[0] === 'messageKey' && split[1] !== ''){
+					messageKey = split[1]; 
+				}
+			});
+			document.getElementById('message').innerText = resources[messageKey];
+		};
+		
+		loadLoginResources();
+	});
+	</script>
+</html>

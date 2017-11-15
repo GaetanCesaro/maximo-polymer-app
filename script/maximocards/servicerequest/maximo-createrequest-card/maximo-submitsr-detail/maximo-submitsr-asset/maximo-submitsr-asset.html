@@ -1,0 +1,74 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<link rel="import" href="../../../maximo-step-template/maximo-step-template.html">
+
+<dom-module id="maximo-submitsr-asset">
+	<link rel="import" href="../../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-submitsr-asset-css.html">
+	<style is="custom-style" include="maximo-submitsr-asset-css"></style>		
+	<template>
+		<maximo-collection 
+		    id="assetsrcollection" 
+			attribute-names="assetnum,description,siteid,location.location,location.description"
+			collection-data="{{recordData}}"
+			debounce-duration="600"
+			page-size="1000"	
+			order-by-attribute-names="%2Bdescription"	
+			selected-query-name="SERVICEREQUESTASSET"			
+			object-name="MXAPIASSET" 
+			use-search-terms="true"				
+			search-attribute-names="description,assetnum"
+		    search-term-value="{{searchTerms}}"
+		    use-search-terms="true"		
+		    additional-params="{{additionalConditionParams}}"	
+		    on-record-data-refreshed="_handleRecordDataRefreshed"
+			on-data-error="_handleDataError">					
+		</maximo-collection>	
+		<maximo-collection
+		    id="locancestorcollection" 
+		    debounce-duration="600"
+		    page-size="600"
+		    collection-data="{{locanData}}"
+		    additional-params='{{additionalancestorparams}}'
+			attribute-names="location,ancestor,systemid,lochierarchy.parent,locations.description,lochierarchy.systemid"
+			debounce-duration="600"
+			object-name="MXAPILOCANCESTOR" 
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			on-data-error="_handleDataError">					
+		</maximo-collection>			
+		<maximo-step-template id="assetStep" title="{{localize('uitext', 'mxapisr', 'AssetStep')}}" on-next-step="_goNext" on-skip-step="_skipStep" enable-buttons="skip">
+			<div id="assetContain" class="assetContain">
+                <maximo-searchbar id="assetSearchbar" class="assetSearchBar" value="{{searchValue::input}}" placeholder="{{localize('uitext', 'mxapisr', 'AssetSearchPlaceHolder')}}"></maximo-searchbar>
+          		<div id="itemList" class="itemList">	
+          		    <div class="nodataLabelWrapper" id="nodataLabelWrapper">
+						<maximo-label class="nodataLabel" id="nodataLabel" label="{{localize('uitext', 'mxapisr', 'NoResultsFound')}}"></maximo-label>
+					</div>	 
+	         		<template id="resultList" is="dom-repeat" items="{{recordData}}" filter="{{_filter(searchValue)}}"  as="asset">
+	         		    <div class="divRow"  on-tap="_selectedAsset" label="{{_getAsset(asset)}}" assetnum="{{asset.assetnum}}" siteid="{{asset.siteid}}" location="{{asset.location.location}}" locationdesc="{{asset.location.description}}">
+		         		  	<div class="item1 itemCommon">{{asset.description}}</div>
+		         		  	<div class="itemCommon">{{_getAssetDisp(asset)}}</div>
+	         		  	</div>
+	       			</template>
+       			</div>	
+       		</div>		
+ 			<div class="selectAssetWrapper" id="selectAssetWrapper">
+				<div>
+					<maximo-button id="selectAssetButton" class="selectAssetButton" label="{{localize('uitext', 'mxapisr', 'SelectAsset')}}"easticon="maximo-based:next" on-tap="_goNext" ></maximo-button>
+				</div>
+			</div>      		
+		</maximo-step-template>
+	</template>
+
+  <script src="maximo-submitsr-asset.js"></script>
+
+</dom-module>

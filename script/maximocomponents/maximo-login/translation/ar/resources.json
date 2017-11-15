@@ -1,0 +1,31 @@
+{
+		"main_title":"ادارة أصول المشروع",
+		"log_in":"تسجيل الدخول",
+		"user_name":"اسم المستخدم",
+		"password":"كلمة السرية",
+		"sign_in":"تسجيل الدخول",
+		"error":"يرجى ادخال وثائق تفويض صحيحة.",
+		"copyright_0":"‏‎Copyright IBM Corporation‎‏",
+		"copyright_1":"جميع الحقوق محفوظة.",
+		"copyright_2":"ارجع الى ترخيص المنتج لمزيد من التفاصيل.",
+		"loading_resources":"جاري التحميل",
+		"missing_config":"ملف توصيف {0} غير موجود. استخدام القيم المفترضة.",
+		"unknown_error":"حدث خطأ غير معروف. {0}",
+		"resource_error":"كان هناك خطأ أثناء تمثيل مجموعة حروف المصادر. {0}",
+		"contact_admin":"اذا استمرت المشكلة، اتصل بموجه النظام الخاص بك.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"ملحوظة هامة: لا يجب ادخال أية معلومات أخرى على هذا النظام خلاف معلومات جهة اتصال الأعمال المشار اليها كمعلومات الزامية لتقديم الدعم، مثل المعلومات الشخصية، متمثلة في البيانات المالية أو الطبية ذات طابع حساس وأية معلومات يمكن تعريفها لفرد. أي شخص يقوم بادخال معلومات شخصية يوافق بأن IBM يجوز لها استخدامها ونقلها عبر حدود البلاد وفقا الى <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">سياسات سرية IBM</a>  لتقديم الخدمات المطلوبة. اذا كنت من موظفي أو مقاولي IBM وطلب أحد العملاء منك ادخال البيانات الشخصية الخاصة بهم، فيجب عليك قراءة هذه الملاحظات لهم للحصول على موافقتهم قبل ادخال البيانات الشخصية الخاصة بهم.",
+		"session_timeout":"انتهى وقت الجلسة الخاصة بك.",
+		"noworkscape" : "لا يوجد مركز عمل معرف لكود المستخدم الخاص بك",
+		"no_access_default":"لا يتوافر لديك كل الصلاحيات المطلوبة للمكان المطلوب. هل تريد تحميل التطبيق المفترض؟ ",
+		"signout" : "تم تسجيل الخروج لك بنجاح. برجاء اغلاق برنامج الاستعراض أو تسجيل الدخول مرة أخرى. ",
+		"login_error" : "خطأ في بدء الاتصال",
+		"login_error_invalid" :"مجموعة اسم المستخدم وكلمة السرية الخاصة بك غير صحيحة. ‏أعد المحاولة مرة أخرى.‏",
+		"return" : "ارجاع",
+		"logout" : "انهاء الاتصال",
+		"logout_complete" : "لانهاء الاتصال كليا، يجب اغلاق برنامج الاستعراض.",
+		"user_info_error" : "خطأ في تحميل معلومات المستخدم. اتصل بمسؤول النظام "
+}
+

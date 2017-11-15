@@ -1,0 +1,24 @@
+{
+	
+	"defaultcontext": "/maximo",
+	"comment_defaultcontext": "The default context, based on default setup, where maximo and maximo-x are deployed on the same server using same hostname and port.",
+
+	"maximoserverauthentication" : {
+		"enabled": false,
+		"maximologinurl": "http://my-maximo-hostname:myport/maximo"
+	},
+	"comment_maximoserverauthentication": "Enable this if you want to use maximo server configured authentication only. In this mode, the user would be re-directed to maximologinurl to authenticate. By default, this is not enabled and the maximo-x login dialog would be shown, which would gather credentials and submit to maximo server.",
+	
+  	"contexts": [
+	
+		{
+			"name": "custom context example",
+			"hostname": "my-maximo-x-hostname",
+			"maximohostname": "my-maximo-hostname",
+			"maximoport": 8080,
+			"maximocontext": "/maximo"
+		}
+	],
+	"comment_contexts": "Use contexts, if you want to use a different hostname to access maximo-x or if maximo-x and maximo are running on two different servers. If you are not using proxy, make sure to configure Maximo server with CORS settings. NOTE that you do not need to use contexts if maximo-x and maximo are running on the same server and using the same hostname and port."
+	
+}

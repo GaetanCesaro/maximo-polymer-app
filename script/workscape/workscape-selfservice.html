@@ -1,0 +1,147 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<link rel="import" href="../maximocards/servicerequest/maximo-ongoingrequests-card/maximo-ongoingrequests-card.html"/>
+<link rel="import" href="../maximocards/servicerequest/maximo-createrequest-card/maximo-createrequest-card.html"/>
+<link rel="import" href="../maximocards/servicerequest/maximo-requesthistory-card/maximo-requesthistory-card.html"/>
+<link rel="import" href="../maximocomponents/maximo-srworkcenter/maximo-srworkcenter.html"/>
+<link rel="import" href="../maximocards/servicerequest/maximo-details-card/maximo-details-card.html">
+<!-- Data -->
+
+<style>
+	.details-card{
+		position:absolute ;
+		padding:0px;
+		background: #ffffff;
+		left: 0px;
+		width: 100%;
+		height: calc(100% - 50px);
+		border: none;
+		z-index: 1001;
+		margin: 0;
+	}
+	.panel-slide{
+		-webkit-transition: margin 1s ease;
+        -moz-transition: margin 1s ease;
+        -o-transition: margin 1s ease;
+        transition: margin 1s ease;
+		margin-left: 100%;				
+	}
+	.panel-slide-open {
+		margin-left: 0;
+	}
+
+	/* not ideal, but the structure don't allow building something better */
+	.fixHeaderMargin {
+		margin-top: 50px;
+	}
+</style>
+
+<dom-module id="workscape-selfservice">
+	<template id="template">
+		<maximo-details-card id="detailsCard" class="fixHeaderMargin details-card panel-slide" on-cancelrequest="_triggerCancel" on-closecard="_triggerDetailsClose" on-updatecounter="_triggerUpdateCounter" hidden></maximo-details-card>
+		<maximo-srworkcenter id="workscape" >
+			<maximo-ongoingrequests-card id="ongoing" label="Active" sub-route="active" bannertitle="{{localize('uitext','mxapisr','ViewActiveRequests')}}" icon="maximo-based:ongoing"></maximo-ongoingrequests-card>
+			<maximo-createrequest-card id="createreq" label="New" sub-route="new" bannertitle="{{localize('uitext','mxapisr','CreateAnotherRequest')}}" icon="action-based:add-new"></maximo-createrequest-card>
+			<maximo-requesthistory-card id="reqhistory" label="History" sub-route="history" bannertitle="{{localize('uitext','mxapisr','ViewHistory')}}" icon="maximo-based:history"></maximo-requesthistory-card>
+		</maximo-srworkcenter>
+		<maximo-resource attribute-names="status_maxvalue,reportedpriority,reportedbyname,description_longdescription,ticketid,ticketuid,description,reportdate,reportedby,affectedperson,person.displayname,status,statusdate,targetfinish,hasactivity,location,location.location,location.description,serviceaddress.description,relatedwo.relatedrecwonum,relatedticket.relatedreckey,doclinks{*},worklog{*,person.personid,person.firstname,person.lastname,person._imagelibref,person.primaryphone,person.primaryemail},assetnum,asset.description" id="srDetails" ></maximo-resource>
+	</template>
+
+<script>
+	Polymer({
+	    is: "workscape-selfservice",
+   		properties: {
+   			
+	    },
+	    behaviors: [BaseComponent],
+
+	    listeners: {
+        	'open-sr-details': 'openDetails',
+      		'cancel-request' : '_onCancel'
+	    },
+
+		ready: function()
+		{
+			$M.workScape.label='';
+		},
+		
+		_handleRecordDataRefreshed: function()
+		{
+		
+		},
+		
+		_showUserDetails: function()
+		{
+			
+		},
+		
+		_selectedQueryNameChanged : function()
+		{
+			
+		},
+		attached: function(){
+			
+		},
+
+
+		
+		/**
+		 * Brings up details panel
+		 */
+		 _onCancel : function(e) {
+			 this.$.ongoing._onCancel(e);
+		},
+		
+	  	/**
+		 * Brings up details panel
+		 */
+		openDetails : function(e) {
+			// load sr from href
+			if (e.detail.href) {
+				this.$.srDetails.resourceUri = e.detail.href;
+				this.$.srDetails.loadRecord().then(function(data) {
+					// LK0 workaround due to bug on maximo-resource, it doesn't bring status_maxvalue also on maximo-details-card.js
+					data.forceHistory = true;
+					this.$.detailsCard.sr = data;
+					this.$.detailsCard.node = e.target;
+					// this.$.detailsCard.ticketIndex = e.model.index;
+					this.$.detailsCard.open();
+				}.bind(this));
+			}
+			else {
+				this.$.detailsCard.sr = e.detail.sr;
+				this.$.detailsCard.node = e.detail.target;
+				this.$.detailsCard.ticketIndex = e.detail.ticketIndex;
+				this.$.detailsCard.open();
+			}
+		},
+		_triggerDetailsClose : function(e){
+			this.$.workscape.highlightcard({detail:e.detail.ticketid});
+			var node = e.detail.node;
+			if (node.updateCounters) {
+				node.updateCounters(true);	
+			}
+		},
+		_triggerUpdateCounter: function(e) {
+			var node = e.detail.node;
+			if (node && typeof node.updateCounters === 'function') {
+				if (node.updateCounters) {
+					node.updateCounters(true);	
+				}
+			}
+		},
+		_triggerCancel: function(e) {
+			var sr = e.detail;
+			if (this.$.workscape.currentTab.cancelRequest) {
+				// only active tab should have the cancel action
+				this.$.workscape.currentTab.cancelRequest(sr);
+			}
+		},
+});
+</script>
+</dom-module>	

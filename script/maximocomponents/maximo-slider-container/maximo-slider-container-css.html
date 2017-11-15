@@ -1,0 +1,54 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-slider-container-css">
+	<template>
+    	<style>
+    		.container {
+    			@apply(--layout-horizontal);
+    			overflow-x: auto;
+    			width: 100%;
+    			white-space: nowrap;
+    		}
+    		
+    		.wrapper {
+    			border-bottom: 1px solid var(--Cool-gray30);
+    		}
+    		
+    		.carouselChild {
+			    float: right;
+			    position: relative;
+			    height: 100%;
+			    display: inline-block;
+			    padding: 5px;
+			    box-sizing: border-box;
+			}
+			
+			.carouselChild.rtl {
+			    float: left;
+			}
+			
+			.carouselChild > div {
+				overflow-y: auto !important;
+			}
+			
+			.container ::content maximoWeatherCard, 
+			.container ::content maximoKpiIndicator {
+				min-width: 150px
+			}
+			
+			.container.slider ::content > *:first-of-type > div.card { 
+				border-left: 1px solid var(--Cool-gray20);
+			}
+						
+			.scrollMarker {
+				background: var(--Primary-blue60) !important;
+				height: 10px !important;
+			}
+			
+		</style>
+	</template>
+</dom-module>

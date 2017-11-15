@@ -1,0 +1,51 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-sredit-card">
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-sredit-card-css.html">
+	<style is="custom-style" include="maximo-sredit-card-css"></style>		
+  	
+  	<template id="maximo_sredit_dialog">
+  	<maximo-resource id="recordResource" resource-uri="{{record.href}}"></maximo-resource>
+  	
+		<maximo-section id="sredit">
+		<div class="flex-equal-justified">
+			<maximo-text id="sredit_ticketid" label="{{localize('Ticket ID')}}" value="{{record.ticketid}}" readonly="true"></maximo-text>
+			<maximo-text id="sredit_reportedby" label="{{localize('Report by')}}" value="{{record.reportedby}}" readonly="true"></maximo-text>
+			<maximo-text id="sredit_affectedperson" label="{{localize('Affected person')}}" value="{{record.affectedpersonid}}"></maximo-text>
+		</div>
+		<div class="flex-equal-justified">
+			<maximo-text id="sredit_reportdate" label="{{localize('Report date')}}" value="{{record.reportdate}}" readonly="true"></maximo-text>
+			<maximo-text id="sredit_assetnum" label="{{localize('Asset number')}}" value="{{record.assetnum}}"></maximo-text>
+			<maximo-text id="sredit_assetdesc" label="{{localize('Asset description')}}" value="{{record.asset.description}}" readonly="true"></maximo-text>			
+		</div>
+			<maximo-text id="sredit_summary" class="sreditsummary" label="{{localize('Summary')}}" value="{{record.description}}"></maximo-text>			
+			<maximo-texteditor id="sredit_detail" class="sreditdetail" label="{{localize('Detail')}}" value="{{record.description_longdescription}}"></maximo-texteditor>			
+		<div class="reportedprioritySection flex-horizontal flex-start-justified">
+			<div><maximo-label class="border"  style="font-size:100%" label="{{localize('Select Priority')}}"></maximo-label></div>
+			<div id="srEditreportedprioritySelectionList" class="flex-horizontal">
+				<span on-click="_selectLowReportedPriority"><label style="color: #6d7777"><input type="radio" name="toggle" id="p1" checked={{getCheckedP1(record.reportedpriority)}}>{{localize('Low')}}</label></span>
+				<span on-click="_selectMediumReportedPriority"><label style="color: #00b4a0"><input type="radio" name="toggle" id="p2" checked={{getCheckedP2(record.reportedpriority)}}>{{localize('Medium')}}</label></span>
+				<span on-click="_selectHighReportedPriority"><label style="color: #fdd600"><input type="radio" name="toggle" id="p3" checked={{getCheckedP3(record.reportedpriority)}}>{{localize('High')}}</label></span>
+				<span on-click="_selectUrgentReportedPriority"><label style="color: #e71d32"><input type="radio" name="toggle" id="p4" checked={{getCheckedP4(record.reportedpriority)}}>{{localize('Urgent')}}</label></span>
+			</div> 
+		</div>		
+
+		</maximo-section>				
+		
+		<hr id="sep2"></hr>
+		 <maximo-footer id="footer">
+		 	<maximo-button id="changestatus_footer_Cancel" label="{{localize('Cancel')}}" on-tap="close"></maximo-button>
+	  		<maximo-button id="changestatus_footer_ok" label="{{localize('Ok')}}" on-tap="changeSR" default="true"></maximo-button>
+		 </maximo-footer>	
+  	</template>
+
+	<script src="maximo-sredit-card.js"></script>
+
+</dom-module>

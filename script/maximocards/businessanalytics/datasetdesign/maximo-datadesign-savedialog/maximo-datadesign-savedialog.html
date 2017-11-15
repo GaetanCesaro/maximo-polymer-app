@@ -1,0 +1,46 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../behaviors/maxexport.html">
+
+<dom-module id="maximo-datadesign-savedialog">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-datadesign-savedialog-css.html">
+	<style is="custom-style" include="maximo-datadesign-savedialog-css"></style>	
+
+  <template>
+	  
+		<div class="outer" style="width: 376px">
+			<div class="dataset_name" id="dataset_name">
+				<maximo-field class="dataset_num" label="{{localize('uitext','mxapiwosdataset','data_set_name')}}" datalabel="{{record.analyticdatasetnum}}"></maximo-field>
+			</div>
+			<maximo-label class="dataset_opt" label="{{localize('uitext','mxapiwosdataset','data_set_options')}}" block="true"></maximo-label>
+			<div class="dataset_pos">
+				<maximo-button id="createnewdataset" icon="action-based:add-new" label="{{localize('uitext', 'mxapiwosdataset', 'create_new_dataset')}}" on-tap="_createNewDataSet" action ></maximo-button>
+				<br>
+				<a href="{{buildDataSetQuery(record)}}" target="_blank" download style="text-decoration: none;">
+					<maximo-button id="downloadicon" action icon="action-based:download" label="{{localize('uitext', 'mxapiwosdataset', 'DownloadCSV')}}" wait-function="datasetStopSpinner"></maximo-button>
+				</a>
+			</div>
+			<div class="dataset_pos">
+				<maximo-button id="watsonicon" icon="action-based:watson" label="{{localize('uitext', 'mxapiwosdataset', 'export_to_watson')}}" action on-tap="_watsonExport" hidden$="{{showWatsonIcon()}}"></maximo-button>
+				<maximo-button id="returntoedit" icon="action-based:edit" label="{{localize('uitext', 'mxapiwosdataset', 'return_to_edit')}}" on-tap="_returnToEdit" action ></maximo-button>
+			</div>
+		</div>
+		
+		<maximo-footer id="footer" class="dataset-footer" left>
+			<maximo-label id="or_you_can" label="{{localize('uitext','mxapiwosdataset','save_or_1')}}"></maximo-label>
+	  		<maximo-button class="dataset-return" id="return_to_workcenter" label="{{localize('uitext', 'mxapiwosdataset', 'save_or_2')}}" on-tap="_returnToWorkCenter" action ></maximo-button>
+	  	</maximo-footer>
+		
+  </template>
+  <script src="maximo-datadesign-savedialog.js"></script>
+</dom-module>

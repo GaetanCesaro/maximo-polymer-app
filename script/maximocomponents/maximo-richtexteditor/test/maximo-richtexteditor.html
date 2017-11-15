@@ -1,0 +1,109 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-richtexteditor tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<script src="../../../main.js"></script>
+		<script src="../../../test.js"></script>
+		<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+		<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="richtext0">
+			<template>
+				<maximo-richtexteditor id="testRichTextEditor0" textareauniqueid="textarea1" width="100%" placeholder="Placeholder test text"></maximo-richtexteditor>
+			</template>
+		</test-fixture>
+<script>
+suite('<maximo-richtexteditor>', function() {
+	var richtexteditor0, richtexteditor1, richtexteditor2, richtexteditor3, richtexteditor4, richtexteditor5;
+	
+	setup(function() {	
+		richtexteditor0 = fixture('richtext0');
+	});
+
+	test('Richtext - Tests', function(done) {
+      
+      tinymce.activeEditor.on('init',function(){
+    	  
+    	  //reset field
+    	  tinymce.activeEditor.setContent('');
+    	  
+    	  //test select all text and making everything bold.
+    	  tinymce.activeEditor.setContent('test 123');
+    	  expect(tinymce.activeEditor.getContent()).to.equal("<p>test 123</p>", 'Expected output is wrong, text should exist.');
+    	  
+    	  //test select all text and making everything bold.
+    	  tinymce.activeEditor.setContent('test 123');
+    	  tinymce.activeEditor.execCommand('SelectAll');
+    	  tinymce.activeEditor.execCommand('Bold');
+    	  expect(tinymce.activeEditor.getContent()).to.equal("<p><strong>test 123</strong></p>", 'Expected output is wrong, text should be bold.');
+    	  
+    	  //test select all text and making everything italic.
+    	  tinymce.activeEditor.setContent('test 123');
+    	  tinymce.activeEditor.execCommand('SelectAll');
+    	  tinymce.activeEditor.execCommand('Italic');
+    	  expect(tinymce.activeEditor.getContent()).to.equal("<p><em>test 123</em></p>", 'Expected output is wrong, text should be bold.');
+
+    	  //test select all text and making everything underline.
+    	  tinymce.activeEditor.setContent('test 123');
+    	  tinymce.activeEditor.execCommand('SelectAll');
+    	  tinymce.activeEditor.execCommand('Underline');
+    	  expect(tinymce.activeEditor.getContent()).to.equal('<p><span style="text-decoration: underline;">test 123</span></p>', 'Expected output is wrong, text should be underline.');
+
+    	  //test select all text and making the text #FF0000
+    	  tinymce.activeEditor.setContent('test 123');
+    	  tinymce.activeEditor.execCommand('SelectAll');
+    	  tinymce.activeEditor.execCommand('ForeColor', false, '#FF0000');
+    	  expect(tinymce.activeEditor.getContent()).to.equal('<p><span style="color: #ff0000;">test 123</span></p>', 'Expected output is wrong, text should be #ff0000.');
+
+    	  //test select all text and create unordered list
+    	  tinymce.activeEditor.setContent('test 123'); 
+    	  tinymce.activeEditor.execCommand('SelectAll');
+    	  tinymce.activeEditor.execCommand('InsertUnorderedList');
+    	  expect(tinymce.activeEditor.getContent()).to.equal('<ul>\n<li>test 123</li>\n</ul>', 'Expected output is wrong, text should have unorder list.');
+    	  
+    	  //test select all text use multiple styles, bold,italic,underline,color,orderlist
+    	  tinymce.activeEditor.setContent('test 123'); 
+    	  tinymce.activeEditor.execCommand('SelectAll');
+    	  tinymce.activeEditor.execCommand('Bold');
+    	  tinymce.activeEditor.execCommand('Italic');
+    	  tinymce.activeEditor.execCommand('Underline');
+    	  tinymce.activeEditor.execCommand('ForeColor', false, '#FF0000');
+    	  tinymce.activeEditor.execCommand('InsertUnorderedList');
+    	  expect(tinymce.activeEditor.getContent()).to.equal('<ul>\n<li><em style="color: #ff0000;"><strong>test 123</strong></em></li>\n</ul>', 'Expected output is wrong, text should have unorder list.');
+    	  
+    	  done();
+      });
+		
+	});
+
+});
+</script>
+	</body>
+</html>

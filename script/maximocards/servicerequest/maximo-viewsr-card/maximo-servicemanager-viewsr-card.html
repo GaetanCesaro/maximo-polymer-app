@@ -1,0 +1,123 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<!-- <link rel="import" href="../maximo-srdetail-card/maximo-servicemanager-srdetail-card.html" />
+ -->
+<link rel="import" href="../maximo-sredit-card/maximo-servicemanager-sredit-card.html" />'
+<link rel="import" href="../maximo-selectowner-card/maximo-servicemanager-ownerlist-card.html" />
+<link rel="import" href="../maximo-changestatus-card/maximo-servicemanager-changestatus-card.html" />
+<link rel="import" href="../maximo-srhistory-card/maximo-srhistory-card.html" />
+<link rel="import" href="../maximo-srdetail-card/maximo-servicemanager-srdetail-card.html" />
+     
+<dom-module id="maximo-servicemanager-viewsr-card">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-servicemanager-viewsr-card-css.html">
+	<style is="custom-style" include="maximo-servicemanager-viewsr-card-css"></style>
+	<template id="viewsr-template">
+	  	<maximo-collection 
+		    id="oneservicerequestcollection" 
+			attribute-names="ticketid,description,status,status_description,allowedstates,statusdate,memo"
+			collection-data="{{srRecordData}}"
+			debounce-duration="600"
+			object-name="UXSR" 
+			search-attribute-names="ticketid"
+			search-term-value="{{filterTicketID}}"
+			selected-query-name="All"
+			use-search-terms="true"
+			on-data-error="_handleDataError"  >
+		</maximo-collection>  
+		<maximo-resource id="onesrResource" resource-uri="{{srRecordData.href}}"></maximo-resource>
+		<maximo-collection 
+		    auto
+		    id="servicerequestcollection" 
+			attribute-names="reportedpriority,description_longdescription,ticketid,description,reportdate,affecteddate,changedate,actualstart,actualfinish,statusdate,reportedby,person.displayname,person._imagelibref,impact,internalpriority,status,statusdesc.description,asset.location,assetnum,asset.description,asset._imagelibref,location,location.description,location._imagelibref,cinum,ci.description,owner,ownerperson.displayname,ownerperson._imagelibref,affectedperson.displayname,affectedpersonid,siteid,commodity,commoditygroup,worklog._dbcount,worklog{*},tkstatus.status{*}"
+			collection-data="{{recordData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"
+			filter-data="{{srFilterData}}"
+			order-by-attribute-names="%2Breportedpriority,%2Breportdate"
+			query-info="{{queryInfo}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			on-dynamic-attribute-data-fetched="_showSRDetails"
+			page-size="50"
+			refresh-listeners='["sr"]'		
+			object-name="UXSR" 
+			search-attribute-names="ticketid,description,status,reportdate,affectedperson"
+			selected-query-name="All"
+			selected-record="{{selectedRecord}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			use-search-terms="true"
+			on-data-error="_handleDataError"  >					
+		</maximo-collection>
+		<maximo-resource id="srResource" resource-uri="{{recordData.href}}"></maximo-resource>
+		<maximo-panel id="viewsr" label="{{localize('View Service Request')}}" headinginfo="{{recordCount}}" width="[[panelWidth]]" height="470px"  collections="servicerequestcollection">
+		<!--  select filtering (all, new, inprog, resolved, queued) -->
+			<maximo-searchbar id="myteamswork-searchbar" collection="{{getLocalObject('servicerequestcollection')}}" placeholder="{{localize('Search Service Request')}}" ></maximo-searchbar>
+			<maximo-content-selector id="contentSelector" class="horizontal center-justified layout selectedFilter" block="true">		
+				<maximo-label id="maximo_status_label1" intvalue="All" on-tap="onSelectedStatus" label="{{localize('All')}}"></maximo-label>
+				<maximo-label id="maximo_status_label2" intvalue="NEW" on-tap="onSelectedStatus" label="{{localize('New')}}"></maximo-label>
+				<maximo-label id="maximo_status_label3" intvalue="PENDING" on-tap="onSelectedStatus" label="{{localize('Pending')}}"></maximo-label>
+				<maximo-label id="maximo_status_label3" intvalue="INPROG" on-tap="onSelectedStatus" label="{{localize('In Progress')}}"></maximo-label>			
+				<maximo-label id="maximo_status_label4" intvalue="QUEUED" on-tap="onSelectedStatus" label="{{localize('Queued')}}"></maximo-label>
+				<maximo-label id="maximo_status_label5" intvalue="RESOLVED" on-tap="onSelectedStatus" label="{{localize('Resolved')}}"></maximo-label>
+			</maximo-content-selector>
+			<iron-list id="viewSRDataTemplate" items="{{recordData}}" as="sr">
+		 		<template>	
+					<div>
+						<div id="viewsr_card" class="cardborder">	
+							<div id="viewsr_card_header" class="cardheader">
+								<div class="flex-equal-justified">
+									<div id="viewsr_inner_div10">
+										<maximo-label id="viewsr-label-ticketid" class="srticketidclass" label="{{sr.ticketid}}"></maximo-label>
+										<maximo-label id="viewsr-label-status" class="srstatusclass" label="{{sr.statusdesc.description}}" on-tap="changeStatus" title="{{localize('Change Status')}}"></maximo-label>	
+										<maximo-label id="viewsr-label-statusdate" class="srreportdateclass" label="{{_setDateString(sr)}}"></maximo-label>	
+									</div>
+									<div class="flex-horizontal" hidden$="{{showPriority(sr)}}" >
+										<maximo-label id="viewsr-label-priority" class="srpriorityclass" label="{{showPriorityTag(sr,'reportedpriority')}}"></maximo-label>
+										<maximo-prioritytag id="srdetails_section_prioritytag" priority="{{sr.reportedpriority}}" style="padding-top:2px;"></maximo-prioritytag>
+									</div>
+								</div>
+							</div>
+							<div id="viewsr_card_container" class="cardcontainer">
+								<div class="flex-equal-justified">
+									<maximo-label id="viewsr-label-description" class="srdescriptionclass" label="{{sr.description}}"></maximo-label>
+									<div>
+										<maximo-label id="viewsr-label-reportedbytext" class="srreportedbyclass" label="{{localize('by')}}"></maximo-label>
+										<maximo-label id="viewsr-label-reportedby" class="srreportedbyclass" label="{{sr.reportedby}}"></maximo-label>
+									</div>	
+								</div>
+								<hr style="padding-top:3px;">
+								<div class="flex-equal-justified">
+									<div class="leftaligntext" >
+										<div class="flex">
+											<div><maximo-field id="viewsr-label-owner" class="srownerclass" label="{{localize('Owner')}}" datalabel="{{sr.owner}}" style="margin-bottom:1px; padding-top:5px"></maximo-field></div>
+											<div style="padding-top:7px;padding-left:2px;"><maximo-label class="viewsrSelectOwnerButton"id="viewsr-findownerbutton" icon="glyphs:search" action="true" on-tap="selectOwner" title="{{localize('Change Owner')}}"></maximo-label></div>
+										</div>
+										<div>
+											<maximo-field id="viewsr-label-reportdate" class="srreportdate" label="{{localize('Report Date')}}" datalabel="{{getDate(sr.reportdate)}}"></maximo-field>
+										</div>
+									</div>
+									<div id="iconsection" class="iconsection">
+							  			<iron-icon id="viewsr-edit" title="{{localize('Edit Service request')}}" icon="editor:mode-edit" on-tap="srEdit"></iron-icon>
+							  			<iron-icon id="viewsr-history" title="{{localize('Show Service request history')}}" icon="receipt" on-tap="tkHistory"></iron-icon>
+							  			<iron-icon id="viewsr-detail" title="{{localize('Show Service request details')}}" icon="launch" on-tap="srDetail"></iron-icon>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</template>
+			</iron-list>
+		</maximo-panel> 
+	 </template>
+	<script src="maximo-servicemanager-viewsr-card.js"></script>
+</dom-module>

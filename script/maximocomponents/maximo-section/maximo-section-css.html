@@ -1,0 +1,135 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-section-css">
+	<template>
+    	<style>
+    	
+    		table {
+    			border-spacing: 0px;
+    		}
+    	
+    		td {
+    			text-align: left;
+    		}
+    		
+    		td.rtl {
+    			text-align: right;
+    		}
+    		
+    		.section{
+    			display: inline-block;
+    			text-align: left;
+    		}
+    		
+    		.section[block]{
+    			display: block;
+    		}
+    		
+    		div.section[data-layout='full'] > ::content div {
+    			display: inline-block;
+    		}
+    		
+    		.header {
+		    	margin: 10px 5px 5px 5px;
+		    } 
+		    
+		    .header.raw, .header.modest {
+		    	margin: 0px;
+		    	padding-left: 10px;
+		    	padding-right: 10px;
+		    }
+		    
+    		.header td:last-of-type {
+    			text-align: right;
+    		}
+		    
+		    .header.rtl td:last-of-type {
+    			text-align: left;
+    		}
+		    
+		    maximo-label.raw ::content label {
+		    	font-size: 1.3em;
+		    	color: var(--Primary-gray70);
+		    }
+		    
+		    .innerSection.raw,
+		    .innerSection.modest {
+		    	margin: 0px;
+		    	padding-left: 10px;
+		    	padding-right: 10px;
+		    }
+		    
+		    .header > label
+		    {
+	    		color: #3c4646;   			
+    			padding-left: 3px;
+    			font-size: 150%;
+		    }
+		    
+		    .raw:not(.styleLabelasLink) ::content label {
+	    		font-family: 'HelveticaNeue-Light';
+	    	}
+		    
+		   	.styleLabelasLink:not(.raw) ::content label {
+	    		color : var(--Primary-blue30); 
+	    		font-family: 'HelveticaNeue';
+	    		padding-left: 10px;
+	    	}
+	    	.styleLabelasLink:not(.raw) ::content label:hover, styleLabelasLink:not(.raw) ::content label:focus {
+	    		color : var(--Primary-blue50); 
+	    		font-family: 'HelveticaNeue';
+	    		text-decoration: underline;
+	    		cursor: pointer; 
+	    		cursor: hand;
+	    		padding-left: 10px;
+	    	}
+	    	
+	    	.summary ::content label {
+	    		vertical-align: super;
+	    	}
+	    	
+    		div.raw.cold {
+    			background-color: var(--Neutral-gray2);
+    		}
+    		
+	    	iron-icon.raw {
+	    		fill: var(--Primary-blue30);
+	    		-webkit-transition: -webkit-transform 0.3s;
+    			transition: transform 0.3s;
+	    	}
+
+	    	.expanded {
+	    		-webkit-transform: rotate(90deg);
+    			transform: rotate(90deg);
+	    	}
+	    	
+	    	.expanded.rtl {
+	    		-webkit-transform: rotate(-90deg);
+    			transform: rotate(-90deg);
+	    	}
+	    	
+	    	.chevronstyle {
+	    		height:30px;
+	    		width:30px;
+	    		vertical-align:bottom;
+	    		margin: 0px -10px;
+	    		padding-left:5px;
+	    	}
+	    	
+	    	maximo-label.modest ::content label {
+	    		color: var(--Primary-blue30);
+	    	}
+	    	
+			iron-icon.modest {
+	    		fill: var(--Primary-blue30);
+	    		-webkit-transition: -webkit-transform 0.3s;
+    			transition: transform 0.3s;
+	    	}
+	    	
+		</style>
+	</template>
+</dom-module>

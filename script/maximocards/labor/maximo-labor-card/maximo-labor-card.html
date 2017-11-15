@@ -1,0 +1,46 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<!--
+Card dedicated to display information about employee
+
+Example:
+
+    <maximo-labor-card></maximo-labor-card>
+
+@demo
+-->      
+<dom-module id="maximo-labor-card">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-labor-card-css.html">
+	<style is="custom-style" include="maximo-labor-card-css"></style>
+	
+	<template>
+		<div id="container" class="container">
+			<div id="imagecontainer" class="imgcontainer">
+				<img id="picture" src="{{picture}}" />
+			</div>
+			<div id="name">{{name}}</div>
+			<div id="location">{{location}}</div>
+			<div id="category">{{category}}</div>
+			<div id="actions">
+			<maximo-label id="laboraction" event="#" label="VIEW"></maximo-label>
+			<!-- <template id="actionList" is="dom-repeat" items="{{actions}}" as="action">
+				<maximo-label id="laboraction{{index}}" event="#" on-tap="{{action}}" label="{{action}}"></maximo-label>
+			</template> -->
+			</div>
+		</div>
+	</template>
+
+	<script src="maximo-labor-card.js"></script>
+
+</dom-module>

@@ -1,0 +1,40 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-attachments-delete">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-attachments-delete-css.html">
+	<style is="custom-style" include="maximo-attachments-delete-css"></style>
+	
+	<template>
+    		<div class="messageBox" >
+	  			<div>
+					<maximo-label  id="title" class="title" label="{{localize('uitext', 'mxapibase', 'warning')}}" ></maximo-label>
+				</div>
+				<br>
+			    <div >
+					<maximo-label  id="msg" class="confirmMessage" label="{{message}}" ></maximo-label>
+					
+				</div>
+			    <div style="min-height: 40px;">
+			    	<maximo-label  class="confirmMessage" label="" ></maximo-label>
+			    </div>
+				<div class="container flex-equal-around-justified" >   
+					<maximo-button id="yesicon" class="buttons" label="{{localize('uitext', 'mxapisr', 'Yes')}}" on-tap="_confirm" ></maximo-button>
+	            	<maximo-button id="noicon"  class="buttons primary" label="{{localize('uitext', 'mxapisr', 'No')}}" on-tap="_closeDialog"></maximo-button>
+				</div>
+			</div>
+
+	</template>
+	
+	<script src="maximo-attachments-delete.js"></script>
+</dom-module>

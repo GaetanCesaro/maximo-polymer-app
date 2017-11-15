@@ -1,0 +1,201 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-submitsr-review-css">
+	<template>
+    	<style>
+    		.flex-horizontal-with-ratios {
+			    @apply(--layout-horizontal);
+			}
+		    .flexchild {
+		    	@apply(--layout-flex);
+		    }
+    		.reviewTemplate ::content .contentWrapper{
+    			padding : 26px 0px 15px 0px;
+    		}
+    		.stackDataWrapperDiv{
+    			background : #ffffff;
+    			box-sizing: border-box;
+    			padding : 0px;
+    		}
+    		.dataWrapperDiv{
+    			background : #ffffff;
+    			box-sizing: border-box;
+    			padding : 13px 21px 13px 21px;
+    			border-bottom : 1px solid #777677;
+    		}
+    		.titleLabel ::content label{
+    			color : #777677;
+    			font-family:HelveticaNeue-Light;
+    		}
+    		.contactInfoDataLabel ::content label{
+    			font-family:HelveticaNeue;
+				font-size:18px;
+				color:#000000;
+				word-wrap: break-word;
+    		}
+    		.DataLabel ::content label{
+    			font-family:HelveticaNeue;
+				font-size:18px;
+				color:#000000;
+				word-wrap: break-word;
+    		}
+    		.contactInfoDataEdit ::content label{
+    			font-size : 18px;
+    			font-family:HelveticaNeue-Light;
+    			color : #4178be;
+    			word-wrap: break-word;
+    		}
+  			.submitDiv{
+  				background : #4178be;
+  				text-align : center;
+  				padding-top : 50px;
+  				padding-bottom : 15px;
+  			}
+  			.submitDivPhone{
+  				background : #4178be;
+  				text-align : center;
+  				padding-top : 15px;
+  				padding-bottom : 15px;
+  				position: fixed;
+  				width : 100%;
+  				bottom : 0;
+  			}
+  			
+  			.submitButton ::content .button:not(.action){
+				border : 1px solid #ffffff;
+				color : #ffffff;
+				background : #4178be;
+				font-size : 18px;
+				height : 37px;
+				padding-left : 16px;
+				padding-right : 22px;
+			}
+			.submitButton ::content iron-icon{
+				fill : #ffffff;
+				width : 19px;
+				bottom: 1px;
+			}
+			.checkUrgentCheckbox ::content label{
+				font-size : 18px;
+				color : #ffffff;
+			}
+			.checkUrgentCheckbox ::content #checkbox{
+				margin-bottom : 5px;
+				margin-right : 5px;
+			}
+			.DataWrapper{
+				padding-left : 10px;
+				padding-top : 3px;
+				padding-bottom : 3px;	
+				position : relative;
+			}
+			.stackDataWrapper{
+				padding-top : 6px;
+				position : relative;
+			}
+			.nameDataWrapper{
+				padding-top : 6px;
+			}
+			
+			.leftPanel{
+				min-width : 380px;
+				max-width : 550px;
+				height : 100%;
+				background : #4178be;
+			}
+			.rightPanel{
+				min-width : 380px;
+				max-width : 550px;
+				height : 100%;
+			}
+			.templateHeader{
+				text-align : center;
+				padding-bottom : 26px;
+				padding-top : 26px;
+				background : #4178be;
+				padding-left : 20px;
+			}
+			.templateHeaderPhone {
+				padding-left : 0px;
+			}
+			.templateHeaderLabel ::content label{
+				font-family:HelveticaNeue-Light;
+				font-size:22px;
+				color:#ffffff;
+			}
+			.reviewMain{
+				height : 100%;
+				box-sizing: border-box;
+			}
+			.dataPanel{
+				/*border-right : 1px solid #777677;*/
+				border-top:1px solid #777677;
+				height : calc(100% - 79px); /* submit div height + header height */
+			}
+			.dataPanelDesktop{
+				overflow-y:auto;
+				height : 100%; /* navigationbar height */
+			}
+			.triangleLeft {
+				display : block;
+				width: 0;
+				height: 0;
+				border-top: 20px solid transparent;
+				border-right: 20px solid #ffffff;
+				border-bottom: 20px solid transparent;
+			    float : right;
+			}
+			.editIcon{
+				padding-right : 5px;
+				margin-bottom : 5px;
+				width : 16px;
+				fill : #4178be;
+			}
+			.stackDatalist {
+				text-align : left;
+			}
+			.stackWrapper{
+				border-bottom :1px solid #777677;
+				padding : 13px 21px 13px 21px
+			}
+			.stackTitleLabel ::content label{
+				color : #777677;
+    			font-family:HelveticaNeue-Light;
+			}
+			.reviewMainPhone{
+				height : calc(100% - 114px);
+				overflow-y : auto;
+			}
+			.submitButtonDiv{
+				padding-top : 10px;
+			}
+			.subItemLabel {
+				word-wrap: break-word;
+			}
+			.subItemLabel ::content label{
+				color : gray;
+				font-family:HelveticaNeue-Light;
+			}
+			.subLabel {
+				padding-left : 26px;
+			}
+			
+			.verticalLabel {
+				@apply(--layout-vertical)
+			}
+			
+			.DataLabel {
+				padding: 10px;
+				display: block;
+			}
+			.checkUrgentCheckbox ::content .mark{
+				background-color : var(--Primary-green50) !important;
+				height : 10px !important;
+			}
+		</style>
+	</template>
+</dom-module>

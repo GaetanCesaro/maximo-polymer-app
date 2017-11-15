@@ -1,0 +1,76 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-progress-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<link rel="import" href="../maximo-progress.html">
+	<style>
+	.attachmentProgress {
+				width: 123px;
+				border: 1px solid #ffffff!important;
+				@apply(--layout-center);
+				height: 10px;
+			}
+	maximo-progress ::content .progress{
+		background-color: #4178be !important;
+	}
+	</style>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+		<div class="outer">
+			<div class="demo-section">
+				<p class="demo-header">Default progress bar</p>
+				<p><maximo-progress id="progressBar" class="attachmentProgress" min="0" max="1000" value="0"></maximo-progress></p>
+				<div class="code">
+  					<xmp><maximo-progress id="progressBar" class="attachmentProgress" min="0" max="1000" value="0"></maximo-progress></xmp>
+  				</div>
+			</div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-progress-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				querylist: {
+    		type: Array,
+    		value: [],
+    		notify: true
+    	},
+    		exampledata:{
+    			type:String,
+    			notify:true,
+    			value:"binded"
+    		}
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log(this.data);
+				var demoData=this.data;
+				demoData.forEach(function(d) {
+					this.querylist=d.description;
+					console.log(d.description);	
+			});
+				console.log(this.querylist);
+			},
+			ready : function(){
+				var that = this;
+  				setInterval(function () { that.$.progressBar.value+=100; },2000);
+				
+  				console.log(this.$.progressBar.value);
+  	},
+  			lfunc:function(){
+  				alert("Your favorite label here too! :)");
+  			}
+		});
+	</script>
+</dom-module>

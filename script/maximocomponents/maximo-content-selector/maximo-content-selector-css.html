@@ -1,0 +1,154 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-content-selector-css">
+	<template>
+    	<style>
+    		.outerdiv {
+				padding: 0px;
+    			position: relative;
+    			background: var(--Primary-blue50);
+    			overflow: hidden;
+    			text-align: left;
+    			width: 100%;
+    		}
+    		
+    		.outerdiv.light {
+    			background: var(--Primary-white);
+    		}
+    	
+    		.isTab {
+    			background: var(--Primary-blue80);
+    			padding-left:10px;
+    			padding-bottom:5px;
+    		}
+
+    		.outerdiv.rtl {
+    			text-align: right;
+    		}
+    		
+			.inner {
+				white-space: nowrap; 
+				margin: 0px;
+				position: relative;
+				overflow: hidden;
+    			overflow-x: scroll;
+			}
+			
+			iron-icon {
+				fill: var(--Primary-white);
+    			position: absolute;
+    			top: 0px;
+    			height: 33px;
+    			transition: width .1s;
+			}
+			iron-icon.hover {
+				fill: var(--Primary-blue30) !important;
+			}
+			
+			.west {
+				background: -moz-linear-gradient(left,  rgba(56,121,189,1) 1%, rgba(56,121,189,1) 70%, rgba(56,121,189,0) 100%); /* FF3.6-15 */
+				background: -webkit-linear-gradient(left,  rgba(56,121,189,1) 1%,rgba(56,121,189,1) 70%,rgba(56,121,189,0) 100%); /* Chrome10-25,Safari5.1-6 */
+				background: linear-gradient(to right,  rgba(56,121,189,1) 1%,rgba(56,121,189,1) 70%,rgba(56,121,189,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			}
+			
+			.east {
+				background: -moz-linear-gradient(left,  rgba(56,121,189,0) 0%, rgba(56,121,189,0.03) 1%, rgba(56,121,189,1) 30%, rgba(56,121,189,1) 100%); /* FF3.6-15 */
+				background: -webkit-linear-gradient(left,  rgba(56,121,189,0) 0%,rgba(56,121,189,0.03) 1%,rgba(56,121,189,1) 30%,rgba(56,121,189,1) 100%); /* Chrome10-25,Safari5.1-6 */
+				background: linear-gradient(to right,  rgba(56,121,189,0) 0%,rgba(56,121,189,0.03) 1%,rgba(56,121,189,1) 30%,rgba(56,121,189,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			}
+
+			.outerdiv ::content label {
+				padding: 0px 10px;
+    			height: 33px;
+    			display: inline-block !important;
+    			line-height: 33px;
+    			font-size: 90% !important;
+		   		white-space: nowrap;
+    			overflow: hidden;
+    			text-overflow: ellipsis;
+    			max-width: 120px;
+    			color: var(--Primary-white);
+			}
+			
+			.outerdiv.light ::content label {
+    			font-size: 129% !important;
+    			color: var(--Primary-gray70);
+    			margin-right:40px;
+			}
+			
+			.outerdiv ::content label.currentChoice {
+				background: var(--Primary-blue60) !important;
+				
+			}
+			
+			.outerdiv.light ::content label.currentChoice {
+				background: var(--Primary-white) !important;
+				color: var(--Primary-blue50) !important;
+				border-bottom: 5px solid var(--Primary-blue50) !important;
+				font-weight: bold;
+			}
+			
+			.outerdiv ::content label.isTab {
+				max-width: 500px !important;
+				font-size: 129% !important;
+				font-family:"HelveticaNeue-Light";
+				margin-right:10px;
+			}
+			
+			.outerdiv ::content label.isTabCurrentChoice {
+				color: var(--Primary-blue30) !important;
+				border-bottom: 3px solid var(--Primary-blue30) !important;
+			}
+			
+			.outerdiv.light ::content label.isTabCurrentChoicelight {
+				color: var(--Primary-white) !important;
+				border-bottom: 5px solid var(--Primary-blue30) !important;
+			}
+			
+			.outerdiv ::content maximo-label {
+				outline: none;
+			}
+			
+			.outerdiv ::content maximo-label label {
+				border-bottom: 3px solid transparent;
+			}
+			
+			.outerdiv.light ::content maximo-label label {
+				border-bottom: 5px solid transparent;
+			}
+			
+			.outerdiv ::content maximo-label:focus label {
+				border-bottom: 3px solid var(--Primary-blue60);
+			}
+			
+			.outerdiv.light ::content maximo-label:focus label {
+    			color: var(--Primary-blue50) !important;
+    			font-weight: bold;
+				border-bottom: 5px solid var(--Primary-blue50);
+			}
+			
+			.outerdiv ::content maximo-label:hover label {
+				color: var(--Primary-blue10) !important;
+				border-bottom: 3px solid var(--Primary-blue10);
+			}
+			
+			.outerdiv.light ::content maximo-label:hover label {
+				color: var(--Primary-blue50) !important;
+				border-bottom: 5px solid var(--Primary-blue50);
+			}
+			
+			.outerdiv ::content maximo-label[aria-selected=true]:focus label {
+				border-bottom: 3px solid var(--Primary-blue30);
+			}
+			
+			.outerdiv.light ::content maximo-label[aria-selected=true]:focus label {
+				border-bottom: 5px solid var(--Primary-blue50);
+			}
+						
+		</style>
+	</template>
+</dom-module>

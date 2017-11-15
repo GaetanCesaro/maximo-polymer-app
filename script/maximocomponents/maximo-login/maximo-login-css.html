@@ -1,0 +1,230 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-login-css">
+	<template>
+    	<style>
+		   
+		   .loginpanel {
+	   			@apply(--layout-center-justified);
+				padding: 0px;
+				padding-bottom: 20%;
+				box-sizing: border-box;
+				height: 100%;
+				font-family: "HelveticaNeue";
+				background: var(--Primary-white) !important;
+				opacity: 0;
+				transition: opacity .3s;
+	   			display: none;
+			}
+			
+			.loginpanelsection {
+		   		@apply(--layout-vertical);
+				padding-top: 20vh;
+			}
+			
+			body[data-size='small'] .loginpanelsection {
+				margin: 20px;
+			}
+			
+			.signinheader {
+				text-align: center;
+				padding-top: 10px;
+				padding-bottom: 30px;
+				font-size: 120%;
+	    		font-weight: bold;
+				font-family: 'HelveticaNeue';
+			}
+			
+			.mainDiv {
+				text-align: center;
+				padding: 0px 10px;
+			}
+						
+			.mainTitle {
+			    display: block;
+			    font-family: 'HelveticaNeue-Light';
+			    margin-bottom: 20px;
+			    font-size: 163%;
+			}
+			
+			.logos {
+				direction: ltr;
+			}
+
+			.formDiv {
+				display: inline-block; 
+				vertical-align: top; 
+				text-align: initial;
+				padding-top: 10px;
+			}
+			
+			.formDiv ::content input {
+				margin: 10px 0px;
+				border-color: var(--Primary-gray30);
+				outline: none;
+				line-height: 2em;
+				font-family: 'HelveticaNeue';
+				width: 100%;
+				box-sizing: border-box;
+				color: var(--Primary-gray100);
+				border-width: 1px;
+			}
+
+			.formDiv ::content input::-webkit-input-placeholder {
+				color: var(--Primary-gray50);
+				font-family: 'HelveticaNeue-Italic';
+			}
+			
+			 .formDiv ::content input::-moz-placeholder {
+			 	color: var(--Primary-gray50);
+				font-family: 'HelveticaNeue-Italic';
+			 } 
+			 
+			 .formDiv ::content input:-ms-input-placeholder {
+			 	color: var(--Primary-gray50);
+				font-family: 'HelveticaNeue-Italic';
+			 } 
+			
+			.formDiv ::content input:focus {
+				border-color: var(--Primary-blue30);
+				outline: none;
+			}
+			
+			.signinbutton {
+		   		padding-top: 10px;
+		   		text-align: right;
+		   		text-align: center;
+			}
+			
+			.signinbutton ::content button {
+				background-color: var(--Primary-blue50);
+				color: var(--Primary-white);
+				font-family: 'HelveticaNeue-Light' !important;
+				width: 300px;
+    			margin: 0px;
+    			font-weight: 700;
+    			height: 40px;
+				boc-sizing: content-box;
+			}
+			
+			.signinbutton ::content input:hover, .signinbutton ::content input:focus {
+				background-color: var(--Primary-blue30);
+			} 
+			
+			.signinbutton.rtl {
+				text-align: left;
+			}
+	
+			.signinsection {
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+			
+	 		.signinerror {
+    			font-family: "HelveticaNeue";
+				text-align: center;
+				min-height: 20px;
+				padding-top: 8px;
+				max-width: 300px;
+	 		}
+	 		
+	 		.signinerror > ::content label {
+	 			color: var(--Alert-red) !important;
+	 			font-size: 125%;
+    			letter-spacing: 1.5px;
+	 		}
+	 		
+	 		.copyrightsection {
+			    position: fixed;
+			    bottom: 0px;
+			    left: 0px;
+			    background: #000;
+			    width: 100%;
+			    padding: 5px;
+			    background: var(--Primary-gray80);
+	 		}
+	 		
+	 		.copyright {
+    			font-size: 100%;
+			    color: var(--Cool-gray30);
+			    width: 100%;
+			    text-align: center;
+	 		}
+	 		
+	 		.saas ::content label {
+	 			font-size: 70%;
+	 			color: var(--Cool-gray30);
+	 			font-family: HelveticaNeue; 
+	 		}
+
+			@media screen and (max-height: 700px) {
+				.loginpanelsection { 
+					padding-top: 15vh;
+				}
+			}
+	 		
+	 		@media screen and (max-height: 600px) {
+				.loginpanelsection { 
+					padding-top: 10vh;
+				}
+			}
+	 		
+	 		
+	 		@media screen and (max-height: 500px) {
+				.loginpanelsection { 
+					padding-top: 5ev;
+				}
+				
+				.copyright {
+    				font-size: 80%;
+    			}	
+			}
+	 		
+			@media screen and (max-height: 425px) {
+				.loginpanelsection { 
+					padding-top: 0px;
+				}				
+				
+				.mainTitle {
+					margin-bottom: 0px;
+				}
+				
+				.formDiv ::content input { 
+					margin: 3px 0px;
+				}
+				
+				.signinbutton {
+					padding-top: 0px;
+				}
+				
+				.signinerror {
+					margin: 3px 0px;
+				}
+				
+				.copybr {
+					display: none;
+				}
+			}
+
+	 		@media screen and (max-height: 350px) {
+	 			.loginpanelsection { 
+					padding-top: -10px;
+				}	
+	 		}
+			
+			.resourcesLoading {
+				width: 100%;
+				position: absolute;
+				text-align: center;
+				font-size: 150%;
+				top: 45vh;
+				display: none;
+			}
+			
+		</style>
+	</template>
+</dom-module>

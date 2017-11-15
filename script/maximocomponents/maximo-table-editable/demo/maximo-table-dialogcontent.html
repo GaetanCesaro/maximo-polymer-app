@@ -1,0 +1,30 @@
+<!--
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->
+<!-- DO NOT IMPORT THIS AS IT SHOULD NOT RENDER -->
+<dom-module id="maximo-table-dialogcontent">
+	<template>
+	  	<maximo-collection 
+  			auto
+  			id="collection_short_dialog" 
+  			test-url="{{resolveUrl('data/real_data.json')}}">
+		</maximo-collection>
+		<maximo-table-editable label="Table Built From child columns" id="table1_dialog" select-mode="multiple" select-on collection="{{getLocalObject('collection_short_dialog')}}" filter-row summary="demo table 0">
+		<maximo-table-body>
+			<maximo-table-column data-attribute="first_name"></maximo-table-column>
+			<maximo-table-column data-attribute="last_name"></maximo-table-column>
+			<maximo-table-column data-attribute="human" title="Label override test"></maximo-table-column>
+		</maximo-table-body>
+	</maximo-table-editable>	
+	</template>
+	<script>
+	//Does nothing except act as a placeholder
+		Polymer({
+			is: 'maximo-table-dialogcontent',
+			behaviors: [BaseComponent]
+		});
+	</script>
+</dom-module>

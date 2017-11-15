@@ -1,0 +1,85 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-navbar-css">
+	<template>
+    	<style>
+    		:host {
+    			background-color: var(--Primary-blue80);
+    			/*border-top: thin solid var(--Primary-blue50);*/
+    		}
+
+    		:root {
+    			--paper-menu-focused-item:{
+					
+				};
+				--paper-menu-background-color:{
+					background: var(--Primary-blue80);
+				};
+				--paper-menu-focused-item-after: {
+					background: transparent;
+					opacity: 0;
+				};
+				--paper-menu-focused-item-before: {
+					background: transparent;
+					opacity: 0;
+				};
+				--paper-item-focused-before: {
+					background: transparent;
+					opacity: 0;
+				};
+    		}
+    		.horizontal-section {
+		        padding: 0 !important;
+		    }
+			paper-menu.menu{
+				width:82px;
+				padding: 0px;
+			}
+			.sideMenu{
+				background: var(--Primary-blue80);
+				display: inline-block;
+			}
+			paper-item {
+				padding:0px;
+				height:82px;
+			}
+			.selecteditem{
+				background: var(--Primary-blue50);
+			}
+			div.bottombar {
+				position: fixed;
+				bottom: 0px;
+				background: var(--Primary-blue80);
+				width: 100%;
+				height: 72px;
+				z-index: 50;
+			}
+			.bottombar table {
+			
+				height: 100%;
+				padding:0px;
+				margin:0px;
+				border-spacing:0px;
+				border:0px;
+			}
+			.bottombar tr{
+				padding:0px;
+				margin:0px;	
+			}
+			.bottombar td {
+				padding: 0px;
+				text-align:center;
+				margin:0px;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			
+		</style>
+	</template>
+</dom-module>

@@ -1,0 +1,31 @@
+{
+		"main_title":"Enterprise Asset Management",
+		"log_in":"Zaloguj się",
+		"user_name":"Nazwa użytkownika",
+		"password":"Hasło",
+		"sign_in":"Zaloguj się",
+		"error":"Wprowadź poprawne informacje autoryzacyjne.",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"Wszelkie prawa zastrzeżone.",
+		"copyright_2":"Szczegółowe informacje zawiera licencja na produkt.",
+		"loading_resources":"Ładowanie",
+		"missing_config":"Brak pliku konfiguracyjnego {0}. Użycie wartości domyślnych.",
+		"unknown_error":"Wystąpił nieznany błąd. {0}",
+		"resource_error":"Podczas tworzenia żądania dotyczącego zasobów w postaci łańcucha wystąpił błąd. {0}",
+		"contact_admin":"Jeśli problem nie ustąpi, skontaktuj się z administratorem systemu.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"WAŻNA UWAGA: Do tego systemu NIE NALEŻY wprowadzać danych osobowych (takich jak objęte szczególną ochroną dane finansowe lub medyczne i wszelkie informacje umożliwiające identyfikację tożsamości osoby) innych niż biznesowe dane kontaktowe wskazane w tym systemie jako wymagane i potrzebne do zapewnienia wsparcia. Każda osoba wprowadzająca dane osobowe wyraża zgodę na ich wykorzystanie i przesyłanie ich przez IBM przez granice państw w celu świadczenia zamówionych usług, zgodnie ze <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">strategiami polityki prywatności firmy IBM</a>. Jeśli jesteś pracownikiem lub podwykonawcą IBM, a klient poprosi o wprowadzenie swoich danych osobowych, odczytaj klientowi powyższą uwagę i uzyskaj zgodę przed wprowadzeniem informacji.",
+		"session_timeout":"Przekroczono limit czasu sesji.",
+		"noworkscape" : "Dla tego id. użytkownika nie zdefiniowano żadnego centrum roboczego",
+		"no_access_default":"Nie masz wszystkich wymaganych autoryzacji względem żądanej lokalizacji. Czy chcesz załadować aplikację domyślną?",
+		"signout" : "Użytkownik został pomyślnie wylogowany. Zamknij przeglądarkę lub zaloguj się ponownie.",
+		"login_error" : "Błąd logowania",
+		"login_error_invalid" :"Podana kombinacja nazwy użytkownika i hasła jest nieprawidłowa. Spróbuj ponownie.",
+		"return" : "Wróć",
+		"logout" : "Wyloguj",
+		"logout_complete" : "Aby wylogować się całkowicie, zamknij okno przeglądarki.",
+		"user_info_error" : "Błąd podczas ładowania informacji o użytkowniku. Skontaktuj się z administratorem systemu"
+}
+

@@ -1,0 +1,84 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../../handlers/handler-workorder/handler-workorder.html" />
+      
+<dom-module id="maximo-completeness-card">
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-completeness-card-css.html">
+	<style is="custom-style" include="maximo-completeness-card-css"></style>		
+  	
+  	<template id="completeness">
+  	
+  		<maximo-collection
+		    id="laborcollection" 
+			attribute-names="personid, displayname"
+			collection-data="{{recordData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"	
+			filter-data="{{filterData}}"			
+			object-name="MXAPIPERUSER" 
+			order-by-attribute-names="%2Bpersonid"
+			query-info="{{queryInfo}}" 
+			search-attribute-names="personid, displayname"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name=""
+			selected-record="{{selectedRecord}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			use-search-terms="true"
+			on-record-data-refreshed="_getLaborSet">
+		</maximo-collection>	
+		<!-- <maximo-section id="wocompleteness_section1" > -->
+			<div id="wocompleteness_section_div1" class="">
+			
+				<div id="wocompleteness_section_div1_div1" style="vertical-align:top;">
+					<maximo-imglib id="assetimage" width=" 200px" height="200px" image="{{record.asset._imagelibref}}" rounded></maximo-imglib>
+				</div>
+				
+				<div id="wocompleteness_section_div1_div2" >
+					<!-- <maximo-section  id="wocompleteness_section_div1_div2_section"> --><!--  label="{{record.wonum}}" -->
+						<!-- <maximo-label id="wocompleteness_section_label0" label="{{localize('uitext', 'mxapiwo', 'WorkOrder')}}:" bold></maximo-label>
+						<maximo-button id="wocompleteness_section_button" action="true" on-tap="openWorkorder" label="{{record.wonum}}"></maximo-button> -->
+						<maximo-field id="wocompleteness_section_label0" label="{{localize('uitext', 'mxapiwo', 'WorkOrder')}}" hide-data>
+							<maximo-button id="wocompleteness_section_link" action="true" label="{{record.wonum}}" on-tap="openWorkorder"></maximo-button>
+						</maximo-field>
+						<maximo-field id="wocompleteness_section_label0" label="{{localize('uitext', 'mxapiperuser', 'Description')}}" datalabel="{{record.description}}"></maximo-field>
+						<maximo-field id="wocompleteness_section_label1" label="{{localize('uitext', 'mxapiperuser', 'Location')}}" datalabel="{{record.location}}"></maximo-field>
+						<maximo-field id="wocompleteness_section_label2" label="{{localize('uitext', 'mxapiperuser', 'Asset')}}" datalabel="{{record.assetnum}}"></maximo-field>
+						<maximo-field id="wocompleteness_section_label3" label="{{localize('uitext', 'mxapiperuser', 'ScheduleStart')}}" datalabel="{{getDateTime(record.schedstart)}}"></maximo-field>
+						<maximo-field id="wocompleteness_section_label4" label="{{localize('uitext', 'mxapiperuser', 'ScheduleFinish')}}" datalabel="{{getDateTime(record.schedfinish)}}"></maximo-field>
+						<maximo-field id="wocompleteness_section_label5" label="{{localize('uitext', 'mxapiperuser', 'Craft')}}" datalabel="{{record.assignment.craft.description}}"></maximo-field>
+						<maximo-field id="wocompleteness_section_label6" label="{{localize('uitext', 'mxapiperuser', 'Skill')}}" datalabel="{{record.assignment.craftskill.description}}"></maximo-field>
+					<!-- </maximo-section>		 -->	
+				</div>
+			</div>
+<!-- 			<maximo-footer id="wocompleteness_section_div1_div2_footer">
+				<maximo-label id="maximoWorkToAssign_worktoassign_label3" event="#" on-tap="openWorkorder" synchronous label="{{localize('uitext', 'mxapiperuser', 'OpenWorkOrder')}}"></maximo-label>
+			</maximo-footer> -->				
+		<!-- </maximo-section> -->
+		<hr id="sep2"></hr>
+		<maximo-section id="wocompleteness_section2">		
+			<maximo-label  id="wocompleteness_section2_label1" label="{{completenessLabel}}" ></maximo-label>
+			<div style="padding:0px 30px">
+				<maximo-section id="wocompleteness_section2_section_1"  hidden$="{{actualMaterialIncomplete}}" label="{{localize('uitext', 'mxapiperuser', 'ActualMaterial')}}"></maximo-section>
+				<maximo-section id="wocompleteness_section2_section_2"  hidden$="{{actualToolIncomplete}}" label="{{localize('uitext', 'mxapiperuser', 'ActualTools')}}"></maximo-section>
+				<maximo-section id="wocompleteness_section2_section_3"  hidden$="{{actualLaborIncomplete}}" label="{{localize('uitext', 'mxapiperuser', 'ActualLabor')}}"></maximo-section>
+				<maximo-section id="wocompleteness_section2_section_4"  hidden$="{{failureIncomplete}}" label="{{localize('uitext', 'mxapiperuser', 'Failures')}}"></maximo-section>
+				<maximo-section id="wocompleteness_section2_section_5"  hidden$="{{taskIncomplete}}" label="{{localize('uitext', 'mxapiperuser', 'Tasks')}}"></maximo-section>
+			</div>
+		</maximo-section>				
+	  	
+	  	<maximo-footer id="maximo-wocompleteness-footer2" centered>					
+	  		<maximo-button id="maximo-wocompleteness-button1" label="{{localize('uitext', 'mxapibase', 'Ok')}}" on-tap="close" default></maximo-button>
+	  	</maximo-footer>
+	  	
+  	</template>
+
+	<script src="maximo-completeness-card.js"></script>
+
+</dom-module>

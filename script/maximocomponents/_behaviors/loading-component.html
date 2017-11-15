@@ -1,0 +1,93 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+	/**
+	 * Allows loading spinner to be placed over element when toggleLoading(true) is called.
+	 * use toggleLoading(false) to remove
+	 *
+	 * @polymerBehavior LoadingComponent
+	 */
+	LoadingComponent = {
+		properties : {
+			
+			/*
+			* In seconds
+			*/
+			waitTimer: {
+				type: Number,
+				value: 1
+			}
+		},
+		ready: function(){
+			this.tempWait = Polymer.Base.create('maximo-wait', {'id':this.id+'Wait'});
+		},
+		toggleLoading: function(loading){
+			var component = this;
+			if(loading){
+				if(!this.waiting && this.childElementCount === 1){
+					if(this.myToggleLoading){
+						if(this.myToggleLoading(loading)){ //if true returned then skip defaults
+							return;
+						}
+					}
+					var element = this.firstElementChild;
+					if($j(element).height()>0 && $j(element).width()>0){
+						this.waiting = true;
+						this.positionOverlay();
+						$j(window).bind( "scroll", function(e) {
+							component.positionOverlay();
+						});
+					}
+				}
+			}
+			else {
+				this.waiting = false;
+				$j(component.tempWait.$.wait).css({'display':'none'});
+			}
+		},
+		positionOverlay: function(){
+			if(!this.waiting){
+				return;
+			}
+			var component = this;
+
+			var element = component.firstElementChild;
+			var position = $j(element).position();
+			//position.top = position.top - document.body.scrollTop;
+			$j(element).append(component.tempWait);
+			var size = {'h':element.offsetHeight,'w':element.offsetWidth};
+			$j(component.tempWait.$.wait).css({'position':'absolute','top':position.top+'px','left':position.left+'px','height':size.h+'px','width':size.w+'px','display':'initial','background-color':'rgba(255,255,255, .75)','margin':$j(element).css('margin')});
+			var hOffset = size.h-50;
+			if(size.h > 0 && hOffset<0){
+				var scale = (Math.abs(hOffset)/50); 
+				var jSpinner = $j(component.tempWait.$.spinner)
+				var newSize = jSpinner.height()*scale;
+				jSpinner.css({'height':newSize+'px','width':newSize+'px','top':(size.h/2)-(newSize/2)+'px','left':(size.w/2)-(newSize/2)+'px'});
+			}
+			$j(component.tempWait.$.wait).removeAttr('hidden');
+		},
+		myToggleLoading: function(loading){
+			if(loading && this.waitTimer > 0){
+				var component = this;
+				this.async(function(){
+					component.toggleLoading(false);
+				}, (component.waitTimer*1000));
+			}
+			return false;
+		},
+		toggleBlur: function(state){
+			if(typeof state !== 'boolean'){
+				state = true;
+			}
+			var target = this.firstElementChild
+			if(target){
+				$j(target).toggleClass('song2',state);
+			}
+			return target;
+		}
+	};
+</script>

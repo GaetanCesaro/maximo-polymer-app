@@ -1,0 +1,76 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-servicerequest-viewsr-card-css">
+	<template>
+    	<style>
+		 	
+		 	.container {
+		      @apply(--layout-horizontal);
+		      @apply(--layout-justified);
+		    }	
+		    .container > div {
+				display: inline-block;
+			}
+			
+			.flex-container {
+			    display: flex;
+			    flex-direction: row;
+			    flex-wrap: nowrap;
+			    justify-content: flex-end;
+			    align-content: flex-start;
+			    align-items: center;
+		    }
+			
+			   hr {
+		    	margin: 0px;
+		    }
+		    
+		    .timerstyle {
+		    	height:50px;
+		    	width:50px;
+		    }
+		    .hiddensection ::content label {
+		    	font-weight:bold;
+		    } 
+		    
+		    .hiddensection ::content > div, 
+		    .hiddeninnersection ::content > div {
+		    	margin: 0px;
+		    }
+			.srticketidclass ::content label,
+			.srpriorityclass ::content label {
+				font-size: 22px;
+				font-family: HelveticaNeue;
+				
+			}
+			.srstatusclass ::content label {
+				font-size: 22px;
+				font-family: HelveticaNeue;
+				color: #959595;
+			}
+			.srreportedbyclass ::content label {
+				font-size: 17px;
+				font-family: HelveticaNeue;
+				font-style : italic;
+				color: #959595;
+			}
+			.srdescriptionclass ::content label{
+				font-size: 17px;
+			}
+			.srdescriptionclass {
+				text-align: left;
+			}
+			.bottomcardcontainer ::content label {
+				font-size: 15px;
+				font-family: HelveticaNeue;
+				color: #959595;
+			}
+			.srreportdateclass ::content label {
+			}
+			
+		</style>
+	</template>
+</dom-module>

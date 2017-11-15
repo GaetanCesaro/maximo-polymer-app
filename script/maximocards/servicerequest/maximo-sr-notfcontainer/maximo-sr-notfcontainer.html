@@ -1,0 +1,41 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../../maximocomponents/maximo-authcontext/maximo-authcontext.html">
+<dom-module id="maximo-sr-notfcontainer">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="../../../maximocomponents/maximo-remote-notification/maximo-remote-notification-css.html">
+	<style is="custom-style" include="maximo-remote-notification-css"></style>
+
+	<link rel="import" href="maximo-sr-notfcontainer-css.html">
+	<style is="custom-style" include="maximo-sr-notfcontainer-css"></style>
+
+	<link rel="import" href="../../../components/iron-flex-layout/iron-flex-layout-classes.html">
+	
+	<style is="custom-style" include="iron-flex"></style>
+	<template>
+		<section class="notificationContainer clickable" on-tap="_onViewTap">
+			<div class$="notification [[_highlight(notf._touched)]]">
+				[[_formatMessage(notf.notfeventmessage.ticketid)]]
+			</div>
+			<maximo-htmlfield ignore-rich-text class="notificationDetails overwriteHtmlField" ellipsis-size="100" datalabel="[[_formatDetails(notf.notfeventmessage)]]"></maximo-htmlfield>
+			<div class="notificationActionBar">
+				<span class="notificationDetailsText start-justified">[[_formatDate(notf.notificationtime)]]</span>
+				<maximo-button class="actionButton end-justified" action="true" on-tap="_onViewTap" label="{{localize('uitext', 'mxapisr', 'View')}}"></maximo-button>
+			</div>
+			<!-- <div class="notificationActionBar">
+				<maximo-button action="true" on-tap="_onReopenTap" label="{{localize('uitext', 'mxapisr', 'Reopen')}}"></maximo-button>
+				<div class="spacer">&nbsp;</div>
+			</div> -->
+		</section>
+	</template>
+	<script src="maximo-sr-notfcontainer.js"></script>
+</dom-module>

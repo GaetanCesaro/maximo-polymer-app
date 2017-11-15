@@ -1,0 +1,182 @@
+<html>
+	<head>
+    	<title>Maximo Asset Management</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	  	<meta name="apple-mobile-web-app-capable" content="yes" />
+	  	<script src="script/libraries/jquery/jquery-2.2.0.js"></script>
+	  	<script src="script/loginResourceLoader.js"></script>
+    	<link href="css/main.css" rel="stylesheet">
+	  	<link rel="apple-touch-icon" href="images/lightning-icon.png">
+		<link rel="shortcut icon" href="images/lightning.ico">
+    	<style>
+    		body {
+    			text-align: center;
+    			font-family: 'HelveticaNeue-Light' !important;
+    			font-size: 14px;
+    		}
+    		
+    		body * {
+    			transition: all .2s;
+    		}
+    		
+    		button, input, .loginTitle {
+	    	    width: 300px;
+    		}
+    		
+    		button, input {
+	    	    height: 40px;
+    			margin: 10px 0px;
+    		}
+    		
+    		input[type=text]{
+    			border: 1px solid #aeaeae;
+    			padding: 3px;
+    		}
+    		
+    		input[type=text]:focus{
+    			border-color: #5aaafa;
+    			outline: 0px;
+    		}
+    		
+    		button {
+    			border: 1px solid transparent;
+    		    background: #4178be;
+    	    	color: #ffffff;
+    		}
+    		
+    		button:hover {
+    			background: #325c80
+    		}
+    		
+    		button:focus {
+    			border-color: #5aaafa;
+    		}
+    		
+    		form > div {
+    			display: inline-block;
+	    		max-width: 500px;
+    	    	padding-top: 20vh;
+    			margin-bottom: 30px;
+    		}
+    		
+    		.subTitle {
+    			font-size: 164%;
+    		}
+    		
+    		.loginTitle {
+    		    text-align: left;
+    			margin-top: 20px;
+    		}
+    		
+    		.copyright {
+    		    position: fixed;
+    	    	bottom: 0px;
+    	    	left: 0px;
+    	    	background: #000;
+    	    	width: 100%;
+    	    	padding: 5px;
+    	    	background: #323232;
+    			color: #fff;
+    		}
+    		
+    		#copyright1 {
+    			display: inline;
+    		}
+    		
+   		
+    		@media screen and (max-width: 450px) {
+        		form > div {
+    	    		max-width: 400px;
+        			padding-top: 10vh;
+        		}
+        		button, input, .loginTitle {
+    	    	    width: 300px;
+        		}
+    		}
+
+    		@media screen and (max-width: 350px) {
+        		form > div {
+    	    		max-width: 280px;
+        			padding-top: 10vh;
+        		}
+        		button, input, .loginTitle {
+    	    	    width: 280px;
+        		}
+        		
+        		.logos img:first-of-type {
+        			width: 100px !important;
+        		}
+        		
+        		.logos img:last-of-type {
+        			width: 138px !important;
+        		}
+    		}
+    		
+    		@media screen and (max-height: 425px) {
+    			
+    			form > div{
+    				padding-top: 0px;
+    			}
+    			
+    			button, input {
+    	    	    height: 30px;
+        			margin: 5px 0px;
+        		}
+    			
+    			.loginTitle {
+        			margin-top: 10px;
+        		}
+    		}
+    		
+    	</style>
+    </head>
+	<body>
+		<form action="j_security_check" method="post">
+			<div>
+				<div>
+					<div class="logos">
+						<img src="script/maximocomponents/maximo-login/images/logo.png" style="width: 118px" draggable="false" class="style-scope maximo-login"/>
+						<img class="maximo style-scope maximo-login" src="script/maximocomponents/maximo-login/images/logo1.png" style="width: 178px" draggable="false"/>
+					</div>
+				<div class="subTitle">
+					Enterprise Asset Management
+				</div>
+			</div>
+			<div>
+				<div class="loginTitle" id="loginTitle"></div>
+				<form autocomplete="off">
+					<div>
+						<label for="uname_input"> </label>
+						<input type="text" id="uname_input" name="j_username" autocapitalize="none" autocomplete="off">
+					</div>
+					<div>
+						<label for="pwd_input"> </label>
+						<input type="password" id="pwd_input" name="j_password" autocapitalize="none" autocomplete="off" type="text"/>
+					</div>
+				</form>
+				<label id="message" class="message" style="display: inline;"></label>
+				<button id="button_button"></button>
+			</div>
+		</form>
+		<div class="copyright">
+			&copy; <div id="copyright1"></div>
+			<div id="copyright2"></div>
+		</div>
+	</body>
+	<script>
+	$(function() {
+		fillResources = function(resources){
+			document.getElementById('loginTitle').innerText = resources['log_in'];
+			document.getElementById('uname_input').setAttribute('placeholder', resources['user_name']);
+			document.getElementById('pwd_input').setAttribute('placeholder', resources['password']);
+			document.getElementById('copyright1').innerHTML = resources['copyright_0'] + ' 2017. ' +resources['copyright_1'];
+			document.getElementById('copyright2').innerText = resources['copyright_2'];
+			document.getElementById('button_button').innerText = resources['sign_in'];
+		};
+	
+		loadLoginResources();
+	});
+	</script>
+	
+</html>

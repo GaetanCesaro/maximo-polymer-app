@@ -1,0 +1,123 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../script/components/polymer/polymer.html">
+<link rel="import" href="../../script/components/hydrolysis/hydrolysis-analyzer.html">
+<link rel="import" href="../../script/components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../script/components/iron-doc-viewer/iron-doc-viewer.html">
+<link rel="import" href="../../script/components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../script/components/iron-icons/iron-icons.html">
+<link rel="import" href="../../script/components/iron-input/iron-input.html">
+<link rel="import" href="../../script/components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../script/components/iron-pages/iron-pages.html">
+<link rel="import" href="../../script/components/iron-selector/iron-selector.html">
+<link rel="import" href="../../script/components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../../script/components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../../script/components/paper-menu/paper-menu.html">
+<link rel="import" href="../../script/components/paper-item/paper-item.html">
+<link rel="import" href="../../script/components/paper-styles/color.html">
+<link rel="import" href="../../script/components/paper-styles/typography.html">
+<link rel="import" href="../../script/components/paper-styles/paper-styles.html">
+<link rel="import" href="../../script/components/paper-styles/demo-pages.html">
+<link rel="import" href="../../script/components/paper-button/paper-button.html">
+<link rel="import" href="../../script/components/paper-input/paper-input.html">
+<link rel="import" href="../../script/components/paper-material/paper-material.html">
+<!--
+Loads Polymer element and behavior documentation using
+[Hydrolysis](https://github.com/PolymerLabs/hydrolysis) and renders a complete
+documentation page including demos (if available).
+-->
+
+<dom-module id="maximo-docpage">
+	<link rel="import" href="maximo-docpage-css.html">
+	<style is="custom-style" include="maximo-docpage-css"></style>	
+  
+  	<template>
+	<iron-ajax
+		id="demoCheck"
+		url=""
+		handle-as="text"
+		on-response="_handleDemoCheck"
+		on-error="_handleDemoCheck"
+		debounce-duration="300"></iron-ajax>
+	<iron-ajax
+		id="unitTestCheck"
+		url=""
+		handle-as="text"
+		on-response="_handleUnitTestCheck"
+		on-error="_handleUnitTestCheck"
+		debounce-duration="300"></iron-ajax>
+    <hydrolysis-analyzer id="analyzer" src="[[_srcUrl]]" transitive="[[transitive]]" clean analyzer="{{_hydroDesc}}" loading="{{_hydroLoading}}"></hydrolysis-analyzer>
+    <iron-ajax id="ajax" url="[[docSrc]]" handle-as="json" on-response="_handleAjaxResponse" on-error="_handleError"></iron-ajax>
+	<paper-drawer-panel id="paperDrawerPanel">
+	      <div drawer style="overflow-y:auto">
+	      	 <paper-header-panel id="componentlist">
+	        	<div class="paper-header main-header"><h2>Maximo Work Centers User Experience</h2>
+ 	        	</div>
+        		<div class="content">
+	      			<div class="horizontal-section">
+	      			
+	      			<paper-input label="Search Component" id="searchinputWithButton" type="search" bind-value="{{searchValue::input}}">
+          				<iron-icon icon="search" prefix></iron-icon>
+        			</paper-input>
+	        			<iron-collapse id="collapse" opened="true">
+	           				 <paper-menu id="active" value="[[active]]" on-iron-select="_handleMenuItemSelected" selected="{{selectedComponent}}" attr-for-selected="value">
+		           				<template id="resultList" is="dom-repeat" items="[[docElements]]" sort="sortItem" filter="_listFilter">
+			        				<paper-item value="[[item.is]]">[[item.is]]</paper-item><br>
+			        			</template>
+		       				</paper-menu>
+	        			</iron-collapse>
+	      			</div>
+	      		</div>
+	      		</paper-header-panel>
+	      </div>
+       
+      <div main>
+	      <paper-header-panel id="headerPanel" mode="[[scrollMode]]"> 
+			<div class="paper-header main-header">
+			     <h2>
+			     	<span>[[active]]</span> <span class="version" hidden$="[[!version]]">[[version]]</span>
+			     	<div style="float:right">
+				     	<span id="viewDoc" title="View Documentation"><iron-icon icon="icons:description"></iron-icon></span>
+				     	<span id="viewDemo" title="View Demo"><iron-icon icon="icons:visibility"></iron-icon></span>
+				     	<span id="unitTest" title="Open Unit Test in new window"><iron-icon icon="icons:icons:check-circle"></iron-icon></span>
+			     	</div>
+			     </h2>
+			</div>
+	        <div id="content">
+	        	<iron-pages id="view" selected="0">
+	          		<div id="docs">
+	           			 <div id="catalog-heading" catalog-only>
+	            		</div>
+		            	<iron-doc-viewer prefix="[[_fragmentPrefix]]" id="viewer" descriptor="{{_activeDescriptor}}" on-iron-doc-viewer-component-selected="_handleComponentSelectedEvent"></iron-doc-viewer>
+		            	<div id="nodocs" hidden$="[[_activeDescriptor]]" class="no-docs">
+		 		             No documentation found.
+		            	</div>
+	          		</div>
+	          		<div id="demo">
+	          			<iframe id="demoframe" style="position:absolute;height:100%;width: 100%;"></iframe>
+	          		</div>
+	        	</iron-pages>
+	      	</div>
+	      </paper-header-panel>
+      </div>
+    </paper-drawer-panel>
+ 
+    
+  </template>
+
+ <script src="maximo-docpage.js"></script>
+</dom-module>

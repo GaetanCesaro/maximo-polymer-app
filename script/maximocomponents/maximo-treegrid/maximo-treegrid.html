@@ -1,0 +1,34 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-treegrid">	
+	<template>
+        <maximo-collection
+            object-name="{{_osName}}"
+            id="collection"
+            attribute-names="{{_attributeNames}}"        
+            selected-query-name="{{_savedQuery}}"
+			collection-uri="{{_collectionUri}}"
+			subselects="{{_subselects}}",
+			on-record-created-bulk="_handleRecordCreatedBulkSuccess",
+			on-data-error="_handleDataError"
+			content-localized="true"
+			localized-repo="1">
+		</maximo-collection>
+
+        <maximo-schema
+			id="maxschema"
+			object-name="{{_osName}}"
+			schema="{{schema}}"
+			attribute-names="{{_attributeNames}}">
+		</maximo-schema>
+
+        <div id="main_{{_tgId}}" style$="{{style}}"></div>
+	</template>
+    
+	<script src="maximo-treegrid.js"></script>
+
+</dom-module>

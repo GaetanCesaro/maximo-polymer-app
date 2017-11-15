@@ -1,0 +1,67 @@
+[	
+	{
+			"title" : "Calendar",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "Identifies the work period for the crew. A calendar includes defined shifts. When you select a calendar value for the crew, Maximo also enters that value in the Shift field.",
+			"type" : "string",
+			"attribute" : "calnum",
+			"upperattribute" : "CALNUM",
+			"description" : "CALNUM",
+			"upperdescription" : "CALNUM",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_calnum"
+		},
+		{
+			"title" : "Contract",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "The vendor contract number for the labor rate. Contracts are defined in the Labor Rate Contract application.",
+			"type" : "string",
+			"attribute" : "contractnum",
+			"upperattribute" : "CONTRACTNUM",
+			"description" : "CONTRACTNUM",
+			"upperdescription" : "CONTRACTNUM",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_contractnum"
+		},
+		{
+			"title" : "Crew Work Group",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "The identifier of the person group that is used in the Crews applications. You define crew work groups in the Person Groups application.",
+			"type" : "string",
+			"attribute" : "crewworkgroup",
+			"upperattribute" : "CREWWORKGROUP",
+			"description" : "CREWWORKGROUP",
+			"upperdescription" : "CREWWORKGROUP",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_crewworkgroup"
+		},
+		{
+			"title" : "Description",
+			"maxLength" : 50,
+			"subType" : "ALN",
+			"remarks" : "Describes the crew. To enter or view additional information, click the Long Description button.",
+			"type" : "string",
+			"attribute" : "description",
+			"upperattribute" : "DESCRIPTION",
+			"description" : "DESCRIPTION",
+			"upperdescription" : "DESCRIPTION",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_description"
+		},
+		{
+			"title" : "End Location",
+			"maxLength" : 12,
+			"subType" : "UPPER",
+			"remarks" : "The last location in a street-level route.",
+			"type" : "string",
+			"attribute" : "endlocation",
+			"upperattribute" : "ENDLOCATION",
+			"description" : "ENDLOCATION",
+			"upperdescription" : "ENDLOCATION",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_endlocation"
+		}
+]

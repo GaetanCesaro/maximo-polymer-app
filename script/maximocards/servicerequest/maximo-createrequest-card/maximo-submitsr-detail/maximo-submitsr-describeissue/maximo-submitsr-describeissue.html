@@ -1,0 +1,32 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<link rel="import" href="../../../maximo-step-template/maximo-step-template.html">
+
+<dom-module id="maximo-submitsr-describeissue">
+	<link rel="import" href="../../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-submitsr-describeissue-css.html">
+	<style is="custom-style" include="maximo-submitsr-describeissue-css"></style>		
+	<template>
+		<maximo-step-template id="describeissue" title="{{localize('uitext', 'mxapisr', 'DescribeIssueStep')}}" type="comment" on-next-step="_goNext" on-skip-step="_skipStep" enable-buttons="">
+			<maximo-texteditor id="description" class="description_input" width="95%" maxlength="100" placeholder="{{localize('uitext', 'mxapisr', 'DescribeIssueStep')}}" on-update-value="_onUpdateValue"></maximo-texteditor>
+			<div class="descriptionWrapper" id="descriptionWrapper">
+				<div>
+					<maximo-button id="saveButton" class="saveButton" label="{{localize('uitext', 'mxapisr', 'Next')}}"easticon="maximo-based:next" on-tap="_goNext" disabled></maximo-button>
+				</div>
+			</div> 
+		</maximo-step-template>
+	</template>
+
+  <script src="maximo-submitsr-describeissue.js"></script>
+
+</dom-module>

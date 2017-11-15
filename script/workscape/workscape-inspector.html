@@ -1,0 +1,56 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../components/polymer/polymer.html" />
+<link rel="import" href="../maximocomponents/maximo-slider-container/maximo-slider-container.html">
+<link rel="import" href="../maximocards/inspection/inspector/maximo-inspector-main/maximo-inspector-main.html" />
+
+<dom-module id="workscape-inspector">	
+	<style>
+	
+		.noshrink {
+			flex-shrink: 0;
+		}
+		
+	</style>
+	<template>
+		<app-route route="{{subroute}}" pattern="/:route" data="{{subrouteData}}"></app-route>
+		<maximo-workscape id="workscape" background-color="#F9F9F9" screen-format="large" centered footer-toolbar>
+			<maximo-inspector-main id="inspectormain" class="noshrink"></maximo-inspector-main>
+		</maximo-workscape>
+	</template>
+	<script>
+		Polymer({
+		
+		    is: "workscape-inspector",
+	   		properties: {
+	   		
+		    },
+		    behaviors: [BaseComponent],
+			listeners: {
+				'createnew' : 'createnew'
+		 	},
+		    observers: [
+		        '_subRouteChanged(subrouteData.route)'
+		    ],
+		 	ready: function(){
+		 		document.body.overFlowY = 'scroll';
+		 	},
+			createnew : function(e) {
+	
+			},
+			_subRouteChanged(subRoute) {
+				if(this.subRoute !== subRoute){
+					if(subRoute !== ''){
+						//handle sub route changes here	
+					}
+					this.subRoute = subRoute;
+				}
+			}
+		
+		});
+	</script>
+</dom-module>	

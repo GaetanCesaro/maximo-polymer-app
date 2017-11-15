@@ -1,0 +1,197 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016,2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <title>maximo-inspection-tile tests</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <script src="../../../../main.js"></script>
+    <script src="../../../../test.js"></script>
+    <script src="../../../../components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../../../../components/web-component-tester/browser.js"></script>
+    <script src="../../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+    <link rel="import" href="../../../../maximocomponents/maximo-module/maximo-module.html"/>
+    <link rel="import" href="../maximo-inspection-tile.html"/>
+    <script src="mockData.js"></script>
+    
+    <style is="custom-style">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  	<maximo-module id="module"></maximo-module>
+    <test-fixture id="tileOutline">
+    	<template>
+    		<maximo-inspection-tile></maximo-inspection-tile>
+    	</template>
+    </test-fixture>
+   	<script>
+		suite('tile status', function() {
+			var tile;
+			setup(function() {
+				tile = fixture('tileOutline');
+				tile.record = mockRecord;
+				tile.formStatusSet = mockFormStatusSet;
+			});
+          
+			test('Initial state as false', function(done) {
+				
+				expect(tile.$.checkbox.checked).to.equal(false, 'using mocked data checked should be false');
+				done();
+			});
+			
+			test('Switch bool state', function(done) {
+				
+				MockInteractions.tap(tile.$.checkbox.$.checkbox);
+				expect(tile.$.checkbox.checked).to.equal(true, 'after toggle checkbox should be true');
+				
+				done();
+				
+			});
+			
+			test('Listen to event', function(done) {
+				
+				tile.addEventListener('changeStatus', function(e) {
+					console.log(e);
+					expect(e).to.be.a('event');
+					done();
+					
+				});
+				MockInteractions.tap(tile.$.checkbox.$.checkbox);
+				
+			});
+
+			test('Creating revision when record is INACTIVE ', function(done) {
+				tile.showRevisionAction(mockRecord);
+				expect(tile.hideRevision).to.equal(true,'hideRevision property should be true')
+				done();
+			});
+
+			test('Creating revision when record is ACTIVE ', function(done) {
+				tile.showRevisionAction(mockRecord_active);
+				expect(tile.hideRevision).to.equal(false,'hideRevision property should false')
+				done();
+			});
+
+			test('Test if the revision value is correct', function(done){
+				expect(tile._revision).to.equal('revision_0','revision number should be 0');
+				done();
+			});
+
+			test('Test if the revision value is correct when you set a record and call mountRevision function', function(done){
+				tile.addEventListener('revision', function(e) {
+					expect(tile._revision).to.equal('revision_02','revision number should be 2');
+					done();
+					
+				});
+				tile.record=mockRecord_active;
+				done();
+			});
+			
+			test('Listen to event create revision',function(done){
+				$M.tooltip = {
+					hidden : false,
+					hide : function(){
+						this.hidden=true;
+						console.log('hide function called');
+					}
+				};
+				tile.addEventListener('createRevision', function(e) {
+					console.log(e);
+					expect(e).to.be.a('event');
+					done();
+				});
+				MockInteractions.tap(tile.$.editOpt);
+			});
+			
+			test('Test if Duplicate a form fires a duplicate event',function(done){
+				$M.tooltip = {
+					hidden : false,
+					hide : function(){
+						this.hidden=true;
+						console.log('hide function called');
+					}
+				};
+				tile._setUndoIntervalSecs(1);
+				tile.addEventListener('duplicate', function(e) {
+					// it should get in here if duplicate works
+					console.log(e);
+					expect(e).to.be.a('event');
+					done();
+					
+				});
+				MockInteractions.tap(tile.$.copyOpt);
+			});
+
+			
+			test('Test if Delete a form fires a delete event',function(done){
+				$M.tooltip = {
+					hidden : false,
+					hide : function(){
+						this.hidden=true;
+						console.log('hide function called');
+					}
+				};
+				tile._setUndoIntervalSecs(1);
+				tile.addEventListener('delete', function(e) {
+					// it should get in here if delete works
+					console.log(e);
+					expect(e).to.be.a('event');
+					done();				
+				});
+				MockInteractions.tap(tile.$.trashOpt);
+			});
+
+		
+			test('Test if Undo (of delete form) calls undo function and clears overlay',function(done){
+				//DummyObject
+				$M.tooltip = {
+					hidden : false,
+					hide : function(){
+						this.hidden=true;
+						console.log('hide function called');
+					}
+				};
+				tile._setUndoIntervalSecs(1);
+				tile._revertDeleteOperation = function(e){
+					// should get in here if undo function is called
+					console.log('test undo function called');
+					expect($M.tooltip.hidden).to.be.true;
+					expect($j('#overlayChildtileContainer')[0]).undefined;	// is overlay gone?
+					done();
+				};
+				tile.addEventListener('delete', function(e) {
+					// it should not get in here if undo works
+					console.log(e);
+					expect(e).to.not.be.a('event');
+					done();
+
+				});
+				MockInteractions.tap(tile.$.trashOpt);
+				tile.async(function(){
+					MockInteractions.tap($j('#overlaybuttondivtileContainer')[0]);
+				},300);				
+			}); 
+		});
+    </script>
+  </body>
+</html>

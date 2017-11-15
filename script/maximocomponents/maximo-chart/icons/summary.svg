@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xml:space="preserve" style="enable-background:new 0 0 64 64;" viewBox="0 0 64 64" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<g>
+	<rect height="2" width="40" fill="currentColor" y="60" x="13"/>
+	<path d="M13,2v8v48h40V10V2H13z M51,56H15V12h36V56z" fill="currentColor"/>
+</g>
+<polygon points="42,24 25,24 25,26.2 32,33 25,40 25,42 42,42 42,40 28,40 35,33 28,26 42,26 " fill="currentColor"/>
+</svg>

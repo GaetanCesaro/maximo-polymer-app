@@ -1,0 +1,251 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-srworkcenter-css">
+	<template>
+    	<style>
+			.workscape {
+				height:100%;
+				width: 100%;
+				clear: both; 
+				border-collapse: collapse;
+			}
+			.details-card{
+				position:absolute ;
+				padding:0px;
+				background: #ffffff;
+				left: 0px;
+				width: 100%;
+				height: calc(100% - 50px);
+				border: none;
+				z-index: 1001;
+				margin: 0;
+			}
+			.headerbar, .footer {
+				z-index: 2000;
+			}
+			.flexchild {
+			    @apply(--layout-flex);
+			  }
+			 header {
+			    width: 100%;
+			    background: var(--Primary-blue80);
+			    position: fixed;
+			    top: 0;
+			    height: 50px;
+			    font-family: "HelveticaNeue-Thin";
+			}
+			
+			header, header * {
+				color: var(--Primary-white) !important;
+			}
+			.photo {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				-webkit-backface-visibility: hidden;
+				border: 1px solid #999;
+    			right: 10px;
+    			margin-top: 8px;
+				box-shadow: 1px 1px 4px #999;
+			}
+			.name, .label {
+				margin: 0px 10px;
+				display: inline-block;
+				font-weight: bold;
+			}
+			.label {
+				font-size: 120%;
+				letter-spacing: .5px;
+				line-height: 50px;
+				font-family: 'HelveticaNeue-Light' !important;
+			}
+			
+			.west .label{
+				font-size: 129%
+			}
+						
+			.name { 
+				font-family: 'HelveticaNeue-Light-Italic' !important;
+				font-size: 90%;
+    			right: 60px;
+    			top: 25px;
+    			white-space: nowrap;
+			}
+			
+			.footer .west { 
+				display: none;
+			}
+			
+			.west {
+				float: left;
+			}
+			
+			.east {
+				float: right;
+			}
+			.west.rtl {
+				float: right;
+			}
+			.east.rtl {
+				float: left;
+			}
+			.west, .east, .west div, .east div, .title, .title div {
+			    display: flex;
+	    		align-items: center;
+	    		height: 100%;
+				line-height: 1.2em;
+			}
+			
+			.title.div {
+			    font-family: 'HelveticaNeue-Thin' !important;
+    			font-size: 100%;
+			}
+			
+			.title, .west > .label, .west > .label > span {
+				white-space: nowrap;
+			}
+			
+			.user {
+				margin: 0px 10px;
+			}
+			
+			.maximo {
+				font-family: "HelveticaNeue-Bold" !important;
+				margin: 0px 10px;
+				font-size: 100%;
+				line-height: 1.2em;
+			}
+			
+			@media (min-height: 0px) and (max-height: 400px) {
+				.maximo {
+					font-size: 80%;
+				}
+				
+				.label {
+					white-space: nowrap;
+					font-size: 80%;
+				}
+			}
+			
+			@media (min-width: 0px) and (max-width: 500px) {
+				.west .label {
+					max-width: 200px;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
+					display: inline-block;
+    				line-height: 50px;
+				}
+
+				.user, .user .span * {
+					margin: 0px !important;
+				}
+								
+				.userimage {
+					display: none;
+				}
+				
+				.signout {
+					margin: 0px 5px !important;
+				}
+								
+			}
+			
+			@media (min-width: 0px) and (max-width: 700px) {
+				.headerbar .west {
+					max-width: 32px;
+				}
+				
+				.headerbar .west > div {
+					display: none !important;
+				}
+				
+				.title {
+					left: 0px;
+			    	position: absolute;
+				}
+
+				.footer .west {
+					display: inline !important;
+					line-height: 30px !important;
+					color: #fff !important;
+				}
+
+				.footer .west .label, .footer .west .maximo {
+					line-height: 30px !important;
+					color: #fff !important;
+				}
+
+				
+			}
+			
+			.signout {
+				cursor: pointer;
+    			margin: 0px 20px;
+    			padding: 2px;
+    			transform: scale(1.2);
+			}
+			
+			.signout.rtl {
+				margin: 0px 20px 0px 0px;			
+			}
+			
+			iron-icon.signout ::content svg.rtl {
+				transform: scaleX(-1.2);
+			}
+			
+			.signout:hover {
+				color: var(--Primary-blue10);
+				fill: var(--Primary-blue10);
+				border-color: var(--Primary-blue10);
+			}
+			
+			.content {
+			    padding-top: 50px;
+			    padding-bottom: 40px;
+			    vertical-align: top;
+				background: var(--Primary-white);
+			}
+		
+			.content.div {
+				height:100%;
+				width: 100%;
+				display:table;
+			}
+			.menuIcon{
+				padding:4px; height:28px; width:28px;
+			}
+			.ibmLogo{
+				width:52px; height:21px; padding:8px 8px 8px 8px;
+			}
+		
+			.horizontal-section {
+		      padding: 0 !important;
+		    }
+			iron-icon.menuIcon{
+				fill:white;
+				stroke:white;
+				padding-right : 10px;
+			} 
+			iron-icon.horiMenuIcon{
+				fill:white;
+				stroke:white;
+				
+			}
+			
+			.mainContent {
+				box-sizing: border-box;
+				width: 100%;
+				height: 100%;
+				padding-top: 50px;
+			}
+			.workcenterNoti ::content .notification ::content .notificationCell{
+			 	font-size : 14px;
+			 }
+		</style>
+	</template>
+</dom-module>

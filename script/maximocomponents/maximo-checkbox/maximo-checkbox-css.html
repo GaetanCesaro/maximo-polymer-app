@@ -1,0 +1,142 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-checkbox-css">
+	<template>
+    	<style>
+			.wrapper{
+			    display: inline-block;
+			    margin: 5px 0px;
+			}
+			
+			.checkbox {
+				border: 1px solid var(--Primary-blue50);
+			    width: 15px;
+			    height: 16px;
+			    display: inline-block;
+				background: var(--Primary-white);
+				text-align: left;
+		    	vertical-align: top;
+				margin: 0px 10px 0px 0px;
+				text-align: center;
+		    	line-height: 15px;
+				color: var(--Primary-green50);
+				cursor: pointer;
+				vertical-align: middle;
+				outline: none;
+			}
+			
+			.checkbox:focus {
+				border-color: var(--Primary-blue30);
+				background-color: var(--Primary-blue10);
+			}
+			
+			.checkbox[aria-disabled=true] {
+				background: var(--Primary-gray20);
+			}
+
+			.checkbox.rtl {
+				margin: 0px 0px 0px 10px;
+				transform: scale(-1, 1);
+			}
+			
+			.checkbox .mark {
+				display: none;
+			}
+			
+						
+			.checkbox[aria-checked=true] .mark {
+			    background-color: var(--Primary-blue50);
+				width: 11px;
+		    	height: 11px;
+		    	vertical-align: middle;
+		    	display: block !important;
+		    	margin: 3px 2px;
+			}
+						
+			.checkbox.triState:not(.applied) .mark {
+				background-color: var(--Primary-blue50);
+				width: 11px;
+		    	height: 3px;
+		    	vertical-align: middle;
+		    	display: block !important;
+		    	margin: 3px 2px;
+			    margin-top: 6px;
+			}
+						
+			.switch[aria-disabled=true] {
+				background: var(--Primary-gray30) !important;
+			}
+			
+			.switch {
+				border: 1px solid #979797;
+			    border-radius: 15px;
+			    width: 30px;
+			    height: 17px;
+			    display: inline-block;
+				background: var(--Primary-gray50);
+				text-align: left;
+		    	vertical-align: top;
+				margin: 0px 5px 0px 0px;
+				outline: none;
+			}
+
+			.switch:focus {
+				border-color: var(--Primary-blue30);
+			}
+			
+			.switch:focus .slider {
+				border-color: var(--Primary-blue30);
+			}
+			
+			.switch[checked]:not([aria-disabled=true]) {
+				background: var(--Primary-green40);
+			}
+			
+			.switch[aria-disabled=true] {
+				background: var(--Primary-gray30) !important;
+			}
+		
+			.switch.rtl {
+				margin: 0px 0px 0px 5px;
+				transform: scale(-1, 1);
+			}
+			
+			.switch .slider {
+			    border: 1px solid #979797;
+			    border-radius: 50%;
+			    width: 15px;
+			    height: 15px;
+			    display: inline-block;
+				position: relative;
+				background: var(--Primary-white);
+				transition: all .2s;
+				left: 0px;
+			}
+
+			.switch[aria-disabled] .slider {
+				background: var(--Primary-gray10) !important;
+			}
+			
+			.switch[checked] .slider {
+				left: 13px;
+			}
+			
+						
+			.switch.triState:not(.applied) .slider {
+				opacity: 0;
+			}
+			
+			.switch:focus .slider {
+				background-color: var(--Primary-blue10);
+			}
+			
+			.wrapper.readonly .label ::content label {
+				color: var(--Primary-gray50) !important;
+			}
+		</style>
+	</template>
+</dom-module>

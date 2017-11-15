@@ -1,0 +1,232 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../../handlers/handler-workorder/handler-workorder.html" />
+<link rel="import" href="../../workorder/maximo-workorderdetails/maximo-workorderdetails-card.html" />
+
+<dom-module id="maximo-openwork-card">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-openwork-card-css.html">
+	<style is="custom-style" include="maximo-openwork-card-css"></style>
+	
+	<template> 
+	
+		<maximo-resource id="wmassignmentResource" resource-uri="{{record.href}}"></maximo-resource> 
+		<maximo-resource id="workorderResource" resource-uri="{{_getWorkorderUrl(woRecordData)}}"></maximo-resource>
+		<maximo-resource id="assignmentResource" resource-uri="{{_getAssignmentUrl(assignmentRecordData)}}"></maximo-resource>
+		
+		<maximo-collection id="overduecollection"
+			attribute-names="wonum,assetnum,craft,skilllevel,scheduledate,assignment.craft.description,uxassignment.craftskill.description,location,location.description,workorderid, schedstart, schedfinish, targstartdate, status, status_description, description,estdur,assignstatus,reportdate,wopriority,worktype,asset.description,asset._imagelibref,childtask,labor.person.displayname,labor.person._imagelibref,assignmentid,assignment.scheduledate,assignment.finishdate, uxsynonymdomain.description"
+			collection-data="{{overdueCollection}}" 
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"
+			filter-data="{{woFilterData}}" 
+			object-name="MXAPIWMASSIGNMENT"
+			order-by-attribute-names="%2Bschedstart,%2Bwopriority"
+			page-size="100"
+			query-info="{{queryInfo}}"
+			schema="{{wmassignmentschema}}"
+			search-attribute-names="wopriority,asset.description,location.description,description,worktype,wonum,labor.person.displayname,scheduledate,finishdate,uxassignment.craftskill.description,assignment.craft.description,uxsynonymdomain.description,status"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name="{{selectedQueryName}}"
+			selected-record="{{selectedRecord}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			time-line-range="-10D"
+			time-line-attribute="{{overdueTimeLineAttribute}}"
+			additional-params='["internalvalues=1"]' 
+			use-search-terms="true"
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			on-dynamic-attribute-data-fetched="_showWODetails"
+			refresh-interval="300" >
+		</maximo-collection>
+		<maximo-collection id="todaycollection"
+			attribute-names="wonum,assetnum,craft,skilllevel,scheduledate,assignment.craft.description,uxassignment.craftskill.description,location,location.description,workorderid, schedstart, schedfinish, targstartdate, status, status_description, description,estdur,assignstatus,reportdate,wopriority,worktype,asset.description,asset._imagelibref,childtask,labor.person.displayname,labor.person._imagelibref,assignmentid,assignment.scheduledate,assignment.finishdate, uxsynonymdomain.description"
+			collection-data="{{todayCollection}}" 
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"
+			filter-data="{{woFilterData}}" 
+			object-name="MXAPIWMASSIGNMENT"
+			order-by-attribute-names="%2Bschedstart,%2Bwopriority"
+			page-size="100"
+			query-info="{{queryInfo}}"
+			schema="{{wmassignmentschema}}"
+			search-attribute-names="wopriority,asset.description,location.description,description,worktype,wonum,labor.person.displayname,scheduledate,finishdate,uxassignment.craftskill.description,assignment.craft.description,uxsynonymdomain.description,status"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name="{{selectedQueryName}}"
+			selected-record="{{selectedRecord}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			time-line-range="+1D"
+			time-line-attribute="{{todayTimeLineAttribute}}"
+			additional-params='["internalvalues=1"]' 
+			use-search-terms="true"
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			on-dynamic-attribute-data-fetched="_showWODetails"
+			refresh-interval="300">
+		</maximo-collection> 
+		<maximo-collection id="tomorrowcollection"
+			attribute-names="wonum,assetnum,craft,skilllevel,scheduledate,assignment.craft.description,uxassignment.craftskill.description,location,location.description,workorderid, schedstart, schedfinish, targstartdate, status, status_description, description,estdur,assignstatus,reportdate,wopriority,worktype,asset.description,asset._imagelibref,childtask,labor.person.displayname,labor.person._imagelibref,assignmentid,assignment.scheduledate,assignment.finishdate, uxsynonymdomain.description"
+			collection-data="{{tomorrowCollection}}" 
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"
+			filter-data="{{woFilterData}}" 
+			object-name="MXAPIWMASSIGNMENT"
+			order-by-attribute-names="%2Bschedstart,%2Bwopriority"
+			page-size="100"
+			query-info="{{queryInfo}}"
+			schema="{{wmassignmentschema}}"
+			search-attribute-names="wopriority,asset.description,location.description,description,worktype,wonum,labor.person.displayname,scheduledate,finishdate,uxassignment.craftskill.description,assignment.craft.description,uxsynonymdomain.description,status"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name="{{selectedQueryName}}"
+			selected-record="{{selectedRecord}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			time-line-range="+1D"
+			time-line-attribute="{{tomorrowTimeLineAttribute}}"
+			additional-params='["internalvalues=1"]' 
+			use-search-terms="true"
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			on-dynamic-attribute-data-fetched="_showWODetails"
+			refresh-interval="300">
+		</maximo-collection> 
+		<maximo-collection id="nextdayscollection"
+			attribute-names="wonum,assetnum,craft,skilllevel,scheduledate,assignment.craft.description,uxassignment.craftskill.description,location,location.description,workorderid, schedstart, schedfinish, targstartdate, status, status_description, description,estdur,assignstatus,reportdate,wopriority,worktype,asset.description,asset._imagelibref,childtask,labor.person.displayname,labor.person._imagelibref,assignmentid,assignment.scheduledate,assignment.finishdate, uxsynonymdomain.description"
+			collection-data="{{nextdaysCollection}}" 
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"
+			filter-data="{{woFilterData}}" 
+			object-name="MXAPIWMASSIGNMENT"
+			order-by-attribute-names="%2Bschedstart,%2Bwopriority"
+			page-size="100"
+			query-info="{{queryInfo}}"
+			schema="{{wmassignmentschema}}"
+			search-attribute-names="wopriority,asset.description,location.description,description,worktype,wonum,labor.person.displayname,scheduledate,finishdate,uxassignment.craftskill.description,assignment.craft.description,uxsynonymdomain.description,status"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name="{{selectedQueryName}}"
+			selected-record="{{selectedRecord}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			time-line-range="+3D"
+			time-line-attribute="{{nextdaysTimeLineAttribute}}"
+			additional-params='["internalvalues=1"]' 
+			use-search-terms="true"
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			on-dynamic-attribute-data-fetched="_showWODetails"
+			refresh-interval="300">
+		</maximo-collection> 
+		<maximo-collection id="workordercollection"
+			attribute-names="wonum,siteid" 
+			collection-data="{{woRecordData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"
+			filter-data={{filterData}} 
+			object-name="MXAPIWODETAIL"
+			selected-query-name="All"
+			selected-record="{{selectedAssignmentRecord}}" 
+			refresh-interval="300">
+		</maximo-collection>
+		<maximo-collection id="assignmentcollection"
+			attribute-names="wonum,description"
+			collection-data="{{assignmentRecordData}}" 
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"
+			filter-data={{assignmentfilterData}} 
+			object-name="MXAPIASSIGNMENT"
+			selected-query-name="All"
+			selected-record="{{selectedAssignmentRecord}}" 
+			refresh-interval="300">
+		</maximo-collection>
+
+		<maximo-panel id="maximoOpenWork" label="{{localize('uitext', 'mxapiwodetail', 'OpenAssignments')}}" headinginfo="{{currentCount}}" width="[[panelWidth]]" height="470px" collections="wmassignmentcollection"> 
+	
+			<maximo-content-selector id="contentSelector" class="horizontal center-justified layout selectedFilter" block="true">
+				<maximo-label id="maximo_openwork_label4" name="overdue" on-tap="filterCollection" label="{{localize('uitext', 'mxapiwodetail', 'Overdue')}} ({{overdueCount}})"></maximo-label>
+				<maximo-label id="maximo_openwork_label5" name="today" on-tap="filterCollection" label="{{localize('uitext', 'mxapiwodetail', 'Today')}} ({{todayCount}})"></maximo-label>
+				<maximo-label id="maximo_openwork_label6" name="tomorrow" on-tap="filterCollection" label="{{localize('uitext', 'mxapiwodetail', 'Tomorrow')}} ({{tomorrowCount}})"></maximo-label>
+				<maximo-label id="maximo_openwork_label7" name="nextdays" on-tap="filterCollection" label="{{localize('uitext', 'mxapiwodetail', 'Next3Days')}} ({{nextdaysCount}})"></maximo-label>
+			</maximo-content-selector>
+			
+			<maximo-searchbar id="maximoOpenWork_searchbar" collection="{{currentCollection}}" placeholder="{{localize('uitext', 'mxapibase', 'Search')}}"></maximo-searchbar> 
+			<maximo-norecordfound id="openwork_norecord"  collection="{{currentCollection}}" message="{{localize('uitext', 'mxapiwodetail', 'NoassignmentswerefoundIfyouexpecttohaveas')}}"></maximo-norecordfound>
+			<iron-list id="openWorkIronList" items="{{displayedCollection}}" as="workorder">
+				<template id="openworksection">
+					<div id="openworksection_innerdiv">
+						<div id="openwork_card" class="cardborder">
+							<div class="cardheader">
+								<div class="flex-equal-justified">
+									<div id="maximo_open_work_inner_div10">
+										<div id="maximo_open_work_inner_div10_worktype" style="display:inline;" hidden$="{{showWorktype(workorder)}}">
+											<maximo-label id="wodetails_section_label_worktype" class="owtypeclass" label="{{workorder.worktype}}"></maximo-label>
+										</div>
+										<maximo-label id="wodetails_section_label_wonum" label="{{workorder.wonum}}" class="ownumclass" on-tap="workOrderDetails" event="true"  icon="maximo-based:forward"></maximo-label>
+									</div>
+									<div id="maximo_open_work_inner_div20" hidden$="{{showPriority(workorder)}}" class="flex-horizontal">
+										<maximo-label id="wodetails_prioritylabel" class="owpriorityclass" label="{{localize('uitext', 'mxapiwodetail', 'Priority')}}"></maximo-label>
+										<maximo-prioritytag id="wodetails_priorityvaluetag" priority="{{workorder.wopriority}}"></maximo-prioritytag>
+									</div>
+								</div>
+							</div>
+							<div class="cardcontainer">
+								<maximo-collapsible id="collapse_Section" >
+										<div style="text-align: left;">
+											<div id="openwork_image_div" style="padding: 0px 15px; float: right;">
+												<maximo-imglib id="openwork-label-labor-image" width="85px" height="85px" image="{{workorder.asset._imagelibref}}" noimageicon="maximo-based:no-image" rounded></maximo-imglib>
+											</div>
+											<div>
+												<iron-icon id="maximo-openwork-iron-icon-clock"
+													icon="maximo-based:watch" style$="{{buildTimerStyle(workorder)}}"></iron-icon>
+												<maximo-label id="maximo_openwork_clock_description" label="{{getTimeStatus(workorder.scheduledate)}}" style$="{{buildTimerStyle(workorder)}}"></maximo-label><br>
+												
+												<div id="openwork_carddescription" class="carddescription" style$="{{cardDescription(workorder.description)}}">
+													<maximo-label id="maximo_openwork_field_description" label="{{workorder.description}}" style="font-size:110%"></maximo-label>
+												</div>
+												
+												<maximo-field id="maximo_openwork_field_curstatus"
+													label="{{localize('uitext', 'mxapiwodetail', 'CurrentStatus')}}"
+													datalabel="{{workorder.status_description}}"></maximo-field>
+												<maximo-field id="maximo_openwork_field_Asset"
+													label="{{wmassignmentschema.properties.assetnum.title}}"
+													datalabel="{{workorder.asset.description}}"></maximo-field>
+												<maximo-field id="maximo_openwork_field_location"
+													label="{{wmassignmentschema.properties.location.title}}" 
+													datalabel="{{workorder.location.description}}"></maximo-field>
+												<maximo-field id="maximo_openwork_field_craft"
+													label="{{wmassignmentschema.properties.craft.title}}"
+													datalabel="{{workorder.assignment.craft.description}}"></maximo-field>
+												<maximo-field id="maximo_openwork_field_skilllevel"
+													label="{{wmassignmentschema.properties.skilllevel.title}}"
+													datalabel="{{workorder.uxassignment.craftskill.description}}"></maximo-field>
+												<maximo-field id="maximo_openwork_field_SchedStart"
+													label="{{wmassignmentschema.properties.schedstart.title}}"
+													datalabel="{{getDateTime(workorder.assignment.scheduledate)}}"></maximo-field>
+												<maximo-field id="maximo_openwork_field_SchedFinish"
+													label="{{wmassignmentschema.properties.schedfinish.title}}"
+													datalabel="{{getDateTime(workorder.assignment.finishdate)}}"></maximo-field>
+											</div>
+										</div>
+																
+								</maximo-collapsible>
+								<hr>
+							
+								<maximo-footer id="maximo_openwork_footer">
+									<div id="worklinks" class="container flex-equal-justified">
+										<maximo-button id="maximo_openwork_label_start" hidden$="{{showStart(workorder)}}" action="true" on-tap="startAssignment" label="Start"></maximo-button>
+										<maximo-button id="maximo_openwork_label_stop" hidden$="{{showPause(workorder)}}" action="true" on-tap="interruptAssignment" label="Stop"></maximo-button>
+										<maximo-button id="maximo_openwork_label_complete" hidden$="{{showComplete(workorder)}}" action="true" on-tap="finishAssignment" label="Complete" icon="action-based:confirm"></maximo-button>
+									</div>
+								</maximo-footer>
+							</div>
+						</div>
+					</div>
+				</template>
+			</iron-list>
+		</maximo-panel>
+	</template>
+	<script src="maximo-openwork-card.js"></script>
+</dom-module>

@@ -1,0 +1,85 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			body {
+				height: auto !important;
+			}
+		</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	  	<meta name="apple-mobile-web-app-capable" content="yes" />
+		
+	  	<link rel="apple-touch-icon" href="images/lightning-icon.png">
+		<link rel="shortcut icon" href="images/lightning.ico">
+  		
+		<link href="css/main.css" rel="stylesheet">
+
+  		<script src="script/main.js"></script>
+  		<script src="script/libraries/moment.js"></script>
+  		<script src="script/libraries/jquery/jquery-2.2.0.js"></script>
+  		<script src="script/libraries/jquery/jquery-ui/jquery-ui.js"></script>
+		<script src="script/components/webcomponentsjs/webcomponents-lite.min.js"></script> 
+		<script>
+		    /* this script must run before Polymer is imported */
+		    window.Polymer = {
+		      dom: 'shady'
+		    };
+		</script> 
+	  	<link rel="import" href="script/components/polymer/polymer.html"/>
+	  	
+	  	<link rel="import" href="script/maximocomponents/_behaviors/base-component.html"/>
+	  	<link rel="import" href="script/maximocomponents/_behaviors/dragscroll-component.html"/>
+	  	<link rel="import" href="script/maximocomponents/_behaviors/arrowkey-component.html"/>
+	  	<link rel="import" href="script/maximocomponents/_behaviors/formatter.html"/>
+	  	<link rel="import" href="script/maximocomponents/_behaviors/loading-component.html"/>
+	  	<link rel="import" href="script/maximocomponents/_behaviors/table-component.html"/>
+	  	<link rel="import" href="script/maximocomponents/_behaviors/undo-behavior.html"/>
+	  	
+	  	<link rel="import" href="script/components/iron-icon/iron-icon.html">
+	  	<link rel="import" href="script/components/iron-icons/iron-icons.html">
+	  	<link rel="import" href="script/components/iron-iconset/iron-iconset.html">
+	  	
+	  	<link rel="import" href="images/svg/formatting.html"/>
+	  	<link rel="import" href="images/svg/glyphs.html"/>
+	  	<link rel="import" href="images/svg/object-based.html"/>
+	  	<link rel="import" href="images/svg/weather.html">
+	  	<link rel="import" href="images/svg/maximo-based.html">
+	  	<link rel="import" href="images/svg/action-based.html">
+	  	
+	  	<link rel="import" href="script/maximocomponents/maximo-collection/maximo-collection.html">
+	  	<link rel="import" href="script/maximocomponents/maximo-context/maximo-context.html">
+	  	<link rel="import" href="script/maximocomponents/maximo-tooltip/maximo-tooltip.html">
+	  	<link rel="import" href="script/maximocomponents/maximo-wait/maximo-wait.html">
+	  	<link rel="import" href="script/maximocomponents/maximo-notification/maximo-notification.html">
+	  	<link rel="import" href="script/maximocomponents/maximo-workscape/maximo-workscape.html">
+	    
+		<title>Maximo Asset Management - Demo</title>
+
+	</head>  
+  	<body style="overflow: hidden">
+  		<maximo-context id="maximo" demo></maximo-context>
+  		<maximo-workscape id="demo_ws" hide-header hide-footer></maximo-workscape>
+  		<maximo-tooltip id="ws_tooltip"></maximo-tooltip>
+		<maximo-wait id="WAIT"></maximo-wait>
+	</body>
+	<script>
+		document.body.style.overflow = 'auto';
+		var loadDemo = window.setInterval(function(){
+			if($M){
+				window.clearInterval(loadDemo);
+				$M.demoMode = true;
+				$M.login = $j('maximo-login')[0];
+				$M._changeWorkCenter('demo');
+			}
+		},1000);
+
+
+	</script>
+</html>

@@ -1,0 +1,43 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-label-css">
+	<template>
+    	<style>
+    		.label {
+				user-select: none;
+				-webkit-user-select: none; /* Chrome/Safari */        
+				-moz-user-select: none; /* Firefox */
+				-ms-user-select: none; /* IE10+ */
+			}
+			
+			.label[bold] {
+				font-family: HelveticaNeue-Bold;
+			}
+    	
+    		.label.event {
+    			font-size: 70%;
+		   		white-space: nowrap;
+    			overflow: hidden;
+    			text-overflow: ellipsis;
+    			display: block;
+    			max-width: 120px;
+		   	}
+		   	
+		   	.label.truncate {
+		   		text-transform: uppercase;
+		   		white-space: nowrap;
+    			overflow: hidden;
+    			text-overflow: ellipsis;
+		   	}
+		   	.icon {
+		   		width:14px;
+		   		height:14px;
+		   		padding:0px 0px 3px 3px;
+		   	}
+		</style>
+	</template>
+</dom-module>

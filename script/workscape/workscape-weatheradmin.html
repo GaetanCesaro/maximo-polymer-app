@@ -1,0 +1,138 @@
+<!--
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../components/polymer/polymer.html" />
+<link rel="import" href="../maximocards/weatheradmin/maximo-config-alerts/maximo-config-alerts.html" />
+<link rel="import" href="../maximocards/weatheradmin/maximo-weather-zone/maximo-weather-zone.html" />
+<link rel="import" href="../maximocards/weatheradmin/maximo-weather-group/maximo-weather-group.html" />
+
+
+<!-- Collection-->
+<dom-module id="workscape-weatheradmin">
+
+	<template id="template">
+		<style>
+			.icon {
+				margin: 5px;
+			}
+
+			maximo-badge {
+  				--maximo-badge-margin-left: -8px;
+  				--maximo-badge-margin-bottom: -12px;
+			}
+
+			maximo-overlay {
+				top:50px;
+				right:0px;
+				position:fixed;
+				padding:0px 15px 0px 15px;
+				background: #1D3649;
+				z-index: 2001;
+			}
+
+			.maximo-overlay-anchor {
+			    position: absolute;
+			    right: 5px;
+			    top: 42px;
+			    z-index: 2000;
+
+			}
+			
+			.west {
+				@apply(--layout-horizontal);
+				min-height:100vh;
+			}
+			
+			.fullpage {
+				width:100%;
+				overflow:auto;
+			}
+
+  		</style>
+		<app-route id="relapproute" route="{{subroute}}" pattern="/:route" data="{{subrouteData}}" tail="{{contenttail}}"></app-route>
+		<maximo-workscape id="workscape" product-name="{{localize('uitext','weatheradmin','SchedulerPlus')}}" min-panel-width="400" no-carousel="true" multiple-page >
+  			<div id="maincontent" class="west">
+				<maximo-navbar id="navbar" items="{{pages}}" on-selected="_onSelectMenu" sub-route class="fullpage">
+					<div id="weatherzone" subroute="weatherzone" class="fullpage" style="background-color:white;">
+						<maximo-weather-zone id="weatherzone" sig-options="{{sigOptions}}" contentroute="[[zonecontentroute]]"></maximo-weather-zone>
+					</div>
+					<!-- div id="weathergroup" subroute="weathergroup" class="fullpage" style="background-color:white;">
+						<maximo-weather-group id="weathergroup" sig-options="{{sigOptions}}" contentroute="[[groupcontentroute]]"></maximo-weather-group>
+					</div-->
+					<div id="config" subroute="config" class="fullpage" style="background-color:white;">
+						<maximo-config-alerts id="configalerts" sig-options="{{sigOptions}}" contentroute="[[configcontentroute]]"></maximo-config-alerts>
+					</div>
+				</maximo-navbar>
+			</div>
+		</maximo-workscape>
+	</template>
+
+<script>
+	Polymer({
+	    is: "workscape-weatheradmin",
+   		properties: {
+   			pages: {
+   				type:Array,
+   				value: [{"label":$M.localize('uitext','weatheradmin','WeatherZoneTable'),"icon":"Maximo:Flow","count":0,"subRoute":"weatherzone"},
+   						//{"label":$M.localize('uitext','weatheradmin','WeatherGroups'),"count" : 0,"subRoute":"weathergroup"},
+   				     	{"label":$M.localize('uitext','weatheradmin','Configure'),"icon":"Maximo:Manage","count":0,"subRoute":"config"}]
+   			},
+   			
+   			
+
+	    },
+	    behaviors: [BaseComponent],
+	    
+	    observers: [
+	    	'_subRouteChanged(subrouteData.route)',
+	    	'_contentTailObserver(contenttail)'
+	    ],
+	    
+		ready: function()
+		{
+		},
+		
+		_subRouteChanged: function(subRoute) {
+			if(this.subRoute !== subRoute){
+				if(subRoute !== ''){
+					for(var i=0; i< this.pages.length; i++)
+					{
+						var page = this.pages[i];
+						if(subRoute === page.subRoute)
+						{
+							this.$.navbar.selectedIndex = i;
+							break;
+						}
+					}
+				}
+				else{
+					subRoute = 'weatherzone';
+				}
+				this.subRoute = subRoute;
+			}
+		},
+		
+		_contentTailObserver: function(contenttail)
+		{
+			if(contenttail && contenttail.prefix)
+			{
+				if(contenttail.prefix.indexOf('weatherzone') !== -1)
+				{
+					this.set('zonecontentroute',contenttail);
+				}
+				else if(contenttail.prefix.indexOf('weathergroup') !== -1)
+				{
+					this.set('groupcontentroute',contenttail);
+				}
+				else if(contenttail.prefix.indexOf('config') !== -1)
+				{
+					this.set('configcontentroute',contenttail);
+				}
+			}
+		}
+		
+	});
+</script>
+</dom-module>

@@ -1,0 +1,73 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-attachments-delete-css">
+	<template>
+    	<style>
+   		.messageBox {
+   	       	position: absolute ;
+   			left : 10px;
+   			top : 10px;
+   			right : 10px;
+   			bottom : 10px;
+			width: calc(100% - 70);
+			min-width: 280px;
+			min-height: 150px;
+			max-height: 210px;
+			max-width: 350px;
+			background-color : #ffffff !important;
+			border : 1px solid var(--Primary-gray20);
+			box-sizing: border-box;
+			padding: 20px 20px 20px 20px;
+			margin: auto;
+   		}
+   		.title::content label{
+			font-size: 22px;
+			color: var(--Primary-orange50);
+		}
+		
+		.confirmMessage::content label{
+			font-size:18px;
+			word-wrap: break-word;
+		}
+
+		.buttons  ::content .button:not(.action) {
+   			border: none;
+   			text-align: center;
+   			min-width: 70px;
+   			min-height: 30px;
+   			display: block !important;
+   			background: var(--Primary-white);
+			margin : 0px 0px 0px 20px;
+			text-align: center;
+			color: var(--Primary-blue50);
+   		} 		
+ 									
+		.buttons  ::content .button:not([disabled]):hover, .button:not([disabled]):hover * {
+			color: var(--Primary-white); 
+		}
+		
+		.buttons ::content .button:not([disabled]):focus, .button:not([disabled]):focus * {
+			color: var(--Primary-white); 
+		}
+		
+		.buttons ::content .button:not([disabled]):focus { 
+			outline: none
+		}	
+		
+		.child3 {
+    		@apply(--layout-self-end);
+ 		 } 
+
+ 		 .primary ::content .button:not(.action) {
+ 		 	background: var(--Primary-blue60);
+ 		 	color: var(--Primary-white);;
+ 		 }
+  		</style>
+	</template>
+	
+	
+</dom-module>

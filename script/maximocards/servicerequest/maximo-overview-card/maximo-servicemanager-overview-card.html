@@ -1,0 +1,61 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="maximo-servicerequest-location/maximo-servicerequest-location.html" />
+
+<dom-module id="maximo-servicemanager-overview-card">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-servicemanager-overview-card-css.html">
+	<style is="custom-style" include="maximo-servicemanager-overview-card-css"></style>		
+  <template>	
+	<maximo-collection 
+			auto
+		    id="srstatusdata" 
+			attribute-names="status"
+			collection-data="{{srstatusDataForChart}}"
+			debounce-duration="600"
+			object-name="UXSR"
+			selected-query-name="All" 
+			group-by-attribute-names="status,count.*"
+			group-by-data="{{groupBystatusData}}"
+			on-groupby-data-refreshed="_handleGroupBystatusDataRefreshed"
+			on-record-data-refreshed="_handlesrstatusDataRefreshed">
+	</maximo-collection>
+	<maximo-collection 
+			auto
+		    id="srcommoditydata" 
+			attribute-names="commodity"
+			collection-data="{{srcommodityDataForChart}}"
+			debounce-duration="600"
+			object-name="UXSR"
+			selected-query-name="All" 
+			group-by-attribute-names="commodity,count.*"
+			group-by-data="{{groupBycommodityData}}"
+			on-groupby-data-refreshed="_handleGroupBycommodityDataRefreshed"
+			on-record-data-refreshed="_handlesrcommodityDataRefreshed">
+	</maximo-collection>
+	
+ 	<maximo-resource id="recordResource" resource-uri="{{createSRURL}}"></maximo-resource>
+
+	<maximo-panel id="createsr" label="{{localize('Overview')}}" width="[[panelWidth]]" height="470px">
+		
+		<maximo-chart id="srstatuschart" class="srchartclass" frameclass="cardborder" charttype="piechart" chartoptions="{{statuschartoptions}}" fulltitle="{{localize('Status')}}" values="{{chartstatusdata}}" labels="{{statuslabels}}" width="480" height="250"></maximo-chart>
+		<maximo-chart id="srcommoditychart" class="srchartclass" frameclass="cardborder" charttype="barchart" chartoptions="{{commoditychartoptions}}" fulltitle="{{localize('Commodity')}}" values="{{chartcommoditydata}}" labels="{{commoditylabels}}" width="480" height="300"></maximo-chart>
+		<maximo-servicerequest-location id="srlocation"></maximo-servicerequest-location>
+					
+		
+		
+		
+	</maximo-panel>  	
+  </template>
+
+  <script src="maximo-servicemanager-overview-card.js"></script>
+
+</dom-module>

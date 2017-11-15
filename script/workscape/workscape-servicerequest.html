@@ -1,0 +1,63 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../maximocomponents/maximo-slider-container/maximo-slider-container.html">
+<link rel="import" href="../maximocards/maximo-weather-card/maximo-weather-card.html"/>
+<link rel="import" href="../maximocards/kpi/maximo-kpi-indicator/maximo-kpi-indicator.html"/>
+
+<link rel="import" href="../maximocards/servicerequest/maximo-createsr-card/maximo-servicerequest-createsr-card.html" />
+<link rel="import" href="../maximocards/servicerequest/maximo-viewsr-card/maximo-servicerequest-viewsr-card.html" />
+<link rel="import" href="../maximocards/servicerequest/maximo-searchsol-card/maximo-servicerequest-searchsol-card.html" />
+
+<!-- Data -->
+<link rel="import" href="../maximodata/maximo-weather-data/maximo-weather-data.html"/>
+
+
+
+<dom-module id="workscape-servicerequest">
+
+	<template id="template">
+			
+		<maximo-workscape id="workscape" label="{{localize('Service Request')}}" >
+			
+			<maximo-servicerequest-createsr-card id="createsrcard"></maximo-servicerequest-createsr-card>
+ 			<maximo-servicerequest-viewsr-card id="viewsrcard" selected-query-name="SERVICEREQUEST"></maximo-servicerequest-viewsr-card>
+			<maximo-servicerequest-searchsol-card id="searchsolcard"></maximo-servicerequest-searchsol-card>
+		</maximo-workscape>
+	</template>
+
+<script>
+	Polymer({
+	    is: "workscape-servicerequest",
+   		properties: {
+   			
+	    },
+	    behaviors: [BaseComponent],
+
+		ready: function()
+		{
+		
+		},
+		
+		_handleRecordDataRefreshed: function()
+		{
+		
+		},
+		
+		_showUserDetails: function()
+		{
+			
+		},
+		
+		_selectedQueryNameChanged : function()
+		{
+			
+		},
+		attached: function(){
+			
+		}
+});
+</script>
+</dom-module>	

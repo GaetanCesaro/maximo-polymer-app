@@ -1,0 +1,57 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../_behaviors/dynamic-component.html"/>
+      
+<dom-module id="maximo-dialog">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-dialog-css.html">
+	<style is="custom-style" include="maximo-dialog-css"></style>
+	
+	<template>
+		<div id="underlay" class="underlay" on-tap="_stopTap">&nbsp;</div>
+		<div id="wrapper" class="wrapper">
+			<div class="border" id="border">
+				<table role="dialog" tabindex="0" id="dialog" class="dialog" data-style="true">
+					<tr style="height:30px">
+						<td id="header" class="header">
+							<h2 id="title">
+								<span class="dialogBackButton" id="dialogBackButton" on-click="cancel" style="display:none;" title="{{localize('uitext','mxapibase','Back')}}">
+									<iron-icon class="back" id="backicon" width="30px" height="30px" icon='arrow-back'></iron-icon>
+								</span>
+								<span id="title" class="title">{{title}}</span>
+								<span class="dialogCloseButton" id="dialogCloseButton" on-click="cancel" title="{{localize('uitext','mxapibase','Close')}}">
+									<iron-icon class="close" id="icon" width="30px" height="30px" icon='close' style="fill: #fff"></iron-icon>
+								</span>
+							</h2>
+							<hr id="divider"></hr>
+						</td>
+					</tr>
+					<tr>
+						<td class="inner">
+							<div id="internal" class="internal" tabindex="0">
+								<!--  this is where dialog content will be placed	 -->
+							</div>
+						</td>
+					</tr>
+					<tr id="footerRow" style="height:30px">
+						<td id="footer" class="footer">
+							<footer>&nbsp;</footer>
+						</td>
+					</tr>
+	 			</table>
+	 		</div>	
+		</div>
+	</template>
+
+	<script src="maximo-dialog.js"></script>
+
+</dom-module>

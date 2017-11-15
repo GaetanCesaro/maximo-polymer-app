@@ -1,0 +1,126 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<link rel="import" href="../maximo-searchasset-card/maximo-searchasset-card.html" />
+	
+<dom-module id="maximo-servicerequest-createsr-card">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+
+
+	<link rel="import" href="maximo-servicerequest-createsr-card-css.html">
+	<style is="custom-style" include="maximo-servicerequest-createsr-card-css"></style>		
+  <template>
+  	<maximo-collection id="csrcollection" 
+  		auto
+		object-name="MXAPISR" 
+		on-record-created="_handleRecordCreationSuccess"
+		on-record-creation-failed="_handleRecordCreationFailure"
+		on-attachment-created="_handleAttachmentCreationSuccess">
+	</maximo-collection>
+
+	
+ 	<maximo-resource id="recordResource" resource-uri="{{createSRURL}}"></maximo-resource>
+
+	<maximo-panel id="createsr" label="{{localize('Create & Overview')}}" width="350px" height="470px">
+		<div class="cardborder">
+			<div class="cardheader">
+				<div class="flex-equal-justified">
+					<div class="leftalignedtext">
+						<maximo-label id="sr_create" label="{{localize('Create Service Request')}}"></maximo-label>
+					</div>
+					<div class="flex-vertical">
+						<div class="rightaligntext">
+							<maximo-button id="createsrbutton" action="true" on-tap="togglesrInput" icon="action-based:add-new"></maximo-button>	
+						</div>
+					</div>
+				</div>
+			</div>
+			<iron-collapse id="srinputcollapse">
+			<div class="cardcontainer">
+				<div class="inputheading">
+					<maximo-label label="{{localize('Summary & Detail')}}"></maximo-label>
+				</div>
+				<div class="inputcontent">
+					<maximo-text id="summary" class="editsummary" placeholder="{{localize('Input Summary')}}"></maximo-text>
+					<maximo-texteditor id="details" class="editdetail" placeholder="{{localize('Input Details')}}" rows="8"></maximo-texteditor>
+				</div>
+			
+				<div class="inputheading" on-tap="togglepriorityInput">
+					<maximo-label label="{{localize('Select Reported Priority')}}"></maximo-label>
+				</div>
+				<iron-collapse id="priorityinputcollapse">
+					<div class="inputcontent">
+						<div class="reportedprioritySection flex-equal-around-justified" style="padding-top:20px;">
+							<div id="reportedprioritySelectionList" class="flex-equal-around-justified">
+								<span on-click="_selectLowReportedPriority"><label style="color: #6d7777"><input type="radio" name="toggle" >{{localize('Low')}}</label></span>
+								<span on-click="_selectMediumReportedPriority"><label style="color: #00b4a0"><input type="radio" name="toggle" >{{localize('Medium')}}</label></span>
+								<span on-click="_selectHighReportedPriority"><label style="color: #fdd600"><input type="radio" name="toggle" >{{localize('High')}}</label></span>
+								<span on-click="_selectUrgentReportedPriority"><label style="color: #e71d32"><input type="radio" name="toggle" >{{localize('Urgent')}}</label></span>
+							</div> 
+						</div>
+					</div>		
+				</iron-collapse>
+				<div class="inputheading" on-tap="toggleassetInput">
+					<maximo-label label="{{localize('Select Asset ')}}"></maximo-label>
+				</div>
+				<iron-collapse id="assetinputcollapse">
+				<div class="cardcontainer">
+					<div class="inputcontent">
+						<maximo-text id="assetnum"  value="{{assetrecord.assetnum}}" placeholder="{{localize('Input AssetNum')}}"></maximo-text>
+						<maximo-label id="assetdescription" label="{{assetrecord.description}}"></maximo-label>
+						<maximo-button id="button" label="{{localize('Search')}}" on-tap="showAsset" asynchronous="false" default></maximo-button>
+						
+					</div>	
+				</div>
+				</iron-collapse>				
+				
+				<div id="div3" class="inputheading" on-tap="toggleattachmentInput">
+					<maximo-label label="{{localize('Add Attachment')}}"></maximo-label>
+				</div>
+				<iron-collapse id="attachmentinputcollapse">
+					<div class="inputcontent">
+						<maximo-attachfile on-selectfiles="_handleFileSelction" value="{{emptyValue}}">
+							<maximo-button id="attachicon" class="icon" icon="formatting:attachment" action="true"></maximo-button>
+						</maximo-attachfile>
+				
+			
+						<iron-collapse id="srattachments" class="attachmentSection" >
+							<!--div class="attachmentTitle" >Supporting Artifacts</div-->
+							<div class="recordRowMoreOptionsAttachments">
+								<template is="dom-repeat" items="{{attachmentFiles}}">
+									<div class="imageRow">
+										<div class="imageRemoveSection">
+											<div class="imageRemove" hidden$="{{!item.enableAttachmentRemoveAction}}">
+												<paper-icon-button icon="clear" on-click="_handleRemoveAttachment"></paper-icon-button>
+											</div>
+										</div>
+										<div class="imageThumbnail" >
+											<img class="attachmentImage" file$="[[item.file]]" src$="[[item.src]]"  on-click="_showImageView"/>
+										</div>
+										<paper-button raised class="attachmentRemoveButton" on-click="_handleRemoveAttachment"><iron-icon icon="clear"></iron-icon>Remove</paper-button>
+									</div>
+								</template>
+							</div>
+						</iron-collapse> 
+					</div>
+				</iron-collapse>
+				<br>
+				<maximo-button id="button" label="{{localize('Create')}}" on-tap="createSR" asynchronous="false" default></maximo-button>
+			</div>
+		</iron-collapse>
+	</div>
+		
+	</maximo-panel>  	
+  </template>
+
+  <script src="maximo-servicerequest-createsr-card.js"></script>
+
+</dom-module>

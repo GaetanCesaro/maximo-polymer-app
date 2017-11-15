@@ -1,0 +1,28 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../maximo-authcontext/maximo-authcontext.html">
+
+<!--
+`<maximo-systeminfo>` element. Fetches and displays system information. 
+-->
+
+<dom-module id="maximo-systeminfo">
+  <template>
+		<iron-ajax
+			id="mxajaxSystemInfo"
+		    handle-as="json"
+		    on-response="_processSystemInfoResponse"
+		    on-error="_processSystemInfoResponseError" 
+		    with-credentials></iron-ajax>
+
+    <maximo-authcontext id="myauthenticator"></maximo-authcontext>
+  </template>
+</dom-module>
+
+
+<script src="maximo-systeminfo.js"></script>

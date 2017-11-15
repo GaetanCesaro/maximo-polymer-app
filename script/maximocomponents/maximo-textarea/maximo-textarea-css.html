@@ -1,0 +1,49 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-textarea-css">
+	<template>
+    	<style>
+    		.wrapper {
+    			margin: 0px;
+    			display: inline-block;
+    		}
+    		
+    		textarea {
+    			padding: 10px 3px;
+    			transition: all .5s;
+    			border: 1px solid var(--Cool-gray30);
+    			outline: none;
+    			margin-bottom: 3px;
+    			text-align: left;
+    			overflow-y:auto;
+    			background-color: var(--Primary-white);
+    			display: inline-block;
+    			box-sizing: border-box;
+    		}
+
+    		textarea:focus {
+    			border-color: var(--Primary-blue30);
+    		}
+
+    		textarea[readonly]{
+				background: var(--Neutral-gray2);
+    		}
+
+    		label {
+				color: var(--Primary-gray50);
+				display: block;	
+    		}
+    		
+    		label[required]:before {
+    			content: '* ';
+    			font-size: 110%;
+    			color : orange;
+    		}
+
+		</style>
+	</template>
+</dom-module>

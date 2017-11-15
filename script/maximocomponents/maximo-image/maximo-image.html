@@ -1,0 +1,23 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-image">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-image-css.html">
+	<style is="custom-style" include="maximo-image-css"></style>
+	
+	<template>
+  		<img id="{{id}}" src="{{src}}" width$="{{width}}" height$="{{height}}" draggable="false"/>
+	</template>
+
+	<script src="maximo-image.js"></script>
+
+</dom-module>

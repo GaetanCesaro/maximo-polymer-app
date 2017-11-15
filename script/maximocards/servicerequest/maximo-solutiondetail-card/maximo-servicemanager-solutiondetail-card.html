@@ -1,0 +1,72 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-servicemanager-solutiondetail-card">
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-servicemanager-solutiondetail-card-css.html">
+	<style is="custom-style" include="maximo-servicemanager-solutiondetail-card-css"></style>	
+  	
+  	<template id="maximo_solutiondetail_dialog">
+  		<maximo-resource id="recordResource" resource-uri="{{record.href}}"></maximo-resource>
+
+	    <button class="heading" aria-controls="collapse1" onclick="toggle('#collapse1')">{{localize('Solution')}}</button>	
+	    <iron-collapse id="collapse1" tabindex="0" opened="true">
+	      <div class="content">
+	        <label>{{record.solution}}</label>
+	      </div>
+	    </iron-collapse>
+	    
+	    <button class="heading" aria-controls="collapse1" onclick="toggle('#collapse2')">{{localize('Type')}}</button>	
+	    <iron-collapse id="collapse2" tabindex="0" opened="true">
+	      <div class="content">
+	        <label>{{record.type}}</label>
+	      </div>
+	    </iron-collapse>
+
+			
+	    <button class="heading" aria-controls="collapse1" onclick="toggle('#collapse3')">{{localize('Description')}}</button>	
+	    <iron-collapse id="collapse3" tabindex="0" opened="true">
+	      <div class="content">
+	        <label>{{record.description}}</label>
+	      </div>
+	    </iron-collapse>
+
+	    <button class="heading" aria-controls="collapse1" onclick="toggle('#collapse4')">{{localize('Classification')}}</button>	
+	    <iron-collapse id="collapse4" tabindex="0" opened="true">
+	      <div class="content">
+	        <label>{{record.classstructure.description}}</label>
+	      </div>
+	    </iron-collapse>
+			
+	    <button class="heading" aria-controls="collapse1" onclick="toggle('#collapse5')">{{localize('Symptom')}}</button>	
+	    <iron-collapse id="collapse5" tabindex="0" opened="true">
+	      <div class="content">
+			<maximo-htmlfield datalabel="{{record.problemcode_longdescription}}"></maximo-htmlfield>
+	      </div>
+	    </iron-collapse>
+
+	    <button class="heading" aria-controls="collapse1" onclick="toggle('#collapse6')">{{localize('Causes')}}</button>	
+	    <iron-collapse id="collapse6" tabindex="0" opened="true">
+	      <div class="content">
+			<maximo-htmlfield datalabel="{{record.fr1code_longdescription}}"></maximo-htmlfield>
+	      </div>
+	    </iron-collapse>
+
+	    <button class="heading" aria-controls="collapse1" onclick="toggle('#collapse7')">{{localize('Resolution')}}</button>	
+	    <iron-collapse id="collapse7" tabindex="0" opened="true">
+	      <div class="content">
+			<maximo-htmlfield datalabel="{{record.fr2code_longdescription}}"></maximo-htmlfield>
+	      </div>
+	    </iron-collapse>
+							
+		<maximo-footer id="footer">
+		 	<maximo-button id="solutiondetail_footer_Cancel" label="{{localize('Close')}}" on-tap="close"></maximo-button>
+	  	</maximo-footer>	
+  	</template>
+	<script src="maximo-servicemanager-solutiondetail-card.js"></script>
+</dom-module>

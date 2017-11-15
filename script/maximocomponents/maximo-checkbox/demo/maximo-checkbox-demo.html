@@ -1,0 +1,130 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-checkbox-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<link rel="import" href="../../maximo-label/maximo-label.html"/>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+  		<div class="outer">
+
+	
+			<div class="demo-section">
+				<div class="demo-header">Default checkbox</div>
+				<maximo-checkbox id="checkbox4"  label="yes"></maximo-checkbox>
+				<div class="code">
+  					<xmp><maximo-checkbox id="checkbox4"  label="unChecked" ></maximo-checkbox></xmp>
+  				</div>
+			</div>
+					
+			<div class="demo-section">
+				<div class="demo-header">Default checkbox - checked</div>
+				<maximo-checkbox id="checkbox5"  label="checked" checked ></maximo-checkbox>
+				<div class="code">
+  					<xmp><maximo-checkbox id="checkbox5"  label="checked" checked ></maximo-checkbox></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<div class="demo-header">Default checkbox - readonly</div>
+				<maximo-checkbox id="checkbox6"  label="unChecked_ro" readonly></maximo-checkbox>
+				<div class="code">
+  					<xmp><maximo-checkbox id="checkbox6"  label="unChecked_ro" readonly></maximo-checkbox></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<div class="demo-header">Default checkbox - checked and readonly</div>
+				<maximo-checkbox id="checkbox7"  label="checked_ro" checked readonly></maximo-checkbox>
+				<div class="code">
+  					<xmp><maximo-checkbox id="checkbox7"  label="checked_ro" checked readonly></maximo-checkbox></xmp>
+  				</div>
+			</div>
+			
+			<div class="demo-section">
+				<div class="demo-header">Default checkbox - tri-state</div>
+				<maximo-checkbox id="checkbox_ts"  label="unChecked" tri-state ></maximo-checkbox>
+				<div class="code">
+  					<xmp><maximo-checkbox id="checkbox"  label="unChecked" tri-state></maximo-checkbox></xmp>
+  				</div>
+			</div>
+			
+			
+			<div class="demo-section">
+				<div class="demo-header">Default checkbox - slider</div>
+				<maximo-checkbox id="checkbox"  label="unChecked" slider ></maximo-checkbox>
+				<div class="code">
+  					<xmp><maximo-checkbox id="checkbox"  label="unChecked" slider ></maximo-checkbox></xmp>
+  				</div>
+			</div>
+			
+			<div class="demo-section">
+				<div class="demo-header">Default checkbox - slider with responsive label</div><br>
+				Is Checked?<br>
+				<maximo-checkbox id="checkboxa" label="yes" label-false="no" slider ></maximo-checkbox>
+				<div class="code">
+					Is Checked?
+  					<xmp><maximo-checkbox id="checkboxa"  label="yes" label-false="no" slider ></maximo-checkbox></xmp>
+  				</div>
+			</div>
+			
+			<div class="demo-section">
+				<div class="demo-header">Default checkbox - slider and checked</div>
+				<maximo-checkbox id="checkbox1" label="Checked"  slider checked ></maximo-checkbox>
+				<div class="code">
+  					<xmp><maximo-checkbox id="checkbox1" label="Checked"  slider checked ></maximo-checkbox></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<div class="demo-header">Default checkbox - slider and readonly</div>
+				<maximo-checkbox id="checkbox2" label="unChecked_ro"  slider readonly></maximo-checkbox>
+				<div class="code">
+  					<xmp><maximo-checkbox id="checkbox2" label="unChecked_ro"  slider readonly></maximo-checkbox></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<div class="demo-header">Default checkbox - slider, checked and readonly</div>
+				<maximo-checkbox id="checkbox3" label="Checked_ro" checked  slider readonly></maximo-checkbox>
+				<div class="code">
+  					<xmp><maximo-checkbox id="checkbox3" label="Checked_ro" checked  slider readonly></maximo-checkbox></xmp>
+  				</div>
+			</div>
+			
+			<div class="demo-section">
+				<div class="demo-header">Slider - tri-state</div>
+				<maximo-checkbox id="checkbox_ts"  label="unChecked" slider tri-state ></maximo-checkbox>
+				<div class="code">
+  					<xmp><maximo-checkbox id="checkbox"  label="unChecked" slider tri-state></maximo-checkbox></xmp>
+  				</div>
+			</div>
+			
+			
+			
+  		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-checkbox-demo',
+			behaviors: [BaseComponent],
+			listeners: {
+				'_handleRecordDataRefreshed' : '_handleRecordDataRefreshed'
+			},
+			properties: {
+			},
+			ready: function(){
+				$j('body').css({'background': '#efefef','text-align':'center'});
+			},
+			_handleRecordDataRefreshed: function(){
+				
+		    }
+		});
+	</script>
+</dom-module>

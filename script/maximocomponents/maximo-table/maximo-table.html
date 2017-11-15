@@ -1,0 +1,103 @@
+<!--
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-table">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-table-css.html">
+	<style is="custom-style" include="maximo-table-css"></style>
+
+	<template>
+		<div class="wrapper" style="width: {{width}}">
+			<table id="table" summary="{{summary}}">
+				<colgroup>
+					<template is="dom-repeat" items="{{_displayColumns}}" as="col"/>
+						<col style="width:{{_getColWidth(col)}}"/>
+					</template>
+				</colgroup>
+				<thead id="header">
+					<tr>
+						<template is="dom-repeat" items="{{_displayColumns}}" as="column"/>
+							<th valign="bottom" aria-sort$={{column.sortType}} style$="white-space: nowrap;max-width: [[maxColWidth]];{{_isCursorPointer(column)}};" title="{{_getColumnTitle(column)}}" on-tap="_headerClicked" data-args="{{column}}">
+								{{column.title}}
+								<!--Determines if we should display the sort icons-->
+								<span hidden$={{!_isColumnSortable(column.sortable)}}>
+									<!-- TODO: aria-sort:ascending/descending/none -->
+									<!-- We need to pass in the _displayColumns parameter because this lets polymer know that we depend on changes to that property -->
+										<iron-icon id="sortIcon" icon$="{{sortType(column, _displayColumns)}}" data-args="{{column}}"></iron-icon>
+								</span>
+							</th>
+						</template>
+
+						<template is="dom-if" if="{{_hasActions(actions)}}">
+							<th valign="bottom" title="Actions" style$="white-space: nowrap;max-width: [[maxColWidth]];" title="{{_getColumnTitle(actions.header)}}">
+								<!-- remove this title once done -->
+								Actions
+							</th>
+						</template>
+					</tr>
+				</thead>
+				<tbody id="body" style="max-height: {{maxHeight}}">
+					<template id="rowRepeat" is="dom-repeat" items="{{items}}" as="record"/>
+						<tr  id="tablerow_[[index]]" aria-selected$="{{_isSelected(index)}}" tabindex$="{{_tabIndex(index)}}" on-keypress="_keyHandler" on-keyup="_arrowKeyHandler" on-tap="_rowTapHandler">
+							<template is="dom-repeat" items="{{_displayColumns}}" as="datacolumn"/>
+								<td title="{{_getTitle(record,datacolumn)}}" style$="white-space: {{whiteSpace}};">
+										<div style="white-space: {{whiteSpace}};overflow: hidden;">{{_getData(record,datacolumn)}}</div>
+								</td>
+							</template>
+
+							<!-- Check for the presence of actions for this table. If actions are present, display them.
+						-->
+							<template is="dom-if" if="{{_hasActions(actions)}}">
+								<td>
+									<div style="white-space: {{whiteSpace}};overflow: hidden;">
+								<!-- Loop through all possible actions and display each one appropriately-->
+									<template is="dom-repeat" items="{{actions.list}}" as="action"/>
+											<!--If the action has an icon, we render an icon. data-args is required for retrieving the record for some reason. -->
+											<template is="dom-if" if="{{!_actionHasIcon(action)}}">
+												<maximo-button label="{{_getActionLabel(action,record)}}" on-tap="tableActionClicked" data-args="{{record}}" default></maximo-button>
+											</template>
+
+											<!-- TODO: check if we can convert buttons to icons -->
+
+											<!--If the action has no icon, we render a button-->
+											<template is="dom-if" if="{{_actionHasIcon(action)}}">
+												<maximo-button icon="{{action.icon}}" title="{{action.label}}" synchronous action on-tap="tableActionClicked" data-args="{{record}}"></maximo-button>
+											</template>
+										</template>
+									</div>
+								</td>
+
+							</template>
+
+						</tr>
+					</template>
+					<template is="dom-if" if="{{_loading}}">
+						<tr class="stopHover">
+							<td id="info" class="info">
+								{{localize('uitext','mxapibase','Loading')}}
+							</td>
+						</tr>
+					</template>
+					<template is="dom-if" if="{{_noRecords}}">
+						<tr class="stopHover">
+							<td id="info" class="info">
+								{{localize('uitext','mxapibase','NoRecords')}}
+							</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+		</div>
+	</template>
+	<script src="maximo-table.js"></script>
+
+</dom-module>

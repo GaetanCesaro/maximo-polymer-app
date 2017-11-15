@@ -1,0 +1,168 @@
+@import url("../Material/Grid.css");
+
+@font-face { font-family: 'HelveticaNeue'; font-size: '14px'; color: '#464646' }
+
+.GMABodyLeft,.GMABodyMid,.GMABodyRight { border-top:1px solid #e0e0e0; }
+.GMAFootLeft,.GMAFootMid,.GMAFootRight { border-top:1px solid #e0e0e0; }
+.GMAHeadLeft,.GMABodyLeft,.GMAFootLeft { border-right: none }
+
+.GMACell,.GMACellPanel,.GMACellFilter,.GMACellFilterPanel,.GMACellHeader,.GMACellHeaderPanel,.GMACellHeaderEmpty,.GMACellUser,.GMACellEmpty {
+   border-bottom:1px solid #e0e0e0; border-top:0px none;
+   vertical-align:middle; overflow:hidden; overflow:auto!IE; height:30px;
+   border-right: none; border-left: none;
+ }
+
+.GMACellBorder,.GMACellHeaderBorder {
+ border-left:2px solid transparent; border-top:2px solid transparent;
+}
+
+.GMAText,.GMALines,.GMAInt,.GMAFloat,.GMADate,.GMAPass,.GMAImg,.GMALink,.GMARadio,.GMAEnum,.GMAButton,.GMAHtml,.GMAIcon,.GMAAbs,.GMAList,.GMAUser,.GMAFile {
+      font-family:HelveticaNeue;
+      font-size:14px;
+      color: black;
+      white-space:nowrap;
+}
+
+.GMAHeaderText { font-family: HelveticaNeue-Bold; font-size:14px; color:#464646; padding:5px 2px; display: table-cell; text-align: left; vertical-align: middle; border-radius: 2px;}
+
+.GMAHeaderButton { padding:3px 0px 2px 0px; }
+
+.GMAPanelSelect {
+  background: url(maximo/Check-box-inactive.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 5px;
+  background-position: none;
+}
+
+.GMAPanelSelectOn {
+  background: url(maximo/Check-box-active.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 5px;
+  background-position: none;
+}
+
+.GMASort0Right {
+  background: url(maximo/static.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.GMASort1Right {
+  background: url(maximo/Ascending.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+ }
+
+.GMASort4Right {
+  background: url(maximo/Descending.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.GMAColorSelected { background-color:#c0e6ff; }  /* Selected row or cell */
+
+.GMAColorCellMenu { background-color:#FA0; }     /* The cell showing cell popup Menu */
+
+.GMAColorHovered { background-color:#E0E0E0; }   /* Row under mouse cursor, used only if the hovered cell or row has HoverRow["Color"]*/
+
+.GMAColorHoveredCell { background-color:#e0e0e0; }     /* Standard cell */
+
+.GMAColorHoveredCellReadOnly {
+  background-color:#FFFFFF;
+} /* Cell with CanEdit='0' */
+
+.GMAColorFocused { background-color:#c0e6ff; }               /* Focused row, used only if the focused cell or row has FocusRow["Color"] */
+
+.GMAHoverCellBorder { z-index:3; padding:1px; border:none; background: none;}
+
+.GMAFocusRowBackground { opacity:0.1; filter:alpha(opacity=10); background: none;}
+.GMAFocusRowBorder { z-index:2; border:1px solid black;}
+
+.GMAFocusCellBorder { z-index:4; border:2px solid #4B8400; }
+
+.GMAEditCellInput { position:relative; border:1px solid #BBB; overflow:visible; z-index:50; background-color:#fff; line-height:0px; font-size:16px; }
+
+.GMAEditCellInput input { height: 40px; min-width: 100px; overflow: visible; padding-left: 15px; padding-right: 15px; padding-bottom: 0; margin-top: -4px; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); border-top: 1px solid rgba(0,0,0,0.25); border-left: 1px solid rgba(0,0,0,0.25); outline:none; position: relative; z-index: 53; border-bottom: 3px solid #4178be; }
+
+.GMAFilter1 {
+  background: url(maximo/Check-box-active.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: none;
+}
+
+.GMAFilter0 {
+  background: url(maximo/Check-box-inactive.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: none;
+}
+
+.GMAFilter0Left,.GMAFilter1Left,.GMAFilter2Left,.GMAFilter3Left,.GMAFilter4Left,.GMAFilter5Left,.GMAFilter6Left,
+.GMAFilter7Left,.GMAFilter8Left,.GMAFilter9Left,.GMAFilter10Left,.GMAFilter11Left,.GMAFilter12Left  {
+    background-repeat:no-repeat;
+    background-position: left 0;
+    background-position-y: center;
+    background-size: 14px 14px;
+   }
+
+.GMAFilter0Menu,.GMAFilter1Menu,.GMAFilter2Menu,.GMAFilter3Menu,.GMAFilter4Menu,.GMAFilter5Menu,.GMAFilter6Menu,
+.GMAFilter7Menu,.GMAFilter8Menu,.GMAFilter9Menu,.GMAFilter10Menu,.GMAFilter11Menu,.GMAFilter12Menu {
+    background-repeat:no-repeat;
+    background-position: left 0;
+    background-position-y: center;
+    background-size: 14px 14px;
+  }
+
+  .GMAFilter0Left {background-image: url(maximo/filter/reset-filter.png);} 
+  .GMAFilter0Menu {background-image: url(maximo/filter/reset-filter.png);} 
+  .GMAFilter1Left {background-image: url(maximo/filter/equal-to.png);} 
+  .GMAFilter1Menu {     background-image: url(maximo/filter/equal-to.png);  } 
+
+  .GMAFilter2Left {    background-image: url(maximo/filter/not-equal-to.png);  } 
+  .GMAFilter2Menu {     background-image: url(maximo/filter/not-equal-to.png);  }
+
+  .GMAFilter3Left {    background-image: url(maximo/filter/less-than.png);  } 
+  .GMAFilter3Menu {     background-image: url(maximo/filter/less-than.png);  }  
+
+  .GMAFilter4Left {    background-image: url(maximo/filter/less-than-or-equal.png);  } 
+  .GMAFilter4Menu {     background-image: url(maximo/filter/less-than-or-equal.png);  }  
+
+  .GMAFilter5Left {    background-image: url(maximo/filter/greater-than.png);  } 
+  .GMAFilter5Menu {     background-image: url(maximo/filter/greater-than.png);  } 
+
+  .GMAFilter6Left {    background-image: url(maximo/filter/greater-than-or-equal.png);  } 
+  .GMAFilter6Menu {     background-image: url(maximo/filter/greater-than-or-equal.png);  } 
+
+  .GMAFilter7Left {    background-image: url(maximo/filter/starts-with.png);  } 
+  .GMAFilter7Menu {     background-image: url(maximo/filter/starts-with.png);  } 
+
+  .GMAFilter9Left {    background-image: url(maximo/filter/ends-with.png);  } 
+  .GMAFilter9Menu {     background-image: url(maximo/filter/ends-with.png);  } 
+
+  .GMAFilter11Left {    background-image: url(maximo/filter/contains.png);  } 
+  .GMAFilter11Menu {     background-image: url(maximo/filter/contains.png);  } 
+
+.GMAToolSave { background-image: url(maximo/save.png); background-size: 24px 21px;}
+
+.GMAToolReload { background-image: url(maximo/refresh.png); background-size: 24px 21px; }
+
+.GMAToolUndo { background-image: url(maximo/reset-disabled.png); background-size: 24px 21px; background-position: 0;}
+
+.GMAToolUndo1 { background-image: url(maximo/reset.png); background-size: 24px 21px; background-position: 0;} 
+
+.GMAVScroll { padding-top:1px; padding-bottom:1px; border-left:0px; overflow:hidden; }
+
+.GMASpaceWidthInner { display: none; }
+
+.GMAToolbarRow { background: none; border-top: none; }    /* Bottom standalone toolbar */
+
+.GMADateRight, .GMADatesRight, .GMADefaultsRight, .GMAEnumRight, .GMACollapseRight, .GOExpandRight {  
+    background-image: url(maximo/filter/calendar.png);
+    background-size: 15px 15px;
+    background-position: 0;
+  } 
+
+.GMAToolAlignSingle { padding-left:34px; background-position: left;}

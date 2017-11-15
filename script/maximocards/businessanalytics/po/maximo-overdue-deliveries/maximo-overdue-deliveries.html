@@ -1,0 +1,34 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->      
+<dom-module id="maximo-overdue-deliveries">
+
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-overdue-deliveries-css.html">
+	<style is="custom-style" include="maximo-overdue-deliveries-css"></style>
+	
+  <template>
+	<maximo-collection 
+			auto
+		    id="podata" 
+			attribute-names="*"
+			collection-data="{{poData}}"
+			debounce-duration="600"
+			object-name="MXAPIPO"
+			selected-query-name="uxoverduedel" 
+			group-by-attribute-names="vendor,count.*"
+			group-by-data="{{groupByData}}"
+			on-groupby-data-refreshed="_handleGroupByDataRefreshed"
+			on-record-data-refreshed="_handlePoDataRefreshed">
+	</maximo-collection>	
+		<maximo-chart id="chart" frameclass="cardborder" charttype="piechart" allowedtypes="barchart,linechart,piechart" abouttext="The chart displays vendor past due deliveries grouped by vendor.  The values are calculated by summing the number of approved purchased orders where the current date is after the PO required date." chartoptions="{{chartoptions}}" fulltitle="{{localize('Supplier Deliveries Not Completed to Plan')}}" values="{{chartdata}}" labels="{{labels}}" width="540" height="200" hovertemplates="{{hovertemplates}}"></maximo-chart>	
+  </template>
+  <script src="maximo-overdue-deliveries.js"></script>
+</dom-module>

@@ -1,0 +1,442 @@
+[
+		{
+			"title" : "Crew",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris maximus nec arcu ac consectetur. Nulla nec justo at diam pretium vehicula sed a sem. Suspendisse efficitur placerat leo, non vehicula risus ornare a. Aenean aliquet egestas nisl ut feugiat. Vestibulum vitae odio vestibulum, sodales eros in, rutrum urna. Duis a nunc tempor, tristique felis nec, vulputate eros. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi sed elit eleifend, rutrum leo aliquam, tristique erat. Mauris ac elit tempus, bibendum mi id, tincidunt arcu. Mauris laoreet augue in lectus rutrum, eu vestibulum metus condimentum.",
+			"type" : "string",
+			"attribute" : "amcrew",
+			"upperattribute" : "AMCREW",
+			"description" : "AMCREW",
+			"upperdescription" : "AMCREW",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_amcrew"
+		},
+		{
+			"title" : "Unique Id",
+			"subType" : "BIGINT",
+			"remarks" : "Unique Id",
+			"type" : "integer",
+			"attribute" : "amcrewid",
+			"upperattribute" : "AMCREWID",
+			"description" : "AMCREWID",
+			"upperdescription" : "AMCREWID",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_amcrewid"
+		},
+		{
+			"items" : {
+				"definition" : {
+					"subSchema" : {
+						"$ref" : "http://192.168.1.68:7001/maximo/oslc/jsonschemas/rep_amcrew/amcrewlabor"
+					}
+				},
+				"type" : "object"
+			},
+			"representationType" : "http://open-services.net/ns/core#Inline",
+			"relation" : "AMCREWLABOR",
+			"type" : "array",
+			"attribute" : "amcrewlabor",
+			"upperattribute" : "AMCREWLABOR",
+			"description" : "AMCREWLABOR",
+			"upperdescription" : "AMCREWLABOR",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_amcrewlabor"
+		},
+		{
+			"items" : {
+				"definition" : {
+					"subSchema" : {
+						"$ref" : "http://192.168.1.68:7001/maximo/oslc/jsonschemas/rep_amcrew/amcrewlabpos"
+					}
+				},
+				"type" : "object"
+			},
+			"representationType" : "http://open-services.net/ns/core#Inline",
+			"relation" : "AMCREWLABPOS",
+			"type" : "array",
+			"attribute" : "amcrewlabpos",
+			"upperattribute" : "AMCREWLABPOS",
+			"description" : "AMCREWLABPOS",
+			"upperdescription" : "AMCREWLABPOS",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_amcrewlabpos"
+		},
+		{
+			"items" : {
+				"definition" : {
+					"subSchema" : {
+						"$ref" : "http://192.168.1.68:7001/maximo/oslc/jsonschemas/rep_amcrew/amcrewqual"
+					}
+				},
+				"type" : "object"
+			},
+			"representationType" : "http://open-services.net/ns/core#Inline",
+			"relation" : "AMCREWQUAL",
+			"type" : "array",
+			"attribute" : "amcrewqual",
+			"upperattribute" : "AMCREWQUAL",
+			"description" : "AMCREWQUAL",
+			"upperdescription" : "AMCREWQUAL",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_amcrewqual"
+		},
+		{
+			"items" : {
+				"definition" : {
+					"subSchema" : {
+						"$ref" : "http://192.168.1.68:7001/maximo/oslc/jsonschemas/rep_amcrew/amcrewtool"
+					}
+				},
+				"type" : "object"
+			},
+			"representationType" : "http://open-services.net/ns/core#Inline",
+			"relation" : "AMCREWTOOL",
+			"type" : "array",
+			"attribute" : "amcrewtool",
+			"upperattribute" : "AMCREWTOOL",
+			"description" : "AMCREWTOOL",
+			"upperdescription" : "AMCREWTOOL",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_amcrewtool"
+		},
+		{
+			"items" : {
+				"definition" : {
+					"subSchema" : {
+						"$ref" : "http://192.168.1.68:7001/maximo/oslc/jsonschemas/rep_amcrew/amcrewtoolsq"
+					}
+				},
+				"type" : "object"
+			},
+			"representationType" : "http://open-services.net/ns/core#Inline",
+			"relation" : "AMCREWTOOLSQ",
+			"type" : "array",
+			"attribute" : "amcrewtoolsq",
+			"upperattribute" : "AMCREWTOOLSQ",
+			"description" : "AMCREWTOOLSQ",
+			"upperdescription" : "AMCREWTOOLSQ",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_amcrewtoolsq"
+		},
+		{
+			"title" : "Crew Type",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "Identifies the crews type. The crew type defines the crafts, qualifications, and tools that must comprise the crew.",
+			"type" : "string",
+			"attribute" : "amcrewtype",
+			"upperattribute" : "AMCREWTYPE",
+			"description" : "AMCREWTYPE",
+			"upperdescription" : "AMCREWTYPE",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_amcrewtype"
+		},
+		{
+			"items" : {
+				"definition" : {
+					"subSchema" : {
+						"$ref" : "http://192.168.1.68:7001/maximo/oslc/jsonschemas/rep_amcrew/amcrewworkzone"
+					}
+				},
+				"type" : "object"
+			},
+			"representationType" : "http://open-services.net/ns/core#Inline",
+			"relation" : "AMCREWWORKZONE",
+			"type" : "array",
+			"attribute" : "amcrewworkzone",
+			"upperattribute" : "AMCREWWORKZONE",
+			"description" : "AMCREWWORKZONE",
+			"upperdescription" : "AMCREWWORKZONE",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_amcrewworkzone"
+		},
+		{
+			"title" : "Calendar",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "Identifies the work period for the crew. A calendar includes defined shifts. When you select a calendar value for the crew, Maximo also enters that value in the Shift field.",
+			"type" : "string",
+			"attribute" : "calnum",
+			"upperattribute" : "CALNUM",
+			"description" : "CALNUM",
+			"upperdescription" : "CALNUM",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_calnum"
+		},
+		{
+			"title" : "Contract",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "The vendor contract number for the labor rate. Contracts are defined in the Labor Rate Contract application.",
+			"type" : "string",
+			"attribute" : "contractnum",
+			"upperattribute" : "CONTRACTNUM",
+			"description" : "CONTRACTNUM",
+			"upperdescription" : "CONTRACTNUM",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_contractnum"
+		},
+		{
+			"title" : "Crew Work Group",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "The identifier of the person group that is used in the Crews applications. You define crew work groups in the Person Groups application.",
+			"type" : "string",
+			"attribute" : "crewworkgroup",
+			"upperattribute" : "CREWWORKGROUP",
+			"description" : "CREWWORKGROUP",
+			"upperdescription" : "CREWWORKGROUP",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_crewworkgroup"
+		},
+		{
+			"title" : "Description",
+			"maxLength" : 50,
+			"subType" : "ALN",
+			"remarks" : "Describes the crew. To enter or view additional information, click the Long Description button.",
+			"type" : "string",
+			"attribute" : "description",
+			"upperattribute" : "DESCRIPTION",
+			"description" : "DESCRIPTION",
+			"upperdescription" : "DESCRIPTION",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_description"
+		},
+		{
+			"title" : "End Location",
+			"maxLength" : 12,
+			"subType" : "UPPER",
+			"remarks" : "The last location in a street-level route.",
+			"type" : "string",
+			"attribute" : "endlocation",
+			"upperattribute" : "ENDLOCATION",
+			"description" : "ENDLOCATION",
+			"upperdescription" : "ENDLOCATION",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_endlocation"
+		},
+		{
+			"title" : "End Location Site Id",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "Start Location SiteId",
+			"type" : "string",
+			"attribute" : "endlocsiteid",
+			"upperattribute" : "ENDLOCSITEID",
+			"description" : "ENDLOCSITEID",
+			"upperdescription" : "ENDLOCSITEID",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_endlocsiteid"
+		},
+		{
+			"title" : "Save Location with Work Order",
+			"default" : false,
+			"subType" : "YORN",
+			"remarks" : "If the audit history is enabled, and you select the Use Labor Location checkbox, the labor location is stored with the work order data in the LBSLOCATION table. To enable the audit history, configure the Database Configuration application.",
+			"type" : "boolean",
+			"attribute" : "lbsdatafromwo",
+			"upperattribute" : "LBSDATAFROMWO",
+			"description" : "LBSDATAFROMWO",
+			"upperdescription" : "LBSDATAFROMWO",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_lbsdatafromwo"
+		},
+		{
+			"title" : "Location Refresh (in seconds)",
+			"subType" : "INTEGER",
+			"remarks" : "The interval to refresh the location of a labor or a crew. For example, if you enter 5, the GPS location is refreshed every five seconds.",
+			"type" : "integer",
+			"attribute" : "lbsinterval",
+			"upperattribute" : "LBSINTERVAL",
+			"description" : "LBSINTERVAL",
+			"upperdescription" : "LBSINTERVAL",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_lbsinterval"
+		},
+		{
+			"title" : "Use Labor Location",
+			"default" : true,
+			"subType" : "YORN",
+			"remarks" : "Determines whether the location is based on one of the labors on the crew and not on other factors, such as the location of the GPS in the truck.",
+			"type" : "boolean",
+			"attribute" : "lbslaborbased",
+			"upperattribute" : "LBSLABORBASED",
+			"description" : "LBSLABORBASED",
+			"upperdescription" : "LBSLABORBASED",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_lbslaborbased"
+		},
+		{
+			"items" : {
+				"definition" : {
+					"subSchema" : {
+						"$ref" : "http://192.168.1.68:7001/maximo/oslc/jsonschemas/rep_amcrew/lbslocation"
+					}
+				},
+				"type" : "object"
+			},
+			"representationType" : "http://open-services.net/ns/core#Inline",
+			"relation" : "LBSLOCATION",
+			"type" : "array",
+			"attribute" : "lbslocation",
+			"upperattribute" : "LBSLOCATION",
+			"description" : "LBSLOCATION",
+			"upperdescription" : "LBSLOCATION",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_lbslocation"
+		},
+		{
+			"scale" : 2,
+			"title" : "Override Hourly Rate",
+			"subType" : "AMOUNT",
+			"remarks" : "Specifies the rate for the crew and overrides the hourly rate. The override hourly rate takes priority over the hourly rate.",
+			"type" : "number",
+			"attribute" : "orate",
+			"upperattribute" : "ORATE",
+			"description" : "ORATE",
+			"upperdescription" : "ORATE",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_orate"
+		},
+		{
+			"title" : "Organization",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "Organization to which the crew belongs.The default value is the organization associated with the users insert site.",
+			"type" : "string",
+			"attribute" : "orgid",
+			"upperattribute" : "ORGID",
+			"description" : "ORGID",
+			"upperdescription" : "ORGID",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_orgid"
+		},
+		{
+			"scale" : 2,
+			"title" : "Hourly Rate",
+			"subType" : "AMOUNT",
+			"remarks" : "The sum of the individual labor rates plus the asset rates that are assigned to the crew.",
+			"type" : "number",
+			"attribute" : "rate",
+			"upperattribute" : "RATE",
+			"description" : "RATE",
+			"upperdescription" : "RATE",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_rate"
+		},
+		{
+			"title" : "Revision",
+			"subType" : "INTEGER",
+			"remarks" : "Contract Revision Number",
+			"type" : "integer",
+			"attribute" : "revisionnum",
+			"upperattribute" : "REVISIONNUM",
+			"description" : "REVISIONNUM",
+			"upperdescription" : "REVISIONNUM",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_revisionnum"
+		},
+		{
+			"title" : "Shift",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "Identifies the crews shift. When you select a calendar value for the crew, Maximo also enters that value in the Shift field.",
+			"type" : "string",
+			"attribute" : "shiftnum",
+			"upperattribute" : "SHIFTNUM",
+			"description" : "SHIFTNUM",
+			"upperdescription" : "SHIFTNUM",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_shiftnum"
+		},
+		{
+			"title" : "Start Location",
+			"maxLength" : 12,
+			"subType" : "UPPER",
+			"remarks" : "The first location in a street-level route.",
+			"type" : "string",
+			"attribute" : "startlocation",
+			"upperattribute" : "STARTLOCATION",
+			"description" : "STARTLOCATION",
+			"upperdescription" : "STARTLOCATION",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_startlocation"
+		},
+		{
+			"title" : "Start Location Site Id",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "Start Location SiteId",
+			"type" : "string",
+			"attribute" : "startlocsiteid",
+			"upperattribute" : "STARTLOCSITEID",
+			"description" : "STARTLOCSITEID",
+			"upperdescription" : "STARTLOCSITEID",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_startlocsiteid"
+		},
+		{
+			"title" : "Status",
+			"maxLength" : 12,
+			"subType" : "UPPER",
+			"remarks" : "The current status of the crew. When you create a crew, its default status is Active.",
+			"type" : "string",
+			"attribute" : "status",
+			"upperattribute" : "STATUS",
+			"description" : "STATUS",
+			"upperdescription" : "STATUS",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_status"
+		},
+		{
+			"title" : "Status Date",
+			"maxLength" : 10,
+			"subType" : "DATETIME",
+			"remarks" : "Date the status was last changed.",
+			"type" : "string",
+			"attribute" : "statusdate",
+			"upperattribute" : "STATUSDATE",
+			"description" : "STATUSDATE",
+			"upperdescription" : "STATUSDATE",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_statusdate"
+		},
+		{
+			"title" : "Vendor",
+			"maxLength" : 12,
+			"subType" : "UPPER",
+			"remarks" : "Vendor",
+			"type" : "string",
+			"attribute" : "vendor",
+			"upperattribute" : "VENDOR",
+			"description" : "VENDOR",
+			"upperdescription" : "VENDOR",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_vendor"
+		},
+		{
+			"title" : "Work Location",
+			"maxLength" : 12,
+			"subType" : "UPPER",
+			"remarks" : "The location where this labor code works. The work location may be used to select a labor code for work order assignments. This locations internal labor account is used to set the GL Control Account on all crafts for this labor that are not associated with a vendor. The GL Control Account, in turn, is used as the credit GL account for the labor transaction.",
+			"type" : "string",
+			"attribute" : "worklocation",
+			"upperattribute" : "WORKLOCATION",
+			"description" : "WORKLOCATION",
+			"upperdescription" : "WORKLOCATION",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_worklocation"
+		}, {
+			"title" : "Work Site",
+			"maxLength" : 8,
+			"subType" : "UPPER",
+			"remarks" : "The site where this labor code works.",
+			"type" : "string",
+			"attribute" : "worksite",
+			"upperattribute" : "WORKSITE",
+			"description" : "WORKSITE",
+			"upperdescription" : "WORKSITE",
+			"visible" : true,
+			"href" : "REP_AMCREW_AMCREW_worksite"
+		} ]

@@ -1,0 +1,44 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->      
+<dom-module id="maximo-asset-classification">
+
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-asset-classification-css.html">
+	<style is="custom-style" include="maximo-asset-classification-css"></style>
+	
+  <template>
+	<maximo-collection 
+			auto
+		    id="assetdata1" 
+			attribute-names="assetnum,priority"
+			collection-data="{{assetdata1}}"
+			debounce-duration="600"
+			object-name="MXAPIASSET"
+			selected-query-name="uxclassnull" 
+			on-record-data-refreshed="_handleAssetDataRefreshed1">
+	</maximo-collection>	
+	<maximo-collection 
+			auto
+		    id="assetdata2" 
+			attribute-names="assetnum,priority"
+			collection-data="{{assetdata2}}"
+			debounce-duration="600"
+			object-name="MXAPIASSET"
+			group-by-attribute-names="priority,count.*"
+			group-by-data="{{groupByData2}}"
+			on-groupby-data-refreshed="_handleGroupByDataRefreshed2"
+			on-record-data-refreshed="_handleAssetDataRefreshed2">
+	</maximo-collection>
+		<maximo-chart id="chart" frameclass="cardborder" charttype="barchart" allowedtypes="barchart,linechart,piechart" abouttext="{{localize('uitext', 'mxapipo', 'AssetsWithNoClass')}}" chartoptions="{{chartoptions}}" fulltitle="{{localize('uitext', 'mxapipo', 'AssetsWithNoClass')}}" values="{{chartdata}}" labels="{{labels}}" width="540" height="200" hovertemplates="{{hovertemplates}}"></maximo-chart>
+  </template>
+  <script src="maximo-asset-classification.js"></script>
+</dom-module>

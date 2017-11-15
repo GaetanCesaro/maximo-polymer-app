@@ -1,0 +1,102 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+ -->
+<dom-module id="maximo-tooltip-css">
+  <template>
+    <style>
+    
+    	:host {
+    		--tooltip-color: var(--Primary-blue10);
+    	}
+    
+ 		.tooltip {
+ 			background: var(--tooltip-color);
+ 			padding: 15px;
+ 			font-family: "HelveticaNeue-Light";
+ 			transition: opacity .3s;
+ 			opacity: 0;
+ 			display: inline-block;
+ 			position: absolute;
+ 			z-index: 25000;
+ 			min-width: 200px;
+ 			max-width: 300px;
+ 			color: var(--Primary-gray70);
+ 			cursor: default;
+ 			top: -1000px;
+ 			overflow-x: hidden;
+ 		}
+
+		.tooltip * ::content label {
+			word-break: break-word;
+		}
+
+ 		.tooltip .pointer {
+ 		    content: " ";
+		    width: 15px;
+		    height: 15px;
+ 			position: absolute;
+ 		    pointer-events: none;
+ 		    background-color: var(--tooltip-color);
+ 		    transform: rotate(45deg);
+ 		}
+ 		
+ 		.tooltip .pointer {
+ 			display: initial;
+ 		}
+ 		
+ /* east */
+ 		.tooltip.east {
+ 		    border-right: 8px solid #5596e6;
+ 	    	box-shadow: -1px 0px 2px 1px rgba(0,0,0,0.21), 1px 0px 2px 1px rgba(0,0,0,0.21);
+ 		}
+
+ 		.tooltip.east .pointer {
+ 		    left: -8px;
+ 			top: calc(50% - 7.5px);
+ 	    	box-shadow: -2px 2px 2px 0px rgba(0,0,0,0.21);
+ 		}
+
+ /* north  */
+ 		.tooltip.north {
+ 		    border-top: 8px solid #5596e6;
+ 	    	box-shadow: -1px 0px 2px 1px rgba(0,0,0,0.21), 1px 0px 2px 1px rgba(0,0,0,0.21);
+ 		}
+
+ 		.tooltip.north .pointer {
+ 		    left: 50%;
+ 	    	top: calc(100% - 7px);
+ 			box-shadow: -2px 2px 2px 0px rgba(0,0,0,0.21);
+ 	    	transform: rotate(-45deg);
+ 		}
+ 		
+ 		
+/* west */ 		
+ 		.tooltip.west {
+ 		    border-left: 8px solid #5596e6;
+ 	    	box-shadow: -1px 0px 2px 1px rgba(0,0,0,0.21), 1px 0px 2px 1px rgba(0,0,0,0.21);
+ 		}
+
+ 		.tooltip.west .pointer {
+ 		    left: calc(100% - 8px);
+ 			top: calc(50% - 7.5px);
+ 	    	box-shadow: 3px -2px 1px 0px rgba(0,0,0,0.21);
+ 		}
+
+/* south */
+ 		.tooltip.south {
+ 		    border-bottom: 8px solid #5596e6;
+ 	    	box-shadow: -1px 0px 2px 1px rgba(0,0,0,0.21), 1px 0px 2px 1px rgba(0,0,0,0.21);
+ 		}
+
+ 		.tooltip.south .pointer {
+ 			top: calc(50% - 7.5px);
+ 	    	top: -7px;
+ 			box-shadow: -2px 2px 2px 0px rgba(0,0,0,0.21);
+ 	    	transform: rotate(135deg);
+ 		}
+    </style>
+  </template>
+</dom-module>

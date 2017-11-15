@@ -1,0 +1,91 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-image-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+  		
+		<div class="outer">
+			.png image file:<br><br>
+			
+			<div class="code">
+			<xmp><maximo-image id="image1" src="dataFolder/ibmLogoDark.png"></maximo-image></xmp>
+			</div>
+			<br><br>
+			<div class="image">
+			<maximo-image id="image1" src="data/ibmLogoDark.png"></maximo-image>
+			</div>
+  		</div>
+  		
+  		
+  		<div class="outer">
+			animated .gif image file:<br><br>
+			
+			<div class="code">
+			<xmp><maximo-image id="image2" src="dataFolderName/bee.gif"></maximo-image></xmp>
+			</div>
+			<br><br>
+			<div class="image">
+			<maximo-image id="image2" src="data/bee.gif"></maximo-image>
+			</div>
+  		</div>
+ 
+  		
+   		
+ <div class="outer">
+  			.jpg image file:<br><br>
+  			<div class="code">
+  <xmp><maximo-image id="image2" src="dataFolderName/ibmLogo.jpg"></maximo-image></xmp>
+     		</div>
+     		<br><br>
+     		<div class="image">	
+  			<maximo-image id="image3" src="data/ibmLogo.jpg"></maximo-image><br><br>
+  			</div>
+  			
+  			resized width:<br><br>
+  			<div class="code">
+  <xmp><maximo-image id="image4" src="dataFolderName/ibmLogo.jpg width="200px"> </maximo-image></xmp>
+     		</div>
+     		<br><br>
+     		<div class="image">
+  			<maximo-image id="image4" src="data/ibmLogo.jpg" width="200px"></maximo-image> 200px<br>  			
+  			<maximo-image id="image5" src="data/ibmLogo.jpg" width="100px"></maximo-image> 100px<br>
+  			<maximo-image id="image5" src="data/ibmLogo.jpg" width="50px"></maximo-image> 50px<br>
+  			<maximo-image id="image5" src="data/ibmLogo.jpg" width="25px"></maximo-image> 25px
+  			</div>
+</div>
+  		
+  		
+	</template>
+	<script>
+		Polymer({
+	is: 'maximo-image-demo',
+  	behaviors: [BaseComponent],
+	properties : {
+		src: {
+			type: String
+		},
+		width: {
+			type: String
+		},
+		height: {
+			type: String
+		}
+	},
+  	created : function(){
+  		
+  	},
+  	ready : function(){
+  		
+  	},
+  	attached: function(){
+  		
+  	},
+});
+	</script>
+</dom-module>

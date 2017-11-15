@@ -1,0 +1,92 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<link rel="import" href="../../behaviors/question-groups.html" />
+
+<dom-module id="maximo-inspector-container">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspector-container-css.html">
+	<style is="custom-style" include="maximo-inspector-container-css"></style>		
+	
+	<link rel="import" href="../maximo-inspector-execution/maximo-inspector-execution.html" />
+	
+	<template>
+	
+		<div id="shell" class="shell">
+		
+			<div id="leftPanel" class="lPanel">
+			
+				<div id="instructionDialog" class="instruction hiddenContent" >
+					<div class="layout vertical innerInstruction">
+						<maximo-label id="inspInstrLabel" label="[[inspform.name]]"></maximo-label>
+						<hr/>
+						<maximo-label id="inspInstrLabel" label="[[objectType]]:"></maximo-label>
+						<maximo-label id="inspInstrLabel" label="[[objectDescription]]" style="margin-bottom: 15px;"></maximo-label>
+						<maximo-label id="inspInstrLabel" label="[[localize('uitext','mxapiinspresult','instructions')]]:" hidden$="[[!hasInstruction]]"></maximo-label>
+						<maximo-htmlfield id="inspectorInstructions" class="instructions" datalabel="[[inspform.description_longdescription]]" hidden$="[[!hasInstruction]]"></maximo-htmlfield>
+						<maximo-button id="closeInstructionDialog" align="center" label="[[localize('uitext','mxapibase','Ok')]]" on-tap="closeDialog" default ></maximo-button>
+					</div>
+				</div>
+				<div id="header" class="headerPanel">
+					<div id="title" class="title">
+						<maximo-label id="title" label="[[inspform.name]]" ellipsis-size="25"></maximo-label>
+						<maximo-button action="true" id="showInfo" class="darkBgLink" synchronous tabindex="0" on-tap="_showInfo" icon="action-based:get-information"></maximo-button>
+					</div>
+					<div class="subtitle">
+						<maximo-label id="title" label="[[localize('uitext','mxapiinspresult','hide_optional')]]"></maximo-label>
+						<div>
+							<maximo-label id="checkboxLabel" label="[[hideOptional]]" style="margin-right: 10px;"></maximo-label>
+							<maximo-checkbox id="checkbox" on-change="checkboxChanged" slider></maximo-checkbox>
+						</div>
+					</div>
+				</div>
+				
+				<div id="content" class="content">
+					<maximo-content-selector id="questionSelector" class="horizontal center-justified" block="true">		
+						<maximo-label id="allOption" intvalue="1" name="all" on-tap="selectTab" label="{{localize('uitext', 'mxapiinspresult', 'all')}}"></maximo-label>
+						<maximo-label id="incompleteOption" intvalue="2" name="incomplete" on-tap="selectTab" label="{{localize('uitext', 'mxapiinspresult', 'incomplete')}}"></maximo-label>
+						<maximo-label id="completeOption" intvalue="3" name="complete" on-tap="selectTab" label="{{localize('uitext', 'mxapiinspresult', 'completed')}}"></maximo-label>
+					</maximo-content-selector>
+					<div class="list">
+						<maximo-datalist id="questionlist" class="datalist" display-attributes="listdesc" 
+							icon-attribute="_icon" items="[[dataListQuestions]]" child-attribute="children"  
+							width="100%" height="initial" select-event="chooseQuestion" stop-initial-selection maintain-user-changes ></maximo-datalist>
+					</div>
+				</div>
+				
+				<div id="footer" class="bottomPanel">
+					<div>
+						<div class="progressLabel">
+							<maximo-label id="completeCounterLabel" label="[[progress.completed]]/[[progress.total]] [[localize('uitext','mxapiinspresult','total')]]" hidden$="[[allRequired]]"></maximo-label>
+							<label hidden$="[[hideDivisor]]">&nbsp;&nbsp;&#9679;&nbsp;&nbsp;</label>
+							<maximo-label id="requiredCounterLabel" label="[[progress.reqcompleted]]/[[progress.reqtotal]] [[localize('uitext','mxapiinspection','required')]]" hidden$="[[nonRequired]]"></maximo-label>
+						</div>
+						<div style="background-color: white;">
+							<maximo-progress id="progressBar" class="inspectionProgress" min="0" max="[[progress.total]]" value="[[progress.completed]]"></maximo-progress>
+						</div>	
+					</div>
+					<div id="buttonsWrapper" class="buttonsWrapper">
+						<maximo-button id="exitButton" class="darkBgLink" label="[[localize('uitext','mxapiinspresult','exit_inspection')]]" icon="chevron-left" on-tap="exitExecution" action></maximo-button>
+						<maximo-button id="completeButton" label="[[localize('uitext','mxapibase','done')]]" hidden$="[[isCompleted]]" icon="Maximo:Confirm" easticon="chevron-right" on-tap="done" default ></maximo-button>
+					</div>
+				</div>
+			</div>
+			
+			<div id="rightPanel" class="rPanel fadeout">
+				<maximo-inspector-execution id="execution" name="execution" questions="{{questions}}" record="[[recordResult]]" ></maximo-inspector-execution>
+		   </div>
+		</div>
+		
+	</template>
+	<script src="maximo-inspector-container.js"></script>
+
+</dom-module>

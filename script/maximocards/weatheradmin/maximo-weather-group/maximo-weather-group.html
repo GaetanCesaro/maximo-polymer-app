@@ -1,0 +1,80 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016,2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<link rel="import" href="../../../components/polymer/polymer.html"/>
+<link rel="import" href="../../../maximocomponents/_behaviors/base-component.html"/>
+<link rel="import" href="../maximo-weather-group/maximo-weather-add-group/maximo-weather-add-group.html" />
+
+<dom-module id="maximo-weather-group">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+  <link rel="import" href="maximo-weather-group-css.html">
+  <style is="custom-style" include="maximo-weather-group-css"></style>
+
+  <template>
+    <maximo-collection
+      id="weathergroup"
+      attribute-names="*"
+      order-by-attribute-names="%2Bgroupname"
+      page-size="50"
+      debounce-duration="600"
+	  order-by-attribute-names="{{collectionOrderBy}}"
+      object-name="MXAPIWEATHERGROUP"
+      use-search-terms="true"
+      on-record-data-refreshed="_handleRecordDataRefreshed"
+      collection-data="{{recordData}}"
+      schema="{{schema}}">
+    </maximo-collection>
+
+    <maximo-resource id="dataresource" resource-uri="{{href}}"></maximo-resource>
+
+    <div id="main" class="main">
+      <div>
+        <span id="section_title" class="title">{{localize('uitext','weatheradmin','WeatherGroup')}}</span>
+      </div>
+
+    </div>
+
+	    <!-- div style="text-align: right;">
+    		<maximo-button id="addWeatherGroup" label="{{localize('uitext','weatheradmin','AddWeatherGroup')}}" icon="icons:add" on-tap="_openAddWeatherGroupDialog"></maximo-button>
+	    	<maximo-button id="save" label="{{localize('uitext','mxapibase','Save')}}" on-tap="_save" icon="Maximo:Save" default="true"></maximo-button>
+  		</div-->
+		<!-- maximo-table id="grouptable" items={{recordData}} columns={{columns}} actions={{actions}} max-height="500px" collection-order-by={{collectionOrderBy}} summary="GroupTable"></maximo-table-->
+		<maximo-table-editable id="weatherGroupTable" select-on collection="{{getLocalObject('weathergroup')}}" summary="GroupTable" filter-row>
+			<maximo-table-actions>
+    			<maximo-button id="addWeatherGroup" label="{{localize('uitext','weatheradmin','AddWeatherGroup')}}" icon="icons:add" on-tap="_openAddWeatherGroupDialog"></maximo-button>
+	    		<maximo-button id="save" label="{{localize('uitext','mxapibase','Save')}}" on-tap="_save" icon="Maximo:Save" default="true"></maximo-button>
+			</maximo-table-actions>
+			<maximo-table-body>
+				<maximo-table-column data-attribute=groupname></maximo-table-column>
+				<maximo-table-column data-attribute="description"></maximo-table-column>
+				<maximo-table-column actions>
+					<maximo-button id="weatherGroupTable_edit" title="{{localize('uitext','mxapibase','Edit')}}" action synchronous table-tap='table-row-edit' icon="Maximo:Edit"></maximo-button>
+					<maximo-button id="weatherGroupTable_delete" title="{{localize('uitext','mxapibase','Delete')}}" action synchronous table-tap='table-row-delete' icon="Maximo:Trash"></maximo-button>
+				</maximo-table-column>
+			</maximo-table-body>
+		</maximo-table-editable>
+		
+		<!--div class="flex-horizontal flex-center-justified">
+			<maximo-simple-paginator id="perlsPaginator" page-num=[[pageNum]] total-pages=[[totalPages]] style="margin-top:10px"></maximo-simple-paginator>
+		</div-->
+
+  </template>
+
+  <script src="maximo-weather-group.js"></script>
+</dom-module>

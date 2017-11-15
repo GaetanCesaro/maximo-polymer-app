@@ -1,0 +1,83 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<!--
+`<maximo-link>` element. Consumes mxapiextlink service 
+from maximo to check link availability before showing it. 
+
+Example:
+
+    <maximo-link></maximo-link>
+
+-->
+<dom-module id="maximo-link">
+
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-link-css.html">
+	<style is="custom-style" include="maximo-link-css"></style>
+	
+	<template>
+		
+		<maximo-collection 
+		    id="extlink" 
+			attribute-names="*"
+			collection-data="{{externalLinkCollection}}"
+			debounce-duration="600"
+			object-name="MXAPIEXTLINK"
+			selected-query-name="All"
+			key-search-attribute-name="name"
+			key-search = "{{linkName}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed" >
+		</maximo-collection>
+		
+		<iron-ajax
+			id="mxajaxCfg"
+		    handle-as="json"
+		    on-response="_handleConfigFile"
+		    on-error="_handleConfigError"
+		    debounce-duration="300"
+		    with-credentials>
+		</iron-ajax>
+		
+		<!-- Deprecated -->
+		<!-- 
+		<iron-ajax
+    		id="configRequester"
+    		url="../../ext-link-config.json"
+    		handle-as="json"
+    		on-response="_handleConfigFile"
+    		on-error="_handleConfigError"
+    		debounce-duration="300"></iron-ajax>
+    		
+    	<iron-ajax
+    		auto 
+			id="async"
+    		url="/maximo/oslc/evaluateextlink/{{linkName}}"
+    		on-response="_handleResponse"
+    		on-error="_handleError"
+    		debounce-duration="300"></iron-ajax>
+    		
+		-->
+    		
+    	<div class="container" hidden$="[[isLinkHidden]]">
+    		<label>{{preLabel}}</label>
+			<a id="link" href="{{url}}" target="_blank">
+				<iron-icon id="icon" class="icon" icon="{{icon}}"></iron-icon>
+				{{label}}
+			</a>
+			<label>{{postLabel}}</label>
+		</div>
+	</template>
+	
+	<script src="maximo-link.js"></script>
+	
+</dom-module>

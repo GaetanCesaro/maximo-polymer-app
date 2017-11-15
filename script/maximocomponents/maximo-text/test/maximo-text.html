@@ -1,0 +1,167 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-text tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<script src="../../../main.js"></script>
+		<script src="../../../test.js"></script>
+		<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+		<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="text0">
+			<template>
+  				<maximo-text id="testText0" label="Without initial value" placeholder="no initial value" width="500px"></maximo-text>
+			</template>
+		</test-fixture>
+		<test-fixture id="text1">
+			<template>
+  				<maximo-text id="testText1" label="With initial value" value="testText Initial Value" width="500px"></maximo-text>
+			</template>
+		</test-fixture>
+		<test-fixture id="text2">
+			<template>
+  				<maximo-text id="testText2" label="readonly" readonly value="testText Readonly" width="500px"></maximo-text>
+			</template>
+		</test-fixture>
+		<test-fixture id="text3">
+			<template>
+  				<maximo-text id="testText3" label="Required, has value" required="true" value="testText Required" width="500px"></maximo-text>
+			</template>
+		</test-fixture>
+		<test-fixture id="text4">
+			<template>
+  				<maximo-text id="testText4" label="Required, has no value" required="true" width="500px"></maximo-text>
+			</template>
+		</test-fixture>
+		<test-fixture id="text5">
+			<template>
+  				<maximo-text id="testText5" label="Password" type="password" value="testText Password" width="500px"></maximo-text>
+			</template>
+		</test-fixture>
+		<test-fixture id="text6">
+			<template>
+  				<maximo-text id="testText6" value="testText Password" width="500px"></maximo-text>
+			</template>
+		</test-fixture>
+		<test-fixture id="text7">
+			<template>
+  				<maximo-text id="testText7" width="500px"></maximo-text>
+			</template>
+		</test-fixture>
+<script>
+suite('<maximo-text>', function() {
+	var text0, text1, text2, text3, text4, text5,text6,text7;
+	setup(function() {
+		text0 = fixture('text0');
+		text1 = fixture('text1');
+		text2 = fixture('text2');
+		text3 = fixture('text3');
+		text4 = fixture('text4');
+		text5 = fixture('text5');
+		text6 = fixture('text6');
+		text7 = fixture('text7');
+	});
+
+	test('Text base - checks states', function(done) {
+		expect(text0.hasAttribute('value')).to.equal(false, 'should not have value attribute');
+		expect(text1.hasAttribute('value')).to.equal(true, 'should have value attribute');
+		expect(text2.hasAttribute('readonly')).to.equal(true, 'should have readonly attribute');
+		expect(text3.hasAttribute('required')).to.equal(true, 'should have required attribute');
+		//expect(text4.hasAttribute('required')).to.equal(true, 'should have required attribute');
+		expect(text5.getAttribute('type')).to.equal('password', 'type should be password');
+		done();
+	});
+
+	test('readonly - check that readonly setting prevents input', function(done) {
+		expect(text2.hasAttribute('readonly')).to.equal(true, 'field should be readonly');		
+		done();
+	});
+
+	test('required, populated field - check that validation passes if value is populated', function(done) {
+ 		text3.addEventListener('validate', function() {
+			if(text3.hasAttribute('required') && text3.value != ''){
+				console.log('validate PASS ' + text3.value);
+				return true;
+			}
+			console.log('validate FAIL ' + text3.value);
+			return false;
+ 		});
+		var res = text3.fire('validate');
+		console.log('text3 result = ' + res.returnValue);
+ 		expect(res.returnValue).to.equal(true, 'there is a value and validation passed');
+		done();
+	});
+
+	test('required, empty field - check that validation fails if value is empty', function(done) {
+		// textbox should show error icon and red underline
+		text4.addEventListener('validate', function() {
+			if(text4.hasAttribute('required') && text4.value != ''){
+				console.log('validate PASS ' + text4.value);
+				return true;
+			}
+			console.log('validate FAIL ' + text4.value);
+			return false;
+		});
+		var res = text4.fire('validate');
+		console.log('text4 result = ' + res.returnValue);
+		expect(res.returnValue).to.equal(true, 'there is no value and validation failed');
+		done();
+	});
+
+	test('password - check that password field has unreadable characters', function(done) {
+		expect(text5.getAttribute('type')).to.equal('password', 'type should be password');
+		//console.log("text5.$.input.value - " + text5.$.input.value);
+		//expect(text5.$.input.value).to.not.equal('testText Password', 'value should not be readable');
+		done();
+	});
+	test('validation method - testing the validation method with empty value',function(done){
+		var res = text6.validator(text6,true);
+		expect(res).to.equal(true, 'there is no value and validation failed');
+		done();
+	});
+	test('validation method - testing the validation method with empty value',function(done){
+		var res = text7.validator(text7,true);
+				console.log(res);
+
+		expect(res).to.equal(false, 'there is no value and validation failed');
+		done();
+	});
+
+	a11ySuite('text0');
+	a11ySuite('text1');
+	a11ySuite('text2');
+	//a11ySuite('text3');
+	//a11ySuite('text4');
+	a11ySuite('text5');
+	a11ySuite('text6');
+
+});
+</script>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->     
+<dom-module id="maximo-datadesign-deffilter">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-datadesign-deffilter-css.html">
+	<style is="custom-style" include="maximo-datadesign-deffilter-css"></style>		
+  <template>
+  	<maximo-collection
+	  	id="querycollectionapp" 
+		collection-uri="{{dataset.queryCollectionAppHref}}"
+		attribute-names="description,clause,owner,ispublic,clausename,queryid"
+		collection-data="{{appQueryData}}"
+		debounce-duration="600"				
+		search-attribute-names="description"
+		on-record-data-refreshed="_handleAppRecordDataRefreshed">				
+	</maximo-collection>
+  
+	  <maximo-collection
+	  	id="querycollection" 
+		collection-uri="{{dataset.queryCollectionHref}}"
+		attribute-names="description,clause,owner,ispublic,clausename,oslcqueryid"
+		collection-data="{{oslcQueryData}}"
+		debounce-duration="600"				
+		search-attribute-names="description"
+		on-record-data-refreshed="_handleRecordDataRefreshed">				
+	</maximo-collection>
+
+
+			
+	<div class="outer" style="padding: 0px 20px">
+		<div>
+			<maximo-label label="{{localize('uitext','mxapiwosdataset','query_library')}}" block="true"></maximo-label>
+			<maximo-searchbar id="querySearch" collection="{{_getCardCollections()}}" placeholder="{{localize('uitext','mxapiwosdataset','search_queries')}}"></maximo-searchbar>
+			<maximo-label class="queryDesc" label="{{localize('uitext','mxapiwosdataset','query_description')}}" block="true"></maximo-label>
+			<maximo-datalist id="querydatalist" items="{{querylist}}" display-attributes="description" select-event="chooseQuery" height="150px" stop-initial-selection></maximo-datalist>
+	  	</div>
+		<div class="clauseColumn" id="clauseColumn">
+			<maximo-radiobuttongroup id="qryselector0" index="0" items="{{_radiooptions0}}" horizontal label-attribute="description"></maximo-radiobuttongroup>
+			<maximo-textarea id="definedClause" readonly value="{{_existingClause}}" height="150px" width="735px" placeholder="{{localize('uitext','mxapiwosdataset','CurrentClauseTxtArea')}}"></maximo-textarea><br>
+			<maximo-radiobuttongroup id="qryselector1" index="1" items="{{_radiooptions1}}" horizontal label-attribute="description"></maximo-radiobuttongroup>
+			<maximo-textarea id="newClause" maxlength="4000" readonly value="{{_newClause}}" on-tap="_useCustomQuery" height="150px" width="735px" placeholder="{{localize('uitext','mxapiwosdataset','CustomClauseTxtArea')}}"></maximo-textarea><br>
+			<maximo-button disabled id="testNew" style="margin:0px 20px" label="{{localize('uitext','mxapiwosdataset','test_sql')}}" on-tap="_validateSQL" action></maximo-button>
+			<maximo-button disabled id="resetNew" class="reset" icon="action-based:reset" label="{{localize('uitext','mxapiwosdataset','reset')}}" on-tap="resetNew" action="true" wait-timer=".25"></maximo-button>
+		</div>
+	  </div>
+  </template>
+  <script src="maximo-datadesign-deffilter.js"></script>
+</dom-module>

@@ -1,0 +1,49 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-data-page-css">
+	<template>
+    	<style>
+			.pages{
+				text-align: center;
+				color: var(--Primary-white);
+				display: inline-block;
+				font-size: 80%;
+				background: var(--Primary-blue60);
+			}
+			
+			.pages span{
+				color: var(--Primary-white);
+				display: inline-block;
+				margin: 0px 5px;
+				width: 3ch;
+				text-align: center;
+				font-size: 100%;
+			}
+			
+			.pages span:first-of-type {
+				text-align: right;
+			}
+			
+			.pages span:last-of-type {
+				text-align: left;
+			}
+			
+			iron-icon ::content svg{
+				fill: var(--Primary-white);
+			}
+			
+			iron-icon.disabled ::content svg{
+				fill: var(--Primary-gray30);
+			}
+			
+			iron-icon.rtl {
+				transform: scaleX(-1);
+			}
+			
+		</style>
+	</template>
+</dom-module>

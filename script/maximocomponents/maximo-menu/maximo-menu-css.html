@@ -1,0 +1,50 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-menu-css">
+	<template>
+    	<style>
+    	
+    		:host {
+    			position: relative;
+    			display: inline-block;
+    			float: right;
+    		}
+		    
+		    :host.rtl {
+    			position: relative;
+    			display: inline-block;
+    			float: left;
+    		}
+
+			:host > div {
+		    	position: absolute;
+		    	/* top: 0px;
+		    	right: 0px; */
+		    }
+		    		    
+
+		    
+		    :host.opened > div {
+		    	display: table;
+  				position: fixed;
+		    	outline: solid 2px var(--Primary-white);
+		    	z-index: 20;
+		    	background-color: var(--Primary-blue60);
+		    }
+		    
+		    #maindiv ::content button {
+		    	padding: 5px 10px;
+		    }
+		    
+		    iron-icon {
+		    	fill: #24CA24;
+		    }
+
+	 		
+		</style>
+	</template>
+</dom-module>

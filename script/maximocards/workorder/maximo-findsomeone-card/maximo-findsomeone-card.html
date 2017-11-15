@@ -1,0 +1,159 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<!--
+A description of what component does
+
+Example:
+
+    <maximo-findsomeone-card></maximo-findsomeone-card>
+
+@demo
+-->      
+<dom-module id="maximo-findsomeone-card">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-findsomeone-card-css.html">
+	<style is="custom-style" include="maximo-findsomeone-card-css"></style>
+	
+	<template>
+	
+		<!-- <maximo-resource id="assignmentresource" resource-uri="{{record.href}}"></maximo-resource>-->
+		
+		 <maximo-resource id="assignmentResource" resource-uri="{{_getAssignmentUrl(assignmentRecordData)}}"></maximo-resource>
+		<!-- <maximo-resource id="wmAssignmentResource" resource-uri="{{record.href}}"></maximo-resource>-->
+	    <!-- maximo-resource id="assignmentResource" resource-uri="{{_getAssignmentUrl(assignmentRecordData)}}"></maximo-resource> -->
+	    
+		<maximo-collection 
+		    id="assignmentcollection" 
+			attribute-names="wonum,description"
+			collection-data="{{assignmentRecordData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"
+			filter-data={{filterData}}				
+			object-name="MXAPIASSIGNMENT" 
+			selected-query-name="All"
+			selected-record="{{selectedAssignmentRecord}}"
+			refresh-interval="300"
+			refresh-listeners='["wmassignment"]'>				
+		</maximo-collection>
+		
+		<maximo-collection 
+		    id="assignmentCleancollection" 
+			attribute-names="laborcode,availability,person.displayname,starttime,person._imagelibref, person.supervisor,assignment.craft.description,assignment.craftskill.description,orgid,worklocation"
+			collection-data="{{availableLaborRecordData}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"
+			object-name="MXAPIASSIGNMENT" 
+			search-attribute-names="laborcode,assignment.craftskill.description,assignment.craft.description,person.displayname"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name="All"
+			selected-record="{{selectedEmptyAssignmentRecord}}"
+			use-search-terms="true"
+			additional-params='["oslc.where=person.supervisor=%22-personid-%22"]'
+			on-record-data-refreshed="_handleCleanAssignmentRecordDataRefreshed">					
+		</maximo-collection>   	 
+			
+		<div id="maximo-findsomeone-dialogcontainer" class="maincontainer">
+		
+			<div class="flex-vertical">
+				<!-- <div>
+					<maximo-label id="maximo-findsomeone_wonum_label" label="{{localize('uitext', 'mxapiwo', 'WorkOrder')}}:" bold></maximo-label>
+					<maximo-button id="maximo-findsomeone_editbutton" action="true" on-tap="openWorkorder" label="{{record.wonum}}"></maximo-button> icon="icons:chevron-right"
+				</div> -->
+				<maximo-field id="maximo-findsomeone_wonum_label" label="{{localize('uitext', 'mxapiwo', 'WorkOrder')}}" hide-data>
+					<maximo-button id="maximo-findsomeone_wonum_link" action="true" label="{{record.wonum}}" on-tap="openWorkorder" class="iconsize" easticon="maximo-based:forward"></maximo-button>
+				</maximo-field>
+				<maximo-field id="description_label" label="{{localize('uitext', 'mxapiassignment', 'Description')}}" datalabel="{{record.description}}"></maximo-field>
+				<div id="maximo-findsomeone-wodatadiv" class="flex-equal-justified">
+					<div class="flex-vertical" style="padding-right: 10px;">
+						<maximo-field id="location_label" label="{{localize('uitext', 'mxapiassignment', 'Location')}}" datalabel="{{record.location.description}}"></maximo-field>
+						<maximo-field id="assetnum_label" label="{{localize('uitext', 'mxapiassignment', 'Asset')}}" datalabel="{{record.asset.description}}"></maximo-field>
+						<maximo-field id="descLabel" label="{{localize('uitext', 'mxapiassignment', 'Craft')}}" datalabel="{{record.assignment.craft.description}}"></maximo-field>
+						<maximo-field id="descLabel" label="{{localize('uitext', 'mxapiassignment', 'Skill')}}" datalabel="{{record.assignment.craftskill.description}}"></maximo-field>
+					</div>
+					<div class="flex-vertical" style="padding-left: 10px;">
+						<maximo-field id="startdate_Label" label="{{localize('uitext', 'mxapiassignment', 'ScheduledStart')}}" datalabel="{{getDateTime(record.workorder.schedstart)}}{{getDateTime(record.schedstart)}}"></maximo-field>
+						<maximo-field id="descLabel" label="{{localize('uitext', 'mxapiassignment', 'ScheduledFinish')}}" datalabel="{{getDateTime(record.workorder.schedfinish)}}{{getDateTime(record.schedfinish)}}"></maximo-field>
+						<maximo-field id="estdur_label" label="{{localize('uitext', 'mxapiassignment', 'Duration')}}" datalabel="{{record.estdur}}" format="HhMm"></maximo-field>
+						
+					</div>
+				</div>
+				
+				
+			</div>
+			<!-- <div id="maximo-findsomeone-assetimgdiv" class="assetimg">
+				<maximo-imglib id="assetimage" width="50px" height="50px" image="{{record.workorder.asset._imagelibref}}" rounded noimageicon="maximo-based:no-image" ></maximo-imglib>
+			</div> -->
+		</div>
+		<hr></hr>
+		<!-- <div>
+			<div style="vertical-align:top;">
+				<maximo-imglib id="assetimage" width="200px" height="200px" image="{{record.workorder.asset._imagelibref}}" noimageicon="maximo-based:no-image" rounded></maximo-imglib>
+			</div>
+			<div class="flex-vertical" style="padding:0px 30px">
+				<maximo-section  id="wocompleteness_section_div1_div2_section">
+					<maximo-header id="wonum_label" class="header">{{record.wonum}}</maximo-header>
+					<maximo-field id="description_label" label="{{localize('uitext', 'mxapiassignment', 'Description')}}" datalabel="{{record.description}}"></maximo-field><br>
+					<maximo-field id="location_label" label="{{localize('uitext', 'mxapiassignment', 'Location')}}" datalabel="{{record.location}}"></maximo-field><br>
+					<maximo-field id="assetnum_label" label="{{localize('uitext', 'mxapiassignment', 'Asset')}}" datalabel="{{record.assetnum}}"></maximo-field><br>	
+					<maximo-field id="estdur_label" label="{{localize('uitext', 'mxapiassignment', 'Duration')}}" datalabel="{{record.estdur}}" format="HhMm"></maximo-field><br>
+					Since this is a common dialog..fetching datalabels for same attribute two different ways from different views.					
+					If data is not found, data will not show.  Only shows data for current dialog.
+					<maximo-field id="startdate_Label" label="{{localize('uitext', 'mxapiassignment', 'ScheduledStart')}}" datalabel="{{getDate(record.workorder.schedstart)}}{{getDate(record.schedstart)}}"></maximo-field><br>
+					<maximo-field id="descLabel" label="{{localize('uitext', 'mxapiassignment', 'ScheduledFinish')}}" datalabel="{{getDate(record.workorder.schedfinish)}}{{getDate(record.schedfinish)}}"></maximo-field><br>
+					<maximo-field id="descLabel" label="{{localize('uitext', 'mxapiassignment', 'Craft')}}" datalabel="{{record.craft}}"></maximo-field>				
+				</maximo-section>				
+				<maximo-footer>
+					<maximo-label id="maximoWorkToAssign_worktoassign_label3" event="#" on-tap="openWorkorder" synchronous label="{{localize('uitext', 'mxapiassignment', 'OpenWorkOrder')}}"></maximo-label>
+				</maximo-footer>
+			</div>
+		</div> -->
+
+		<maximo-panel id="findsomeonePanel" label="{{localize('uitext', 'mxapiassignment', 'MyTeam')}}">
+			<maximo-searchbar id="findsomeonePanel-searchbar" collection="{{getLocalObject('assignmentCleancollection')}}" placeholder='Search'></maximo-searchbar>
+			<template id="findsomeonePanelavailLaborsection" is="dom-repeat" items="{{availableLaborRecordData}}" as="labor">
+			 	<div id="findsomeonePanelavailLaborsectionCard" class="cardborder">
+			 		<div id="findsomeonePanelavailLaborsectionCard_div" class="cardcontainer">
+			 			<div id="findsomeonePanel_availLaborsectionCard_div_div" class="flex-start-justified">
+					 		<div id="findsomeonePanel_availLaborsectionCard_div_div_div" style="padding:0px 30px 0px 30px; flex-shrink: 0;">
+				 				<div  id="findsomeonePanel_availLaborsectionCard_div_div_div_div">
+				 					<maximo-imglib id="findsomeonePanel_availLaborsectionCard_div_div_div_div_col1_img" width="75px" height="75px" image="{{labor.person._imagelibref}}" rounded noimageicon="maximo-based:no-image"></maximo-imglib>
+				 				</div>
+								<div>
+									<maximo-label id="findsomeonePanel_availLaborsectionCard_div_div_div_div_description" label="{{labor.person.displayname}}"></maximo-label>
+								</div>	
+							</div>
+							<div id="findsomeonePanel_availLaborsectionCard_div_div_div2" style="flex: 1;">
+				 				<maximo-field id="findsomeonePanel_availLaborsectionCard_div_div_div2_field_curstatus" label="{{localize('uitext', 'mxapiassignment', 'Craft')}}" datalabel="{{labor.assignment.craft.description}}"></maximo-field>
+								<maximo-field id="findsomeonePanel_availLaborsectionCard_div_div_div2_field_Asset" label="{{localize('uitext', 'mxapiassignment', 'Skill')}}" datalabel="{{labor.assignment.craftskill.description}}"></maximo-field>
+								<maximo-field id="findsomeonePanel_availLaborsectionCard_div_div_div2_field_location" label="{{localize('uitext', 'mxapiassignment', 'Location')}}" datalabel="{{labor.worklocation}}"></maximo-field>
+								<maximo-field id="findsomeonePanel_availLaborsectionCard_div_div_div3_field_craft" label="{{localize('uitext', 'mxapiassignment', 'Availability')}}" datalabel="{{labor.availability}}" format="HhMm"></maximo-field>
+							</div>	
+							<div id="findsomeonePanel_availLaborsectionCard_div_div_div3" class="assignlink">
+								<maximo-button id="findsomeonePanel_availLaborsectionCard_div_div_div3_button" label="{{localize('uitext', 'mxapiassignment', 'Assign')}}" on-tap="assignLabor" action="true" style="vertical-align:bottom"></maximo-button>
+					 		</div>		 		
+						</div>
+					</div>
+				</div>				
+			</template>	
+		</maximo-panel>		
+		<maximo-footer>
+			<div class="flex-center-justified">
+				<maximo-button id="findsomeonePanel_avail_labor_close_button" label="{{localize('uitext', 'mxapibase', 'Close')}}" on-tap="closeDialog" default></maximo-button>
+			</div>
+		</maximo-footer>
+		
+	</template>
+
+	<script src="maximo-findsomeone-card.js"></script>
+
+</dom-module>

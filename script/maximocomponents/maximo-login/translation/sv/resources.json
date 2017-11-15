@@ -1,0 +1,31 @@
+{
+		"main_title":"Enterprise Asset Management",
+		"log_in":"Logga in",
+		"user_name":"Användarnamn",
+		"password":"Lösenord",
+		"sign_in":"Logga in",
+		"error":"Ange giltiga inloggningsuppgifter.",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"All rights reserved.",
+		"copyright_2":"Mer information finns i produktlicensen.",
+		"loading_resources":"Läser in",
+		"missing_config":"{0}-konfigurationsfil saknas. Standardvärden används.",
+		"unknown_error":"Ett okänt fel har inträffat. {0}",
+		"resource_error":"Ett fel inträffade under begäran av strängresurser. {0}",
+		"contact_admin":"Kontakta systemadministratören om problemet kvarstår.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"VIKTIG ANMÄRKNING: Förutom affärskontaktinformation som anges som obligatorisk i systemet och är nödvändig för att tillhandahålla support, ska personlig information, t.ex. känsliga ekonomiska eller medicinska uppgifter och all information som kan kopplas till en individ, INTE registreras i det här systemet. Alla som anger personlig information samtycker till att IBM kan använda och överföra den över landsgränser i enlighet med <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBMs integritetspolicy</a> för att tillhandahålla de begärda tjänsterna. Om du är IBM-anställd eller underleverantör och en kund ber dig att registrera deras personliga information måste du läsa det här meddelandet för dem för att få deras samtycke innan du registrerar deras personliga information.",
+		"session_timeout":"Sessionen har upphört.",
+		"noworkscape" : "Det finns inget arbetscenter definierat för ditt användar-ID",
+		"no_access_default":"du har inte alla behörigheter som krävs för den begärda placeringen. Vill du läsa in en standardapplikation?",
+		"signout" : "Du har loggat ut. Stäng webbläsaren eller logga in igen.",
+		"login_error" : "Inloggningsfel",
+		"login_error_invalid" :"Kombinationen av ditt användarnamn och lösenord är ogiltig. Försök igen.",
+		"return" : "Retur",
+		"logout" : "Utloggning",
+		"logout_complete" : "För att helt logga ut måste du stänga webbläsaren.",
+		"user_info_error" : "Fel vid inläsning av användarinformation. Kontakta systemadministratören"
+}
+

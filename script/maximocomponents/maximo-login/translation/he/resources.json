@@ -1,0 +1,31 @@
+{
+		"main_title":"ניהול נכסים ארגוניים",
+		"log_in":"התחברות",
+		"user_name":"שם משתמש",
+		"password":"סיסמה",
+		"sign_in":"כניסה",
+		"error":"ציינו הסמכות חוקיות.",
+		"copyright_0":"‎Copyright IBM Corporation",
+		"copyright_1":"כל הזכויות שמורות.",
+		"copyright_2":"ראו את רישיון המוצר לקבלת פרטים.",
+		"loading_resources":"המערכת טוענת",
+		"missing_config":"קובץ התצורה {0} חסר. שימוש בברירות מחדל.",
+		"unknown_error":"אירעה שגיאה בלתי ידועה. {0}",
+		"resource_error":"אירעה שגיאה בבקשת משאבי מחרוזת. {0}",
+		"contact_admin":"אם הבעיה נמשכת, פנו אל מנהלן המערכת.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"הודעה חשובה: במערכת זו אין לציין מידע אישי, כגון נתונים פיננסיים או רפואיים רגישים, וכל מידע שניתן לזיהוי עם אדם פרטי, למעט פרטי קשר עסקיים המצוינים כחובה במערכת זו, והנחוצים כדי לספק תמיכה. כל מי שמציין מידע אישי מסכים לכך ש-IBM תשתמש בו ותעביר אותו למדינות אחרות בהתאם <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">למדיניות הפרטיות של IBM</a> כדי לספק את השירותים המבוקשים. אם אתם עובדים או עובדי קבלן של IBM ולקוח מבקש מכם לציין את המידע האישי שלו, עליכם להקריא לו הודעה זו כדי לקבל את רשותו לפני ציון המידע האישי שלו.",
+		"session_timeout":"מהלך העבודה פג.",
+		"noworkscape" : "לא הוגדר מרכז עבודה עבור זיהוי המשתמש שלך",
+		"no_access_default":"אין לכם את כל הרשאות הדרושות למיקום המבוקש. האם ברצונכם לטעון את יישום ברירת המחדל?",
+		"signout" : "התנתקתם בהצלחה. סגרו את הדפדפן או התחברו שוב.",
+		"login_error" : "שגיאת התחברות",
+		"login_error_invalid" :"השילוב של שם המשתמש והסיסמה שלכם אינו חוקי. נסו שוב.",
+		"return" : "חזרה",
+		"logout" : "התנתקות",
+		"logout_complete" : "כדי להתנתק לחלוטין, עליכם לסגור את הדפדפן.",
+		"user_info_error" : "שגיאה בטעינת פרטי משתמש. פנו למנהלן המערכת שלכם."
+}
+

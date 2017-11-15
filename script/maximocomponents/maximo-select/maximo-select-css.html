@@ -1,0 +1,91 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+ -->
+<dom-module id="maximo-select-css">
+	<template>
+    	<style>
+    		.wrapper {
+    			display: block;
+    		}
+    		
+    		.wrapper span {
+    			display: none;
+    		}
+    		
+    		.select {
+    			transition: all .5s;
+    			border: 1px solid var(--Cool-gray30);
+    			background-color: transparent;
+    			outline: none;
+    			padding: .5em;
+    			margin-bottom: 3px;
+    			border-radius: 0px;
+    			padding-right: 34px;
+    			/* background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 14 14 true" xml:space="preserve"><polygon fill="#5aaafa" points="0,0 14,6.825 0,14 "/></svg>'); */
+    			background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewbox%3D%220%200%2014%2014%20true%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20fill%3D%22%23aeaeae%22%20points%3D%220%2C0%2014%2C6.825%200%2C14%20%22%2F%3E%3C%2Fsvg%3E");
+    			/* background: url(images/select.png) no-repeat right center; */
+    			background-size: 1em 1em;
+    			background-position: calc(100% - .5em) calc(100% - .6em);
+    			background-repeat: no-repeat;
+    			transition: background-image 0.5s ease-in-out;
+    			min-width: 150px;
+    			height:34px;
+    			color: var(--Primary-gray70);
+    		}
+    		
+    		.select.rtl {
+    			direction: rtl;
+    			background-position: .3em .4em;
+    		}
+    		
+    		.select:focus {
+    			outline: 3px solid var(--Primary-blue30);
+    		}
+    		
+    		.select.rtl {
+    			padding-right: .15em;
+    			padding-left: 3px;
+    		}
+
+			.select:hover:not([disabled]) {
+				/* background-image: url(images/select_hover.png); */
+				/* background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 14 14 true" xml:space="preserve"><polygon fill="#5aaafa" points="0,0 6.825,14 14,0 "/></svg>') */
+				background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewbox%3D%220%200%2014%2014%20true%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20fill%3D%22%23aeaeae%22%20points%3D%220%2C0%206.825%2C14%2014%2C0%20%22%2F%3E%3C%2Fsvg%3E");
+			}
+			
+    		.select[disabled]{
+				background-color: var(--Cool-gray10);
+    		}
+
+    		label {
+				color:#777677;
+				display: block;
+    		}
+    		
+    		.select[aria-required]:before, label[required]:before {
+    			content: '* ';
+    			font-size: 110%;
+    			color : var(--Primary-orange50);
+    		}
+    		
+
+			.select .placeholder {
+				color: var(--Primary-gray50);
+			}
+
+    		div[required]:before {
+    			content: '* ';
+    			font-size: 110%;
+    			color : var(--Primary-orange50);
+    		}
+			div[notrequired]:before {
+    			content: '\00a0\00a0';
+    			font-size: 110%;
+    			color : var(--Primary-orange50);
+    		}    		
+		</style>
+	</template>
+</dom-module>

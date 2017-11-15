@@ -1,0 +1,30 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-content-selector">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-content-selector-css.html">
+	<style is="custom-style" include="maximo-content-selector-css"></style>
+	
+	<template>
+		<div class$="outerdiv {{_getLight(light)}}" id="outerdiv">
+			<div role="tablist" class="inner hideScrollbar" id="inner">
+				<content></content>
+			</div>
+			<iron-icon icon="icons:chevron-left" id="west" on-tap="overTap" class="west" style="float: left;left: 0px;"></iron-icon>
+			<iron-icon icon="icons:chevron-right" id="east" on-tap="overTap" class="east" style="float: right;right: 0px;" ></iron-icon>	 		
+		</div>
+	</template>
+
+	<script src="maximo-content-selector.js"></script>
+
+</dom-module>

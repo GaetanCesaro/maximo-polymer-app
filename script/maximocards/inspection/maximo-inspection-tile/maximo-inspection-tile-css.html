@@ -1,0 +1,89 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-inspection-tile-css">
+	<template>
+    	<style>
+			
+			:host {
+				
+			}
+			
+			.container {
+    			margin: 0px 20px 20px 0px;
+			}
+			
+			.container.rtl {
+				margin: 0px 0px 20px 20px;
+			}
+			
+			.dataSetCard {
+				@apply(--layout-vertical);
+				width: 300px;
+				height: 170px;
+				background-color: var(--Primary-white);
+    			border-width: 0px !important;
+    			border-bottom: 10px solid var(--Primary-blue40) !important;
+    			box-shadow: 2px 2px 20px #dadada;
+    			outline: 3px solid transparent;
+    			box-sizing: border-box;   
+    			position:relative;
+    			padding: 11px 10px 10px 12px;
+    			
+    		}
+    		
+    		.dataSetCard.highlight {
+    			outline-color: var(--Primary-green10) !important;
+    			border-bottom: 7px solid var(--Primary-green10) !important;
+    		}
+    		
+    		.dataSetCard:hover, .dataSetCard:focus {
+    			outline: 3px solid var(--Primary-blue40);
+    		}
+    		
+    		.dataSetCard[selected] .title ::content label {
+    			font-family: 'HelveticaNeue-Bold';
+    		}
+    		
+    		.title {
+    			margin-bottom: 12px;
+    		}
+    		
+    		.title maximo-label ::content label {
+    			font-family:HelveticaNeue-Light;
+				font-size:18px;
+				letter-spacing:0;
+    		}
+    		
+    		.box {
+    			@apply(--layout-horizontal);
+    			margin-bottom: 5px;
+    		}
+    		
+    		.footer {
+    			@apply(--layout-flex);
+    			position: relative;
+    		}
+    		
+    		.footer > div {
+    			position: absolute;
+  				bottom: 0px;
+    		}
+    		
+    		.ttStyle {
+    			--tooltip-color: var(--Primary-white);
+    		}
+    		
+    		.showinfo {
+    			position:absolute;
+    			bottom:10px;
+    			right:5px;
+    			outline: 0px;
+    		}
+    		
+		</style>
+	</template>
+</dom-module>

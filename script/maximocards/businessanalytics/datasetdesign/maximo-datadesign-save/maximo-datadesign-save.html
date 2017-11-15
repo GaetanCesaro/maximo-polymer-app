@@ -1,0 +1,29 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->     
+<dom-module id="maximo-datadesign-save">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-datadesign-save-css.html">
+	<style is="custom-style" include="maximo-datadesign-save-css"></style>		
+  <template>
+  
+  	<div class="outer" style="padding: 0px 20px">
+		<div>
+			<maximo-label label="{{localize('uitext','mxapiwosdataset','NameYourDataSet')}}" block="true"></maximo-label>
+			<maximo-text id="analyticdatasetnum" value="{{_analyticdatasetnum}}" bordered placeholder="{{localize('uitext','mxapiwosdataset','EnteraName')}}" maxlength="25"></maximo-text>
+			<br>
+			<maximo-label label="{{localize('uitext','mxapiwosdataset','description')}}" block="true"></maximo-label>
+			<maximo-textarea id="description" value="{{_description}}" height="100px" width="735px" placeholder="{{localize('uitext','mxapiwosdataset','description_placeholder')}}" maxlength="255"></maximo-textarea>
+		</div>
+	</div>
+  </template>
+  <script src="maximo-datadesign-save.js"></script>
+</dom-module>

@@ -1,0 +1,70 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->     
+<dom-module id="maximo-weather-add-zone">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-weather-add-zone-css.html">
+	<style is="custom-style" include="maximo-weather-add-zone-css"></style>		
+  <template>
+  	<maximo-resource 
+  		id="weatheZoneResource" 
+  		resource-uri="{{parentRecord.href}}" 
+  		resource-data="{{parentRecord}}"
+      	content-localized="true" 
+	  	on-data-error="_handleRecordDataError">
+  	</maximo-resource>
+	<maximo-resource id="registerResource" 
+		resource-uri="{{registerResourceUri}}">
+    <maximo-resource 
+    	id="serviceAddressResource" 
+    	resource-uri="{{serviceAddressUri}}"
+    	on-record-delete-error="_handleRecordDataError">
+    </maximo-resource>
+	</maximo-resource>
+	<div style="padding-left:10px; padding-right:10px;">
+
+		<div align="Left">
+			<div style="padding-bottom:15px;">
+				<maximo-text id="zone-name" label="{{schema.properties.zone.title}}" value="{{parentRecord.zone}}" readonly="{{readOnlyKey}}"></maximo-text>
+			</div>
+			<div style="padding-bottom:15px;">
+				<maximo-text id="zone-description" label="{{schema.properties.description.title}}" value="{{parentRecord.description}}" bind-value="{{parentRecord.description}}" width="500px"></maximo-text>
+			</div>
+			<div style="padding-bottom:15px;">
+				<maximo-select id="zone-address-code" label="{{schema.properties.addresscode.title}}" values="{{addressList}}" value="{{currentAddressCode}}" readonly="{{regReadOnlyAddr}}" on-change="_onSelectedAddressCodeChange"></maximo-select>
+			</div>
+			<div style="padding-bottom:15px;">
+				<maximo-text id="zone-latitude" label="{{schema.properties.latitudey.title}}" value="{{parentRecord.latitudey}}" bind-value="{{parentRecord.latitudey}}" readonly="{{regReadOnly}}"></maximo-text>
+			</div>
+			<div style="padding-bottom:15px;">
+				<maximo-text id="zone-longitude" label="{{schema.properties.longitudex.title}}" value="{{parentRecord.longitudex}}" bind-value="{{parentRecord.longitudex}}" readonly="{{regReadOnly}}"></maximo-text>
+			</div>
+			<div style="padding-bottom:15px;">
+				<maximo-text id="zone-radius" label="{{schema.properties.radius.title}} ({{parentRecord.radiusuom_description}})" value="{{parentRecord.radius}}" width="20px"></maximo-text>
+			</div>
+			<!-- maximo-checkbox id="zone-isregistered" label="{{schema.properties.isregistered.title}}" checked="{{parentRecord.isregistered}}" slider></maximo-checkbox-->
+		</div>
+
+	</div>
+	<div id="footer" align="center">
+		<div id="container" style="padding-bottom:20px;">
+   			<maximo-button id="cancel" label="{{localize('uitext','mxapibase','cancel')}}" style="padding-right:15px;" action icon="Maximo:Close" on-tap="_cancel"></maximo-button>
+    		<maximo-button id="save" label="{{localize('uitext','mxapibase','Save')}}" style="padding-right:15px;" action on-tap="_save" icon="Maximo:Save"></maximo-button>
+    		<!-- maximo-button id="register" label="{{regLabel}}" on-tap="_processZoneRegistry" icon="{{regIcon}}"  default="true"></maximo-button-->
+  		</div>
+  	</div>
+    <div style="padding-top:10px; padding-bottom:20px;" align="Center">
+		<span id="maximoNormalTextMuted" icon="icons:check-circle" style="color:#4b8400;height:30x;width:30px;margin-top:50px">{{ConfirmMessage}}</span>
+		<span id="maximoErrorTextMuted" icon="icons:check-circle" style="color:#d74108;height:30x;width:30px;margin-top:50px">{{ConfirmError}}</span>
+    </div>
+  </template>
+  <script src="maximo-weather-add-zone.js"></script>
+</dom-module>

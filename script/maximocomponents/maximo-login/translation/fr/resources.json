@@ -1,0 +1,31 @@
+{
+		"main_title":"Enterprise Asset Management",
+		"log_in":"Connexion",
+		"user_name":"Nom d'utilisateur",
+		"password":"Mot de passe",
+		"sign_in":"Ouvrir une session",
+		"error":"Entrez des données d'identification valides.",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"All rights reserved.",
+		"copyright_2":"Pour plus de détails, voir la licence du produit.",
+		"loading_resources":"Chargement",
+		"missing_config":"Le fichier de configuration {0} est manquant. Utilisation des valeurs par défaut.",
+		"unknown_error":"Une erreur inconnue s'est produite. {0}",
+		"resource_error":"Une erreur s'est produite lors de la demande de ressources de chaîne. {0}",
+		"contact_admin":"Si le problème persiste, contactez votre administrateur système.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"REMARQUE IMPORTANTE : Les informations autres que les informations de contact professionnelles signalées comme obligatoires dans ce système et qui sont nécessaires pour fournir le support, les informations personnelles, telles que des informations sensibles financières ou médicales et toute information pouvant permettre d'identifier un individu, NE DOIVENT PAS être saisies dans ce système. Toute personne entrant des informations personnelles accepte qu'IBM puisse les utiliser et les diffuser en dehors du pays selon les dispositions de sa <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">politique de protection des renseignements personnels</a> pour fournir les services demandés. Si vous êtes un employé IBM ou un sous-traitant et qu'un client vous demande de saisir des informations personnelles, vous devez lui communiquer la présente remarque pour obtenir son consentement avant d'entrer ses informations personnelles.",
+		"session_timeout":"Votre session a expiré.",
+		"noworkscape" : "Aucun centre de travail n'a été défini pour votre ID utilisateur.",
+		"no_access_default":"Vous ne disposez pas de toutes les autorisations requises pour l'emplacement demandé. Souhaitez-vous charger une application par défaut ?",
+		"signout" : "Session fermée sans erreur. Fermez votre navigateur ou connectez-vous à nouveau.",
+		"login_error" : "Erreur de connexion",
+		"login_error_invalid" :"Votre combinaison nom d'utilisateur/mot de passe n'est pas valide. Réessayez.",
+		"return" : "Retour",
+		"logout" : "Déconnexion",
+		"logout_complete" : "Pour clôturer la fermeture de session, fermez votre navigateur.",
+		"user_info_error" : "Erreur lors du chargement des informations sur l'utilisateur. Veuillez contacter votre administrateur système"
+}
+

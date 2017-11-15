@@ -1,0 +1,477 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+
+<link rel="import" href="../../components/iron-ajax/iron-ajax.html">
+
+<!--
+The `maximo-authcontext` element is an internal element that takes care of authentication to the 
+maximo server based on various authentication mechanisms configured. Most of the configuration
+is defined in a config.json file.  
+
+This component provides information about the base URI that is used for making REST API calls.
+The component handles the login and logout for the applications and provides information about
+whether authentication is needed or not.
+-->
+<dom-module id="maximo-authcontext">
+  <template>
+		<iron-ajax
+			id="mxajax"
+		    handle-as="json"
+		    on-response="processLoginResponse"
+		    on-error="processLoginError"
+		    with-credentials>
+		</iron-ajax>
+		<iron-ajax
+			id="mxajax_ping"
+		    handle-as="json"
+		    on-response="processPingResponse"
+		    on-error="processPingError"
+		    with-credentials>
+		</iron-ajax>
+		<iron-ajax
+			id="mxajax_ctxcfg"
+		    handle-as="json"
+		    on-response="processCtxCfgResponse"
+		    on-error="processCtxCfgError"
+		    with-credentials>
+		</iron-ajax>
+		<iron-ajax
+			id="mxajax_logout"
+		    handle-as="json"
+		    on-response="processLogoutResponse"
+		    on-error="processLogoutError"
+		    with-credentials>
+		</iron-ajax>
+		
+  </template>
+</dom-module>
+
+<script>
+(function() {
+    // these variables are shared by all instances of maximo-authcontext
+    var CFG_URL = '../../config.json';
+    var authenticationNeeded = true;
+    var baseUri;
+    var _defaultContext = "/maximo";
+    var _maximoLoginUrl;
+    var _useMaximoServerAuthentication;
+    
+  Polymer({
+    is: "maximo-authcontext",
+    
+    /**
+     * Fired when login is successful.
+     *
+     * @event login-success
+     */
+        
+    /**
+     * Fired when there is a problem with login.
+     *
+     * @event login-error
+     */
+   
+     /**
+      * Fired when logout is successful.
+      *
+      * @event logout-success
+      */
+         
+     /**
+      * Fired when there is a problem with logout.
+      *
+      * @event logout-error
+      */
+    
+	properties: {
+    
+      	/**
+      	 * A flag that indicates if authentication is needed or not.
+      	 */
+      	authenticationNeeded: {
+      		type: Boolean,
+      		value: true,
+      		readOnly: true
+      	},
+      	
+      	/**
+      	 * Store session/logout timers
+      	 */
+      	logoutInfo: {
+      		type: Object,
+      		value: {}
+      	}
+      	
+    }, // End of Properties
+    
+	ready: function()
+	{
+		this.authenticationNeeded = authenticationNeeded;
+		
+		var maxauth = JSON.parse(sessionStorage.getItem("maxauth"));
+		if(maxauth){
+			this.loginURL = maxauth.loginURL;
+		}
+	},
+	
+	/**
+	 * Logs in a user based on username and password. Username and password are required only if 
+	 * the default maximo authentication is being performed. For application server configured
+	 * authentication, no additional information is needed, and this is simply a pass-through
+	 * call to make sure this is called to establish the basic session to make API calls.
+	 */
+	login: function(userName, password)
+	{
+		if (userName){
+			// construct base 64
+			var encodedAuthenticationData = window.btoa(userName + ':' + password);
+			this.maxauthHeaderValue = encodedAuthenticationData;
+		}
+		
+		// Login involves the following requests
+		// config.json request, if success, followed by
+		// ping request, if successful, followed by
+		// login request
+		this.$.mxajax_ctxcfg.url = this.resolveUrl(CFG_URL);
+		this.$.mxajax_ctxcfg.generateRequest();
+	},
+	
+	/**
+	 * Logs out a user from the current session associated with the maximo server.
+	 */
+	logout: function()
+	{
+		this.authenticationNeeded = true;
+		var maxauth = JSON.parse(sessionStorage.getItem("maxauth"));
+		this.$.mxajax_logout.url = maxauth.logoutURL;
+		this.$.mxajax_logout.generateRequest();
+	},
+	
+	/**
+	 * An internal method for loading the configuration information.
+	 */
+	loadConfig: function()
+	{
+		this.$.mxajax_ctxcfg.url = CFG_URL;
+		this.$.mxajax_ctxcfg.generateRequest();
+	},
+	
+	/**
+	 * An internal method for setting if authentication is needed or not.
+	 */
+	setAuthenticationNeeded: function(authNeeded)
+	{
+		this.authenticationNeeded = authNeeded;
+		authenticationNeeded = authNeeded;
+	},
+	
+	/**
+	 * An internal method for processing the login response
+	 */
+	processLoginResponse: function(e, request) //successful login
+	{
+		// In the case where Maximo is configured for FORM based authentication
+		// and maximo-x is not enabled for java EE security, the login request 
+		// would get a HTTP response code of 302 with the actual Form URL in the
+		// Location header of the response. The XHR call would follow that request
+		// and retries the form response. Since that's not a JSON response, we get 
+		// null response. Typically, for a login response, we get a valid JSON object
+		// that indicates authentication configuration. We use this specific knowledge
+		// here to detect that we did not get a response and re-direct the user to the
+		// Maximo login screen using window.location.
+		if (e.detail && e.detail.response == null)
+		{
+			if (_useMaximoServerAuthentication && _useMaximoServerAuthentication === true && _maximoLoginUrl)
+			{
+				window.location = _maximoLoginUrl;
+				return;
+			}
+			console.error("Login request returned no response. Please check if the authentication mechanism is configured correctly or not. If you are using maximo server authenticaiton and do not want to enable maximo-x application for Java EE security, then make sure to enable the maximoserverauthentication in config.json file and specify the maximo login url. Otherwise enable maximo-x application for Java EE security.");
+			return;
+		}
+	
+		//fetch csrftoken
+		var newCsrftoken = request.xhr.getResponseHeader('csrftoken');
+		var csrftoken = sessionStorage.getItem('csrftoken');
+		
+		if(newCsrftoken !== null && newCsrftoken !== undefined && newCsrftoken !== ''){
+			sessionStorage.setItem("csrftoken", newCsrftoken);
+			csrftoken = newCsrftoken;
+		}
+		
+		var maxauth = $M.getMaxauth();
+		//var maxauth = JSON.parse(sessionStorage.getItem('maxauth'));
+		if(e.detail && e.detail.response){
+			Object.keys(e.detail.response).forEach(function(key){
+				if(e.detail.response.hasOwnProperty(key)){
+					maxauth[key] = e.detail.response[key];
+				}
+			});
+		}
+		$M.setMaxauth(maxauth);
+		$M.appserversecurity = maxauth.appserversecurity; 
+		//sessionStorage.setItem("maxauth", JSON.stringify(maxauth));
+		
+		this.authenticationNeeded = false;
+		this.setAuthenticationNeeded(false);
+
+		this.fire('login-success', {'csrftoken': csrftoken });
+	},
+	
+	/**
+	 * An internal method for processing the login error.
+	 */
+	processLoginError: function(e)
+	{
+		console.log('login request failed: details: ' + e.detail);
+		this.authenticationNeeded = true;
+		
+		// If the authentication configuration is set to use maximo server authentication,
+		// and if the maximo login URL is provided, let the user authenticate via the URL.
+		if (_useMaximoServerAuthentication && _useMaximoServerAuthentication === true && _maximoLoginUrl)
+		{
+			window.location = _maximoLoginUrl;
+		}
+		
+		this.fire('login-error', e.detail);
+	},
+	
+	/**
+	 * An internal method for processing the config response.
+	 */
+	processCtxCfgResponse: function(e)
+	{
+		var resp = e.detail.response;
+		var baseURI = this._resolveBaseURL(resp);
+		baseUri = baseURI;
+
+		var maxauth = JSON.parse(sessionStorage.getItem("maxauth"));
+		if(!maxauth){
+			maxauth = {};
+		}
+		
+		maxauth.baseUri = baseUri;
+		maxauth.loginURL = baseUri+'/oslc/login?csrf=1';
+		maxauth.logoutURL = baseUri+'/oslc/logout?invalidatesso=1';
+		sessionStorage.setItem("maxauth", JSON.stringify(maxauth));
+		
+		var headers = {};
+		headers['x-public-uri'] = baseUri + "/oslc";
+		if (this.maxauthHeaderValue)
+		{
+			headers['maxauth'] = this.maxauthHeaderValue;
+		}
+		
+//		this.$.mxajax.url = maxauth.loginURL;
+//		this.$.mxajax.headers = headers;
+//		this.$.mxajax.generateRequest();
+		this.$.mxajax_ping.url = baseUri + "/ping.jsp?maximoxurl="+encodeURIComponent(window.location);
+		this.$.mxajax_ping.generateRequest();
+	},
+	
+	/**
+	 * An internal method for processing the ping response.
+	 */
+	processPingResponse: function(e)
+	{
+		var maxauth = JSON.parse(sessionStorage.getItem("maxauth"));
+		
+		var headers = {};
+		headers['x-public-uri'] = baseUri + "/oslc";
+		if (this.maxauthHeaderValue)
+		{
+			headers['maxauth'] = this.maxauthHeaderValue;
+		}
+
+		// clear out this.maxauthHeaderValue value, as we no longer need it.
+		this.maxauthHeaderValue = '';
+		
+		this.$.mxajax.url = maxauth.loginURL;
+		this.$.mxajax.headers = headers;
+		this.$.mxajax.generateRequest();
+
+		//this.fire('login-success', this.authenticationHeader);
+	},
+	
+	/**
+	 * An internal method for processing the ping error.
+	 */
+	processPingError: function(e)
+	{
+		console.error('ping request failed: details: ' + e.detail);
+	},
+	
+	/**
+	 * An internal method for processing the config error.
+	 */
+	processCtxCfgError: function(e)
+	{
+		console.error('config load request failed: details: ' + e.detail);
+		this.authenticationNeeded = true;
+		this.setAuthenticationNeeded(true);
+		this.fire('cfgload-error', e.detail);
+	},
+	
+	/**
+	 * An internal method for processing the logout response.
+	 */
+	processLogoutResponse: function(e)
+	{
+		this.fire('logout-success', e.detail);
+		this._handleLogout();
+	},
+	
+	/**
+	 * An internal method for processing the logout error.
+	 */
+	processLogoutError: function(e)
+	{
+		this.fire('logout-error', e.detail);
+		this._handleLogout();
+	},
+
+	_handleLogout: function(){
+		this.authenticationNeeded = true;
+		this.setAuthenticationNeeded(true);
+    	Object.keys(sessionStorage).forEach(function(key) {
+    		sessionStorage.removeItem(key);
+    	});
+   		$M.returnToLogin();
+		
+	},
+	
+	/**
+	 * Returns information about whether an authentication is needed or not.
+	 */
+	isAuthenticationNeeded: function(){
+		if (authenticationNeeded){
+			var maxauth = JSON.parse(sessionStorage.getItem("maxauth"));
+			if (maxauth){
+				baseUri = maxauth.baseUri;
+				authenticationNeeded = false;
+			}
+		}
+		return authenticationNeeded;
+	},
+	
+	/**
+	 * Returns the base URI used for making the REST API calls.
+	 */
+	getBaseUri: function()
+	{
+		return baseUri;
+	},
+	
+	// Returns a base URL to be used based on the configuration data
+	// specified in the config.json file.
+	//
+	// The logic here is simple. If the user accesses this component from a browser
+	// indicates that the user has a valid hostname to access this code. Currently,
+	// we assume that this code is served from the same host and port address where
+	// maximo UI is already running (This could potentially change in future to support
+	// other deployment mechanisms outside of this host and port and this has to be
+	// re-visited). Using this assumption, we form a URL, which becomes 
+	// the base URL from which maximo data can be retrieved using REST API calls.
+	// Also, the session based request initiated by this component adds a header called
+	// x-public-uri based on this base URL, so that the REST API call responses that 
+	// contain URL references will use this as the base URL.
+	// This basically eliminates the dependency on the mxe.oslc.webappurl property.
+	// Also, in the cases where a front load WebWerver is used and a different context
+	// path is used to access maximo, then the context used by the front load 
+	// WebServer should be configured in the config.json file under the contexts array.
+	// The logic in this code, checks to see if any such configuration is present
+	// based on the front load WebServer hostname, then the context path specified
+	// for that configuration will be used to send REST API call to access maximo data.
+	// NOTE that in all other cases, the defaultcontext specified in the config.json
+	// will be sufficient.
+	_resolveBaseURL: function(contextConfigData)
+	{		
+		if (contextConfigData.defaultcontext)
+		{
+			_defaultContext = contextConfigData.defaultcontext;
+		}
+		
+		if (contextConfigData.maximoserverauthentication && 
+		    (contextConfigData.maximoserverauthentication.enabled === true) && 
+		    contextConfigData.maximoserverauthentication.maximologinurl)
+		{
+			_useMaximoServerAuthentication = true;
+			_maximoLoginUrl = contextConfigData.maximoserverauthentication.maximologinurl;
+		}
+		
+		var protocol = window.location.protocol;
+		var hostname = window.location.hostname;
+		var port = window.location.port;
+
+		var contexts = contextConfigData.contexts;
+		if ((contexts == null) || (contexts.length == 0))
+		{
+			// defaults to /maximo
+			if (!port)
+			{
+				return protocol + "//" + hostname + _defaultContext;
+			}
+			
+			return protocol + "//" + hostname + ":" + port + _defaultContext;
+		}
+		
+		var foundMatchingContext = false;
+		for (var i = 0; i < contexts.length; i++)
+		{
+			var contextData = contexts[i];
+			
+			if (contextData.hostname && (contextData.hostname.toLowerCase() === hostname.toLowerCase()))
+			{
+				foundMatchingContext = true;
+				
+				// hostname matches, use the context defined for that
+				if (contextData.maximohostname)
+				{
+					hostname = contextData.maximohostname;
+				}
+				
+				var context = _defaultContext;
+				if (contextData.maximocontext)
+				{
+					context = contextData.maximocontext;
+				}
+				
+				
+				if (contextData.maximoport)
+				{
+					port = contextData.maximoport;
+				}
+				
+ 				if (!port)
+ 				{
+ 					return protocol + "//" + hostname + context;
+ 				}
+				
+				return protocol + "//" + hostname + ":" + port + context;
+			}			
+		}
+		
+		if (foundMatchingContext === false)
+		{
+			if (!port)
+			{
+				return protocol + "//" + hostname + _defaultContext;
+			}
+			
+			return protocol + "//" + hostname + ":" + port + _defaultContext;
+		}		
+	},
+	
+	
+	
+
+  });
+  
+})();  
+</script>
+

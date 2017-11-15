@@ -1,0 +1,191 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-button-css">
+	<template>
+    	<style>
+			.button {
+				-webkit-appearance: none;
+				transition: all .2s linear;
+				cursor: pointer;
+				line-height: 25px;
+				text-align: center;
+				display: inline-block;
+				padding: 0px 10px;
+				font-family: 'HelveticaNeue';
+				border: 0px;
+				background: transparent;
+			}
+			
+			:host[disabled], .button[aria-disabled] {
+				pointer-events: none;
+			}
+			
+			.button:not(.action) {
+				border: 1px solid var(--Primary-gray20);
+				color: var(--Primary-gray50);
+				background: var(--Primary-white);
+			}
+
+			.button iron-icon.west {
+				margin: 0px 5px 0px 0px;
+			}
+			
+			.button iron-icon.east {
+				margin: 0px 0px 0px 5px;
+			}
+			
+			.button.rtl iron-icon.west {
+				margin: 0px 0px 0px 5px;
+			}
+			
+			.button.rtl iron-icon.east {
+				margin: 0px 5px 0px 0px;
+			}
+
+			button.action iron-icon {
+				margin: 0px 5px 0px 0px !important;
+			}
+			
+			button.action.rtl iron-icon {
+				margin: 0px 0px 0px 5px !important;
+			}
+			
+			button.action iron-icon.east {
+				margin: 0px 0px 0px 5px !important;
+			}
+			
+			button.action.rtl iron-icon.east {
+				margin: 0px 5px 0px 0px !important;
+			}
+			
+			
+			.action, .action * {
+				color: var(--Primary-blue50);
+				font-size: 100%;
+				font-family: 'HelveticaNeue';
+				padding: 0px;
+				outline: none;
+			}
+
+			.action[aria-disabled], .action[aria-disabled] *{
+				color: var(--Primary-gray100);
+				font-family: 'HelveticaNeue';
+				cursor : default;
+			} 
+			
+			.action[aria-disabled] > iron-icon{
+				color: var(--Primary-gray50);
+			}
+									
+			.button.action:not([aria-disabled]):hover, .button.action:not([aria-disabled]):hover *,
+			.button.action:not([aria-disabled]):focus, .button.action:not([aria-disabled]):focus * {
+				text-decoration: underline;
+				color: var(--Primary-blue30) !important;
+			}
+			
+			.button.action:not([aria-disabled]):focus, .button.action:not([aria-disabled]):focus * {
+				color: var(--Primary-blue50); 
+			}
+			
+			.button.action:not([aria-disabled]):focus { 
+				outline: none
+			}
+			
+			.button.action[aria-disabled]:focus {
+				color: #000;
+			}
+			
+			.button.action svg {
+				transition: all .2s linear;
+				color: var(--Primary-blue30);
+			}
+			
+			.button.action:hover svg {
+				fill: var(--Primary-blue50);
+			}
+
+			.button.rtl .icon ::content svg {
+				transform: scale(-1,1) !important;
+			}
+			
+			.button:not(.action):not([aria-disabled]):hover, 
+			.button:not(.action):not([aria-disabled]):focus {
+				background: var(--Primary-blue60);
+				color: var(--Primary-white);
+			}
+			
+			.button:not(.action):not([aria-disabled]):hover iron-icon ::content svg, 
+			.button:not(.action):not([aria-disabled]):focus iron-icon ::content svg {
+				fill: var(--Primary-white);
+			}
+
+			.button[default] {
+				/* border: 2px solid var(--Primary-blue50); */
+				background: var(--Primary-blue50);
+				color: var(--Primary-white);
+				/* font-family: 'HelveticaNeue-Bold'; */
+			}
+			
+			.button[default]:not([aria-disabled]):hover, 
+			.button[default]:not([aria-disabled]):focus {
+				background: var(--Primary-blue60);
+			}
+
+			.button:not ([image] ) {
+				min-width: 84px;
+			}
+			
+			.button[image] {
+				border: 0px solid #999;
+				background: transparent;
+				transition: all .2s linear;
+				cursor: pointer;
+				line-height: 25px;
+			}
+			
+			button.action[aria-disabled] {
+				color: var(--Primary-gray30);
+			}
+			
+			.button.action[aria-disabled] iron-icon ::content svg {
+				fill: var(--Primary-gray30);
+			}
+			
+			button[aria-disabled]:not(.action) { 
+				background: var(--Primary-gray30);
+				color: var(--Neutral-gray2);
+				cursor: default;
+			}
+			
+			button[aria-disabled]:not(.action) ::content svg {
+				fill: var(--Neutral-gray2); 
+			}
+
+			button:not(.action)[default] ::content svg {
+				fill: var(--Neutral-gray2); 
+			}
+			
+			@-webkit-keyframes rotating {
+			    from{
+			        -webkit-transform: rotate(0deg);
+			    }
+			    to{
+			        -webkit-transform: rotate(360deg);
+			    }
+			}
+			
+			.rotating ::content svg {
+			    -webkit-animation: rotating 1s linear infinite;
+			}
+			
+			button.nextButton {
+				padding: 0px 0px 0px 10px;
+			} 
+			
+		</style>
+	</template>
+</dom-module>

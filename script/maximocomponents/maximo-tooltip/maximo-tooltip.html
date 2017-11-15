@@ -1,0 +1,30 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<link rel="import" href="../../components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../components/iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../../components/paper-styles/default-theme.html">
+<link rel="import" href="../../components/paper-styles/typography.html">
+
+<dom-module id="maximo-tooltip">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-tooltip-css.html">
+	<style is="custom-style" include="maximo-tooltip-css"></style>
+	
+  	<template>
+    	<div id="tooltip" class="tooltip" on-mousedown="_tooltipMouseDown">
+    		<div id="pointer" class="pointer"></div>
+    		<div id="content"></div>
+    	</div>
+  	</template>
+  <script src="maximo-tooltip.js"></script>
+</dom-module>

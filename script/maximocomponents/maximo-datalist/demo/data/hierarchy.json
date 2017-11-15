@@ -1,0 +1,41 @@
+[ {
+	"id" : "CLASSSTRUCTURE",
+	"objectname" : "CLASSSTRUCTURE",
+	"description" : "Classification Details",
+	"hierarchypath" : "CLASSSTRUCTURE",
+	"elementicon" : "Maximo:Confirm",
+	"href" : "http://192.168.1.68:7001/maximo/oslc/os/mxapiwosdataset/_UkVQX0NMQVNT/maxintobjdetail/0-663",
+	"_id" :"3-663aa",
+	"children" : [
+			{
+				"id" : "CLASSSPEC",
+				"objectname" : "CLASSSPEC",
+				"description" : "Specification Attributes",
+				"parentobjname" : "CLASSSTRUCTURE",
+				"hierarchypath" : "CLASSSTRUCTURE/CLASSSPEC",
+				"href" : "http://192.168.1.68:7001/maximo/oslc/os/mxapiwosdataset/_UkVQX0NMQVNT/maxintobjdetail/2-665",
+				"_id" :"2-665aa",
+				"children" : [ {
+					"id" : "CLASSSPECUSEWITH",
+					"objectname" : "CLASSSPECUSEWITH",
+					"description" : "Use With Object Details",
+					"parentobjname" : "CLASSSPEC",
+					"elementicon" : "Maximo:Circle",
+					"hierarchypath" : "CLASSSTRUCTURE/CLASSSPEC/CLASSSPECUSEWITH",
+					"href" : "http://192.168.1.68:7001/maximo/oslc/os/mxapiwosdataset/_UkVQX0NMQVNT/maxintobjdetail/3-667",
+					"_id" :"3-667aa",
+					"children" : []
+				} ]
+			},
+			{
+				"id" : "CLASSUSEWITH",
+				"objectname" : "CLASSUSEWITH",
+				"description" : "Use With Object",
+				"parentobjname" : "CLASSSTRUCTURE",
+				"hierarchypath" : "CLASSSTRUCTURE/CLASSUSEWITH",
+				"href" : "http://192.168.1.68:7001/maximo/oslc/os/mxapiwosdataset/_UkVQX0NMQVNT/maxintobjdetail/1-664",
+				"_id" :"3-664aa",
+				"elementicon" : "Maximo:Confirm",
+				"children" : []
+			} ]
+} ]

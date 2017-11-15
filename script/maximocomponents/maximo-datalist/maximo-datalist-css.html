@@ -1,0 +1,344 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-datalist-css">
+	<template>
+    	<style>
+    	
+    		:host {
+    			--chevron-color: var(--Primary-gray70);
+    			--line-height: 20px;
+    			--dl-border: 1px solid var(--Cool-gray30);
+    		}
+    		
+    		.wrapper {
+    	    	display: inline-block;
+    			text-align: left;
+    			vertical-align:top;
+    		}
+    		
+    		.wrapper.rtl {
+    			text-align: right;
+    		}
+    	
+			.datalist {
+				position: relative;
+				border: var(--dl-border);
+			    overflow: auto;
+				text-align: left;
+				display: inline-block !important;
+				vertical-align:top;
+				background: var(--Primary-white);
+				box-sizing: border-box;
+			}
+			
+			.controls {
+				display: inline-block;
+				width: 24px;
+				vertical-align: middle;
+			}
+ 		
+    		.controls maximo-button ::content iron-icon {
+    			width: 18px;
+				height: 18px;
+    			margin: 0px !important;
+    		}
+    		
+			.datalist.rtl {
+				text-align: right;
+			}
+			
+			ul {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			ul[role=group] > li label {
+				padding: 5px 0px 5px 0px
+			}
+			
+			ul[role=group].rtl {
+				padding: 5px 0px 5px 0px;
+			}
+			
+			li[aria-expanded=false] ul {
+				transform: scaleY(0);
+				overflow: hidden;
+			}
+			
+			li[aria-expanded=false] ul li {
+				display: none;
+			}
+			
+			li {
+				outline: none;
+				line-height: var(--line-height);
+				background: var(--Primary-white);
+				@apply(--dl-item-border);
+			}
+			
+			li.odd {
+				background: var(--Neutral-gray2);
+			}
+			
+			li[draggable] {
+				cursor: grab; 
+				cursor: -webkit-grab;
+			}
+			
+			li[dragging] {
+				cursor: grabbing; 
+				cursor: -webkit-grabbing;
+			}
+			
+			li label {
+				display: block;
+				padding: 3px 2px 2px 2px;
+				outline-offset: -2px;
+				outline: 2px solid transparent;
+			    white-space: nowrap;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			}
+			
+			label.hovered {
+				background-color: var(--Primary-gray10);
+			}
+			
+			label[selected] {
+				background-color: var(--Primary-blue10) !important;
+			}
+			
+			label.hovered[selected] {
+				background-color: var(--Primary-blue20) !important;
+			}
+			
+			ul, li {
+				display: block;
+				list-style: none;
+			}
+			
+			li[aria-expanded=true] > label span iron-icon ::content svg {
+				transform: rotate(90deg);
+			}
+			
+			iron-icon.dataicon {
+				--iron-icon-fill-color: var(--Primary-green30);
+			}
+			
+			.datalist iron-icon ::content svg {
+				transition: all .3s ease;
+			}
+			
+			.notransition iron-icon ::content svg {
+ 				-webkit-transition: none !important;
+  				-moz-transition: none !important;
+  				-o-transition: none !important;
+  				transition: none !important;
+			}
+			
+			.datalist.rtl iron-icon ::content svg {
+				transform: scaleX(-1);
+			}
+			
+			.datalist label {
+				@apply(--layout-horizontal);
+				pointer-events: none;
+			}
+
+			.datalist[multi=true] maximo-checkbox {
+				margin: 0px 0px 0px -5px;
+			}
+			
+			.datalist.rtl[multi=true] maximo-checkbox {
+				margin: 0px -5px 0px 0px;
+			}
+			
+			.datalist[multi=true] maximo-checkbox ::content div.wrapper {
+				width: 20px;
+			}
+			
+			.datalistItem maximo-checkbox ::content div.checkbox {
+				background: rgba(255,255,255,.5);
+				width: 15px;
+			}
+			
+			.datalist:not([multi=true]) .datalistItem maximo-checkbox ::content div.checkbox {
+				display: none;
+				width: 0px;
+			}
+			
+			.datalistAttrContainer {
+				/* width: 90%; */
+				@apply(--layout-flex);
+			}
+			
+			.datalist label span {
+				margin-left: -8px;
+				margin-right: auto;
+				pointer-events: all;
+			}
+			
+			.datalistAttrContainer > div {
+				display: block;
+				font-family: 'HelveticaNeue';
+				font-size: 90%;
+				overflow:hidden;
+				text-overflow:ellipsis;
+				white-space:nowrap;
+				pointer-events: none;
+				width: 100%;
+			}
+			
+			.datalistAttrContainer > div:first-of-type {
+				font-family: 'HelveticaNeue-Bold';
+		    	line-height: 1.3em;
+		    	margin-top: 2px;
+			}
+			
+			.datalist label > div > div:only-of-type {
+				font-family: 'HelveticaNeue';
+			}
+			
+			.datalist label.rtl span {
+				margin-right: -8px;
+				margin-left: auto;
+			}
+			
+			li:not(.hovered):focus > label {
+				outline-color: #a2c4fb;				
+			}
+			
+			.datalist.dropTarget {
+				outline: 2px solid var(--Primary-blue50);
+		    	outline-offset: -1px;
+			}
+			
+			.datalistItem.dropTargetTop + .datalistItem { 
+				box-shadow: inset 0 2px 0 var(--Primary-blue50);
+			}
+			
+			.datalistItem.dropTargetBottom { 
+				box-shadow: inset 0 2px 0 var(--Primary-blue50);
+			}
+			
+			.datalistItem.dropTargetLast { 
+				box-shadow: inset 0 -2px 0 var(--Primary-blue50);
+			}
+			
+			.datalistAttribute{
+			   overflow: hidden;
+   			   white-space:nowrap;
+               text-overflow:ellipsis;
+			}
+			
+			span.error {
+				color: red;
+			}
+			
+			li div.toolbar {
+			    float: right;
+		    	display: block;
+		    	position: relative;
+				display: none;
+				padding: 0px 0px 0px 10px;
+			}
+			
+			li.rtl div.toolbar {
+				float: left;
+				padding: 0px 10px 0px 0px;
+			}
+
+			.datalist:not([multi=true]) li > label.hovered + .toolbar, .datalist:not([multi=true]) li:focus > label + .toolbar, .datalist li > label[selected] + .toolbar {
+				display: initial !important;
+			}
+			
+			.toolbar {
+				right: 5px;
+			}
+			
+			.toolbar:rtl {
+				left: 5px;
+			}
+
+			.toolbar button {
+		    	margin: 0px 5px 0px 0px;
+		    	background: transparent;
+		    	border: 0px;
+		    	display: inline-block;
+				outline: none;
+				width: 30px;
+		    	padding-left: 0px;
+				padding-right: 0px;
+			}
+			
+			.toolbar.rtl button {
+				margin: 0px 0px 0px 5px;
+			}
+			
+			.toolbar.rtl button iron-icon ::content svg {
+				transform: scaleX(-1);
+			}
+			
+			.toolbar button iron-icon ::content svg{
+				fill: var(--Primary-blue50);
+			}
+			
+			.toolbar button:hover iron-icon ::content svg, .toolbar button:focus iron-icon ::content svg,
+			.toolbar button:hover iron-icon ::content svg polygon, .toolbar button:focus iron-icon ::content svg polygon{
+				fill: var(--Primary-blue30);
+			}
+			
+			li > label > div {
+				display: inline-block;
+				vertical-align: top;
+			}
+			
+			li > label > div.index {
+			   pointer-events: none;
+			   margin: 0px 4px 0px -8px;
+			   min-width: 26px;
+			   text-align: right;
+			   font-family: verdana;
+			   overflow: hidden;
+			   font-size: 75%;
+			}
+			
+			li.rtl > label > div.index {
+				margin: 0px -5px 0px 5px;
+			}
+			
+			.wrapper > h4 {
+			    margin: 0px;
+		    	padding: 5px;
+		    	background: var(--Primary-blue60);
+		    	color: var(--Primary-white);
+				font-family:HelveticaNeue;
+				letter-spacing:0px;
+		        font-family: 'HelveticaNeue';
+				font-weight: normal;
+		    	text-align: center
+			}
+			
+			.wrapper > h4:empty {
+				display: none;
+			}
+			
+			.info {
+				text-align: center;
+		    	display: block;
+		    	cursor: default;
+		    	margin: 10px;
+		    	color: var(--Primary-gray30);
+			}
+			
+			span > iron-icon {
+				color: var(--chevron-color);
+			}
+			
+		</style>
+	</template>
+</dom-module>

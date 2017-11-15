@@ -1,0 +1,39 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-link-css">
+	<template>
+    	<style>
+			:host {
+				--font-size: 100%;
+				--line-heigth: normal;
+				--link-color: var(--Primary-blue30);
+				--font-color: var(--Primary-white);
+			}
+			
+			.container label,
+			.container a {
+				font-size: var(--font-size);
+				line-height: var(--line-heigth);
+			}
+
+			label {
+				color: var(--font-color);
+			}
+
+			a {
+    			color: var(--link-color);
+    			text-decoration: initial;
+			}
+			
+			a:hover {
+				text-decoration: underline;
+			}
+			
+			
+		</style>
+	</template>
+</dom-module>

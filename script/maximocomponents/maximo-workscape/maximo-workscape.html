@@ -1,0 +1,76 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../maximo-authcontext/maximo-authcontext.html" />
+<link rel="import" href="../maximo-collection/maximo-collection.html" />
+<link rel="import" href="../_behaviors/workcenter-carousel-behavior.html"/>
+
+
+<dom-module id="maximo-workscape">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-workscape-css.html">
+	<style is="custom-style" include="maximo-workscape-css"></style>
+	
+	<template>
+		<maximo-authcontext id="authenticator"></maximo-authcontext>
+		<div id="workscape" class="wrapper workscape" on-track="swipeHandler">
+			<section class="container">
+			    <div role="main" id="content" class="content"  data-wsContent="true">
+			    	<div id="carousel">
+		            	<content class="content"></content>
+		            </div>
+		            <div id="carouselController" class="carouselController horizontal layout" hidden="true">
+		            	<table>
+		            		<tr>
+		            			<td ><iron-icon icon="chevron-left" class="arrow" on-tap="scrollCarouselEvent" direction="-1" style="width:36px;height:36px"></iron-icon></td>
+		            			<td id="dots" class="dots"><ul class="container"></ul></td>
+		            			<td ><iron-icon icon="chevron-right" class="arrow" on-tap="scrollCarouselEvent" direction="1" style="width:36px;height:36px"></iron-icon></td>
+		            		</tr>
+		            	</table>
+		            </div>
+		    	</div>
+			</section>
+			<header hidden$="{{hideHeader}}" role="banner" id="headerbar" class="headerbar" hidden="{{!show}}">
+				<div class=" container flex-equal-justified">
+					<div class="west">
+						<div class="label">IBM<span class="maximo">[[productName]]</span></div>
+					</div>
+					<div class="title">
+						<div class="label">{{_getAppLabel(label)}}</div>
+					</div>
+					<div class="east">
+						<div id="customHeaderContent" class="customHeaderContent"></div>
+						<template is="dom-if" if="{{_showNavigationMenu}}">
+							<maximo-navigationmenu id="navigationmenu" title="{{localize('uitext','mxapibase','goto')}}"></maximo-navigationmenu>
+						</template>
+						<div id="user" class="user">
+							<maximo-usermenu id="usermenu" title="{{localize('uitext','mxapibase','user')}}"></maximo-usermenu>
+						</div>
+					</div>
+				</div> 
+			</header>
+			<footer hidden$="{{hideFooter}}" role="contentinfo" id="footer" class="footer" hidden="{{!show}}">
+				<div id="footerToolbar" class="footerToolbar" hidden="{{!footerToolbar}}"></div>
+				<div class="footerBg">
+					<div class="west">
+						<div class="label">IBM</div>
+					</div>
+					<maximo-label id="about" class="about" event="#" on-tap="showAbout" label="{{localize('uitext','mxapibase','About')}}"></maximo-label>
+				</div>
+			</footer>
+		</div>
+		
+		<div id="about_info" hidden="true">This is the help about dialog</div>
+	</template>
+
+	<script src="maximo-workscape.js"></script>
+
+</dom-module>

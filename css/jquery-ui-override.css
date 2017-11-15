@@ -1,0 +1,68 @@
+/*
+ * @license
+ * Licensed Materials - Property of IBM
+ * 5724-U18
+ * Copyright IBM Corporation. 2016
+ */
+div.ui-datepicker {
+	border: 2px solid #dcdedd !important;
+	border-radius: 1px !important;
+	font-family: "HelveticaNeue-Light";
+}
+
+.ui-datepicker-header {
+    background: transparent;
+    border: 0px;
+    font-family: "HelveticaNeue";
+}
+
+.ui-datepicker-calendar a.ui-state-default {
+	background: #f4f4f4;
+	border: 0px;
+	border: 1px solid transparent; 
+}
+
+.ui-datepicker-calendar a.ui-state-default:hover {
+ 	border: 1px solid #5596e6;
+}
+
+.ui-datepicker-calendar a.ui-state-highlight {
+	background: #5aaafa;
+	border: 1px solid transparent;
+}
+
+.ui-datepicker-current-day a.ui-state-active {
+    border: 1px solid #000;
+}
+
+.ui-datepicker .ui-datepicker-prev:hover,
+.ui-datepicker .ui-datepicker-next:hover {
+	background: transparent;
+	border: 0px;
+} 
+
+.ui-datepicker-prev span {
+    background-image: url(../images/icon-chevron-left.png) !important;
+	background-position: 0px 0px !important;
+}
+
+.ui-datepicker-next span {
+    background-image: url(../images/icon-chevron-right.png) !important;
+    background-position: 0px 0px !important;
+}
+
+.ui-datepicker .ui-datepicker-next-hover {
+	right: 2px;
+	top: 2px;
+}
+.ui-datepicker .ui-datepicker-next-hover span {
+	background-image: url(../images/icon-chevron-right-hover.png) !important;
+}
+
+.ui-datepicker .ui-datepicker-prev-hover {
+	left: 2px;
+	top: 2px;
+}
+.ui-datepicker .ui-datepicker-prev-hover span {
+	background-image: url(../images/icon-chevron-left-hover.png) !important;	
+}

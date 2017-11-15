@@ -1,0 +1,102 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-inspector-create style tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		
+		<script src="../../../../../main.js"></script>
+		<script src="../../../../../test.js"></script>
+		<script src="../../../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../../../components/iron-test-helpers/mock-interactions.js"></script>
+		
+		<link rel="import" href="../../../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<link rel="import" href="../maximo-inspector-create.html"/>
+		
+		<script src="mockData.js"></script>
+		
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		<test-fixture id="typeahead">
+			<template>		
+				<maximo-inspector-create id="create1"></maximo-inspector-create>
+			</template>
+		</test-fixture>
+	 	<script>
+			suite('Typeahead tests', function() {
+				
+				var typeahead;
+				setup(function() {
+					typeahead = fixture('typeahead');
+				});
+	
+				test('Check list visibility', function(done) {
+					
+					typeahead.inputValue = 'So';
+					//When more than 2 chars the list should be visible
+					expect(getStyleProperty(typeahead.$.itemList, 'display')).to.equal('none', 'List should be hidden.');
+	
+					typeahead.selectedCollection = mockedCollectionDataStyle;
+					typeahead._handleAssetDataRefreshed(mockedAssetResponseEventStyle);
+					
+					//With less than 3 chars list should be hiddne
+					expect(getStyleProperty(typeahead.$.itemList, 'display')).to.equal('block', 'List should be visible.');
+
+					typeahead.inputValue = '';
+					// target can be any Element or other EventTarget.
+					typeahead.$.inspectorInputTypeText.dispatchEvent(mockedInputEventStyle);
+					
+					//When more than 2 chars the list should be visible
+					expect(getStyleProperty(typeahead.$.itemList, 'display')).to.equal('none', 'List should be hidden.');
+					
+				 	done();
+				});
+				
+				test('Check list properties', function(done) {
+					
+					typeahead.selectedCollection = mockedCollectionDataStyle;
+					typeahead._handleAssetDataRefreshed(mockedAssetResponseEventStyle);
+					
+					//Should has overflow
+					expect(getStyleProperty(typeahead.$.itemList, 'overflow')).to.equal('auto', 'Should have overflow set as auto to scroll results.');
+					
+					//Should have solid border
+					expect(getStyleProperty(typeahead.$.itemList, 'border-bottom-style')).to.equal('solid', 'Border should be solid.');
+					expect(getStyleProperty(typeahead.$.itemList, 'border-left-style')).to.equal('solid', 'Border should be solid.');
+					expect(getStyleProperty(typeahead.$.itemList, 'border-right-style')).to.equal('solid', 'Border should be solid.');
+					
+					expect(getStyleProperty(typeahead.$.itemList, 'border-bottom-width')).to.equal('1px', 'Border should be 1px.');
+					expect(getStyleProperty(typeahead.$.itemList, 'border-left-width')).to.equal('1px', 'Border should be 1px.');
+					expect(getStyleProperty(typeahead.$.itemList, 'border-right-width')).to.equal('1px', 'Border should be 1px.');
+					
+					done();
+				});
+	
+			});
+	
+		</script>
+	</body>
+</html>

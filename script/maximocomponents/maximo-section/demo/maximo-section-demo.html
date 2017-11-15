@@ -1,0 +1,91 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-section-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../../../components/iron-collapse/iron-collapse.html">
+	<link rel="import" href="../../maximo-label/maximo-label.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+		<style>
+			xmp {
+				margin: 5px;
+			}
+			.code {
+				padding: 10px !important;
+				border: 1px solid #efefef;
+			}
+			
+			.outer {
+				width: 900px;
+				max-width: 900px;
+		    	box-sizing: border-box;
+			}
+		</style>
+  		<div class="outer">
+  			<maximo-section id="section0" label="Section Demo" alternate-label="Section Demo Alternate" collapsed="true">
+  				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas, quam non iaculis congue, sapien augue vestibulum erat, sagittis laoreet neque neque ut ex. Cras accumsan erat lacinia nisi placerat, ut dictum diam consectetur.</p>
+  			</maximo-section>
+<div class="code"><xmp>
+<maximo-section id="section0" label="Section Demo" alternate-label="Section Demo Alternate">
+	<p>Lorem ipsum ...</p>
+</maximo-section>
+</xmp></div>
+		</div>
+		
+		<div class="outer">
+  				<maximo-section id="section1" label="Collapsed Section Demo" alternate-label="Collapes Section Demo Alternate" collapsed="true" collapsed="true" customstyle="raw">
+  					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas, quam non iaculis congue, sapien augue vestibulum erat, sagittis laoreet neque neque ut ex. Cras accumsan erat lacinia nisi placerat, ut dictum diam consectetur.</p>
+				</maximo-section>
+<div class="code"><xmp>
+<maximo-section id="section1" label="Collapsed Section Demo" alternate-label="Collapes Section Demo Alternate" collapsed="true" collapsed="true" customstyle="raw">
+	<p>Lorem ipsum ...</p>
+</maximo-section>
+</xmp></div>
+		</div>
+		
+		<div class="outer">
+				<maximo-section id="section2" label="Collapsed Section Demo" collapsed="true" collapsed="true" customstyle="raw">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas, quam non iaculis congue, sapien augue vestibulum erat, sagittis laoreet neque neque ut ex. Cras accumsan erat lacinia nisi placerat, ut dictum diam consectetur.</p>
+				</maximo-section>
+<div class="code"><xmp>
+<maximo-section id="section1" label="Collapsed Section Demo" collapsed="true" collapsed="true" customstyle="raw">
+	<p>Lorem ipsum ...</p>
+</maximo-section>
+</xmp></div>
+		</div>
+
+		<div class="outer">
+	  			<maximo-section id="section3" label="Collapsed Section Demo" alternate-label="Collapes Section Demo Alternate" collapsed="true"" collapsed="true">
+  					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas, quam non iaculis congue, sapien augue vestibulum erat, sagittis laoreet neque neque ut ex. Cras accumsan erat lacinia nisi placerat, ut dictum diam consectetur.</p>
+  				</maximo-section>
+<div class="code"><xmp>
+<maximo-section id="section1" label="Collapsed Section Demo" alternate-label="Collapes Section Demo Alternate" collapsed="true"" collapsed="true">
+	<p>Lorem ipsum ...</p>
+</maximo-section>
+</xmp></div>
+		</div>
+		<div class="outer">
+				<maximo-section id="section4" label="Collapsed Section Demo" alternate-label="Collapes Section Demo Alternate" collapsed="true" show-alternate-label>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas, quam non iaculis congue, sapien augue vestibulum erat, sagittis laoreet neque neque ut ex. Cras accumsan erat lacinia nisi placerat, ut dictum diam consectetur.</p>
+				</maximo-section>
+<div class="code"><xmp>
+<maximo-section id="section1" label="Collapsed Section Demo" alternate-label="Collapes Section Demo Alternate" collapsed="true" show-alternate-label>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas, quam non iaculis congue, sapien augue vestibulum erat, sagittis laoreet neque neque ut ex. Cras accumsan erat lacinia nisi placerat, ut dictum diam consectetur.</p>
+</maximo-section>
+</xmp></div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-section-demo',
+			behaviors: [BaseComponent],
+			properties: {
+
+			}
+		});
+	</script>
+</dom-module>

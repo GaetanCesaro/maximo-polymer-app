@@ -1,0 +1,98 @@
+<!--
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-table-css">
+	<template>
+    	<style>
+    		.wrapper {
+    			display: inline-block;
+    			overflow-x: auto;
+    		}
+
+    		table {
+    			border-collapse: collapse;
+    			width: 100%;
+    		}
+    		table tbody {
+    			overflow-y: auto;
+    			scroll-behavior: smooth;
+    		}
+    		table thead {
+    			border-bottom:1px solid #e0e0e0;
+    		}
+
+    		tr {
+
+    		}
+
+    		table tbody tr td, table thead tr th {
+    			background: #ffffff;
+    			text-align: left;
+    			padding: 0px;
+    		}
+
+    		table thead tr th {
+    			padding: 15px;
+    		}
+
+    		table tbody tr td {
+    			cursor: default;
+    		}
+
+
+    		table tbody tr td > div{
+    			text-overflow: ellipsis;
+				padding: 15px;
+    			box-sizing: border-box;
+    		}
+
+    		table tbody tr td input {
+    			background-color: transparent !important;
+    			cursor: text;
+    			border: 0px;
+    			width: 100%;
+    			height: 100%;
+    		}
+
+    		table tbody tr td input:focus {
+    			background-color: var(--Primary-white) !important;
+    		}
+
+    		table.rtl tbody tr td, table.rtl thead tr th {
+    			text-align: right;
+    			box-sizing: border-box;
+    		}
+
+    		table tbody tr td {
+    			overflow: hidden;
+	    		text-overflow: ellipsis;
+				border-bottom: 1px solid var(--Primary-gray10);
+    			font-family: 'HelveticaNeue';
+    			color: var(--Cool-gray70);
+    		}
+
+    		table thead tr th {
+    			color: var(--Cool-gray70);
+    			font-family: 'HelveticaNeue-Bold';
+    		}
+
+    		table tbody tr[aria-selected=true] td {
+    			background-color: var(--Primary-blue10) !important;
+    		}
+
+    		table tbody tr:hover:not(.stopHover) td {
+    			background-color: var(--Primary-gray10);
+    		}
+
+    		table tbody tr.stopHover td {
+    			padding: 15px;
+    			text-align: center;
+				width: 100% !important;
+    			border-bottom: 0px !important;
+    		}
+		</style>
+	</template>
+</dom-module>

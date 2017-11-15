@@ -1,0 +1,65 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+	/**
+	 * This is a render queue required by any component that wants to render multiple treegrids
+	 *
+	 * @polymerBehavior TableComponent
+	 */
+	MaximoTreegridBehavior = {
+		properties:{
+            /**
+			 * Queue for maintaining rendering order
+			 * 
+			 */
+			tgRenderQueue: {
+				type: Array,
+				value: function(){
+					return []
+				},
+				notify:true,
+				observer: 'handleTgRenderQueueChanged'
+			}
+        },
+        listeners: {
+            'tg-queue-for-render':'handleTgQueueForRender',
+			'tg-on-render-finish':'handleTgRenderFinish'
+			//'tg-reload':'handleTgReload'
+        },
+
+        handleTgQueueForRender: function(e){			
+			//when render starts, we look at the list.
+			//this.push('tgRenderQueue', e.detail);
+
+			//we do not render if its currently rendering
+			if(!this.tgRenderQueue.includes(e.detail)){
+				var newQueue = this.tgRenderQueue.slice();
+				newQueue.push(e.detail);
+				this.tgRenderQueue = newQueue;
+			}
+		},
+
+		handleTgRenderFinish: function(e){			
+			//when render finishes, we notify the queue to remove our entry and then
+			var newQueue = this.tgRenderQueue.slice();
+			newQueue.shift();
+			this.tgRenderQueue = newQueue;
+		},
+
+		handleTgRenderQueueChanged: function(newVal, oldVal){			
+			//_tgId === div id
+			//first element different, so we render that element.
+			if(oldVal && newVal){
+				if(newVal[0] !== oldVal[0]){
+					if(newVal[0]){
+						this.$[newVal[0]].createTreeGrid();
+					}					
+				}
+			}
+		}
+	};
+</script>

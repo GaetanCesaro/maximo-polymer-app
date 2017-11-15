@@ -1,0 +1,92 @@
+/*
+ * @license
+ * Licensed Materials - Property of IBM
+ * 5724-U18
+ * Copyright IBM Corporation. 2016
+ */
+@font-face{font-family:"IBM Icon Font";src:url("../font/ibmicons.woff?v=0.9.5") format("woff");font-weight:normal;font-style:normal}
+@font-face{font-family:'HelveticaNeue-Light-Italic';src:url("../font/light-italic/helvetica-neue-light-italic.woff") format("woff");font-weight:300;font-style:italic}
+@font-face{font-family:'HelveticaNeue-Light';src:url("../font/light/helvetica-neue-light.woff") format("woff");font-weight:300;font-style:normal}
+@font-face{font-family:'HelveticaNeue-Medium-Italic';src:url("../font/helvetica-neue-medium-italic.woff") format("woff");font-weight:500;font-style:italic}
+@font-face{font-family:'HelveticaNeue';src:url("../font/roman/helvetica-neue-roman.woff") format("woff");font-weight:normal;font-style:normal}
+@font-face{font-family:'HelveticaNeue-Condensed-Bold';src:url("../font/condensed/helvetica-neue-condensed.woff") format("woff");font-weight:bold;font-style:normal}
+@font-face{font-family:'HelveticaNeue-Medium';src:url("../font/medium/helvetica-neue-medium.woff") format("woff");font-weight:500;font-style:normal}
+@font-face{font-family:'HelveticaNeue-Condensed-Black';src:url("../font/condensed/helvetica-neue-condensed.woff") format("woff");font-weight:900;font-style:normal}
+@font-face{font-family:'HelveticaNeue-Bold';src:url("../font/bold/helvetica-neue-bold.woff") format("woff");font-weight:bold;font-style:normal}
+@font-face{font-family:'HelveticaNeue-Thin';src:url("../font/light/helvetica-neue-light.woff") format("woff");font-weight:100;font-style:normal}
+@font-face{font-family:'HelveticaNeue-Italic';src:url("../font/roman-italic/helvetica-neue-roman-italic.woff") format("woff");font-weight:normal;font-style:italic}
+@font-face{font-family:'HelveticaNeue-Bold-Italic';src:url("../font/bold-italic/helvetica-neue-bold-italic.woff") format("woff");font-weight:bold;font-style:italic}
+
+html {
+	height: 100%;
+}
+
+body {
+	color:  var(--Primary-gray70);
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	overflow-x: hidden;
+	font-family: "HelveticaNeue", sans-serif;
+	user-select: none;
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+}
+
+body.fixedVertical {
+	position: fixed;
+	overflow-y: scroll;
+}
+
+.touch::-ms-clear {
+	tranform: scale(2);
+}
+
+.song2 {
+	filter: blur(1px) grayscale(10%);
+	-webkit-filter: blur(1px) grayscale(10%);
+}
+
+.flipH{
+    transform: rotateY(360deg);
+}
+
+.flipY{
+    transform: rotateX(360deg);
+}
+
+.ui-loader {
+	display: none !important;
+}
+
+.red50 {
+	fill: #e71d32;
+	color: #e71d32;
+}
+
+.yellow20 {
+	fill: #fdd600;
+	color: #fdd600;
+}
+
+.blue20 {
+	fill: #7cc7ff;
+	color: #7cc7ff;	
+}
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+iron-list {
+	overflow: hidden !important;
+	text-align: center;
+	min-height: 100px;
+}
+
+		
+svg.rtl {
+	transform: scale(-1, 1);
+}

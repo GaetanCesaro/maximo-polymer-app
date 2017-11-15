@@ -1,0 +1,147 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-wizard-css">
+	<template>
+    	<style>
+    		.maindiv {
+				padding: 0px;
+    			position: relative;
+    			background: var(--Primary-white);
+    			text-align: left;
+    			width: 100%;
+    			padding-top: 20px;
+    			margin: 0px 0px 0px 0px;
+    			display: block;
+    		}
+
+    		.maindiv.rtl {
+    			text-align: right;
+    		}
+    		
+    		.topWrapper {
+    			display: inline-block;
+    		}
+    		
+    		h4 {
+    			display: inline-block;
+	    	    padding: 0px 10px 10px 10px;
+	    	    font-family: 'HelveticaNeue-Light';
+	    	    font-size: 257%;
+	    	    font-weight: normal;
+	    	    text-align: left;
+	    	    margin: 0px 10px 0px 10px;
+	    	    float: left;
+    		}
+
+			h4.rtl {
+				float: right;
+				text-align: right;
+			}
+    		
+			.inner {
+				white-space: nowrap; 
+				margin: 0px;
+				position: relative;
+				overflow: hidden;
+				overflow-x: auto;
+				display: inline-block;
+				padding: 0px 7px;
+			}
+			
+			.line {
+			    min-height: 10px;
+		    	margin: -23px 15px 10px 15px;
+				background: url(images/line.png) repeat-x left center;
+			}
+			
+			.line .marker {
+				border: 1px solid #fff;
+		   		border-radius: 50%;
+		   		width: 10px;
+		   		height: 10px;
+			    left: 0px;
+			    position: absolute;
+			    bottom: 8px;
+			    display: initial;
+				background: var(--Primary-blue30);
+			}
+			
+			.line .marker.rtl {
+				left: 100%;
+			}
+
+			.help {
+			    text-align: left;
+			}
+			
+			.help.rtl { 
+				text-align: right;
+			}
+
+			.help > div {
+				display: inline-block;
+			}
+			
+			.help .stepTitle ::content label {
+				font-size: 157%;
+				font-family: 'HelveticaNeue-Light';
+				color: var(--Primary-blue50);
+			}
+			
+			.help.rtl .stepTitle ::content label {
+				float: right;
+			}
+		
+			.help .stepInfo ::content label {
+				font-size: 110%;
+				font-family: 'HelveticaNeue-Light';
+				color: var(--Primary-blue50);
+				margin: 5px;
+			}
+			
+			.help.rtl .stepInfo ::content label {
+				line-height: 28px;
+			}
+			
+			.help .stepHelp ::content label {
+				margin: 10px 20px 10px 0px;
+			}
+			
+			.help.rtl .stepHelp ::content label {
+				margin: 10px 0px 10px 20px;
+			}
+			
+			.help table {
+			    margin: 0px 20px 20px 20px;
+			}
+			
+			.toolbar {
+			    overflow: hidden;
+		    	text-align: right;
+				white-space: nowrap;
+			}
+			
+			.toolbar .button {
+			    margin: 0px 5px;
+			}
+			
+			.toolbar div {
+				display: inline-block;
+				margin: 25% 0px;
+				cursor: pointer;
+			}
+			
+			.toolbar .button ::content svg {
+				fill: var(--Primary-blue40);
+			}
+			
+			.toolbar .button:hover ::content svg {
+				fill: var(--Primary-blue30);
+			}
+		</style>
+	</template>
+</dom-module>

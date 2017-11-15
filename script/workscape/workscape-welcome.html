@@ -1,0 +1,756 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!--
+	Work Centers only contain id and description. We need them to have more information such as:
+		image(not needed for tasks?), type(wc or task), information(for more info popup), is this set as HOME
+-->
+<dom-module id="workscape-welcome">
+	<link rel="import" href="../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<template id="template">
+		<style>
+			html, body {
+				height: 100%;
+			}
+		
+			maximo-workscape ::content .content {
+				background-color: var(--Primary-blue80) !important;
+			}
+			
+			.mainWC {
+				@apply(--layout-vertical);
+				position: relative;
+				color: var(--Primary-white);
+			    vertical-align: middle;
+			    display: table;
+			    text-align: center;
+			    width: 100%;
+			    height: 100%;
+			}
+			
+			.mainWC > div {
+		    	vertical-align: middle;
+		    	width: 100%;
+				margin-top: 15vh;
+			}
+			
+			label {
+				color: var(--Primary-white) !important;
+				font-family: "HelveticaNeue-Thin";
+			}
+			
+			label.getStarted {
+				font-size: 129%;
+				font-family: "HelveticaNeue-Light";
+			}
+			
+			label.working{
+				font-size: 258%;
+				font-family: "HelveticaNeue-Light";
+			}
+			
+			.heading, .workCenters, .tasks, .apps {
+				margin: 0px 15% 30px 15%;
+			}
+			
+			.workCenters.rtl, .tasks.rtl, .apps.rtl {
+				text-align: right;
+			}
+			
+			.workCenters .footer button, .tasks .footer button, .apps .footer button {
+				float: right;
+			}
+			
+			.workCenters.rtl .footer button, .tasks.rtl .footer button, .apps.rtl .footer button {
+				float: left;
+			}
+
+			.noFlip {
+				position: absolute;
+		    	top: 187px;
+		    	right: -3px;
+		    	transform: scale(1.2,1.2);
+			}
+			
+			.noFlip.rtl {
+		    	left: -3px;
+			}
+			
+			.task .noFlip {
+				top: 84px;
+			}
+			
+			.workCenters, .tasks, .apps {
+				min-height: 150px;
+				text-align: left;
+				font-family: "HelveticaNeue-Thin";
+			}
+			
+			.workCenters hr, .tasks hr, .apps hr { 
+				border-color: var(--Primary-blue60);
+				border-width: 1px;
+			}
+			
+			.none { 
+				text-align: center;
+				margin: 20px;
+			}
+			
+			label.workCentersLabel{
+			    font-family: "HelveticaNeue-Bold";
+			    text-transform: uppercase;
+			}
+			
+			.holder {
+				text-align: center;
+			}
+			
+			.tasks .holder, .apps .holder {
+				padding-top: 10px;
+			}
+			
+			.workCenter, .task {
+				font-size: 150%;
+				text-align: center;
+				display: inline-block;
+				transition: background .2s;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			/* back, initially hidden pane */
+			.back {
+				padding: 0px 20px;
+			}
+
+			.task .back {
+				padding: 0px 25px;
+			}
+
+			.task { 
+		    	height: 125px;
+		    	width: 190px;
+		    	position: relative;
+				cursor: pointer;
+			}
+			
+			.task, .task *, .task label {
+				cursor: pointer;
+			}
+			
+			.workCenter:hover, .task:hover {
+				background: rgba(50, 92, 128, .5);
+			}
+			
+			.workCenter:hover .wcImage {
+				transform: scale(1.1,1.1);
+			}
+			
+			.workCenter {
+				height: 220px;
+				width: 190px;
+				position: relative;
+		    	transition: 0.6s;
+				transform-style: preserve-3d;
+				perspective: 1000px;
+			}
+
+			.imgWrapper {
+				text-align: center;
+				transition: all .2s;
+				margin-bottom: 5px;
+			}
+			
+			.back .imgWrapper {
+				transform: scale(.5,.5);
+				margin-bottom: -20px;
+				margin-top: -25px;
+			}
+
+			.wcImage {
+				border-radius: 50%;
+				width: 90px;
+				height: 90px;
+				background: var(--Primary-blue30);
+		    	margin: 20px 30px 0px 30px;
+				transition: all .2s;
+				display: inline-block;
+			}
+			
+			maximo-workscape ::content .mainPage, maximo-workscape ::content .wcHeader, maximo-workscape ::content .wcFooter {
+				background: #1c374a;
+			}
+			
+			label.description, label.taskDescription  {
+			    font-size: 129%;
+			    font-family: "HelveticaNeue-Light";
+			    display: inline-block !important;
+			    max-width: 100%;
+				width: 100%;
+			    text-align: center;
+			    min-height: 2em;
+			    max-height: 2em;
+			    white-space: normal;
+			    box-sizing: border-box;
+			    overflow: hidden;
+				line-height: 1em;
+			}
+			
+			label.startcenter {
+				display: inline !important;
+			}
+			
+			.back label.description, .back label.taskDescription {
+				font-size: 100%;
+			}
+			
+			label.taskDescription {
+				margin-top: 20px;
+				transition: all .1s;
+			}
+			
+			.back label.taskDescription {
+				margin-top: 5px;
+			}
+			
+			.task:hover label.taskDescription {
+				padding: 0px 5px;
+			}
+			
+			.back label.informationText{
+				margin: 5px 10px 10px 10px;
+				font-size: 90%;
+				display: inline-block !important;
+		    	line-height: 1.1em;
+			}
+			
+			.task .back label.informationText{
+				font-size: 80%;
+			}
+						
+			.workCenter label{
+				cursor: pointer;
+			}
+			
+			.footer button {
+				visibility: hidden;
+				transition: width .2s;
+				padding: 0px 3px;
+				border
+			}
+			
+			.footer {
+				text-align: right;
+				width: 100%;
+				position: relative;
+				bottom: -15px;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 10px 5px 5px 26px;
+			}
+			
+			.footer.rtl {
+				padding: 10px 26px 5px 5px;
+			}
+			
+			.holder a {
+				display: inline-block;
+			}
+			
+			.workCenter:hover .footer button, .task:hover .footer button,
+			a:focus .workCenter .footer button, a:focus .task .footer button {
+				visibility: visible;
+			}
+			
+			.task .footer {
+				padding: 5px;
+			}	
+			
+			.footer .home {
+				visibility: visible !important;
+				padding: 3px 5px;
+			}
+			
+			.footer .infoDiv {
+				width: 30px;
+    			display: inline-block;
+    			float: right;
+			}
+			
+			.footer .infoDiv:after {
+				content: '.';
+				visibility: hidden;
+			}
+			
+			.footer .infoDiv.rtl {
+				float: left;
+			}
+			
+			.footer .information {
+				border: 0px !important;
+				margin-top: 6px;
+				cursor: pointer;
+			}
+			
+			.footer button:not(.home):hover iron-icon ::content svg,
+			.back button:not(.home):hover iron-icon ::content svg {
+				transition: all .2s;
+				fill: var(--Primary-blue30);
+			}
+			
+			.gotoLink, .gotoLink label {
+				text-decoration: none;
+				cursor: pointer;
+			}
+			
+			.gotoIcon ::content svg {
+				fill: var(--Primary-blue30);
+			}
+			
+			.workCenter:hover .footer, .task:hover .footer {
+				display: block;
+			}
+			
+			.mktLinkDiv {
+				/* position: absolute;
+				bottom: 0px; */
+			}
+			
+			.mktLinkDiv maximo-link {
+				--font-size: 1.286em;
+				--line-heigth: 21px;
+			}
+			
+			.mktLinkDiv hr {
+				margin: 12px 0px;
+				border-color: var(--Primary-blue60);
+				/* border-color: var(--Primary-gray40); */
+				border-width: 1px;
+			}
+			
+			.footer.rtl {
+				text-align: right;
+			}
+			
+			.footer button,
+			.back button {
+				background: transparent;
+				border: 1px solid transparent;
+				border-color: transparent;
+				outline: none;
+			}
+
+			.footer button:focus {
+				border-color: var(--Primary-blue30);
+			}
+			
+			.footer button span {
+				transition: all .2s;
+				visibility: hidden;
+				display: inline-block;
+		    	overflow: hidden;
+		    	white-space: nowrap;
+		    	text-overflow: ellipsis;
+		    	max-width: 60px;
+		    	vertical-align: middle;
+				width: 0px;
+				color: var(--Primary-white);
+				margin-top: 5px;
+    			display: inline-block;
+				padding: 0px 10px;
+				font-size: 0px;
+				height: 0px;
+			}
+			
+			.footer .home span, .footer .notHome:hover span  {
+				visibility: visible;
+		    	font-size: 80%;
+				width: auto;
+				height: auto;
+			}
+			
+			.footer .home span {
+				color: var(--Primary-white) !important;
+			}
+			
+			.footer iron-icon {
+				vertical-align: text-top;
+			}
+			
+			.footer .home iron-icon ::content svg{
+				fill: var(--Primary-green10);
+			}
+			
+			.footer .home, .footer .notHome {
+				padding: 3px 5px;
+			}
+			
+			.footer .notHome:hover {
+				cursor: default;
+		    	border-color: var(--Primary-blue50);
+			}
+
+			.footer .home {
+				cursor: default;
+				border: 1px solid var(--Primary-green10) !important;	
+			} 
+						
+			.footer button iron-icon ::content svg,
+			.back button iron-icon ::content svg {
+				fill: var(--Primary-white);
+			}
+						
+			@media (min-width: 0px) and (max-width: 500px) {
+				label.working {
+					font-size: 150%;
+				}
+				
+				.heading, .workCenters, .tasks, .apps {
+					margin: 20px 10% 0px 10%;
+				}
+				
+				.mainWC > div {
+					margin-top: 20px;
+				}
+
+				.noFlip {
+				   	top: 112px;
+				}
+
+				.wcImage {
+					border-radius: 50%;
+					width: 40px;
+					height: 40px;
+					background: var(--Primary-blue30);
+			    	margin: 20px 30px 0px 30px;
+					transition: all .1s;
+					display: inline-block;
+				}
+								
+				.workCenter {
+					height: 150px;
+				}
+				
+				.workCenter, .task {
+					background: rgba(50, 92, 128, .5);
+				}
+				
+				.footer button,
+				.back button {
+					visibility: visible;
+				}
+				
+				label.description, label.taskDescription {
+					min-height: 2em;
+					font-size: 100%;
+				}
+				
+				.footer {
+				    padding: 5px 5px 5px 10px;
+				}
+			}
+		</style>
+		<maximo-collection 
+			id="personcollection" 
+			attribute-names="*,_imagelibref,user.logouttracking.attemptdate,location.location,location.description"
+			collection-data="{{personData}}"
+			debounce-duration="600"				
+			object-name="MXAPIPERUSER"
+		    key-search="{{personId}}"
+		    key-search-attribute-name="user.userid"
+			on-record-data-refreshed="_handleUserDataRefreshed"
+			additional-params='["maxuser.logouttracking.limit=1"]'>
+		</maximo-collection>
+		<maximo-resource id="newHomeResource" on-record-updated="_homeUpdated" on-record-update-error="_homeUpdateError"></maximo-resource>
+		<maximo-workscape id="wsfull" hide-app-menu>
+			<div class="mainWC">
+				<div>
+					<div class="heading">
+						<label id="getStarted" class="getStarted" block>{{localize('uitext', 'mxapiwelcome', 'GetStartedWithMaximo')}}</label><br>
+						<label id="working" class="working" block>{{localize('uitext', 'mxapiwelcome', 'WhatAreYouWorkingOn')}}</label>
+					</div>
+					<div id="workCenters" class="workCenters">
+						<label id="workCenters" class="workCentersLabel" block>{{localize('uitext', 'mxapiwelcome', 'WorkCenters')}}</label>
+						<hr>
+						<label id="noWorkCenters" class="none" block>{{localize('uitext', 'mxapiwelcome', 'NoWorkCenters')}}</label>
+						<div class="holder">
+							<template id="workCenterTemplate" is="dom-repeat" items="{{workCenters}}" as="item">
+								<a id="wc_[[item.id]]" href="#/{{item.id}}" title="{{item.description}}" role='button' aria-label='{{item.id}}' tabindex='0' id="WorkCenter_{{item.id}}" >
+									<maximo-flipper class="workCenter" on-mouseleave="noFlip">
+						  				<maximo-flipper-front class="front">
+											<div class="imgWrapper">
+												<img class="wcImage" src="images/workcenters/{{item.id}}.svg" onerror="this.style.opacity='0'"/>
+											</div>
+											<label id="label_{{item.id}}" class="description" block>{{item.description}}</label>
+											<footer class="footer">
+												<div class="infoDiv">
+													<template is="dom-if" if="{{item.longdescription}}">
+														<button id="WorkCenter_info_button_{{item.id}}" class="information" on-tap="showInfoTooltip" title="{{localize('uitext', 'mxapibase', 'more_information')}}">
+															<iron-icon icon="action-based:get-information"></iron-icon>
+														</button>	
+													</template>
+												</div>
+												<button id="WorkCenter_home_button_{{item.id}}" class$="{{_isHome(item)}}" data-app-id$="{{item.id}}" on-tap="setAsHome" title="{{localize('uitext', 'mxapiwelcome', 'SetAsHome')}}"><span>{{localize('uitext', 'mxapiwelcome', 'SetAsHome')}}</span><iron-icon icon="Maximo:Home"></iron-icon></button>
+											</footer>
+										</maximo-flipper-front>
+										<template is="dom-if" if="{{item.longdescription}}">
+							  				<maximo-flipper-back class="back">
+												<div class="imgWrapper">
+													<div class="wcImage">
+														<object data="images/workcenters/{{item.id}}.svg" type="image/svg+xml"></object>
+													</div>
+												</div>
+												<label id="label_back_{{item.id}}" class="description" block>{{item.description}}</label>
+												<label id="info_{{item.id}}"class="informationText">{{_getInformation(item.longdescription, 130)}}</label>
+												<button id="WorkCenter_hideinfo_button_{{item.id}}" on-tap="noFlip" class="noFlip" title="{{localize('uitext', 'mxapibase', 'close')}}"><iron-icon icon="Maximo:Close"></iron-icon></button>
+							  				</maximo-flipper-back>
+							  			</template>
+							  		</maximo-flipper>
+								</a>
+							</template>
+						</div>
+					</div>
+					<div id="tasks" class="tasks">
+						<label id="tasks" class="workCentersLabel" block>{{localize('uitext', 'mxapiwelcome', 'ToolsAndTasks')}}</label>
+						<hr>
+						<label id="noTasks" class="none" block>{{localize('uitext', 'mxapiwelcome', 'NoTasks')}}</label>
+						<div class="holder">
+							<template id="taskTemplate" is="dom-repeat" items="{{toolsAndTasks}}" as="item">
+								<a id="tool_[[item.id]]" href="#/{{item.id}}" title="{{item.description}}" role='button' aria-label='{{item.id}}' tabindex='0' id="Task_{{item.id}}">
+						  			<maximo-flipper class="task" id="taskFlipper" on-mouseleave="noFlip">
+							  			<maximo-flipper-front class="front">
+											<label id="label_{{item.id}}" class="taskDescription" block>{{item.description}}</label>
+											<div class="footer">
+												<div class="infoDiv">
+													<template is="dom-if" if="{{item.longdescription}}">
+														<button id="Task_info_button_{{item.id}}" class="information" on-tap="showInfoTooltip" title="{{localize('uitext', 'mxapibase', 'more_information')}}">
+															<iron-icon icon="action-based:get-information"></iron-icon>
+														</button>	
+													</template>
+												</div>
+												<button id="Task_home_button_{{item.id}}" id="Task_home_button_{{item.id}}" class$="{{_isHome(item)}}" data-app-id$="{{item.id}}" on-tap="setAsHome" title="{{localize('uitext', 'mxapiwelcome', 'SetAsHome')}}"><span>{{localize('uitext', 'mxapiwelcome', 'SetAsHome')}}</span><iron-icon icon="Maximo:Home"></iron-icon></button>
+											</div>
+							  			</maximo-flipper-front>
+							  			<template is="dom-if" if="{{item.longdescription}}">
+								  			<maximo-flipper-back class="back">
+												<label id="label_back_{{item.id}}" class="taskDescription" block>{{item.description}}</label>
+												<label id="info_{{item.id}}" class="informationText">{{_getInformation(item.longdescription, 130)}}</label>
+												<button id="Task_hideinfo_button_{{item.id}}" on-tap="noFlip" class="noFlip" title="{{localize('uitext', 'mxapibase', 'close')}}"><iron-icon icon="Maximo:Close"></iron-icon></button>
+								  			</maximo-flipper-back>
+								  		</template>
+						  			</maximo-flipper>
+								</a>
+							</template>
+						</div>
+					</div>
+					<template is="dom-if" if="[[_startCenter]]">
+						<a id="button_StartCenter" class="gotoLink" href="Javascript: void(0);" role='button' aria-label="[[localize('uitext','mxapiwelcome','GotoStartCenter')]]" tabindex='0' on-tap="openStartCenter">
+							<iron-icon class="gotoIcon" icon="Maximo:Arrow2-Forward" /></iron-icon>
+							<label class="taskDescription startcenter">[[localize('uitext','mxapiwelcome','GotoStartCenter')]]</label>
+						</a>
+					</template>
+				</div>
+				<div class="mktLinkDiv">
+					<hr/>
+					<maximo-link id="watsonlinkext" link-name="watsoniot" pre-label="{{localize('uitext','mxapibase','explore_maximo_iot')}}&nbsp;" label="{{localize('uitext','mxapibase','learn_more')}}"></maximo-link>
+				</div>
+				
+			</div>
+		</maximo-workscape>
+	</template>
+	<script>
+		Polymer({
+		    is: "workscape-welcome",
+	   		properties: {
+	   			workCenters: {
+	   				type: Array,
+	   				value: function() {
+	   					return [];
+	   				},
+	   				notify: true
+	   			},
+	   			toolsAndTasks: {
+	   				type: Array,
+	   				value: function() {
+	   					return [];
+	   				},
+	   				notify: true
+	   			},
+	   			applications: {
+	   				type: Array,
+	   				value: function() {
+	   					return [];
+	   				},
+	   				notify: true
+	   			},
+	   			defaultWorkCenter: {
+	   				type: String
+	   			},
+	   			hideSectionsWhenEmpty: {
+	   				type: Boolean,
+	   				value: true
+	   			},
+	   			_startCenter: {
+	   				type: Boolean,
+	   				value: false,
+	   				notify: true
+	   			}
+		    },
+		    behaviors: [BaseComponent],
+		    listeners: {
+		    	'maximo-screen-resize': '_showStartCenter'
+		    },
+		    ready: function(){
+		    	var whoami, temp;
+		    	var wcCount = 0;
+		    	var appCount = 0;
+				if(sessionStorage.maxauth){
+					var maxauth = JSON.parse(sessionStorage.maxauth);
+					var whoami = maxauth.whoami;
+					if(whoami){
+				    	this.personId = whoami.personId;
+				    	this.$.personcollection.refreshRecords();
+						this.defaultWorkCenter = whoami.defaultApplication;
+				    	//this.$.newHomeResource.set('resourceUri', $M.login.personData[0].href);
+						var welcome = this;
+						var workCenter, info;
+						var tempWC = [];
+						var tempTT = [];
+						var tempAPP = [];
+						Object.keys(whoami.workcenters).forEach(function(id){
+							workCenter = whoami.workcenters[id];
+							info = null;
+							if(!workCenter.hidden){
+								workCenter.id = id.toLowerCase();
+								if(workCenter.apptype === 'WC'){
+									wcCount++;
+									welcome.$.noWorkCenters.hidden = true;
+									tempWC.push(workCenter);
+								}
+								else {
+									welcome.$.noTasks.hidden = true;
+									appCount++;
+									tempTT.push(workCenter);
+								}
+							}
+						});
+					}
+					this._alphaSort(tempWC);
+					this._alphaSort(tempTT);
+					
+					this.workCenters = tempWC;
+					this.toolsAndTasks = tempTT;
+					if(this.hideSectionsWhenEmpty){
+						if(appCount === 0){
+							$j(this.$.tasks).hide();
+						}
+						if(wcCount === 0){
+							$j(this.$.workCenters).hide();
+						}
+					}
+				}
+				this._showStartCenter();
+		    },
+		    _alphaSort: function(array){
+		    	array.sort(function(a, b) {
+				    return a.description >  b.description;
+				});
+		    },
+		    attached: function(){
+		    	var welcome = this;
+				this.async(function(){
+					// $j('body').css({'overflow':'hidden'});
+					welcome._sizeWC();
+				}, 100);
+				$j(window).on('resize', function(){
+			    	window.clearTimeout(this.resizeTimer);
+			    	this.resizeTimer = window.setTimeout(function(){
+			    		welcome._sizeWC();
+			    	}, 350);
+			    });
+		    },
+		    _sizeWC: function(){
+		    	$j('.mainWC').parent().css({'overflow-y':'auto','overflow-x':'hidden','white-space':'normal'}).height(this.$.wsfull.getHeight());
+		    	$j('body').css({'overflow':'hidden'});
+		    },
+		    _isHome: function(workcenter){
+		    	return (workcenter.id.toLowerCase() === this.defaultWorkCenter.toLowerCase()?' home':'notHome');
+		    },
+		    _getInformation: function(information, length){
+		    	if(information === undefined){
+		    		information = '';
+		    	}
+		    	if(information.length>length){
+		    		information = information.substring(0, length - 2) + '...';
+		    	}
+		    	return information;
+		    },
+		    findCard: function(element){
+				var parent = element.parentNode;
+				while (parent!==null && !$j(parent).hasClass('workCenter') && !$j(parent).hasClass('task')){
+					parent = parent.parentNode;
+				}
+				return parent;
+		    },
+		    showInfoTooltip: function(e){
+		    	e.stopPropagation();
+		    	e.preventDefault();
+		    	var flipper = $M.findElementParent(e.target,'MAXIMO-FLIPPER');
+		    	flipper.showBack();
+		    },
+		    _homeUpdated: function(e){
+		    	var defaultApp = this.$.newHomeResource.resourceData.dfltapp;
+		    	$M.addToMaxauth('defaultApplication',defaultApp)
+		    	$j('button.home').toggleClass('home',false).toggleClass('notHome',true);
+		    	if(defaultApp && defaultApp.length > 0){
+		    		$j('button[data-app-id="'+defaultApp.toLowerCase()+'"]').toggleClass('home',true).toggleClass('notHome',false);
+		    	}
+		    },
+		    _homeUpdateError: function(e){
+		    	//DO NOT CHANGE THE HOME
+		    },
+		    setAsHome: function(e){
+		    	e.stopPropagation();
+		    	e.preventDefault();
+		    	var alreadyHome = $j(e.currentTarget).hasClass('home');
+		    	var id = alreadyHome?'':e.model.get('item.id');
+				this.$.newHomeResource.updateRecord({dfltapp : id}, 'dfltapp', true);
+		    },
+		    noFlip: function(e){
+		    	e.stopPropagation();
+		    	e.preventDefault();
+		    	var flipper = $M.findElementParent(e.target,'MAXIMO-FLIPPER');
+		    	if(!flipper) {
+		    		flipper = e.currentTarget;
+		    	}
+		    	flipper.showFront();
+		    },
+		    openStartCenter: function(e){
+		    	$M.openStartCenter();
+		    },
+		    _showStartCenter: function(){
+		    	if($M.screenInfo.size !== 'small'){
+			    	var maxauth = JSON.parse(sessionStorage.getItem('maxauth'));
+			    	if(maxauth){
+			    		var whoami = maxauth.whoami;
+						if(whoami){
+							if(whoami.applications && Object.keys(whoami.applications).length>0){
+								this._startCenter = true;
+								return;
+							}
+						}
+			    	}
+		    	}
+		    	this._startCenter = false;
+		    },
+		    _handleUserDataRefreshed: function(e){
+		    	this.$.newHomeResource.set('resourceUri', this.personData[0].href);
+		    }
+		});
+	</script>
+</dom-module>	

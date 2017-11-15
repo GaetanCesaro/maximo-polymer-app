@@ -1,0 +1,94 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <title>maximo-label style tests</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <script src="../../../main.js"></script>
+    <script src="../../../test.js"></script>
+    <script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../../../components/web-component-tester/browser.js"></script>
+    <script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+    <link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+    <style is="custom-style">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  	<maximo-module id="module"></maximo-module>
+    <test-fixture id="tf_label1">
+      <template>
+        <maximo-label id="label1"  label="Testando o Label" ></maximo-label>
+      </template>
+    </test-fixture>
+    <test-fixture id="tf_label2">
+      <template>
+        <maximo-label id="label12"  label="Testando o Label" bold="true"></maximo-label>
+      </template>
+    </test-fixture>
+     <test-fixture id="tf_label3">
+      <template>
+        <maximo-label id="label13"  label="Testando o Label" block="true"></maximo-label>
+      </template>
+    </test-fixture>
+    <test-fixture id="tf_label4">
+      <template>
+        <maximo-label id="label4"  label="KC12345657890123456789123456789123456"></maximo-label>
+      </template>
+    </test-fixture>
+    <test-fixture id="tf_label5">
+      <template>
+        <maximo-label id="label5"  label="KC12345657890123456789123456789123456" wordwrap="break-word"></maximo-label>
+      </template>
+    </test-fixture>
+   <script>
+      suite('<maximo-label>', function() {
+          var label1, label2;
+          setup(function() {
+        	  label1 = fixture('tf_label1');
+        	  label2 = fixture('tf_label2');
+        	  label4 = fixture('tf_label4');
+        	  label5 = fixture('tf_label5');
+          });
+
+        test('base label style', function(done) {
+        	expect(getStyleProperty(label1.$$('.label'), 'font-size')).to.equal('14px', 'label font-size is not correct');
+        	expect(rgb2hex(getStyleProperty(label1.$$('.label'), 'background'))).to.equal('#000000', 'label background color is not correct');
+        	done();
+         });
+          
+        test('Label bold style', function(done) {
+          expect(rgb2hex(getStyleProperty(label2.$$('.label'), 'font-weight'))).to.equal('bold', 'label bold propertie is not correct');
+        	done();  
+          });
+          
+        test('word wrap label', function(done) {
+        	expect(getStyleProperty(label4.$$('.label'), 'word-wrap')).to.equal('normal', 'label word-wrap property is not correct');
+        	expect(getStyleProperty(label5.$$('.label'), 'word-wrap')).to.equal('break-word', 'label word-wrap property is not correct');
+        	done();
+         });
+      });      
+    </script>
+  </body>
+</html>

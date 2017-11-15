@@ -1,0 +1,143 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-attachmentsprv-card-css">
+	<template>
+    	<style>
+    	.container {
+	      @apply(--layout-horizontal);
+	      @apply(--layout-justified);
+	    }	
+	    .flex-vertical {
+		    @apply(--layout-vertical);
+		  }
+		  .flexchild-vertical {
+		    @apply(--layout-flex);
+		  }
+    	:host {
+    	
+    	}
+    	
+		.attachmentPreviewPanel::content .panel{
+			height: 100%;
+		}
+		div.attachmentMain {
+			height : 100%;
+		}
+		.attachmentItem::content label{
+			color : #5696e2;
+			word-wrap : break-word;
+		}
+		.attachmentItem::content label:hover{
+			text-decoration: underline;
+		}
+		.attachmentItemDiv {
+			border-bottom : 1px solid #e0e0e0;
+			padding-top : 6px;
+			padding-bottom : 5px;
+			margin-left : 6px;
+			margin-right : 6px;
+		} 
+		.attachmentPreviewPanel::content .panelHeader {
+			padding: 10px 0px 12px 0px;
+			background-color : #ffffff;
+		}
+		.attachmentPreviewPanel::content .panelTitle {
+			@apply(--layout-center-justified);			
+		}		
+		.attachmentPreviewPanel::content .panelInternal{
+			border-bottom : 0;
+		} 	
+		.downloadButton{
+			width : 109px;
+			height : 35px;
+			background : #4278bb;
+			margin: auto;
+			margin-top	: 30px;
+			display : none;
+		}
+		.downButtonWrapper{
+			width : 100%;
+			padding-top : 6px;
+			padding-left:10px;
+			box-sizing:border-box;
+		}
+		.downLabel::content label{
+			color : #f9f9f9;
+		}
+		.downLabel{
+			padding-left : 3px;
+		}
+		.downLabel::content label:hover {
+			cursor: pointer;
+		}
+		.downIcon{
+			fill: #f9f9f9;
+			width : 20px;
+		}
+		.mainWrapper{
+			width: 100%;
+			height : 100%;
+			position : absolute;
+			background-color : #000000;
+			z-index: 1;
+		}
+		.previewItem::content img{
+			max-width : 100%;
+		}
+		.imageWrapper{
+			width : 100%;
+			height : auto;
+		}
+		.downloadWrapperDiv{
+			padding-top:11px;
+		}
+		.overlayWrapper{
+			display : none;
+			display:table-cell; 
+			vertical-align:middle;
+			width: 100%;
+			padding-top: 25px;
+		}
+		.spinnerWrapperDiv{
+			height: 100%;
+			width : 100%;
+			opacity: 0.5;
+		}
+		.spinnerWrapperDiv::content .spinner{
+			position : absolute;
+			left : 0;
+			right : 0;
+			bottom : 0;
+			top : 0;
+			margin : auto;
+		}
+		.spinnerWrapperDiv::content .wait{
+			position : inherit;
+		}
+		.attachmentItemRight{
+			width : 70px;
+			display : block;
+		}
+		.attachmentPreviewCard{
+				position:absolute ;
+				padding:0px;
+				background: #ffffff;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+				border: none;
+				z-index: 1002;
+				margin: 0;
+		}
+		.attachmentPreviewMain{
+			display: table;
+			margin : auto;
+		}
+		
+		</style>
+	</template>
+</dom-module>

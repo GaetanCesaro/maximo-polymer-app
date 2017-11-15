@@ -1,0 +1,135 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-inspection-main tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<script src="../../../../../main.js"></script>
+		<script src="../../../../../test.js"></script>
+		<script src="../../../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../../../components/iron-test-helpers/mock-interactions.js"></script>
+		<link rel="import" href="../../../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<link rel="import" href="../maximo-inspection-main.html" />
+		<link rel="import" href="../../maximo-inspection-list/maximo-inspection-list.html" />
+		<!-- link rel="import" href="../../maximo-inspection-form/maximo-inspection-form.html" /-->
+		<script src="mockData.js"></script>
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<maximo-module id="module"></maximo-module>
+		
+		<test-fixture id="maximo-inspection-main">
+			<template>
+				<maximo-inspection-main id="maximoInspectionMainTest"></maximo-inspection-main>
+			</template>
+		</test-fixture>
+		<test-fixture id="maximo-inspection-tile">
+			<template>
+				<maximo-inspection-tile id="maximoInspectionTileTest"></maximo-inspection-tile>
+			</template>
+		</test-fixture>
+<script>
+suite('<maximo-inspection-main>', function() {
+	var mocked$M;
+	var maximoinspectionmain;
+	var maximoinspectiontile;
+	
+	//var maximoinspectionlist;
+	setup(function() {
+		maximoinspectionmain = fixture('maximo-inspection-main');
+		maximoinspectiontile = fixture('maximo-inspection-tile');		
+		
+		mocked$M = getMockedMaximoContext();
+		
+		maximoinspectionmain.formStatusSet = mockFormStatusSet;
+		maximoinspectionmain.historyStack=[];
+	});
+/*
+	test('maximo-inspection-main createForm - part 1', function(done) {
+		maximoinspectionmain._handleNewRecordCreated(mockEvent);	
+		expect(maximoinspectionmain.mbo).to.equal(mockEvent.detail,'mbo not return properly from Maximo.');
+		expect(maximoinspectionmain.selectedPage).to.equal('form','Page did not change successfully.');
+		
+		done();
+	});
+	
+	test('maximo-inspection-main duplicateForm - part 1', function(done) {
+		expect(maximoinspectionmain._duplicateRecord).to.be.a('function');
+
+		done();
+	});
+*/	
+	test('maximo-inspection-main duplicateForm - part 2', function(done) {
+		
+		 tinymce.activeEditor.on('init',function(){
+
+			 	var mockedCollection = sinon.mock(maximoinspectionmain.$.inspformcollection);
+				var createRecordExpectation = mockedCollection.expects("createRecord");
+				createRecordExpectation.once();
+			 	
+			 	
+				var expectationT = mocked$M.expects("toggleWait");
+				expectationT.atLeast(1).withArgs(true);
+				var expectationF = mocked$M.expects("toggleWait");
+				expectationF.atLeast(1).withArgs(false);
+				
+				maximoinspectionmain.$.formEdition.questions=[];				
+				maximoinspectionmain._handleRecordDuplicatedSuccess(mockDupEvent);	
+				
+				createRecordExpectation.verify();
+				expectationT.verify();
+				expectationF.verify();
+				
+				expect(maximoinspectionmain.mbo).to.equal(mockDupEvent.detail,'mbo not return properly from Maximo.');
+				expect(maximoinspectionmain.selectedPage).to.equal('form','Page did not change successfully.');
+				
+				//expect(maximoinspectionmain.$.inspformcollection.recordCreated).to.equal(true,'Create Record has not been called.');
+				
+				done();
+		 });
+
+	});
+
+	test('maximo-inspection-main editForm', function(done) {
+		
+		//Chck the function exists
+		expect(maximoinspectionmain._editForm).to.be.a('function');
+		//test the function
+		maximoinspectionmain._editForm(mockEditEvent);
+		expect(maximoinspectionmain.selectedPage).to.equal('form', 'Page did not change successfully.');
+		done();
+	});
+	
+ 	test('Trigger deletion process', function(done) {
+ 		expect(maximoinspectiontile._delete).to.be.a('function');
+		//maximoinspectiontile._delete(mockEvent);
+		//expect(this.$.tileContainer.overlay.getElementsByTagName('label')[0].innerText).to.equal('inspectionform_deleted','Delete overlay did not display as expected.');
+ 		done();
+ 	});
+	
+	//a11ySuite('maximo-inspection-main');
+});
+</script>
+	</body>
+</html>

@@ -1,0 +1,32 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<link rel="import" href="../../components/iron-input/iron-input.html"/>
+
+<dom-module id="maximo-text">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-text-css.html">
+	<style is="custom-style" include="maximo-text-css"></style>
+	
+	<template id="{{id}}">
+		<div id="wrapper" class="wrapper" disabled$="{{readonly}}">
+  			<label id="label" required$="{{required}}" readonly$="{{readonly}}">{{label}}</label>
+    		<div id="inputDiv">
+    			<input id="input" name="input" is="iron-input" id="input" placeholder="{{placeholder}}" readonly-empty-placeholder="{{readonlyemptyplaceholder}}"  input-required="{{required}}" aria-required$="{{required}}" type="{{type}}" autofocus="{{autofocus}}" autocapitalize="none" bind-value="{{value}}" autocomplete="off" maxlength$="{{maxlength}}" />
+   				<iron-icon id="validationicon" class="validationicon" icon={{icon}} title="{{_typeErrorMessage}}"></iron-icon>	
+   			</div>
+    	</div>
+    </template>
+
+	<script src="maximo-text.js"></script>
+
+</dom-module>

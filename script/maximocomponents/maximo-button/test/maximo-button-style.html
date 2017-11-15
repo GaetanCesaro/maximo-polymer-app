@@ -1,0 +1,124 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <title>maximo-button tests</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <script src="../../../main.js"></script>
+    <script src="../../../test.js"></script>
+    <script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../../../components/web-component-tester/browser.js"></script>
+    <script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+    <link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+    <style is="custom-style">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  	<maximo-module id="module"></maximo-module>
+    <test-fixture id="button">
+    	<template>
+    		<maximo-button id="testButton"  label="Test Button" ></maximo-button>
+    	</template>
+    </test-fixture>
+    <test-fixture id="button_disabled">
+		<template>
+			<maximo-button id="testButton"  label="Test Button" disabled ></maximo-button>
+		</template>
+	</test-fixture>
+	<test-fixture id="actionbutton">
+		<template>
+			<maximo-button id="actionButton"  label="Action Button" action></maximo-button>
+		</template>
+	</test-fixture>
+	<test-fixture id="button_disabled">
+		<template>
+			<maximo-button id="testButton"  label="Test Button" action disabled ></maximo-button>
+		</template>
+	</test-fixture>
+   <script>
+      suite('<maximo-button>', function() {
+          var button, actionButton, button_disabled;
+          setup(function() {
+        	  button = fixture('button');
+        	  actionButton = fixture('actionbutton');
+        	  button_disabled = fixture('button_disabled'); 
+          });
+
+          test('base button style', function(done) {
+        	  //bordered buttons
+        	  flush(function() {
+        		  
+        		  expect(getStyleProperty(button.$.button, 'border-top-width')).to.equal('1px', 'button border is not correct');
+        		  expect(getStyleProperty(button.$.button, 'border-right-width')).to.equal('1px', 'button border is not correct');
+        		  expect(getStyleProperty(button.$.button, 'border-bottom-width')).to.equal('1px', 'button border is not correct');
+        		  expect(getStyleProperty(button.$.button, 'border-left-width')).to.equal('1px', 'button border is not correct');
+        		  done();
+        	  });
+          });
+          
+          test('default button styles', function(done) {
+        	  button.setAttribute('default', true);
+        	  flush(function() {
+        		  expect(rgb2hex(getStyleProperty(button.$.button, 'background-color'))).to.equal('#4178be', 'default button background is not correct');
+        		  expect(rgb2hex(getStyleProperty(button.$.button, 'color'))).to.equal('#ffffff', 'default button color is not correct');
+        		  done();
+     		 });
+          });
+          
+          test('disabled button styles', function(done) {
+        	  button.setAttribute('disabled', true);
+     		  flush(function() {
+     			  expect(rgb2hex(getStyleProperty(button.$.button, 'background-color'))).to.equal('#aeaeae', 'disabled button background is not correct');
+     			  expect(rgb2hex(getStyleProperty(button.$.button, 'color'))).to.equal('#f9f9f9', 'disabled button color is not correct');
+     			  done();
+     		  });
+          });
+          
+          test('action button style', function(done) {
+        	  //action buttons
+        	  flush(function() {
+        		  expect(getStyleProperty(actionButton.$.button, 'border-top-width')).to.equal('0px', 'action button border is not correct');
+        		  expect(getStyleProperty(actionButton.$.button, 'border-right-width')).to.equal('0px', 'action button border is not correct');
+        		  expect(getStyleProperty(actionButton.$.button, 'border-bottom-width')).to.equal('0px', 'action button border is not correct');
+        		  expect(getStyleProperty(actionButton.$.button, 'border-left-width')).to.equal('0px', 'action button border is not correct');
+        		  expect(rgb2hex(getStyleProperty(actionButton.$.button, 'color'))).to.equal('#4178be', 'action button color is not correct');
+        		  done();
+        	  });
+
+          });
+          
+          test('disabled action button styles', function(done) {
+        	  actionButton.setAttribute('disabled', true);
+     		  flush(function() {
+     			  expect(isTransparent(getStyleProperty(actionButton.$.button, 'background-color'))).to.equal(true, 'disabled button background is not correct');
+     			  expect(rgb2hex(getStyleProperty(actionButton.$.button, 'color'))).to.equal('#aeaeae', 'disabled button color is not correct');
+     			  done();
+     		  });
+          });
+      });
+      
+    </script>
+  </body>
+</html>

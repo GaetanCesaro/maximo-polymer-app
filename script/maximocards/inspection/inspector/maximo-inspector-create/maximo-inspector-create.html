@@ -1,0 +1,155 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<link rel="import" href="../../inspector/maximo-inspector-tile/maximo-inspector-tile.html" />
+
+<dom-module id="maximo-inspector-create">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspector-create-css.html">
+	<style is="custom-style" include="maximo-inspector-create-css"></style>		
+	<template>
+	
+		<maximo-collection 
+		    id="assetCollection" 
+			attribute-names="assetnum,description,siteid,orgid,location.location,location.description"
+			debounce-duration="600"
+			page-size="1000"	
+			order-by-attribute-names="%2Bdescription"	
+			object-name="MXAPIASSET" 
+			use-search-terms="true"				
+			search-attribute-names="description,assetnum"
+		    search-term-value="{{searchTerms}}"
+		    use-search-terms="true"		
+		    on-record-data-refreshed=_handleAssetDataRefreshed
+			on-data-error="_handleAssetDataError">					
+		</maximo-collection>
+		<!-- additional-params="{{additionalConditionParams}}"	 -->
+		
+		<maximo-collection 
+		    id="locationCollection" 
+			attribute-names="location,description,siteid,orgid"
+			debounce-duration="600"
+			page-size="1000"	
+			object-name="MXAPIOPERLOC" 
+			search-attribute-names="location,description"
+			order-by-attribute-names="%2Bdescription"
+			search-term-value="{{searchTerms}}"
+			use-search-terms="true"				
+		    on-record-data-refreshed=_handleLocationDataRefreshed
+			on-data-error="_handleLocationDataError">					
+		</maximo-collection>
+		
+		<div id="inspectorCreateMainDiv" class="mainPage">
+		
+			<div id="inspectorCreateHeaderDiv" class="header">
+				<div id="inspectorCreateContainerDiv" class="container">
+					<div id="inspectorCreateFlex1Div" class="flexchild">
+						<h1 class="title">{{localize('uitext','mxapiinspresult','inspector_create_inspection')}}</h1>
+					
+						<p class="step">{{localize('uitext','mxapiinspresult','assetorlocation')}}</p>
+						
+						<div id="inspectorCreateFlex2Div" class="layout horizontal">
+							<div id="inspectorAssetButton" class="topButton">
+								<maximo-button id="searchAsset" icon="Maximo:Asset"  label="{{localize('uitext','mxapiinspresult','asset')}}" on-tap="assetList" ></maximo-button>
+							</div>
+	
+							<div id="inspectorLocationButton" class="topButton" >
+								<maximo-button id="searchLocation" icon="Maximo:Location"  label="{{localize('uitext','mxapiinspresult','location')}}" on-tap="locationList" ></maximo-button>
+							</div>
+
+							<div id="inputAssetLocationContainer" hidden$="{{hideInput}}" class="layout horizontal stretch">
+							
+								<div id="inspectorPointer" style="vertical-align:middle;">
+									<object data="images/pointer.svg" type="image/svg+xml" width="40px" height="40px"></object>
+								</div>	
+	
+								<div id="searchWrapper" class="searchWrapper">
+									<div id="inspectorInputType">
+										<maximo-text id="inspectorInputTypeText" class="inlineInput" placeholder="{{inputPlaceholder}}"  value="{{inputValue}}" on-input="searchAgain"></maximo-text>
+									</div>
+									<div id="itemList" class="itemList">	
+										
+										<div id="divNodataLabelWrapper" hidden$="[[showLoading]]">
+											<div id="nodataLabelWrapper" class="nodataLabelWrapper" hidden$="[[hasResult]]">
+												<maximo-label id="nodataLabel" label="{{localize('uitext', 'mxapiinspresult', 'no_result')}}"></maximo-label>
+											</div>
+										</div>
+										<div id="dicSearchingWaitWrapper"  style="height: 80px;"    hidden$="[[!showLoading]]" >
+										    <div  id="searchingWaitWrapper"   class="searchingWaitWrapper"   >
+										      <span  id="waitWrapper"   class="waitWrapper"   >
+										        	<maximo-wait id="wait"  show="true" />
+										      </span>
+										    </div>
+										    <div class="searchingLabelWrapper"  id="searchingLabelWrapper"  >
+										   		   <div  style="padding-left:30px;" id="searchingLabelWrapper_">
+										   			  <maximo-label  label="{{localize('uitext', 'mxapiinspection', 'searching')}}" ></maximo-label> 
+										      	   </div>
+										    </div>
+										</div>
+										<div  id="divResultList" hidden$="[[showLoading]]">	
+											<template id="resultList" is="dom-repeat" items="{{typeAheadResultSet}}" as="elem">
+				         		    			<div class="divRow"  on-tap="_selectElement">
+					         		  				<div class="item1 itemCommon">{{_getElemDesc(elem)}}</div>
+					         		  				<div class="itemCommon">{{_getNum(elem)}}</div>
+				         		  				</div>
+				       						</template>
+			       						</div>
+			       					</div>
+		       					</div>
+							</div>													
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="inspectorCreateTileDiv" class="pageDiv scroll">
+				
+				<template is="dom-if" if="[[!hasFirstStep]]">
+					<div id="inspectorCreateNoRecords" class="noRecords">
+						<object data="images/bee-shadow-large.svg" type="image/svg+xml" style="padding-top: 150px;"></object>
+						<p>{{instruction}}</p>
+					</div>
+				</template>
+				
+				<template is="dom-if" if="[[hasFirstStep]]">
+				
+					<div>
+						<p class="step">{{localize('uitext','mxapiinspresult','selectform')}}</p>
+				
+						<div id="inspectorCreateSearchBarDiv" style="width:30%;display:inline-block;float:left;margin-left:-10px; padding-bottom:10px;">
+							<maximo-searchbar id="inspectorCreateSearchBar" class="searchbar" collection="{{collectionRef}}" placeholder="{{localize('uitext', 'mxapibase', 'Search')}}"></maximo-searchbar>
+						</div>
+					</div>
+					<template is="dom-if" if="[[!hasRecord]]">
+						<div class="noRecords">
+							<div class="icon">
+								<object data="images/bee-shadow-large.svg" type="image/svg+xml" style="padding-top: 20px;"></object>
+							</div>
+							<p>{{localize('uitext','mxapiinspection','no_inspections_forms')}}</p>
+						</div>
+					</template>
+					<div id="inspectorCreateDataScrollerDiv" class="layout horizontal wrap">
+						<template id="inspectorCreateTileTemplate" is="dom-repeat" items="[[dataSet]]" as="inspForm">
+							<maximo-inspector-tile id="inspectorCreateTileRecord" data-id="[[inspForm.inspectionformid]]" record="{{inspForm}}" page="createInspection"
+								form-status-set="[[statusSet]]"></maximo-inspector-tile>
+						</template>
+					</div>
+					
+				</template>
+				
+		   </div>
+		</div>
+  
+	</template>
+	<script src="maximo-inspector-create.js"></script>
+
+</dom-module>

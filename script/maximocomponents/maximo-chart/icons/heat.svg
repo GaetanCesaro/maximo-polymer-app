@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xml:space="preserve" style="enable-background:new 0 0 64 64;" viewBox="0 0 64 64" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<style type="text/css">
+	.st0{fill:none;stroke-width:2;stroke-miterlimit:10;}
+</style>
+<rect height="1.9" width="16" fill="currentColor" y="25" x="6"/>
+<rect height="1.9" width="16" fill="currentColor" y="29" x="6"/>
+<rect height="1.9" width="16" fill="currentColor" y="33" x="6"/>
+<rect height="1.9" width="16" fill="currentColor" y="37" x="6"/>
+<rect height="1.9" width="16" fill="currentColor" y="43" x="24"/>
+<rect height="1.9" width="16" fill="currentColor" y="47" x="24"/>
+<rect height="1.9" width="16" fill="currentColor" y="51" x="24"/>
+<rect height="1.9" width="16" fill="currentColor" y="55" x="24"/>
+<g>
+	<rect height="14" width="14" stroke="currentColor" class="st0" y="7" x="43"/>
+	<rect height="14" width="14" stroke="currentColor" class="st0" y="7" x="25"/>
+	<rect height="14" width="14" stroke="currentColor" class="st0" y="25" x="25"/>
+	<rect height="14" width="14" stroke="currentColor" class="st0" y="25" x="43"/>
+	<rect height="14" width="14" stroke="currentColor" class="st0" y="43" x="43"/>
+	<rect height="14" width="14" stroke="currentColor" class="st0" y="7" x="7"/>
+	<g>
+		<rect height="16" width="16" fill="currentColor" y="42" x="6"/>
+	</g>
+</g>
+</svg>

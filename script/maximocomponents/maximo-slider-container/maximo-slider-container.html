@@ -1,0 +1,28 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->   
+<dom-module id="maximo-slider-container">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-slider-container-css.html">
+	<style is="custom-style" include="maximo-slider-container-css"></style>
+	
+	<template>
+		<div id="wrapper" class="wrapper" style="min-height: {{height}}">
+			<div id="container" class="container slider" on-scroll="_userActivity">
+				<content></content>
+			</div>
+			<div id="scrollFooter" class="scrollMarker below"></div>
+		</div>
+	</template>
+
+	<script src="maximo-slider-container.js"></script>
+
+</dom-module>

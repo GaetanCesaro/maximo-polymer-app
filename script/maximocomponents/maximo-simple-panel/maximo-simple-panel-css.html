@@ -1,0 +1,119 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-simple-panel-css">
+	<template>
+    	<style>
+			.panel {
+				display: inline-block;
+				background-color: #ffffff;
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+			}
+			
+			.panelInternal {
+				background-color: #ffffff;
+				clear: both;
+				border-collapse: collapse;
+				overflow-y: auto;
+     			border-top: 0px;
+				padding: 10px 13px 7px 13px;
+    			height: calc(100% - 48px);
+    			font-family: HelveticaNeue;
+    			box-sizing: border-box;
+			}
+			
+			.panelHeader ::content maximo-label ::content label, .panelHeader div.title {
+				color: #335c72;
+				font-size: 24px;
+				font-family: HelveticaNeue-Light;
+				font-weight: normal !important;
+			}
+			
+			.panelHeader {
+				margin: 0px;
+	   			padding: 9px 0px 9px 0px;;
+				border-bottom:1px solid #979797;
+				background-color: #f9f9f9;
+	   			position: relative;
+	   			z-index: 50;
+ 			}
+			
+			.panelTitle {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: flex;
+				padding: 0px 13px;
+				text-align: left;
+				font-family: HelveticaNeue;
+				height: 29px;
+				margin-right: 24px;
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+			}
+				
+			div.headingInfo {
+				color: #335c7e;
+				font-family: HelveticaNeue-Light;
+				padding-left: 5px;
+				padding-top: 2px;
+			}
+			
+			.panelWrapper {
+				display: inline-block;
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+			}
+			
+			.panelHeaderWithBackButton {
+ 			    text-align: center;
+ 				margin: 0px 10px 0px 10px; 
+/*	   			padding: 9px 0px 9px 0px; */
+	   			border-right-width: 10px;
+				border-bottom:1px solid #e0e0e0;
+				/* background-color: white; */
+ 			}
+ 			
+ 			.panelHeaderWithBackButton ::content maximo-label ::content label, .panelHeader div.title {
+/* 				color: var(--Primary-white); */
+				color: #335c72;
+				font-size: 22px;
+				font-family: HelveticaNeue-Light;
+				font-weight: normal !important;
+			}
+			
+			.dialogBackButton ::content svg {
+				fill: var(--Primary-gray50);
+			}
+			
+			.dialogBackButton ::content svg.rtl {
+				transform: scaleX(-1);
+			}
+			
+			.dialogBackButton:hover ::content svg{
+				fill: var(--Primary-blue30);
+			}
+			
+			.dialogBackButton {
+				float: left;
+				padding: 2px 0px 0px 0px;
+				cursor: pointer;
+			}
+			
+			.dialogBackButton.rtl {
+				float: right;
+			}	
+			
+			.backButton{
+				fill : #777677;
+			}	
+			
+		</style>
+	</template>
+</dom-module>

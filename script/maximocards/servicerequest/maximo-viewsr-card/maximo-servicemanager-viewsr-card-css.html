@@ -1,0 +1,104 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-servicemanager-viewsr-card-css">
+	<template>
+    	<style>
+		 	
+		 	.container {
+		      @apply(--layout-horizontal);
+		      @apply(--layout-justified);
+		    }	
+		    .container > div {
+				display: inline-block;
+			}
+			
+			.flex-container {
+			    display: flex;
+			    flex-direction: row;
+			    flex-wrap: nowrap;
+			    justify-content: flex-end;
+			    align-content: flex-start;
+			    align-items: center;
+		    }
+			
+			   hr {
+		    	margin: 0px;
+		    }
+		    
+		    .timerstyle {
+		    	height:50px;
+		    	width:50px;
+		    }
+		    .hiddensection ::content label {
+		    	font-weight:bold;
+		    } 
+		    
+		    .hiddensection ::content > div, 
+		    .hiddeninnersection ::content > div {
+		    	margin: 0px;
+		    }
+			.srticketidclass ::content label,
+			.srpriorityclass ::content label {
+				font-size: 22px;
+				font-family: HelveticaNeue;
+				
+			}
+			.srstatusclass ::content label {
+				font-size: 22px;
+				font-family: HelveticaNeue;
+				color: #5AAAFA;
+			
+			}
+			.srstatusclass:hover{
+				font-weight:bold;
+				
+			}
+			.srreportedbyclass ::content label {
+				font-size: 18px;
+				font-family: HelveticaNeue;
+				font-style : italic;
+				color: #959595;
+			}
+			.srdescriptionclass ::content label{
+				font-size: 18px;
+			}
+			.srdescriptionclass {
+				text-align: left;
+			}
+			.bottomcardcontainer ::content label {
+				font-size: 14px;
+				font-family: HelveticaNeue;
+				color: #959595;
+			}
+			 .iconsection {
+		    	padding-top:13px;
+		    	float: right;
+		    }
+		    
+		    .iconsection.rtl {
+		    	float: left;
+		    }
+		    .flex {
+			    @apply(--layout-horizontal);
+			  }
+					    
+		    
+		    
+		    iron-icon {
+		    	transition: all .3s;
+		    	fill: var(--Primary-gray50);
+		    }
+		    
+		    iron-icon:hover {
+		    	fill: var(--Primary-blue20);
+		    	zoom:120%;
+		    }
+		 
+			
+			
+		</style>
+	</template>
+</dom-module>

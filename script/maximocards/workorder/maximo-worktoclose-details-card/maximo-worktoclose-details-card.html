@@ -1,0 +1,106 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../../handlers/handler-workorder/handler-workorder.html"/>
+
+<dom-module id="maximo-worktoclose-details-card">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-worktoclose-details-card-css.html">
+	<style is="custom-style" include="maximo-worktoclose-details-card-css"></style>		
+	<template id="workinprogress-details-template">
+	
+		<maximo-collection 
+		    id="wocollection" 
+			attribute-names="wonum,workorderid,actlabcost,estatapprlabcost,actmatcost,estatapprmatcost,actservcost,estatapprservcost,acttoolcost,estatapprtoolcost,rel.uxshowactuallabor{person.displayname},rel.uxshowactualmaterial{matusetransid,description,quantity},rel.uxshowactualtool{toolqty,item.description},rel.uxshowactualservice{description, quantity},rel.childtask{taskid,description,status},rel.uxshowfailurereport{type,failurecode.failurecode,failurecode.description},rel.uxshowfailureremark{description}"
+			collection-data="{{collectionRecord}}"
+			debounce-duration="600"
+			dynamic-attribute-names="{{dynamicAttributeNames}}"	
+			filter-data="{{filterData}}"			
+			object-name="MXAPIWODETAIL" 
+			order-by-child-attribute-names="{{childTaskSort}}"
+			search-attribute-names="workorderid"
+			search-term-value="{{filterWorkOrderID}}"
+			selected-query-name="All"
+			selected-record="{{selectedRecord}}"
+			selected-record-index="{{selectedRecordIndex}}"
+			additional-params='["internalvalues=1"]'
+			use-search-terms="true"
+			refresh-interval="300"
+			refresh-listeners='["completecollection"]'
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+			
+		</maximo-collection>
+		
+						
+		<!-- <maximo-section id="mainsection" label="{{localize('uitext', 'mxapibase', 'Showmore')}}" alternate-label="{{localize('uitext', 'mxapibase', 'Showless')}}" class="hiddensection" collapsed="true" fontsize="100%" block no-icon show-bottom-toggler> -->
+		<div name="wod-inner-section">
+			<hr>
+			<maximo-section id="actuallaborsection" label="{{localize('uitext', 'mxapiwodetail', 'ActualLabor')}}" summary="{{actualLaborSummary}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<ul>
+					<template id="laborsectionTemplate" is="dom-repeat" items="{{laborCollection}}" as="labor">
+						<li>{{labor.person.displayname}}</li>
+					</template>
+				</ul>
+			</maximo-section>
+			<hr>
+			<maximo-section id="actualmaterialsection" label="{{localize('uitext', 'mxapiwodetail', 'ActualMaterials')}}" summary="{{actualMaterialSummary}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<ul>
+					<template id="materialsectionTemplate" is="dom-repeat" items="{{materialCollection}}" as="material">
+						<li>{{getQuantity(material.quantity)}} | {{material.description}}</li>
+					</template>
+				</ul>
+			</maximo-section>
+			<hr>
+			<maximo-section id="actualtoolsection" label="{{localize('uitext', 'mxapiwodetail', 'ActualTools')}}" summary="{{actualToolSummary}}" collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<ul>
+					<template id="toolsectionTemplate" is="dom-repeat" items="{{toolCollection}}" as="tool">
+						<li>{{tool.toolqty}} | {{tool.item.description}}</li>
+					</template>
+				</ul>
+			</maximo-section>
+			<hr>
+			<maximo-section id="actualservicesection" label="{{localize('uitext', 'mxapiwodetail', 'ActualServices')}}" summary="{{actualServiceSummary}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<ul>
+					<template id="servicesectionTemplate" is="dom-repeat" items="{{serviceCollection}}" as="service">
+						<li>{{service.quantity}} | {{service.description}}</li>
+					</template>
+				</ul>
+			</maximo-section>
+			<hr hidden$="{{hideCostSection}}">
+			<maximo-section id="costsection" hidden$="{{hideCostSection}}" label="{{localize('uitext', 'mxapiwodetail', 'Cost')}}" summary="{{costSummary}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<template id="costsectionTemplate" is="dom-repeat" items="{{costCollection}}" as="cost">
+					<maximo-field id="costlabel" label="{{cost.label}}" datalabel="{{cost.cost}}"></maximo-field>
+				</template>
+			</maximo-section>
+			<hr>
+			<maximo-section id="taskscompletesection" label="{{localize('uitext', 'mxapiwodetail', 'TaskCompletion')}}" summary="{{taskSummary}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<ul>
+					<template id="taskcompletionsectionTemplate" is="dom-repeat" items="{{tasksCollection}}" as="task">
+						<li>{{task.taskid}} | {{task.description}} | {{task.status_description}}</li>
+					</template>
+				</ul>
+			</maximo-section>
+			<hr>
+			<maximo-section id="failurereportsection" label="{{localize('uitext', 'mxapiwodetail', 'FailureReport')}}" summary="{{failureSummary}}"  collapsed="true" width="100%" fontsize="100%" block customstyle="raw">
+				<template id="failurereportsectionTemplate" is="dom-repeat" items="{{failureCollection}}" as="failure">
+					<maximo-field id="maximo_worktoclosedetails_report_field" label="{{failure.type_description}}" datalabel="{{failure.failurecode.description}}"></maximo-field>
+				</template>
+				<maximo-field id="maximo_worktoclosedetails_remarks" label="{{localize('uitext', 'mxapiwodetail', 'Comments')}}" datalabel="{{reportRemark}}"></maximo-field>
+			</maximo-section>
+			<hr>
+		</div>
+		<!-- </maximo-section> -->
+	</template>
+
+	<script src="maximo-worktoclose-details-card.js"></script>
+
+</dom-module>

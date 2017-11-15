@@ -1,0 +1,33 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="maximo-submitsr-describeissue/maximo-submitsr-describeissue.html" />
+<link rel="import" href="maximo-submitsr-addcomment/maximo-submitsr-addcomment.html" />
+<link rel="import" href="maximo-submitsr-attachment/maximo-submitsr-attachment.html" />
+<link rel="import" href="maximo-submitsr-location/maximo-submitsr-location.html" />
+<link rel="import" href="maximo-submitsr-asset/maximo-submitsr-asset.html" />
+<dom-module id="maximo-submitsr-detail">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-submitsr-detail-css.html">
+	<style is="custom-style" include="maximo-submitsr-detail-css"></style>		
+	<template>
+		<iron-pages class="detailPages" id="detailPages" selected="{{selectedDetailPage}}">
+			<maximo-submitsr-describeissue id="describeissueStep" on-go-nextdetail="_nextDetailStep" next-step="2"></maximo-submitsr-describeissue>
+			<maximo-submitsr-addcomment id="addcommentStep" on-go-nextdetail="_nextDetailStep"></maximo-submitsr-addcomment>
+ 			<maximo-submitsr-attachment id="attachmentStep" on-go-nextdetail="_nextDetailStep" sr-href={{srHref}}></maximo-submitsr-attachment>
+			<maximo-submitsr-location id="locationStep"  system-type='["primary"]' on-go-nextdetail="_nextDetailStep" ></maximo-submitsr-location>
+			<maximo-submitsr-asset id="assetStep" on-go-nextdetail="_nextDetailStep"></maximo-submitsr-asset> 
+		</iron-pages>
+	</template>
+
+  <script src="maximo-submitsr-detail.js"></script>
+
+</dom-module>

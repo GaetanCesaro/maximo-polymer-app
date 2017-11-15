@@ -1,0 +1,66 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../components/polymer/polymer.html" />
+<link rel="import" href="../maximocomponents/maximo-slider-container/maximo-slider-container.html">
+<link rel="import" href="../maximocards/businessanalytics/datasetdesign/maximo-datadesign-main/maximo-datadesign-main.html" />
+
+<dom-module id="workscape-datasetdesigner">	
+	<style>
+		.noshrink {
+			flex-shrink: 0;
+		}
+		
+		maximo-workscape ::content .content > div:first-of-type {
+			background: -moz-linear-gradient(top, #ffffff 73px, #f9f9f9 73px);
+			background: -webkit-linear-gradient(top, #ffffff 73px, #f9f9f9 73px);
+			background: linear-gradient(#ffffff 73px, #f9f9f9 73px)
+		}
+		
+	</style>
+	<template>
+		<app-route route="{{subroute}}" pattern="/:route" data="{{subrouteData}}"></app-route>
+		<maximo-workscape id="workscape" background-color="#F9F9F9" screen-format="large" centered footer-toolbar>
+			<maximo-datadesign-main id="designermain" class="noshrink"></maximo-datadesign-main>				
+		</maximo-workscape>
+	</template>
+<script>
+	Polymer({
+
+	    is: "workscape-datasetdesigner",
+   		properties: {
+   		
+	    },
+	    behaviors: [BaseComponent],
+		listeners: {
+			'createnew' : 'createnew',
+			'openbusiness' : 'openbusiness'
+	 	},
+	    observers: [
+	        '_subRouteChanged(subrouteData.route)'
+	    ],
+	 	ready: function(){
+	 		document.body.overFlowY = 'scroll';
+	 		$M.workScape.label='';
+	 	},
+		createnew : function(e) {
+
+		},
+		openbusiness : function(e) {
+			$M._changeWorkCenter('businessanalyst');
+		},
+		_subRouteChanged(subRoute) {
+			if(this.subRoute !== subRoute){
+				if(subRoute !== ''){
+					//handle sub route changes here	
+				}
+				this.subRoute = subRoute;
+			}
+		}
+
+});
+</script>
+</dom-module>	

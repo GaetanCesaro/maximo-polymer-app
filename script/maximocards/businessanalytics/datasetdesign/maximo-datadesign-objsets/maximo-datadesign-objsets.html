@@ -1,0 +1,62 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->     
+<dom-module id="maximo-datadesign-objsets">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-datadesign-objsets-css.html">
+	<style is="custom-style" include="maximo-datadesign-objsets-css"></style>		
+  <template>
+  <maximo-collection
+  		auto 
+	    id="datasetcollection" 
+		attribute-names="intobjectname,description,description_longdescription,changedate,changeby,app"
+		collection-data="{{recordData}}"
+		debounce-duration="600"
+		dynamic-attribute-names="{{dynamicAttributeNames}}"				
+		object-name="MXAPIWOSDATASET" 
+		order-by-attribute-names="%2Bdescription"
+		query-info="{{queryInfo}}" 
+		search-attribute-names="intobjectname,description"
+		search-term-value="{{searchTermValue}}"
+		selected-query-name="DSDESIGNEROBJ"
+		selected-record="{{selectedRecord}}"
+		selected-record-index="{{selectedRecordIndex}}"
+		use-search-terms="true"	
+		on-record-data-refreshed="_handleRecordDataRefreshed"
+		on-dynamic-attribute-data-fetched="_showDetails"		
+		>				
+	</maximo-collection>
+
+	<maximo-resource id="editDatasetResource" resource-uri="{{editDatasetHref}}"></maximo-resource>
+
+	<maximo-searchbar id="searchbar" class="searchbar" collection="{{getLocalObject('datasetcollection')}}" placeholder="{{localize('uitext', 'mxapiwosdataset', 'FilterObjectSets')}}"></maximo-searchbar>
+	 <maximo-label id="count" class="count" label="{{_results}}" block="true"></maximo-label>
+	 <div id="dataScroller" class="dataScroller">
+		<template id="datasetTemplate" is="dom-repeat" items="{{recordData}}" as="datasettplt">	
+			<div id="datasettplt" data-index$="[[index]]" class="cardborder dataSetCard" style="width:300px;display:inline-block" on-tap="selectset">
+				<div id="datasettplt_header" class="cardheader">
+					<maximo-label id="maximo-label-desc" class="datasetheader" label="{{datasettplt.description}}" ></maximo-label>
+				</div>
+				
+				<div id="datasettplt_container" class="cardcontainer" style="padding-top: 10px;">
+					<div id="datasettplt_longdesc" class="container end-justified layout">
+						<maximo-htmlfield id="maximo-label-longdesc" max-height="53px" datalabel="{{datasettplt.description_longdescription}}" ></maximo-htmlfield>
+					</div>
+					<maximo-button action="true" id="showInfo" synchronous tabindex="0" class="showinfo" on-mouseenter="_showInfoHover" on-tap="_showInfo" icon="action-based:get-information"></maximo-button>					
+				</div>
+			</div>
+		</template>
+	  <div>
+	
+  </template>
+  
+  <script src="maximo-datadesign-objsets.js"></script>
+</dom-module>

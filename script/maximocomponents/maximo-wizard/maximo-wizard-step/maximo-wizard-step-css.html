@@ -1,0 +1,106 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-wizard-step-css">
+	<template>
+    	<style>
+    		.outer {
+	    		white-space: nowrap;
+				display: inline-block;
+				max-width: 150px;
+				padding: 0px 10px;
+    		}
+    					
+			:host.currentChoice label {
+				color: var(--Primary-blue40) !important;
+    			font-family: "HelveticaNeue-Bold";
+			}
+			
+    		:host:not(.complete).currentChoice label + div.state .marker {
+				background: var(--Primary-blue50) !important;
+			}
+    		
+			:host label {
+				font-family: 'HelveticaNeue-Light';
+				user-select: none;
+				-webkit-user-select: none; /* Chrome/Safari */        
+				-moz-user-select: none; /* Firefox */
+				-ms-user-select: none; /* IE10+ */
+				height: 32px !important;
+				overflow: hidden;
+				display: block !important;
+				line-height: 15px;
+				max-width: 150px;
+				transition: color .3s;
+				text-align:center;
+				white-space: normal !important;
+				outline-offset: 3px;
+		    	padding: 2px 5px 0px 5px;
+			}
+			
+			li::after {
+				  display: block;
+				  content: attr(title);
+				  font-weight: bold;
+				  height: 1px;
+				  color: transparent;
+				  overflow: hidden;
+				  visibility: hidden;
+				}
+
+    		:host[disabled] .label {
+				color: var(--Primary-gray30) !important	;
+				text-decoration: none !important;
+			}
+
+			:host:not([disabled]):hover .label {
+				color: var(--Primary-blue30) !important;
+			}
+    		
+			:host:not(.complete):not([disabled]):hover .marker {
+				background: var(--Primary-blue30) !important;
+			}
+			
+			:host.complete .marker{
+				background: var(--Primary-white) !important;
+			}
+			
+			:host:not(.complete) .marker iron-icon ::content svg {
+				visibility: hidden;
+			}
+			
+		   	.icon {
+		   		width:14px;
+		   		height:14px;
+		   		padding:0px 0px 3px 3px;
+		   	}
+		   	
+		   	.state {
+		   		text-align: center;
+		   		height: 22px;
+		   		padding: 0px 5px;
+		   	}
+		   	
+		   	.state .marker {
+		   		border: 1px solid #979797;
+		   		border-radius: 50%;
+		   		width: 10px;
+		   		height: 10px;
+		   		background: #fff;
+		   		display: inline-block;
+		   		position: relative;
+		   		bottom: 1px;
+		   	}
+		   	
+		   	:host.complete iron-icon {
+		   	    width: 32px;
+		   		height: 32px;
+		   		margin: -3px 0px;
+		   	}
+
+		</style>
+	</template>
+</dom-module>

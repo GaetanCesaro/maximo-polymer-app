@@ -1,0 +1,99 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-chatbubble-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../maximo-select.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<link rel="import" href="../maximo-chatbubble.html">
+	<link rel="import" href="../../maximo-imglib/maximo-imglib.html">
+	<link rel="import" href="../../maximo-label/maximo-label.html">
+	<link rel="import" href="../../maximo-htmlfield/maximo-htmlfield.html">
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+		<div class="outer">
+			
+			<div class="demo-section">
+				<p class="demo-header">Default maximo-chatbubble component:</p>
+				<p>
+				<maximo-chatbubble class="messageBubble" label="Hey, how are you doing? I'm testing..." date="2016-11-29T12:43:39+00:00" person-firstname="Demo" additional-info="Demo" person-image=""></maximo-chatbubble>
+				</p>
+				<div class="code" style="width:600px">
+					<p>
+						<xmp><maximo-chatbubble class="messageBubble" label="Hey, how are you doing? I'm testing..." date="2016-11-29T12:43:39+00:00" person-firstname="Demo" additional-info="Demo" person-image=""></maximo-chatbubble></xmp>
+					</p>
+				</div>
+
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Using the direction="true" propertie</p>
+				<p>
+				<maximo-chatbubble class="messageBubble" label="Hey, how are you doing? I'm testing..." date="2016-11-29T12:43:39+00:00" person-firstname="Demo" additional-info="Demo" person-image="" direction="true"></maximo-chatbubble>
+				</p>
+				<div class="code" style="width:400px">
+					<p>
+						<xmp><maximo-chatbubble class="messageBubble" label="Hey, how are you doing? I'm testing..." date="2016-11-29T12:43:39+00:00" person-firstname="Demo" additional-info="Demo" person-image="" direction="true"></maximo-chatbubble></xmp>
+					</p>
+				</div>
+
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">On click activated:</p>
+				<p>
+				<maximo-chatbubble class="messageBubble" label="Hey, how are you doing? I'm testing..." date="2016-11-29T12:43:39+00:00" person-firstname="Demo" additional-info="Demo" person-image="" direction="true" on-clickimage="_showPersonInfo"></maximo-chatbubble>
+				</p>
+				<div class="code" style="width:400px">
+					<p>
+						<xmp><maximo-chatbubble class="messageBubble" label="Hey, how are you doing? I'm testing..." date="2016-11-29T12:43:39+00:00" person-firstname="Demo" additional-info="Demo" person-image="" direction="true" on-clickimage="_showPersonInfo"></maximo-chatbubble></xmp>
+					</p>
+				</div>
+
+			</div>
+			
+			
+  		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-chatbubble-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				querylist: {
+    		type: Array,
+    		value: [],
+    		notify: true
+    	},
+    		exampledata:{
+    			type:String,
+    			notify:true,
+    			value:"binded"
+    		}
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log(this.data);
+				var demoData=this.data;
+				demoData.forEach(function(d) {
+					this.querylist=d.description;
+					console.log(d.description);	
+			});
+				console.log(this.querylist);
+			},
+			ready : function(){
+  			
+  	},
+  	_showPersonInfo:function(){
+  		alert("clicked");
+  	}
+  			
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,49 @@
+<!--
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-chart-properties">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-chart-css.html">
+	<style is="custom-style" include="maximo-chart-css"></style>
+	
+	<template>
+		
+		<maximo-text id="tmargin" width="490px" value="{{chartoptions.tmargin}}" label="{{localize('uitext', 'mxapibase', 'TopMargin')}}" placeholder="{{localize('uitext', 'mxapibase', 'NumberofPixelsfortheTopMargin')}}" type="number" style="margin: 5px 0px 0px" autofocus="true" on-keypress="handleChange"></maximo-text>
+		<maximo-text id="rmargin" width="490px" value="{{chartoptions.rmargin}}" label="{{localize('uitext', 'mxapibase', 'RightMargin')}}" placeholder="{{localize('uitext', 'mxapibase', 'NumberofPixelsfortheRightMargin')}}" type="number" style="margin: 5px 0px 0px" autofocus="true" on-keypress="handleChange"></maximo-text>
+		<maximo-text id="bmargin" width="490px" value="{{chartoptions.bmargin}}" label="{{localize('uitext', 'mxapibase', 'BottomMargin')}}" placeholder="{{localize('uitext', 'mxapibase', 'NumberofPixelsfortheBottomMargin')}}" type="number" style="margin: 5px 0px 0px" autofocus="true" on-keypress="handleChange"></maximo-text>
+		<maximo-text id="lmargin" width="490px" value="{{chartoptions.lmargin}}" label="{{localize('uitext', 'mxapibase', 'LeftMargin')}}" placeholder="{{localize('uitext', 'mxapibase', 'NumberofPixelsfortheLeftMargin')}}" type="number" style="margin: 5px 0px 0px" autofocus="true" on-keypress="handleChange"></maximo-text>
+
+		<template is="dom-if" if="{{false}}">			
+		<maximo-select id="charttypesel" value="{{charttype}}" label="{{localize('uitext', 'mxapibase', 'ChartType')}}" values="{{chartTypes}}" on-change="chartTypeChanged" ></maximo-select>
+		</template> 			 						
+		<br>
+			
+		<div style="width:300px;height:150px">
+		<template is="dom-if" if="{{isPie(charttype)}}" restamp>
+			<maximo-text id="donutfactor" width="250px" value="{{chartoptions.donutsize}}" label="{{localize('uitext', 'mxapibase', 'SizeofDonut')}}" placeholder="{{localize('uitext', 'mxapibase', 'Decimalbetween0and1')}}" type="number" style="margin: 5px 0px 0px" autofocus="true" on-keypress="handleChange"></maximo-text>
+		</template>
+		<template is="dom-if" if="{{isMapchart(charttype)}}" restamp>
+			<maximo-text id="scale" width="250px" value="{{chartoptions.scale}}" label="{{localize('uitext', 'mxapibase', 'Scale')}}" placeholder="{{localize('uitext', 'mxapibase', 'NumericScaleFactor')}}" type="number" style="margin: 5px 0px 0px" autofocus="true" on-keypress="handleChange"></maximo-text>
+		</template>
+		<template is="dom-if" if="{{isHeatmap(charttype)}}" restamp>
+			<maximo-text id="zmin" width="250px" value="{{chartoptions.zmin}}" label="{{localize('uitext', 'mxapibase', 'Zaxisminimum')}}" placeholder="{{localize('uitext', 'mxapibase', 'Numeric')}}" type="number" style="margin: 5px 0px 0px" autofocus="true" on-keypress="handleChange"></maximo-text>
+			<maximo-text id="zmax" width="250px" value="{{chartoptions.zmax}}" label="{{localize('uitext', 'mxapibase', 'Zaxismaximum')}}" placeholder="{{localize('uitext', 'mxapibase', 'Numeric')}}" type="number" style="margin: 5px 0px 0px" autofocus="true" on-keypress="handleChange"></maximo-text>
+		</template>
+		</div>
+	<maximo-footer id="footer" centered>
+		<maximo-button id="applysettings" label="{{localize('uitext', 'mxapibase', 'ApplySettings')}}" on-click="_handleApply"></maximo-button>
+		<maximo-button id="close" label="{{localize('uitext', 'mxapibase', 'Close')}}" on-click="_handleClose" default></maximo-button>																	
+  	</maximo-footer>				
+	</template>
+
+	<script src="maximo-chart-properties.js"></script>
+	
+</dom-module>

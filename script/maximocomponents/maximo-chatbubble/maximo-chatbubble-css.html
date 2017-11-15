@@ -1,0 +1,138 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-chatbubble-css">
+	<template>
+    	<style>
+    		:host {
+    			display: block;
+    		}
+    		
+			.flex {
+				@apply(--layout-horizontal);
+			}
+			.flex-end-justified {
+				@apply(--layout-horizontal);
+				@apply(--layout-end-justified);
+			}
+			.flex-horizontal {
+				@apply(--layout-horizontal);
+			}
+			
+			.bubble 
+			{ 
+				margin : 0px 10px 0px 10px;
+				position: relative;
+				max-width: 200px;
+				padding: 3px 10px 3px 10px;
+				background: #f9f9f9;
+				-webkit-border-radius: 2px;
+				-moz-border-radius: 2px;
+				border-radius: 2px;
+				border: 1px solid #e0e0e0;
+				font-family:HelveticaNeue;
+				font-size:16px;
+				color:#000000;
+				letter-spacing:0px;
+				text-align:left;
+				display : inline-block;		
+			}
+			
+			.bubbleLeft:after 
+			{
+				content: '';
+				position: absolute;
+				border-style: solid;
+				border-width: 11px 11px 11px 0;
+				border-color: transparent #f9f9f9;
+				display : inline-block;
+				width: 0;
+				z-index: 1;
+				left: -11px;
+				top: 8px;
+			}
+			
+			.bubbleLeft:before 
+			{
+				content: '';
+				position: absolute;
+				border-style: solid;
+				border-width: 11px 11px 11px 0;
+				border-color: transparent #e0e0e0;
+				display : inline-block;
+				width: 0;
+				z-index: 0;
+				left: -12px;
+				top: 8px;
+			}
+			
+			.bubbleRight:after 
+			{
+				content: '';
+				position: absolute;
+				border-style: solid;
+				border-width: 11px 0px 11px 11px;
+				border-color: transparent #f9f9f9;
+				display : inline-block;
+				width: 0;
+				z-index: 1;
+				right: -11px;
+				top: 8px;
+			}
+			
+			.bubbleRight:before 
+			{
+				content: '';
+				position: absolute;
+				border-style: solid;
+				border-width: 11px 0px 11px 11px;
+				border-color: transparent #e0e0e0;
+				display : inline-block;
+				width: 0;
+				z-index: 0;
+				right: -12px;
+				top: 8px;
+			}
+			.dateLabel {
+				display: block;
+				padding-top:6px;
+				float : left;	
+			}
+			.dateLabelRight{
+				display: block;
+				padding-top:6px;
+				float : right;
+			}
+			.dateLabel::content label{
+				color : #777677;
+			}
+			.dateLabelRight::content label{
+				color : #777677;
+			}
+			.commentLabel ::content label{
+				font-size: 16px;
+				color : #000000;
+				line-height: 120%;
+				display : block;
+				overflow-wrap: break-word;
+				word-wrap: break-word;	
+			}
+			.firstnameLabel::content label{
+				color : #335c7e
+			}
+			.commentMessages{
+				padding-bottom : 10px;
+			}
+			.personImage::content .noimage{
+				fill : #aeaeae;
+			}
+			.personImage::content iron-icon{
+				width : 50px;
+				height : 50px;
+			}
+		</style>
+	</template>
+</dom-module>

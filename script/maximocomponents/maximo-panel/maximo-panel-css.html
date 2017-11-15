@@ -1,0 +1,179 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-panel-css">
+	<template>
+    	<style>
+			.panel {
+				display: inline-block;
+				margin: 5px;
+				z-index: 1;
+				background-color: #fff;
+			}
+			
+			.panel.border {
+				border: 1px solid var(--Primary-white);
+				border-radius: 2px;
+				background-color: #fff;
+				padding-bottom: 2px;
+				vertical-align: top;
+				min-width: 170px;
+				margin: 10px;
+			}
+			
+			.panel.inner {
+				box-shadow: none;
+			}
+			
+			.panel.outer {
+				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0
+					rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);	
+			}
+			
+			.loading {
+				background: url('../images/loading.gif') center center no-repeat #fff;
+			}
+	
+			.form {
+				display: inline;
+			}
+			
+			.internal {
+				background-color: var(--Neutral-gray2);
+				clear: both;
+				border-collapse: collapse;
+				overflow-y: auto;
+    			height: 100%;
+    			border-bottom: 1px solid var(--Neutral-gray4);
+    			border-top: 0px;
+			}
+						
+			.header ::content h3, .footer ::content h3 {
+				background: var(--Primary-blue60);
+				margin-top: 0px;
+				color: var(--Primary-white);
+			}
+			
+			.footer ::content h3 {
+				text-align: center;
+				padding: 0px;
+			}
+			
+			.header ::content maximo-label ::content label, .header .title, .footer ::content maximo-label ::content label, .footer .title{
+				color: var(--Primary-white);
+				font-size: 18px;
+				font-family: HelveticaNeue-Light;
+				font-weight: normal !important;
+			}
+			
+			.panel.border >.internal {
+				
+			}
+			
+			.fullScreen.panel.border > .internal {
+				box-sizing: border-box;
+				width: 100%;
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+			
+			.internal.auto {
+				width: auto !important;
+			}
+			
+			
+			
+			.internal .div {
+				padding: 5px 10px;
+			}
+			
+			.bottom {
+    			padding: 0px;
+			}
+			
+			.additional {
+    			padding: 0px;
+			}
+			
+			.title {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: inline-block;
+				padding: 0px 10px;
+			}
+			
+			.title.rtl {
+				text-align: right;
+			}
+			
+			.button {
+				opacity: 0;
+				transition: all .3s linear;
+				transform: scale(.01);
+			}
+			.buttons {
+				float: right;
+				margin: -5px 0px 0px 5px;
+				transform: scale(.8);
+			}
+			.buttons.rtl {
+				float: left;
+			}
+			.panel.fullScreen .button {
+				opacity: 1;
+				transform: scale(.8);
+			}
+			.touch.buttons {
+				margin: -5px 0px 0px 5px;
+				transform: scale(1);
+			}
+			.panel:hover .button:not(.touch) {
+				opacity: 1;
+				transform: scale(.8);
+			}
+			.touch.button{
+				opacity: 1;
+			}
+			
+			.touch.button > ::content svg{
+				transform: scale(1.5);
+				fill: var(--Cool-gray40);
+			}
+			
+			.toggle {
+				fill: var(--Cool-gray50);
+			}
+			
+			.toggle:hover {
+				fill: var(--Icon-hover);
+			}
+			.headingInfo {
+				margin: 0px 5px;
+				display: inline-block;
+				color: var(--Primary-white);
+				font-family: HelveticaNeue-Light;
+			}
+			
+			.wrapper {
+				display: inline-block;
+			}
+			
+			.carouselChild {
+			    float: left;
+			    position: relative;
+			    height: 100%;
+			    display: inline-block;
+			    padding: 5px;
+			    box-sizing: border-box;
+			}
+			
+			.carouselChild.rtl {
+				float: right;
+			}			
+		</style>
+	</template>
+</dom-module>

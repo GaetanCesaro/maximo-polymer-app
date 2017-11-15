@@ -1,0 +1,114 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-data-page-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../maximo-data-page.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			page-size="3"
+			total-count="20"
+			page-num="5"
+			total-pages="5">
+  		</maximo-collection>
+  		<maximo-collection 
+			auto="true"	
+			id="workordertasks" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed"
+			page-size="50"
+			total-count="5"
+			page-num="1"
+			total-pages="5">
+  		</maximo-collection>
+		<div class="outer">
+			
+			<div class="demo-section">
+				<p class="demo-header">Default data-page</p>
+				<maximo-data-page id="wodetail_wptasks_page"  collection="{{data}}"></maximo-data-page>		
+				<div class="code">
+  					<xmp><maximo-data-page id="wodetail_wptasks_page"  collection="{{data}}"></maximo-data-page></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Setting total-count,page-num and total-pages values.</p>
+				<maximo-data-page id="wodetail_wptasks_page"  collection="{{getLocalObject('teste')}}" page-num="1" total-count="5" total-pages="3"></maximo-data-page>		
+
+				<div class="code">
+  					<xmp><maximo-data-page id="wodetail_wptasks_page"  collection="{{getLocalObject('teste')}}" page-num="1" total-count="5" total-pages="3"></maximo-data-page>		</xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">TIP - The best way to pass total-count, total-pages and page-num values is <strong>binding variables</strong> inside the maximo-collection request. The OSLC response give to us those important datas inside the JSON response file:</p>
+				<maximo-data-page id="wodetail_wptasks_page"  collection="{{getLocalObject('teste')}}" page-num="1" total-count="5" total-pages="3"></maximo-data-page>		
+
+				<div class="code">
+  					<xmp><maximo-collection 
+	auto="true"	
+	id="test" 
+	collection-data="{/{data}}"
+	test-url="{/{resolveUrl('data/data.json')}}"
+	on-record-data-refreshed="_handleRecordDataRefreshed"
+	page-size="50" //number of results per page
+	total-count="{/{totalCount}}"
+	page-num="{/{pageNum}}"
+	total-pages="{/{totalPages}}">
+</maximo-collection>
+			  		</xmp>
+  				</div>
+  				<div class="code">
+  					<xmp><maximo-data-page id="test"  collection="{{getLocalObject('test')}}" ></maximo-data-page>	</xmp>
+  				</div>
+			</div>
+
+  		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-data-page-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				querylist: {
+    		type: Array,
+    		value: [],
+    		notify: true
+    	},
+    		exampledata:{
+    			type:String,
+    			notify:true,
+    			value:"Your favorite label, now binded"
+    		}
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log(this.data);
+				var demoData=this.data;
+
+  			this.totalTaskCount = 8
+  			this.taskPagenum = 1
+  			this.totalTaskPages = 1
+				demoData.forEach(function(d) {
+					this.querylist=d.description;
+					console.log(d.description);	
+			});
+				console.log(this.querylist);
+			},
+			ready : function(){
+				
+  			
+  	},
+  			lfunc:function(){
+  				alert("Your favorite label here too! :)");
+  			}
+		});
+	</script>
+</dom-module>

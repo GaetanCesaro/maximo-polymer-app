@@ -1,0 +1,63 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <title>maximo-collapsible style tests</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <script src="../../../main.js"></script>
+    <script src="../../../test.js"></script>
+    <script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../../../components/web-component-tester/browser.js"></script>
+    <script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+    
+    <link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+    
+    <style is="custom-style">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  	<maximo-module id="module"></maximo-module>
+    <test-fixture id="collapsible-fixture">
+		<template>
+			<maximo-collapsible id="collapsible"  label="Test Collapsible" ></maximo-collapsible>
+		</template>
+	</test-fixture>
+   <script>
+      suite('<maximo-collapsible>', function() {
+          var collapsible;
+          setup(function() {
+        	  collapsible = fixture('collapsible-fixture');
+          });
+
+          test('base collapsible style', function(done) {
+        	  expect(getStyleProperty(collapsible.$$('.collapsible'), 'border-width')).to.equal('0px', 'collapsible border is not correct');
+        	  expect(getStyleProperty(collapsible.$$('.collapsible'), 'height')).to.equal('110px', 'collapsible height is not correct');
+        	  expect(rgb2hex(getStyleProperty(collapsible.$$('.collapsible'), 'background'))).to.equal('#000000', 'collapsible background color is not correct');
+         	  done();
+          });
+
+      });
+      
+    </script>
+  </body>
+</html>

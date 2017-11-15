@@ -1,0 +1,509 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+	/**
+	 * WorkCenter functionality
+	 *
+	 * @polymerBehavior WorkCenterBehavior
+	 */
+	WorkCenterBehavior = {
+	  	listeners: {
+	        'login-success': 'handleLoginSuccess',
+			'change-workcenter':'_changeWorkCenter',
+			'navbar-page-change':'_fixPanelContent',
+			'disableFooterButtons':'_disableFooterButtons',
+			'enableFooterButtons':'_enableFooterButtons'
+		},
+		properties: {
+			show: {
+				type: Object,
+				value: true,
+				notify: true
+			},
+			image: {
+				type: String
+			},
+			label: {
+				type: String,
+				value: null
+			},
+			personData: {
+				type: Object,
+				notify: true				
+			},
+			noCarousel: {
+				type: Boolean,
+				value: false,
+				notify: true
+			},
+			/** Set allowed screen format. (large/all-default) 
+			 *  If set to large, carousel will be disabled and never turn on.
+			 */
+			screenFormat: {
+				type: String,
+				value: 'all'
+			},
+			centered: {
+				type: Boolean,
+				value: false
+			},
+			minPanelHeight: {
+				type: Number,
+				value: 100
+			},
+		  	minPanelWidth: {
+		  		type: Number,
+		  		value : 300
+		  	},
+		  	maxPanelWidth: {
+		  		type: Number,
+		  		value : -1
+		  	},
+		  	slider: {
+		  		type: Object,
+		  		value: function(){
+		  			return false;
+		  		}
+		  	},
+		  	backgroundColor: {
+		  		type: String,
+		  		value: '#ffffff' 
+		  	},
+		  	panels: {
+		  		type: Array,
+		  		value: function(){
+		  			return [];
+		  		}
+		  	},
+		  	notifications : {
+		  		type: Object,
+		  		value: function(){
+		  			return {'map':{},'stack':[]};
+		  		}
+		  	},
+		  	carousel: {
+		  		type: Object
+		  	},
+		  	carouselIndex: {
+		  		type: Number,
+		  		value: 0
+		  	},
+		  	hideHeader: {
+		  		type: Boolean,
+		  		value: false
+		  	},
+		  	hideFooter: {
+		  		type: Boolean,
+		  		value: false
+		  	},
+		  	footerToolbar: {
+		  		type: Boolean,
+		  		value: false
+		  	},
+			useHash: {
+				type: Boolean,
+				value: true
+			},
+			hideNavMenu: {
+				type: Boolean,
+				value: false,
+				observer: '_navMenu'
+			},
+			_showNavigationMenu: {
+				type: Boolean,
+				value: true
+			},
+			productName: {
+				type: String,
+				value: 'Maximo Asset Management'
+			}
+		},
+		commonActions: {
+			'localized': false,
+			'save':{
+				'icon':'formatting:save',
+				'label':'Save' },
+			'preview':{
+				'icon':'action-based:monitor',
+				'label': 'Preview' 
+		}},
+	  	created: function(){
+			$M.workScape = this;
+			var maxAuth = sessionStorage.maxauth;
+			if(maxAuth){
+				maxAuth = JSON.parse(maxAuth);
+				if(maxAuth.personData){
+					$M.personData = maxAuth.personData[0];
+				}
+			}
+	  	},
+	  	_navMenu: function(hideNavMenu){
+	  		this._showNavigationMenu = !hideNavMenu;
+	  	},
+	  		
+		deviceSetup: function(){
+			$M.getOrientation();
+		},
+		ready: function(){
+			//<maximo-authcontext id="authenticator"></maximo-authcontext>
+			//var auth = document.createElement('maximo-authcontext', {'id','authenticator'});
+			$j(document).attr({'title': 'IBM ' + this.productName +' - ' + this.label});
+			this.$.authenticator = Polymer.Base.create('maximo-authcontext', {'id':'authenticator'});
+			var parent = this.domHost?this.domHost:this.parentNode;
+			if(parent){
+				Polymer.dom(parent).appendChild(this.$.authenticator);
+			}
+			
+			this.loadPersonInfo();
+		},
+		attached: function() {
+			if(this.hideHeader){
+				$j(this.$.content).css({'padding-top':'0px'});	
+			}
+			if(this.hideFooter){
+				$j(this.$.content).css({'padding-bottom':'0px'});	
+			}
+			
+			if(this.show){
+				if(this.backgroundColor !== ''){
+					$j(this.$.content).css({'background-color': this.backgroundColor});	
+					$j(document.body).css({'background-color': this.backgroundColor});
+				}
+			}
+			else {
+				$j(this.$.content).css({'background-color':'transparent','padding':'0px'});
+			}
+		},
+		getSize: function(element){
+			var width = $j(element).width();
+			var layout;
+			if(width<400){
+				layout = 'small';
+			}
+			else if(width<600){
+				layout = 'medium';
+			}
+			else {
+				layout = 'large';
+			}
+			return layout;
+		},
+		loadPersonInfo: function() {
+			var maxauth = JSON.parse(sessionStorage.getItem('maxauth'));
+	    	if(maxauth && maxauth.personData){
+				this.personData = maxauth.personData;
+				$M.userInfo = this.personData[0];
+	   		}
+	   	},
+	   	getPersonInfo: function() {	  
+			return (this.personData) ? this.personData[0] : null;
+		},
+		returnToLogin: function(messageKey){
+			$M.returnToLogin(messageKey);
+	    },
+	    signout: function(messageKey){
+	    	if(!messageKey || typeof messageKey !== 'string'){
+	    		messageKey = 'signout';
+	    	}
+    		localStorage.setItem('loginMessage',messageKey);
+    		localStorage.setItem('loginMessageType','success');
+	    	$M.toggleWait(true);
+	    	this.$.authenticator.logout();
+	    },
+	    timeout: function(){
+	    	this.signout('session_timeout');
+	    },
+	    alert: function(message, type){
+	    	$M.alert(message, type);
+	    },
+		confirm: function(message, callback, caller, defaultButton, buttons, additional, type){ //defaultButton is an integer 0:yes, 1:no, 2:cancel
+			$M.confirm(message, callback, caller, defaultButton, buttons, additional, type);
+		},
+		notify : function(message, type) {
+			$M.notify(message, type);
+		},
+		/** Override properties of system dialog to make it more re-usable.
+		 *	This saves developer from coding a whole new card to customize it
+		 *  @param {object} properties to override. title {text,color,align}, icon {name} 
+		 */
+		modifySystemDialog: function(props){
+			var dialog = $j(this.systemDialog);
+			if(dialog){
+				this.async(function(){
+					if(props.title){
+						var title = dialog.find('.title');
+						if(props.title.text){
+							title.text(props.title.text);
+						}
+						if(props.title.color){
+							title.css({'color':props.title.color});
+						}
+						if(props.title.align && props.title.align==='center'){
+							title.parent().css({'text-align':'center'});
+							this.async(function(){
+								title.attr({'style':title.attr('style')+';width: auto !important'});
+							},200);
+						}
+					}
+					if(props.icon){
+						var icon = dialog.find('.messageIcon');
+						if(props.icon.icon==='none'){
+							icon.css({'display':'none'});
+						}
+						else {
+							icon.attr({'icon':props.icon.icon});
+						}
+						if(props.icon.color){
+							icon.find('svg').css({'fill':props.icon.color});
+						}
+					}
+				});
+			}
+		},
+	    notify : function(message, type){
+	    	if(!type){
+	    		type = $M.alerts.info;
+	    	}
+	    	if(type===$M.alerts.error){
+				$M.alert(message, type);
+				console.log($M.localize('messages', 'mxapibase', 'ToastwasconvertedtoanalertErrorscannotbed'));
+				return;
+	    	}
+			if(message.length>50){
+				$M.alert(message, type);
+				console.log($M.localize('messages', 'mxapibase', 'ToastwasconvertedtoanalertToastmessagessh'));
+				return;
+			}
+			if(message.length>50){
+				message = message.substring(0,30)+'...';
+				console.log($M.localize('messages', 'mxapibase', 'ToastwastruncatedToastmessagesshouldbesho'));
+			}
+			var count = 0;
+			var id = '';
+			do{
+				id = 'Notify_'+count;
+				count++;
+			}
+			while ($j('#'+id).length>0);
+			var notification = Polymer.Base.create('maximo-notification', {'id':id});
+			var content = notification.$.notification;
+			$j(content).attr({'id':id});
+			type = this.setupMessage(0, message, type, content);
+			this.notifications.map[id] = $j(content);
+			this.notifications.stack.push(id);
+			var offset ;
+			if($M.overlayDialogs.length === 0){
+				offset = $M.notificationPos.y==='top'?$j(this.$.headerbar).height() + $j('body').scrollTop():$j(this.$.footer).height();
+			}
+			else {
+				var dialog = $M.overlayDialogs[$M.overlayDialogs.length-1];
+				offset = $M.notificationPos.y==='top'?$j(dialog.$.header).height() - ($j(dialog.$.divider).height()/2) + $j('body').scrollTop():$j(this.$.footer).height();
+			}
+			var yPos = ((this.notifications.stack.length - 1) * 38) + offset;
+			var props = {};
+			props[$M.notificationPos.y] = yPos;
+			if($M.notificationPos.x==='center'){
+				props.position = 'fixed';
+				$j(content).hide();
+				$j('body').append(notification);
+				$j(notification).remove();
+				$j(content).show();
+			}
+			else {
+				props[$M.notificationPos.x] = '0px';
+			}
+			props.transform = 'scale(0)';
+			$j(content).css(props);
+			$j(content).attr({'hidden':false});
+			$j(content).toggleClass('notification'+type, true);
+			$j(content).css({'transition':'all .3s'});
+			var my = this;
+			$j('body').append(notification);		
+			this.async(function(){
+				$j(content).css({'transform':'scale(1)'});
+				if($M.notificationtimeout !== 0){
+					this.async(function(){
+						my.removeNotification(content);
+					}, $M.notificationtimeout*1000);
+				}
+			}, 10);
+			if(navigator.vibrate){
+				navigator.vibrate(500);
+			}
+	    },
+	    removeNotification : function(notificationToRemove) {
+			if(!notificationToRemove){
+				return;
+			}
+			
+			var my = this;
+			$j(notificationToRemove).css({'transform':'scale(0)', 'opacity':'0'});
+			var notificationIndex = my.notifications.stack.indexOf(notificationToRemove.id);
+			my.notifications.stack.forEach(function(notificationId, index){
+				var notification = my.notifications.map[notificationId];
+				if(index>notificationIndex){
+					var yPos = $M.notificationPos.y;
+					notification.css(yPos, parseInt(notification.css(yPos)) - 38+'px');
+					delete my.notifications.map[notificationToRemove.id];
+				}
+			});
+			$M.arrayRemove(my.notifications.stack, notificationToRemove.id);
+			delete my.notifications.map[notificationToRemove.id];
+			this.async(function(){
+				$j(notificationToRemove).remove();
+			}, 300);
+	
+	    },
+		getHeight: function(){
+			if(this.hideFooter === true){
+				return window.innerHeight - ($j(this.$.headerbar).height());	
+			}
+			return window.innerHeight - ($j(this.$.headerbar).height() + $j(this.$.footer).height());
+		},
+		getHeaderHeight: function(){
+			return $j(this.$.headerbar).height();	
+		},
+		showAbout : function(){
+			$M.showDialog(null, 'about_dialog', this.localize('uitext', 'mxapibase', 'SystemInformation'), 'maximo-systeminfo-dialog', true, null);
+		},
+		swipeHandler: function(e){
+			if(!this.panelScroll || this.panelScroll===false){
+				return;
+			}
+			var swipeAttr = $j(e.detail.sourceEvent.target).attr('ws-swipe');
+			if(!swipeAttr || swipeAttr==='true'){
+				var workscape = this;
+		        switch(e.detail.state) {
+			        case 'end':
+			        	var xMove = Math.abs(e.detail.dx);
+			        	var yMove = Math.abs(e.detail.dy);
+			        	if(xMove>30 && yMove < 30){
+			        		workscape.scrollCarouselEvent(event);
+			        	}
+			        	break;
+		        }
+			}
+		},
+		_changeWorkCenter: function(e){
+			$M.toggleWait(true);
+			this.async(function(){
+				$M._changeWorkCenter(e.detail);	
+			}, 100);
+		},
+		addFooterButtons: function(buttons, context){
+			var buttonElement;
+			var workscape = this;
+			buttons.forEach(function(button){
+				buttonElement =  Polymer.Base.create('maximo-button',{'id':button.id,'label':button.label,'context':button.context,'icon':button.icon,'easticon':button.easticon,'class':button.class,'tabindex':'0'});
+				if(button.action){
+					buttonElement.set('action', 'true');
+				}
+				if(button.default){
+					buttonElement.set('default', 'true');
+				}
+				if(button.disabled){
+					buttonElement.set('disabled', 'true');
+				}
+				if(button.event){
+					var ct = button.context?button.context:context;
+					if(ct){
+						$j(buttonElement).on('click', function(e){
+							ct.fire(button.event, e.target);
+						});
+					}
+				}
+				if(button.class){
+					$j(buttonElement.$.button).toggleClass(button.class, true);
+				}
+				$j(workscape.$.footerToolbar).append(buttonElement);
+				$j(buttonElement).attr('class','style-scope maximo-workscape '+$j(buttonElement).attr('class'));
+			});
+		},
+		
+		updateFooterToolbar: function(buttons, context){
+			$j(this.$.footerToolbar).empty();
+			if(buttons){
+				$j(this.$.footer).height(73);
+				$j(this.$.footer).css({'max-height':'73px'});
+				this.addFooterButtons(buttons, context);
+			}
+			else {
+				$j(this.$.footer).height(30);
+				$j(this.$.footer).css({'max-height':'30px'});
+			}
+			this.reRender(this.$.footer);
+		},
+		
+		/**
+		 * Redraw components
+		 * iOS solution
+		 */
+		reRender : function (component) {
+			var display = component.style.display;
+			component.style.display = 'none';
+			component.offsetHeight; // no need to store this anywhere, the reference is enough
+			component.style.display = display;
+		},
+		
+		getFooterButton: function(id){
+			var button = $j(this.$.footerToolbar).find('#'+id);
+			return button[0];
+		},
+		
+		_setFooterButtons: function(buttons, disabled){
+			for (var i=0; i < buttons.length; i++){
+				var button = this.getFooterButton(buttons[i]);
+				if (button){
+					button.disabled = disabled;
+				}
+			}
+		},
+	
+		_disableFooterButtons: function(e){
+			if (e.detail && e.detail.buttons){
+				this._setFooterButtons(e.detail.buttons, true);	// disabled=true
+			}
+		},
+		
+		_enableFooterButtons: function(e){
+			if (e.detail && e.detail.buttons){
+				this._setFooterButtons(e.detail.buttons, false); // disabled=false
+			}
+		},
+		
+		addHeaderContent: function(element){
+			this.$.customHeaderContent.append(element);
+		},
+		
+		_fixPanelContent: function(){
+			if($M.workScape.fixCarouselAndPanels){
+				$M.workScape.fixCarouselAndPanels();
+			}
+		},
+		_getAppLabel: function(label){
+			if($M.demo){
+				return '';
+			}
+			this.label = label;
+			var maxauth = $M.getMaxauth();
+			if(maxauth && maxauth.whoami){
+				var app = maxauth.whoami.workcenters[$M.currentWorkscape];
+				if(this.label === null || this.label === undefined){				
+					this.label = app.description;
+				}
+			}
+			return this.label;
+		},
+		disableHeaderAndFooter: function(disable){
+			var pointerEvents = disable?'none':'initial';
+			$j(this.$.headerbar).css({'pointer-events':pointerEvents});
+			$j(this.$.headerbar).children().css({'opacity':disable?'.75':'1'});
+			$j(this.$.footer).css({'pointer-events':pointerEvents});
+			$j(this.$.footer).children().css({'opacity':disable?'.75':'1'});
+		}
+	};
+</script>

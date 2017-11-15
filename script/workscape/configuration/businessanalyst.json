@@ -1,0 +1,3 @@
+{
+	"requiredResources": { "uitext": ["mxapiwo", "mxapipo", "mxapikpimain", "mxapiwosdataset"], "messages": ["mxapiwosdataset"] }
+}

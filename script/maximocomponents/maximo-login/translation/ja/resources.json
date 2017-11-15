@@ -1,0 +1,31 @@
+{
+		"main_title":"Enterprise Asset Management",
+		"log_in":"ログイン",
+		"user_name":"ユーザー名",
+		"password":"パスワード",
+		"sign_in":"サインイン",
+		"error":"有効な資格情報を入力してください。",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"All rights reserved.",
+		"copyright_2":"詳細は製品ライセンスを参照してください。",
+		"loading_resources":"ロード中",
+		"missing_config":"{0} 構成ファイルがありません。 デフォルトを使用します。",
+		"unknown_error":"不明なエラーが発生しました。 {0}",
+		"resource_error":"ストリング・リソースの要求中にエラーが発生しました。 {0}",
+		"contact_admin":"問題が解決しない場合は、システム管理者に連絡してください。",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"重要な注意: このシステムには、システム上で必須であると示されていて、サポートを提供する上で必要な業務上の連絡先を除き、個人情報 (財務または医療の機密データ、および個人を特定できる何らかの情報など) を入力しないでください。 個人情報を入力した場合は、その個人情報は、要求されるサービスを提供する目的で <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM プライバシー・ポリシー</a>に基づき IBM により使用され、国内外に転送される可能性があることに同意するものとします。 IBM の社員または請負業者がお客様の個人情報を入力するようお客様から求められた場合は、この注意事項をお客様に通知し、お客様の承諾を得てから該当の個人情報を入力する必要があります。",
+		"session_timeout":"セッションがタイムアウトしました。",
+		"noworkscape" : "ユーザーのユーザー ID に対して定義されているワーク・センターはありません",
+		"no_access_default":"要求されたロケーションに対して必要な許可の一部を持っていません。デフォルト・アプリケーションをロードしますか?",
+		"signout" : "正常にサインアウトしました。ブラウザーを閉じるか、再度サインインしてください。",
+		"login_error" : "ログイン・エラー",
+		"login_error_invalid" :"ユーザー名とパスワードの組み合わせが無効です。やり直してください。",
+		"return" : "戻る",
+		"logout" : "ログアウト",
+		"logout_complete" : "完全にサインアウトするには、ブラウザーを閉じてください。",
+		"user_info_error" : "ユーザー情報のロード中にエラーが発生しました。システム管理者に連絡してください"
+}
+

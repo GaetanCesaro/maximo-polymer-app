@@ -1,0 +1,27 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="maximo-textarea">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-textarea-css.html">
+	<style is="custom-style" include="maximo-textarea-css"></style>
+	
+	<template id="{{id}}">
+		<div id="wrapper" class="wrapper" disabled$="{{readonly}}">
+  			<label id="label" required$="{{required}}">{{label}}</label>
+    		<textarea id="input" role="input" aria-required$="{{required}}" tabindex="0" autocapitalize="none" autocomplete="off" placeholder="[[placeholder]]" on-focus="_onfocus" on-blur="_onblur" on-input="_onChange" maxlength$="{{maxlength}}"></textarea>
+    	</div>
+    </template>
+
+	<script src="maximo-textarea.js"></script>
+
+</dom-module>

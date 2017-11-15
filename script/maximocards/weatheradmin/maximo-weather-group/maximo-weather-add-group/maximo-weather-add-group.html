@@ -1,0 +1,74 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->     
+<dom-module id="maximo-weather-add-group">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-weather-add-group-css.html">
+	<style is="custom-style" include="maximo-weather-add-group-css"></style>		
+  <template>
+  	<maximo-resource id="weatheGroupResource" resource-uri="{{parentRecord.href}}" resource-data="{{parentRecord}}"></maximo-resource>
+    <maximo-collection
+      id="availableProducts"
+      attribute-names="*"
+      order-by-attribute-names="%2Bproductcode"
+      page-size="50"
+      debounce-duration="600"
+	  selected-query-name="{{queryName}}"
+	  order-by-attribute-names="{{collectionOrderBy}}"
+      object-name="MXAPIWEATHERPRODUCT"
+      use-search-terms="true"
+      collection-data="{{availableProducts}}"
+      query-params="{{queryParams}}"
+      schema="{{schema}}">
+    </maximo-collection>
+
+	<div style="padding-left:10px; background:#f9f9f9;">
+
+		<div align="Left">
+			<maximo-text id="group-name" label="{{schema.properties.groupname.title}}" value="{{parentRecord.groupname}}" width="500px"></maximo-text>
+			<maximo-text id="group-description" label="{{schema.properties.description.title}}" value="{{parentRecord.description}}" width="500px"></maximo-text>
+		</div>
+
+	</div>
+		<div>
+			<maximo-label label="{{localize('uitext','weatheradmin','WeatherGroup')}}" block="true"></maximo-label>
+			<br>
+		</div>
+	<div id="outer" class="outer" style="padding: 0px 20px">
+		<div>
+			<!-- maximo-searchbar id="availsearch" collection="{{getLocalObject('schemacollection')}}" placeholder="{{localize('uitext','weatheralerts','search_fields')}}"></maximo-searchbar-->
+			<maximo-datalist id="availProductDatalist" label="{{localize('uitext','weatheradmin','avail_products')}}" items="{{availableProducts}}" display-attributes="description" multi-select="true" drag-target="{{getLocalObject('chosenProductlist')}}" stop-initial-selection select-event="productsSelectedChanged" expand-all="true" numbered></maximo-datalist>
+			<br>
+		</div>
+		<div class="add">
+			<div class="class="flex-vertical"">
+			<maximo-button id="addButton" default disabled label="{{localize('uitext','weatheradmin','add')}}" easticon="Maximo:Arrow-Forward" wait-timer=".25" on-tap="moveSelected" ></maximo-button>
+			<maximo-button id="removeButton" default disabled label="{{localize('uitext','weatheradmin','remove')}}" easticon="Maximo:Arrow-Back" wait-timer=".25" on-tap="removeSelected" block="true"></maximo-button>
+			<maximo-label id="addButtonComment" label="{{localize('uitext','weatheradmin','single_or_multiple')}}" block="true"></maximo-label>
+			</div>
+		</div>
+		<div>
+			<div>
+				<!-- maximo-label label="{{localize('uitext','weatheradmin','selected_products')}}" block="true"></maximo-label-->
+				<!-- maximo-button disabled id="resetChosen" class="reset" icon="action-based:reset" label="{{localize('uitext','mxapiwosdataset','reset')}}" on-tap="resetChosen" action="true" wait-timer=".25"></maximo-button><br-->
+				<maximo-datalist id="chosenProductlist" label="{{localize('uitext','weatheradmin','selected_products')}}" items="{{parentRecord.weatherproduct}}" placeholder="{{localize('uitext','weatheradmin','ChoosenProductlistTxt')}}" display-attributes="description" select-event="pickedProductsChanged" add-event="addPickedItems" drop-source="{{getLocalObject('availProductDatalist')}}" multi-select="true" stop-initial-selection expand-all="true" height="408px" select-event="chosenListChanged" numbered></maximo-datalist>					
+			</div>
+		</div>
+	</div>
+	<div id="footer" align="center">
+		<div id="container"  class="footer" style="width:40%;">
+    		<maximo-button id="cancel" label="{{localize('uitext','mxapibase','cancel')}}" icon="Maximo:Close" on-tap="_cancel"></maximo-button>
+    		<maximo-button id="save" label="{{localize('uitext','mxapibase','Save')}}" on-tap="_save" icon="Maximo:Save" default="true"></maximo-button>
+  		</div>
+  	</div>
+  </template>
+  <script src="maximo-weather-add-group.js"></script>
+</dom-module>

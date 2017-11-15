@@ -1,0 +1,133 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<dom-module id="workscape-demo">	
+	<template>
+		<style>
+			h4.demoTitle  {
+			    background: #fff;
+			    line-height: 50px;
+			    margin: 0px;
+			    box-shadow: 2px 2px 2px #999;
+			    position: fixed;
+			    width: 100%;
+				font-family: 'HelveticaNeue-Thin';
+			    font-size: 150%;
+			    font-weight: 200;
+				z-index: 2000;
+			}
+			
+			.demo {
+				padding-top: 50px;
+				height: 100%;
+				text-align: left;
+			}
+			
+			.demo.rtl {
+				text-align: right;
+			}
+			
+			.doclink {
+			    cursor: pointer;
+			    margin: 14px 5px 0px 5px;
+			    vertical-align: middle;
+			    position: relative;
+				float: left;
+			}
+			
+			.doclink.rtl {
+				float: right;	
+			}
+			
+			.back {
+				margin-top: 5px;
+			    width: 40px;
+		    	height: 40px;
+		    	float: left;
+			}
+			
+			.back.rtl {
+				float: right;
+			}
+			
+		</style>
+		<h4 id="titlebar" class="demoTitle"><iron-icon icon="glyphs:document" class="doclink" on-tap="openDoc"></iron-icon> {{title}} </h4>
+		<div id="demo" class="demo"></div>
+	</template>
+<script>
+	Polymer({
+	    is: "workscape-demo",
+	    behaviors: [BaseComponent],
+	    properties:{ 
+	    	title: {
+	    		type: String
+	    	},
+	    	_noBack: {
+	    		type: Boolean,
+	    		value: false
+	    	},
+	    	component: {
+	    		type: String
+	    	}
+	    },
+	    ready: function(){
+	    	this._noBack = window.opener===undefined || !window.opener;
+	    },
+	    attached: function(){
+	    	//load demo component now
+	    	var demoComponent = this.component?this.component:window.urlParams.component;
+	    	if(demoComponent === undefined){
+	    		demoComponent = window.location.search.substring(1);
+	    	}
+	    	if(this.component || window !== window.parent){
+	    		$j(this.$.titlebar).attr('hidden','true');
+	    		$j(this.$.demo).css({'padding':'0px'});
+	    	}
+	    	if(demoComponent){
+	    		var demo = this;
+	    		if(demoComponent.indexOf('maximo-')!==0){
+	    			demoComponent = 'maximo-'+demoComponent;
+	    		}
+	    		this.title = demoComponent;
+	    		this.async(function(){
+	    			var sub = window.urlParams.sub?window.urlParams.sub:'';
+    				sub = sub.replace('#','');
+    				if(sub.length>0){
+    					sub = '-'+sub;
+    				}
+	    			Polymer.Base.importHref('script/maximocomponents/'+demoComponent+'/demo/'+demoComponent+ sub +'-demo.html', function(e) {
+		    			Polymer.Base.importHref('script/maximocomponents/'+demoComponent+'/'+demoComponent+'.html', function(e) {
+		    				var ws = Polymer.Base.create(demoComponent+'-demo',{'id':'demoComponent_demo'});
+		    				$j(demo.$.demo).empty();
+		    				Polymer.dom($j(demo.$.demo)[0]).appendChild(ws);
+		    			}, function(e) {
+		    				console.error('Error loading '+ demoComponent);
+		    			});
+	    			}, function(e) {
+	    				console.error('Error loading '+ demoComponent);
+	    			});
+	    		});
+	    	}
+	    	else {
+	    		alert('please specify a demo component in url : ?xxx or ?component=xxx');
+	    	}
+	    },
+	    ready: function(){
+			$j('body').css({'background': '#fff'});
+	    },
+	    openDoc: function(){
+	    	if(window.opener){
+		    	window.opener.focus();
+	    	}
+	    	else {
+	    		window.open(this.resolveUrl('../../docs') + '#'+this.title);
+	    	}
+	    	window.close();
+	    }
+	});
+</script>
+</dom-module>	

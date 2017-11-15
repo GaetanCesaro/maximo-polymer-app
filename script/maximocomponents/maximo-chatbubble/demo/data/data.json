@@ -1,0 +1,31 @@
+[
+{
+modifydate: "2016-11-29T12:43:40+00:00",
+person: {
+personid: "FRAN",
+lastname: "Garcia",
+firstname: "Fran"
+},
+clientviewable_localized: "Y",
+hasld_localized: "Y",
+description_longdescription: "Ola",
+logtype: "CLIENTNOTE",
+createby: "FRAN",
+logtype_description: "Client Note",
+logtype_maxvalue: "CLIENTNOTE",
+createdate: "2016-11-29T12:43:39+00:00",
+modifyby: "FRAN",
+localref: "http://localhost:7001/maximo/oslc/os/mxapisr/_U1IvMTE3OA--/worklog/0-110",
+worklogid: 110,
+langcode: "EN",
+createdate_localized: "11/29/16 12:43 PM",
+worklogid_localized: "110",
+_rowstamp: "1690058",
+modifydate_localized: "11/29/16 12:43 PM",
+description: "Ola",
+recordkey: "1178",
+clientviewable: true,
+href: "http://localhost:7001/maximo/oslc/os/mxapisr/_U1IvMTE3OA--#U1IvV09SS0xPRy8xMTA-",
+hasld: true
+}
+]

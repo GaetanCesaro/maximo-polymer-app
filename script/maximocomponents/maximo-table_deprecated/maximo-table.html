@@ -1,0 +1,37 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="maximo-tablecol.html"/>
+ 
+<dom-module id="maximo-table">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-table-css.html">
+	<style is="custom-style" include="maximo-table-css"></style>
+	
+	<template>
+		<div>
+			<content></content>
+			<div class='wrapper'>
+				<div id="title" class="title">{{title}}</div>
+				<maximo-searchbar id="searchbar" collection="{{collection}}" placeholder="{{localize('uitext', 'mxapibase', 'Filter')}}"></maximo-searchbar>
+				<table id="table" class="table">
+					<thead id="header" class="headerstyle">
+					</thead>
+					<tbody id="body">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</template>
+
+ 	<script src="maximo-table.js"></script>
+
+</dom-module>

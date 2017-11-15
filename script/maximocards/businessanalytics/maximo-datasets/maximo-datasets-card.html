@@ -1,0 +1,95 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->     
+<link rel="import" href="../behaviors/maxexport.html">	
+
+<dom-module id="maximo-datasets-card">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-datasets-card-css.html">
+	<style is="custom-style" include="maximo-datasets-card-css"></style>	
+	
+  <template>
+    <maximo-resource id="datasetResource" resource-uri="{{record.href}}"></maximo-resource>
+	<maximo-collection 
+	    id="datasetcollection" 
+		attribute-names="owner, analyticdatasetnum,description,intobjectname,clausename,templatename,query.app,wosexport.fileexportreqqueueid,wosexport.reqdatetime,wosexport.recdatetime,wosexport.iscomplete,wosexport.uploadstatus,wosexport.uploadprogress"
+		collection-data="{{recordData}}"
+		debounce-duration="600"
+		dynamic-attribute-names="{{dynamicAttributeNames}}"				
+		object-name="MXAPIANALYTICDATASET" 
+		order-by-attribute-names="%2Banalyticdatasetnum"
+		query-info="{{queryInfo}}" 
+		search-attribute-names="intobjectname,description"
+		search-term-value="{{searchTermValue}}"
+		selected-query-name="{{selectedQueryName}}"
+		selected-record="{{selectedRecord}}"
+		selected-record-index="{{selectedRecordIndex}}"
+		use-search-terms="true"
+		on-record-data-refreshed="_handleRecordDataRefreshed"
+		on-dynamic-attribute-data-fetched="_showDetails"
+		refresh-interval="300">				
+	</maximo-collection>
+
+	<maximo-collection
+		auto
+	    id="endpointcollection" 
+		attribute-names="endpointname,rel.maxendpointdtl{property,value}"
+		collection-data="{{endpointData}}"
+		debounce-duration="600"
+		object-name="MXAPIENDPOINT" 
+		selected-query-name="All"
+		on-record-data-refreshed="_handleEndPointDataRefreshed"
+		search-attribute-names="endpointname"
+		search-term-value="WATSONOAUTH"
+		use-search-terms="true"
+		refresh-interval="300">				
+	</maximo-collection>
+	
+	<maximo-panel id="datasets" label="{{localize('uitext', 'mxapiwosdataset', 'DataSets')}}"  headinginfo="{{recordCount}}" width="400px" height="600px" collections="datasetcollection">
+		 <maximo-searchbar id="searchbar" collection="{{getLocalObject('datasetcollection')}}" placeholder="{{localize('uitext', 'mxapiwosdataset', 'FilterDataSets')}}"></maximo-searchbar>
+		 <template id="datasetTemplate" is="dom-repeat" items="{{recordData}}" as="dataset">	
+			<div id="dataset_record" class="cardborder">
+				
+				<div id="dataset_header" class="cardheader">
+					<maximo-label id="maximo-label-desc" class="datasetheader" label="{{dataset.analyticdatasetnum}}"></maximo-label>
+				</div>
+				
+				<div id="dataset_container" class="cardcontainer" style="padding-top: 10px;">
+					<div id="dataset_longdesc" class="container end-justified layout">
+						<maximo-label id="maximo-label-longdesc" class="cardtext" label="{{dataset.description}}"></maximo-label>
+					</div>
+					
+					<div id="dataset_status" class="container end-justified layout" style="padding-top: 10px;">
+						<maximo-field id="maximo-field-status" class="cardtext" label="{{getStatusLabel(dataset)}}" datalabel="{{getStatusField(dataset)}}" hide-when-empty="true" style="{{getStatusStyle(dataset)}}"></maximo-field>
+					</div>
+				</div>
+				
+				<maximo-footer id="datasets_footer" class="footer" block="true">
+					<div class="container" style="padding: 0px 10px 0px 3px;">
+						<maximo-button id="edit" action on-tap="_editSet" title="{{localize('uitext', 'mxapibase', 'Edit')}}" icon="action-based:edit" hidden$="{{_hideActions(dataset)}}" ></maximo-button>
+						<maximo-button id="watsonicon" action on-tap="_deleteSet" title="{{localize('uitext', 'mxapibase', 'Delete')}}" icon="action-based:trash" hidden$="{{_hideActions(dataset)}}"></maximo-button>
+						<a href="{{buildDataSetQuery(dataset)}}" target="_blank" download style="text-decoration: none;">
+							<maximo-button id="downloadicon" action icon="action-based:download" title="{{localize('uitext', 'mxapiwosdataset', 'DownloadCSV')}}" wait-function="datasetStopSpinner"></maximo-button>
+						</a>
+						<maximo-button id="watsonicon" action on-tap="_watsonExport" title="{{localize('uitext', 'mxapiwosdataset', 'ExporttoWatson')}}" icon="action-based:watson" hidden$="{{showWatsonIcon()}}"></maximo-button>
+					</div>
+				</maximo-footer>
+
+			</div>			
+		</template>				
+		
+	</maximo-panel>  	
+  </template>
+
+
+  <script src="maximo-datasets-card.js"></script>
+
+</dom-module>

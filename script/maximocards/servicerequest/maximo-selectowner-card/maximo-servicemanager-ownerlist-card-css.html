@@ -1,0 +1,40 @@
+<!-- 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-servicemanager-ownerlist-card-css">
+	<template>
+    	<style>
+	    	.iconstyle {
+		    	height:30px;
+		    	width:30px;
+		    	padding-right:10px;
+	    	}
+	    	
+			.contactName ::content label {
+				font-size: 129%;
+				font-family: HelveticaNeue-Light-Italic;
+				color: var(--Primary-gray70);
+			}
+			.panel.border.maximo-panel {
+				width : 750px;
+				height : 700px;
+			}
+			.internal.maximo-panel {
+				height : 80%;
+			}
+			.flex-equal-justified {
+			    @apply(--layout-horizontal);
+			    @apply(--layout-justified);
+			}
+			.ownerlist_currentowner ::content label{
+				font-size:18px;
+				margin-left : 10px;
+			}
+			.teamlist > items : hover{
+				outline: 2px solid var(--Primary-blue50);
+			}
+		</style>
+	</template>
+</dom-module>

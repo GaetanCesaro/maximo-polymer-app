@@ -1,0 +1,136 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-inspection-question-builder tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<script src="../../../../../main.js"></script>
+		<script src="../../../../../test.js"></script>
+		<script src="../../../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../../../components/iron-test-helpers/mock-interactions.js"></script>
+		<link rel="import" href="../../../../../maximocomponents/maximo-module/maximo-module.html"/>
+		<link rel="import" href="../maximo-inspection-question-builder.html" />
+		
+		<script src="mockData.js"></script>
+		
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+	
+		<test-fixture id="maximo-inspection-question-builder">
+			<maximo-module id="module"></maximo-module>
+			<template>
+				<maximo-inspection-question-builder id="questionBuilder"></maximo-inspection-question-builder>
+			</template>
+		</test-fixture>
+		
+		<script>
+		
+			suite('Response field list management ', function() {
+				
+				var questionBuilder;
+				
+				setup(function() {
+					questionBuilder = fixture('maximo-inspection-question-builder');
+				});
+
+				test('Empty list', function(done) {
+					
+					expect(questionBuilder.responseFieldSet).to.be.a('array', 'Should be array.')
+					expect(questionBuilder.responseFieldSet.length).to.equal(0, 'Response field array should be empty.');
+					
+					expect(questionBuilder.hasQuestion).to.equal(false, 'Question indicator should be false.');
+					
+					done();
+				});
+				
+				test('New response field', function(done) {
+					
+					questionBuilder._pickObject(mockedSynonymObj);
+					expect(questionBuilder.responseFieldSet.length).to.equal(1, 'Response field array count should be 1.');
+					
+					expect(questionBuilder.hasQuestion).to.equal(true, 'Question indicator should be true.');
+					
+					done();
+				});
+				
+				test('Copy response field', function(done) {
+					questionBuilder._copyInput(mockedModel);
+					expect(questionBuilder.responseFieldSet.length).to.equal(2, 'Response field array count should be 2.');
+					
+					expect(questionBuilder.hasQuestion).to.equal(true, 'Question indicator should be true.');
+					
+					done();
+				});
+				
+				test('Delete response field', function(done) {
+					questionBuilder._deleteInput(mockedModel);
+					expect(questionBuilder.responseFieldSet.length).to.equal(1, 'Response field array count should be 1.');
+					
+					expect(questionBuilder.hasQuestion).to.equal(true, 'Question indicator should be true.');
+					
+					done();
+				});
+	
+				//a11ySuite('maximo-inspection-main');
+			});
+			
+			
+			suite('General methods ', function() {
+				
+				var questionBuilder;
+				
+				setup(function() {
+					questionBuilder = fixture('maximo-inspection-question-builder');
+				});
+
+				test('Check object has copy flag', function(done) {
+					
+					var element = mockedElement;
+					questionBuilder.setCopy(element);
+					
+					expect(element).to.have.property('object').to.be.a('object');
+					expect(element.object).to.have.property('isCopy').to.be.a('boolean').to.equal(true);
+					
+					done();
+					
+				});
+				
+				test('Build empt field response', function(done) {
+					
+					var field = questionBuilder._buildEmptyField(mockedDomain);
+					
+					expect(field).to.have.property('object').to.be.a('object');
+					expect(field).to.have.property('title').to.be.a('string').to.equal('Text Response');
+					expect(field.object).to.have.property('fieldType').to.be.a('string').to.equal('TR');
+					
+					done();
+					
+				});
+				
+			});
+			
+		</script>
+	</body>
+</html>

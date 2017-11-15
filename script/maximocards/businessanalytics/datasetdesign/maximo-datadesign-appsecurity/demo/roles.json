@@ -1,0 +1,44 @@
+[
+ 	{
+ 		"description": "Asset Owner",
+ 		"href":"0"
+ 	},
+ 	{
+ 		"description": "Buyers",
+ 		"href":"1" 
+ 	},
+ 	{
+ 		"description": "Dispatchers",
+ 		"href":"2" 
+ 	},
+ 	{
+ 		"description": "Intentory Clerks",
+ 		"href":"3" 
+ 	},
+ 	{
+ 		"description": "Planners",
+ 		"href":"4" 
+ 	},
+ 	{
+ 		"description": "Purchasing Managers",
+ 		"href":"5" 
+ 	},
+ 	{
+ 		"description": "Receiving Clerks",
+ 		"href":"6" 
+ 	},
+ 	{
+ 		"description": "Storeroom Managers",
+ 		"href":"7" 
+ 	},
+ 	{
+ 		"description": "Work Management",
+ 		"href":"8" 
+ 	},
+ 	{
+ 		"description": "Supervisors",
+ 		"href":"9" 
+ 	}
+]
+
+

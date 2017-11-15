@@ -1,0 +1,50 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-step-template">
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="maximo-step-template-css.html">
+	<style is="custom-style" include="maximo-step-template-css"></style>
+  
+	<template>
+		<div class="mainWrapper">
+			<div class="contentWrapper">
+				<div class="templateHeader">
+					<maximo-label class="templateHeaderLabel" fontsize="22px" label="{{title}}"></maximo-label>			
+				</div>
+				<div class="templateContent">
+					<content></content>
+					<div class="nextButtonDiv">
+						<maximo-button class="nextButton" on-tap="_nextStep" layout="default" easticon="maximo-based:next" disabled={{disableNext}} label="{{localize('uitext', 'mxapisr', 'Next')}}"></maximo-button>
+					</div>
+					<div class="skipButtonDiv">
+						<maximo-button class="skipButton" action="true" on-tap="_skipStep" easticon="maximo-based:next" label="{{localize('uitext', 'mxapisr', 'SkipThisStep')}}"></maximo-button>
+					</div>
+				</div>
+			</div>
+			<div class="stackList">
+				<iron-list items="[[stackData]]" as="item" id="stackDataList" class="stackDataList">
+					<template>
+						<div class="listWrapper">
+							<div class="topicLabelDiv">
+								<maximo-label class="topicLabel" label="{{item.topic}}"></maximo-label>
+							</div>
+							<div class="dataLabelDiv">
+								<maximo-label fontsize="18px" class="stackDataLabel" label="{{item.data}}" ellipsis-size="400"></maximo-label>
+							</div>
+						</div>
+					</template>
+				</iron-list>
+				
+			</div>
+		</div>
+	</template>
+
+	<script src="maximo-step-template.js"></script>
+
+</dom-module>

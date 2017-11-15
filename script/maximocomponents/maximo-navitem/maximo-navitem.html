@@ -1,0 +1,39 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<!--
+Maximo navbar item element, this element is used for nav bar
+-->  
+<dom-module id="maximo-navitem">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-navitem-css.html">
+	<style is="custom-style" include="maximo-navitem-css"></style>
+	
+	<template>
+		<div class="flex-vertical navitemWrapper">
+			<div class="container flex-center-justified">
+				<maximo-badge class="countBadge" id="navitemBadge_{{dataIndex}}" data="{{count}}" color="#5696e2" font-size="12px"></maximo-badge>
+				<div>
+					<iron-icon id="labelicon_{{dataIndex}}" class="icon navitemicon" icon={{icon}} style="width:32px; height:32px;"></iron-icon>
+				</div>
+				
+			</div>
+			<div class="container flex-center-justified">
+				<div>
+					<label id="label_{{dataIndex}}" class="label navitemlabel" bold$="{{bold}}" style$={{style}} title$={{label}}>{{label}}</label>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<script src="maximo-navitem.js"></script>
+	
+</dom-module>

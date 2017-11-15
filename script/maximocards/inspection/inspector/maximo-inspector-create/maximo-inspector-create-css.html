@@ -1,0 +1,254 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-inspector-create-css">
+	<template>
+    	<style>   		
+    			
+			.mainPage {
+				width: 100%;
+				@apply(--layout-vertical);
+    			/* padding: 0px 0px 20px 0px; */
+    		}
+    		
+    		.container {
+		      @apply(--layout-vertical);
+		    }
+		    
+		    .flexchild {
+		      width: 95%;
+		    }
+    		
+    		.pageDiv {
+    			@apply(--layout-flex);
+    			@apply(--layout-vertical);
+				background: var(--Neutral-gray2);
+				text-align: left;
+				padding: 13px 30px 20px 30px;
+				/* display: inline-block; */
+			}
+			
+			.pageDiv.rtl {
+				/* padding: 0px 20px 0px 0px; */
+			}
+			
+    		.header {
+    			background-color: var(--Primary-white);
+    			padding: 0px 30px 15px 30px;
+    			/* width: 100%; */
+    		}
+    		
+    		.title {
+				font-family: HelveticaNeue;
+				font-size: 157%;
+				color: var(--Primary-blue60);
+				text-align:left;
+				padding-bottom: 10px;
+				border-bottom: 1px solid #E0E0E0;
+				font-weight:normal;
+			}
+			
+			.step {
+				font-family: HelveticaNeue;
+				font-size: 129%;
+				color: var(--Primary-gray70);
+				text-align:left;
+				font-weight:normal;
+			}
+			
+			.stretch {
+				@apply(--layout-flex);
+			}
+			
+			.inlineInput ::content div {
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+			
+			}
+			
+			.inlineInput ::content div input {
+				font-size: 1.286em;			
+			}
+			
+			.inlineInput ::content div div, 
+			.inlineInput ::content div input {
+				@apply(--layout-flex);
+			}
+			
+			.inspectorListSearchBar ::content div, .searchbar ::content div div {
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.inspectorListTileDiv {
+    			@apply(--layout-vertical);
+				background: var(--Neutral-gray2);
+				text-align: left;
+				padding: 13px 30px 20px 30px;
+				/* display: inline-block; */
+			}
+			
+			.inspectorListTileDiv.rtl {
+				/* padding: 0px 20px 0px 0px; */
+			}
+			
+			.count {
+				margin-bottom: 16px;
+			}
+			
+			.noRecords {
+				text-align: center;
+			}
+			
+			.noRecords iron-icon {
+				--iron-icon-height: 100px;
+    			--iron-icon-width: 100px;
+    			--iron-icon-fill-color: var(--Primary-gray10);
+    			
+    			/* -webkit-filter: drop-shadow(0px 45px 10px rgba(0,0,0,0.2));
+				filter: drop-shadow(0px 45px 10px rgba(0,0,0,0.2)); */
+			}
+			
+			.noRecords p { 
+				font-family:HelveticaNeue-Light-Italic;
+				font-size:157%;
+				color:var(--Primary-blue60);
+			}
+			
+			.inspectorListDataScrollerDiv {
+    			text-align: left;
+    		}
+    		
+    		.inspectorListDataScrollerDiv.rtl {
+    			text-align: right;
+    		}
+    		
+    		.topButton {
+    			margin: 0 10px;
+    		}
+    		.topButton maximo-button ::content button {
+    			min-width:153px;
+    			height:45px;
+    			font-size: 1.29em;
+    			color: var(--Primary-blue50);
+    			border: 2px solid var(--Primary-blue50) !important;
+    			/* --iron-icon-fill-color: var(--Primary-blue50) !important; */
+    		}
+    		.topButton maximo-button ::content button iron-icon {
+    			color: var(--Primary-blue50);
+    		}
+    		.topButton maximo-button ::content button:hover {
+				background: var(--Primary-green50) !important;
+				border: 2px solid var(--Primary-green50) !important;
+    		}
+    		.assetLocationButtonActive ::content button {
+    			background: var(--Primary-green50) !important;
+    			color: var(--Primary-white) !important;
+    		}
+    		.assetLocationButtonActive ::content button iron-icon {
+    			background: var(--Primary-green50) !important;
+    			color: var(--Primary-white) !important;
+    		}
+    		
+    		.searchWrapper {
+    			@apply(--layout-flex);
+	            position: relative;
+    		}
+    		
+    		.itemList { 
+			    position: absolute;
+			    width: 100%;
+		   	    background-color: #ffffff;
+		   	    box-sizing: border-box;
+		   	    padding : 1px;
+		   	    border-left : 1px solid #aeaeae;
+		   	    border-right : 1px solid #aeaeae;
+		   	    border-bottom : 1px solid #aeaeae;
+		   	    z-index : 2001;
+		   	    display: none;
+		   	    max-height: 300px;
+		   	    overflow: auto;
+		   	 }	
+	
+		   	.item1 {
+		   		text-overflow: ellipsis; 
+		   		overflow: hidden;
+		   		padding-right: 3px;
+		   		@apply(--layout-flex);
+		   	}
+
+			.itemCommon {
+			    font-family:HelveticaNeue-Light;
+			    font-size: 18px;
+			    color:#000000;
+			    text-align: left;
+			}
+    		
+    		.divRow {
+       			@apply(--layout-horizontal);
+       			@apply(--layout-justified);
+       			padding : 13px 13px 13px 13px;
+      			cursor : pointer;
+      			white-space : nowrap;
+    		}
+			.divRow:hover { 
+				background-color: var(--Neutral-gray10);
+				color : white;
+			}
+			
+    		.divRow:hover, 
+			.divRow:hover[default]:not([aria-disabled]):focus > * {
+				background-color: var(--Primary-gray10);
+				color : white;
+			}
+			
+    		.nodataLabelWrapper{
+				text-align : center;
+				font-size: 18px;
+				padding-bottom : 10px;
+				padding-top : 10px;
+			}
+			
+			.nodataLabelWrapper maximo-label ::content label{
+				font-family:HelveticaNeue;
+				font-size:14px;
+				font-style: italic;
+				color: var(--Primary-gray50);
+				letter-spacing:0px;
+				text-align:left;
+			}
+			
+			 .scroll{
+			 	position: relative;
+    			overflow-y: auto;
+    		}
+			
+			
+			.searchingWaitWrapper {
+				  position: absolute;  
+				  float: left;
+				  width: 40%;
+			}
+			
+			
+			.waitWrapper {
+				  position: absolute;  
+				  padding-top: 80px; 
+				  width: 100%;
+			}
+			
+			
+			.searchingLabelWrapper {
+				 padding-top:30px; 
+				 float: right;
+				 text-align : left; 
+				 width: 60%;
+				 font-size: 20px;
+			}
+			
+		</style>
+	</template>
+</dom-module>

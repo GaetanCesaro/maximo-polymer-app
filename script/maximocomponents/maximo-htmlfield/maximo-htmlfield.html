@@ -1,0 +1,28 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->  
+<dom-module id="maximo-htmlfield">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-htmlfield-css.html">
+	<style is="custom-style" include="maximo-htmlfield-css"></style>
+	
+	<template>
+		<div id="outer">
+			<template is="dom-if" if="{{haveTitleLabel(label)}}"><maximo-label class="staticlabel" label="{{label}}:"></maximo-label></template>
+			<label id="dynamicdata" class="dynamiclabel"></label>
+			<div id="fadeDiv" style="display:none" class="fadeDiv"></div>
+			<div id="hidden" class="hidden">&nbsp;</div>
+		</div>
+	</template>
+
+	<script src="maximo-htmlfield.js"></script>
+
+</dom-module>

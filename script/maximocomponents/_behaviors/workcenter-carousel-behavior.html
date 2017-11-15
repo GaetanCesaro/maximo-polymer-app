@@ -1,0 +1,350 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+
+<link rel="import" href="workcenter-behavior.html" />
+<script>
+	/**
+	 * WorkCenter functionality
+	 *
+	 * @polymerBehavior WorkCenterBehavior
+	 */
+	WorkCenterCarouselBehaviorImpl = {
+			attached: function() {
+				var workscape = this;
+				this.async(function(){
+					if(workscape && workscape.fixCarouselAndPanels){
+						workscape.fixCarouselAndPanels();
+					}
+					else {
+						this.async(function(){
+							if(workscape && workscape.fixCarouselAndPanels){
+								workscape.fixCarouselAndPanels();
+							}
+						}, 200);
+					}
+				}, 200);
+			},
+			fixCarouselAndPanels: function(){
+				//stubbed until deviceSetup can add appropriately 
+			},
+			deviceSetup: function(){
+				$M.getOrientation();
+				var workscape = this;
+				var sliders = $j(workscape.$.content).find('maximo-slider-container');
+				this.topSlider = (sliders[0] && $j(sliders[0]).find('maximo-panel').length===0)?sliders[0]:null;
+				this.slider = (sliders[1] && $j(sliders[1]).find('maximo-panel').length>0)?sliders[1]:null;
+				$j('body').css({'overflow':'auto'});
+				if(workscape.panels[0] && (this.noCarousel !== true && ($M.deviceSize.width < $M.carouselMax || $M.deviceSize.height < $M.carouselMax))){
+					this.panelScroll = true;
+					$j(window).on('scroll', function(){
+						$j(window).scrollTop(0);
+					});
+					$j('body').css({'overflow':'hidden'});
+					var dots = $j(this.$.dots).find('ul');
+					 
+					if(this.topSlider){
+						workscape.panels = workscape.panels.concat(this.topSlider);
+						if(this.slider){
+							$j(this.slider.$.container).append(this.topSlider);
+						}
+					}
+					$j(workscape.$.content).toggleClass('fixedpanel', true);
+					$j(workscape.$.carouselController).attr({'hidden':false});
+					$j(workscape.$.carousel).attr({'class':'style-scope maximo-workscape carousel'});
+					this.fixCarouselAndPanels = function(){
+						$j(workscape.$.carousel).height($j('body').height()-80-$j(workscape.$.carouselController).height()-2+'px');
+						$j(workscape.$.carousel).width(workscape.panels.length * $j('body').width());				
+						workscape.panels.forEach(function(panel){
+							$j(panel.$.wrapper).css({
+								'width': $j('body').width()+'px',
+								'box-sizing': 'border-box'
+							});
+							if(workscape.slider){
+								var height = $j('body').height()-80-$j(workscape.$.carouselController).height()-2+'px';
+								$j(workscape.slider.$.container).height(height);
+								$j(panel.$.container).height(height);
+							}
+							workscape.async(function(){
+								var internal = $j(panel.$.internal);
+								if(!internal){
+									internal = $j(panel.$.container);
+								}
+								internal.css({'box-sizing':'content-box','margin':'2px'});
+								if(panel.getInternalHeight){
+									var offset = parseInt($j(panel.$.panel).css('border-top-width'))*2 + parseInt($j(panel.$.internal).css('padding-top'))*2 + parseInt($j(panel.$.internal).css('margin-top'))*2 + parseInt($j(panel.$.wrapper).css('padding-top'))*2;
+									$j(panel.$.panel).height($j(workscape.$.carousel).height() - offset);
+									internal.height(panel.getInternalHeight());
+								}
+							}, 200);
+							$j(panel.$.wrapper).attr({'data-layout':workscape.getSize(panel.$.wrapper)});
+							$j(panel.$.wrapper).css({'height':$j(workscape.$.carousel).height()});
+							panel.positionOverlay();
+						});
+
+						workscape.scrollCarouselTo(workscape.carouselIndex);
+					};
+					workscape.panels.forEach(function(panel, index){
+						if(panel.tagName === 'MAXIMO-SLIDER-CONTAINER'){
+							var wrapper = $j(panel.$.wrapper);
+							var className = 'panel border style-scope maximo-panel maximo-worktoassign-card fullScreen carousel';
+							if($M.touch){
+								className += ' touch';
+							}
+							$j(panel.$.container).attr({'class':className});
+							//$j(panel.$.container).attr({'class':className});
+							$j(panel.$.container).css({'width':'100%','height':'100%','margin':'0px','overflow-y':'auto'});
+							wrapper.css({'overflow':'hidden','width':$j('body').width()+'px','margin':'0px','height':'100%'});
+						}
+						$j(panel.$.wrapper).toggleClass('carouselChild',true);
+						var dot = document.createElement('li');
+						$j(dot).attr({'class':'style-scope maximo-workscape dot','data-index':index});
+						$j(dots).append(dot);
+						$j(dot).toggleClass('current',(index===0));
+						$j(panel.$.internal).toggleClass('auto', true);
+						
+						$j(panel.$.panel).toggleClass('fullScreen',true);
+						$j(panel.$.panel).css({
+					    	'width': '100%',
+					    	'height': '100%',
+					    	'margin': '0',
+					    	'border-radius':'0px'
+						});
+						workscape.listen(dot, 'tap', 'tapCarouselDot');
+						panel.positionOverlay();
+					});
+				}
+				else if (!this.slider){
+					if(this.centered){
+						$j(this.$.carousel).css({'text-align':'center'});
+					}
+					this.fixCarouselAndPanels = function(){
+						workscape.panels.forEach(function(panel){
+							if(panel.tagName === 'MAXIMO-PANEL'){
+								var height = panel.height?panel.height:'';
+								if(height!=='' && height!=='auto'){
+									height = parseInt(height) + 'px';
+								}
+								$j(panel.$.wrapper).css({'width':panel.getWidthLimits().min+'px','padding': '10px','box-sizing':'border-box','height':'auto'});
+								$j(panel.$.internal).css({'height':height});
+								$j(panel.$.panel).css({'width':'100%','margin':'0px'});
+							}
+							$j(panel.$.wrapper).attr({'data-layout':workscape.getSize(panel.$.wrapper)});
+						});
+						var groups = workscape.determineGroups();
+						groups.forEach(function(group){
+							var groupLength = group.length;
+							var percent = (100/groupLength)-1;
+							group.forEach(function(panel){
+								if(groupLength === 1 && panel.width !== ''){
+									$j(panel.$.wrapper).css({'width':panel.width+'px'});
+								}
+								else {
+									$j(panel.$.wrapper).css({'width':percent+'%'});
+								}
+							});
+						});
+						groups = workscape.determineGroups();
+						var lastGroup;
+						
+						groups.forEach(function(group){
+							var groupLength = group.length;
+							var percent = (100/groupLength)-1;
+							group.forEach(function(panel){
+								var width = percent;
+								if(groupLength === 1 && panel.fullWidth !== true){
+									if(!lastGroup && panel.width){
+										width = panel.width;
+									}
+									else if(lastGroup){
+										width = (100/lastGroup.length)-1;
+									}
+									
+								}
+								$j(panel.$.wrapper).css({'width':width+'%'});
+							});
+							lastGroup = group;
+						});
+						groups.forEach(function(group, groupIndex){
+							var groupLength = group.length;
+							var lastPanel;
+							group.forEach(function(panel){
+								var height;
+								lastPanel = panel;
+								if(groups.length === 1){
+									height = $j($M.workScape.$.footer).position().top - $j(panel.$.panel).position().top;
+								}
+								else {
+									height = panel.height?panel.height:'';
+									if(height!=='' && height!=='auto'){
+										height += 'px';
+									}
+								}
+								$j(panel.$.wrapper).css({'height': height+'px'});
+								$j(panel.$.panel).css({'height':'100%','margin':'0px'});
+								$j(panel.$.internal).css({'box-sizing':'border-box','height': $j(panel.$.panel).height()-$j(panel.$.header.firstElementChild).height() - 3 +'px'});
+								if(groupLength > 1){
+									var widthLimits = panel.getWidthLimits();
+									if(widthLimits.min && widthLimits.min !== -1 && $j(panel.$.wrapper).width()<widthLimits.min){
+										$j(panel.$.wrapper).css({'width':widthLimits.min+'px'});
+									}
+									if(widthLimits.max && widthLimits.max !== -1 && $j(panel.$.wrapper).width()>widthLimits.max){
+										$j(panel.$.wrapper).css({'width':widthLimits.max+'px'});
+									}
+								}
+								panel.resize();
+								panel.positionOverlay();
+							});
+							if(groupIndex===0){
+								workscape.groupOneLastPanel = lastPanel.$.panel;
+								workscape.groupOneLength = groupLength;
+							}
+						});
+					};
+				}
+				else {
+					$j('body').css({'overflow':'hidden'}); //handling overflow internally
+					this.fixCarouselAndPanels = function(){
+						var footerTop = $j(workscape.$.footer).position().top;// - $j(workscape.slider.$.wrapper).position().top; //20 for scollFooter
+						var sfHeight = 0;
+						if(workscape.topSlider){
+							workscape.topSlider.showSlideMarkers();	
+						}
+						if(workscape.slider){
+							workscape.slider.showSlideMarkers();
+						}
+						workscape.panels.forEach(function(panel){
+							if(panel.tagName === 'MAXIMO-PANEL'){
+								var height =  footerTop - $j(panel.slider.$.wrapper).position().top;
+								sfHeight = $j(panel.slider.$.scrollFooter).height();
+								panel.slider.showSlideMarkers();
+								$j(panel.slider.$.wrapper).css({'height':height+'px','border':'0px'});
+								$j(panel.slider.$.container).css({'height':(height-sfHeight)+'px'});
+
+								$j(panel.$.wrapper).css({'height': (height - (sfHeight*2))+'px', 'width':panel.getWidthLimits().min+'px','padding': '10px','box-sizing':'border-box'});
+								$j(panel.$.panel).css({'height':'100%','margin':'0px','width':'100%'});
+								$j(panel.$.internal).css({'height': panel.getInternalHeight()+'px'});
+							}
+							$j(panel.$.wrapper).attr({'data-layout':workscape.getSize(panel.$.wrapper)});
+							panel.resize();
+							panel.positionOverlay();
+						});
+					};
+					$j(workscape.slider.$.container).on('scroll', function(){
+						workscape.panels.forEach(function(panel){
+							panel.positionOverlay();	
+						});
+					});
+				}
+				$j(window).on('resize', function(){
+					window.clearTimeout(workscape.resizeTimer);
+					workscape.resizeTimer = setTimeout(function(){
+						workscape.fixCarouselAndPanels();
+					}, 250);
+				});
+			},
+			ready: function(){
+				this.async(function(){
+					if($M.carousel === true && this.screenFormat !== 'large'){
+						this.noCarousel = false;
+					}
+					$M.workScape.deviceSetup();
+					if(this.centered){
+						$j($M.workScape.$.carousel).css({'text-align':'center'});
+						document.body.overFlowY = 'scroll';	
+					}
+				}, 100);
+			},
+			tapCarouselDot: function(e){
+				var index = parseInt($j(e.target).attr('data-index'));
+				$M.workScape.scrollCarouselTo(index);
+			},
+			determineGroups: function(){
+				var top, lastTop=0, groups = [], groupIndex = -1;
+				if(this.slider){
+					groupIndex = 0;
+					groups.push([]);
+					this.panels.forEach(function(panel){
+						if(panel.tagName === 'MAXIMO-PANEL'){
+							groups[groupIndex].push(panel);
+						}
+					});
+				}
+				else {
+					this.panels.forEach(function(panel){
+						if(panel.tagName === 'MAXIMO-PANEL'){
+							top = $j(panel.$.wrapper).position().top;
+							if(top!==lastTop){
+								groups.push([]);
+								groupIndex++;
+							}
+							if(!groups[groupIndex]){
+								return;
+							}
+							groups[groupIndex].push(panel);
+							lastTop = top;
+						}
+					});
+				}
+				if(this.slider){
+					
+				}
+				return groups;
+			},
+			scrollCarouselEvent: function(event){
+				var direction = 1;
+				if(event){
+					if(event.type === 'track'){
+						direction = event.detail.dx<0?1:-1;
+					}
+					else {
+						direction = parseInt($j(event.target).attr('direction'));
+					}
+				}
+				else {
+					direction = -1;
+				}
+				this.scrollCarousel(direction, 1);	
+			},
+			scrollCarouselTo: function(index, stopHash){
+				if(index >= 0 && index < $M.workScape.panels.length){
+					if(index === this.carouselIndex){
+						$j(this.$.carousel).css({'transition':'none'});
+					}
+					var workscape = this;
+					this.async(function(){
+						var left = $j(window).width()*index;
+						if(!$M.dir || $M.dir !== 'rtl'){
+							left = left * -1;
+						}
+						$j(workscape.$.carousel).css({'left':left+'px'});
+						$j.each($j(workscape.$.dots).find('li'), function(dotIndex, dot){
+							$j(dot).toggleClass('current',(dotIndex===index));
+						});
+		//carousel changes don't make sense using hash states
+//									if(index !== workscape.carouselIndex && stopHash !== true){
+//										$M.pushState({'id': workscape.$.carousel.id, 'element':workscape.$.carousel});
+//										if(!workscape.$.carousel.popMe){
+//											workscape.$.carousel.popMe = function(){
+//												workscape.scrollCarouselTo(workscape.carouselIndex -1, true);
+//											};
+//										}
+//									}
+						workscape.carouselIndex = index;
+						this._userActivity({type:'scroll-carousel'});
+						this.async(function(){
+							$j(workscape.$.carousel).css({'transition':'left .5s'});
+						}, 500);
+					});
+				}
+			},
+			scrollCarousel: function(direction, count){
+				this.scrollCarouselTo(this.carouselIndex + (direction * count));
+			}
+	};
+	
+	WorkCenterCarouselBehavior = [ WorkCenterBehavior, WorkCenterCarouselBehaviorImpl ];
+</script>

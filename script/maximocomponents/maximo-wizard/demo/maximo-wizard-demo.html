@@ -1,0 +1,63 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-wizard-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+  		<div class="outer">
+	  		<div>
+		  		<maximo-wizard id="wizard" label="Maximo Wizard" class="selectedFilter">
+					<maximo-wizard-step id="designer_tab1" intvalue="0" label="step 1" help-text="Step 1 help text">
+					</maximo-wizard-step>
+					<maximo-wizard-step id="designer_tab1" intvalue="1" label="step 2" help-text="Step 2 help text">
+					</maximo-wizard-step>
+					<maximo-wizard-step id="designer_tab1" intvalue="2" label="step 3" help-text="Step 3 help text">
+					</maximo-wizard-step>
+					<maximo-wizard-step id="designer_tab1" intvalue="3" label="step 4" help-text="Step 4 help text">
+					</maximo-wizard-step>
+					<maximo-wizard-step id="designer_tab1" intvalue="4" label="step 5" help-text="Step 5 help text">
+					</maximo-wizard-step>
+				</maximo-wizard>
+				<div id="pageDiv" class="pageDiv">
+					<iron-pages id="pages" selected="{{selectedtab}}">
+						<div>step 1</div>
+						<div>step 2</div>
+						<div>step 3</div>
+						<div>step 4</div>
+						<div>step 5</div>
+					</iron-pages>  
+			    </div>
+			</div>
+			<button on-tap="prevStep">Previous</button>&nbsp;&nbsp;&nbsp;<button on-tap="nextStep">Next</button>
+		</div>
+  		<maximo-wizard id="wizard1" label="Maximo Wizard" class="selectedFilter">
+  			<maximo-wizard-step id="designer_tab11" intvalue="0" label="step 1"></maximo-wizard-step>
+  			<maximo-wizard-step id="designer_tab1a" intvalue="1" label="step 2"></maximo-wizard-step>
+  		</maximo-wizard>
+	</template>
+  <script>
+      Polymer({
+        is: 'maximo-wizard-demo',
+        behaviors: [BaseComponent],
+      	listeners: {
+      		'_handleRecordDataRefreshed' : '_handleRecordDataRefreshed'
+      	},
+        properties: {
+        },
+      	ready: function(){
+			$j('body').css({'background': '#efefef','text-align':'center'});
+      	},
+      	prevStep: function(){
+      		this.$.wizard._select(this.$.wizard.currentIndex-1);
+      	},
+      	nextStep: function(){
+      		this.$.wizard.fire('set-step-state',{'index':this.$.wizard.currentIndex, 'state':'complete'});
+      		this.$.wizard._select(this.$.wizard.currentIndex+1);
+      	}
+      });
+  </script>
+</dom-module>

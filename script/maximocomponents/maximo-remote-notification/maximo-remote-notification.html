@@ -1,0 +1,67 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../maximo-authcontext/maximo-authcontext.html">
+<link rel="import" href="../../components/neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../../components/neon-animation/neon-animations.html">
+<dom-module id="maximo-remote-notification">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-remote-notification-css.html">
+	<style is="custom-style" include="maximo-remote-notification-css"></style>
+
+	<link rel="import" href="../../components/iron-flex-layout/iron-flex-layout-classes.html">
+	
+	<style is="custom-style" include="iron-flex"></style>
+	<template>
+		<iron-ajax
+			id="mxajaxCountNotifications"
+			handle-as="json"
+			on-response="_updateCounter" 
+			with-credentials>
+		</iron-ajax>
+		<iron-ajax
+			id="mxajaxAllNotifications"
+			handle-as="json"
+			on-response="_onAllNotificationsResponse" 
+			with-credentials>
+		</iron-ajax>
+		<div id="notificationIconContainer" class="counterContainer layout horizontal">
+			<iron-icon class="notificationIcon" icon="maximo-based:notification"></iron-icon>
+			<span id="notificationCounterBadge" class="notificationCounter hidden">[[counter]]</span>
+		</div>
+
+		<div id="notificationsContainer" class="hidden notificationsContainer">
+			<div class="notificationHeader">
+				<div class="notificationHeaderActionBar">
+					<iron-icon id="backIcon" class="backButton" width="40px" height="40px" icon='arrow-back'></iron-icon>
+					<maximo-button class="actionButton" action="true" label="{{localize('uitext', 'mxapisr', 'DismissAll')}}" on-tap="_dismissAllNotifications"></maximo-button>
+				</div>
+			</div>
+			<!-- compensate fixed header space to allow NotificationsContainer to scroll -->
+			<div class="headerSpacing">&nbsp;</div>
+			<maximo-wait id="spinner" hidden></maximo-wait>
+			<template is="dom-if" if="{{_noNotifications}}">
+				<!-- no notifications -->
+				<div class="noNotifications">
+					<span>{{localize('uitext', 'mxapisr', 'NoNotifications')}}</span>
+				</div>
+			</template>
+			<content id="notificationTemplate" ></content>
+			<div>
+				<template is="dom-repeat" id="repeater" items="[[notifications]]" as="notf"></template>
+			</div>
+			<!-- adds spacing for the last record, can't be done with selector due to dom-repeat workaround -->
+			<div class="footerSpacing">&nbsp;</div>
+		</div>
+		<maximo-authcontext id="myauthenticator"></maximo-authcontext>
+	</template>
+  <script src="maximo-remote-notification.js"></script>
+</dom-module>

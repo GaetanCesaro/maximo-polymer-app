@@ -1,0 +1,23 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+ -->   
+<dom-module id="maximo-selectfilter">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-selectfilter-css.html">
+	<style is="custom-style" include="maximo-selectfilter-css"></style>
+	
+	<template>
+		<div id="wrapper" class="wrapper">
+			<iron-selector id="selector" selected="0" attr-for-selected="intval" on-iron-select="newSelection"></iron-selector>
+		</div>
+	</template>
+	<script src="maximo-selectfilter.js"></script>
+</dom-module>

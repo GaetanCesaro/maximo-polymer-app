@@ -1,0 +1,90 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<link rel="import" href="../../../../maximocomponents/maximo-synonymdomain/maximo-synonymdomain.html" />
+
+<dom-module id="maximo-inspection-question-builder">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspection-question-builder-css.html">
+	<style is="custom-style" include="maximo-inspection-question-builder-css"></style>		
+	<template>
+	
+		<maximo-collection
+		    id="inputtypedomain" 
+			attribute-names="*"
+			debounce-duration="600"
+			collection-data="{{domainCollection}}"
+			object-name="MXAPIDOMAIN" 
+			filter-data="{{domainFilter}}" 
+			on-record-data-refreshed="_buildInputSet"
+			on-data-error="_handleDomainError">					
+		</maximo-collection>
+
+		<div id="content" class="content">
+		
+			<div id="selector" class="sidemenu">
+				<maximo-datalist id="inputOptions" label="{{localize('uitext','mxapiinspection','inspection_inputs')}}" 
+					items="{{inputTypeSet}}" display-attributes="description" select-event="chooseObject" expand-all="true" 
+					child-attribute="children" stop-initial-selection></maximo-datalist>	
+			</div>
+			
+			<div id="main" class="main">
+				<div class="header">
+					<maximo-text id="qname" class="inlineInput" label="{{localize('uitext', 'mxapiinspection','question')}}" 
+						placeholder="{{localize('uitext', 'mxapiinspection','enter_question')}}"
+						required value="{{questionDesc}}" on-value-changed='validation' maxlength="250"></maximo-text> 
+				</div>
+				<div id="innerCards" class="innerCards">
+					<template is="dom-if" if="[[!hasQuestion]]">
+						<div class="noRecords">
+							<div class="icon">
+								<object data="images/bee-shadow-large.svg" type="image/svg+xml" style="padding-top: 20px;"></object>
+							</div>
+							<p>{{localize('uitext','mxapiinspection','get_started_question1')}}</p>
+						</div>
+					</template>
+					
+					<template id="inspectionInputSet" is="dom-repeat" items="[[responseFieldSet]]" as="field">
+						<div>
+							<maximo-input-card class="inputcard" index={{index}} inputi="{{inputi}}" label="[[field.title]]" field="[[field.object]]" on-delete-input="_deleteInput" on-clone-input="_copyInput" loaded="{{loaded}}">
+								<!-- <div class="constructor">
+									[[input.c]]
+								</div>
+								<div class="preview">
+									sample
+								</div> -->
+							</maximo-input-card>
+						</div>
+					</template>
+					<template is="dom-if" if="[[hasQuestion]]">
+						<div class="dashedInstruction">
+							<p>{{instruction}}</p>
+						</div>
+					</template>
+					
+					<!-- <maximo-table items={{tableDataCollection}} columns={{columns}} actions={{actions}} max-height="500px" collection-order-by={{collectionOrderBy}} summary="QuestionsTable"></maximo-table> -->
+					
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="footer">
+			<div id="container" class="footerContainer">
+				<maximo-button id="cancel" label="{{localize('uitext', 'mxapibase','Cancel')}}" icon="Maximo:Close" action on-tap="_cancel"></maximo-button>
+				<maximo-button id="complete" label="{{localize('uitext', 'mxapibase','done')}}" icon="Maximo:Confirm" action on-tap="_complete"></maximo-button>
+				<div id="validationmsg" class="validationmsg">{{localize('uitext', 'mxapiinspection','validationmsg')}}</div>
+			</div>
+		</div>
+  
+	</template>
+	<script src="maximo-inspection-question-builder.js"></script>
+
+</dom-module>

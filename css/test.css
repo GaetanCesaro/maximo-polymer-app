@@ -1,0 +1,4 @@
+/* override font color on slow test marker as it was unreadable */
+#mocha .test.pass .duration{
+	color: #fff !important;
+}

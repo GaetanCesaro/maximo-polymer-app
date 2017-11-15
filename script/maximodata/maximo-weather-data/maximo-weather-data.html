@@ -1,0 +1,43 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../components/polymer/polymer.html"/>
+<link rel="import" href="../../maximocomponents/_behaviors/base-component.html"/>
+
+
+<link rel="import" href="../../handlers/handler-weather.html" />
+      
+<dom-module id="maximo-weather-data">
+
+	<template>
+	
+		<maximo-collection 
+			auto
+		    id="personInfo" 
+			attribute-names="userid, personid, postalcode, country"
+			collection-data="{{personData}}"
+			debounce-duration="600"
+			object-name="MXAPIPERUSER" 
+			selected-query-name=""
+			use-search-terms="true"
+			key-search-attribute-name = "personid"
+			key-search = "-personid-">
+		</maximo-collection>
+		
+		<maximo-resource
+			id="userweathercollection"
+			resource-uri="{{resourceUri}}"
+			attribute-names="userid, personid, extres.CURWEATHER"
+			ctx-terms="{{ctxWeatherDataCurrent}}"
+			resource-data="{{weatherData}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+		</maximo-resource>
+	
+	</template>
+
+	<script type="text/javascript" src="maximo-weather-data.js"></script>
+
+</dom-module>

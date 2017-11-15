@@ -1,0 +1,33 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->
+<dom-module id="maximo-usermenu">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-usermenu-css.html">
+	<style is="custom-style" include="maximo-usermenu-css"></style>
+	
+	<template>
+		<div id="outer" class="outer">
+			<div id="icondiv" class="icon" on-tap="toggleMenu">
+				<maximo-imglib  tabindex="0" id="wrkspaceimg" role="button" rounded class="userimage" image="{{_getImage()}}" noimageicon="maximo-based:no-user" width="32px" height="32px" on-keyup="_buttonkey"></maximo-imglib>
+			</div>
+			<maximo-overlay id="menusection" opened="{{isopen}}">
+				<ul id="expandeddiv" class="expanded" role="menu" title="">
+					<template is="dom-if" if="{{_showWelcome()}}">
+				    	<li role="menuitem"><a id="[[id]]_welcome" class="itemtext" href="#/welcome"><iron-icon icon="Maximo:Home" /></iron-icon>{{localize('uitext', 'mxapibase','welcome')}}</a></li>
+				    </template>
+				    <li role="menuitem"><a id="[[id]]_signout" class="itemtext" href="Javascript: void(0)" on-tap="signout"><iron-icon class="gotoIcon" icon="Maximo:Log-Out" /></iron-icon>{{localize('uitext', 'mxapibase','SignOut')}}</a></li>
+			  	</ul>	
+			</maximo-overlay>
+		</div>
+	</template>
+	<script src="maximo-usermenu.js"></script>	
+</dom-module>

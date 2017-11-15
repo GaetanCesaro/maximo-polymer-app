@@ -1,0 +1,91 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-appmenu-css">
+	<template>
+    	<style>
+    		.icon {
+    			padding: 0px 0px 0px 10px;
+    		}
+    	
+    		.icon.rtl {
+    			padding: 0px 10px 0px 0px;    			
+    		}
+    		
+    		.menuicon {
+    			color: var(--Primary-white) !important;
+    		}
+    		
+    		.expanded {
+    			border:	none;
+    			margin: 0px;
+				padding: 0px;
+				@apply(--layout-vertical);
+				transition: all .3s;
+				overflow-x: hidden;
+				overflow-y: auto;					
+    		}
+    		.expanded:hover{
+				transform: none;
+				box-shadow: none;
+    		}
+    		
+    		.itemtext, .heading {
+    			color: var(--Primary-white);
+    			padding-left:10px;
+    			line-height: 28px;
+    			display: block;
+    			text-decoration: none;
+    		}
+    		
+    		.itemtext {
+    			margin: 0px 5px;
+    		}
+
+			.heading {
+				font-family: "HelveticaNeue";
+			    text-transform: uppercase;
+				font-size: 110%;
+			}
+    		
+    		.itemtext[disabled] {
+    			color: var(--Primary-green10) !important;
+    			pointer-events: none;
+    			cursor: default;
+    		}
+    		
+    		.itemtext:hover:not([disabled]) {
+    			background: var(--Primary-blue60);
+    			cursor: pointer;
+    		}
+    		
+    		.vertline {
+    			border-left: 1px solid var(--Primary-white); 
+    			display: inline;
+    			margin-left:30px;     	
+    		}
+    		
+    		maximo-overlay {
+				position:fixed;
+				padding:0px;
+				background: var(--Primary-blue80);
+				width: 300px;
+				border: none;
+				z-index: 1001;
+				color: var(--Primary-white);
+			}
+    		
+    		hr {
+    		    height: 1px;
+    	    	border: 0px;
+    	    	width: 98%;
+    	    	border-bottom: 1px solid #5c6c78;
+    	    	margin-top: 1px;
+    	    	margin-bottom: 1px;
+    		}
+    	</style>
+	</template>
+</dom-module>

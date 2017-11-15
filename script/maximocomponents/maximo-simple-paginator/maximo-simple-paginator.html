@@ -1,0 +1,25 @@
+<!--
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-simple-paginator">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-simple-paginator-css.html">
+	<style is="custom-style" include="maximo-simple-paginator-css"></style>
+
+	<template>
+		<iron-icon id="previous" icon="maximo-based:previous" hidden$={{isFirstPage}} on-tap="previousPage"></iron-icon>
+			{{getPageNum}} / {{totalPages}}
+		<iron-icon id="next" class="next" icon="maximo-based:previous" hidden$={{isLastPage}} on-tap="nextPage"></iron-icon>
+	</template>
+
+	<script src="maximo-simple-paginator.js"></script>
+
+</dom-module>

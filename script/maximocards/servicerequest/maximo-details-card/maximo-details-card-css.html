@@ -1,0 +1,604 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-details-card-css">
+	<template>
+    	<style>
+    	
+    	:host {
+			--business-card-top: 0px;
+			--business-card-left: 0px;
+			--business-card-right: 0px;
+    	}
+    	
+    	div.mainContainer {
+			height : 100%;
+    		border-left: 1px solid #999;
+		}
+    	
+    	.detailsPanel {
+			height : 100%;
+		}
+		.detailsPanel::content .panelHeader {
+			padding: 10px 10px 12px 10px;
+    		margin: 0px;
+    		border-bottom: 0px;
+		}
+		.detailsPanel ::content .panelTitle {
+			@apply(--layout-center-justified);
+			margin-right: 24px;
+		}
+		
+		.detailsPanel.rtl ::content .panelTitle {
+			margin-let: 24px;
+		}
+		
+		.detailsPanel::content .panelInternal{
+			height : calc(100% - 51px); 
+			padding: 0px 0px;
+			position: relative;
+		}
+		
+		.detailsPanel::content .panel{
+			height: 100%;
+		}
+		
+		div.frame {
+			padding: 20px;
+			padding-bottom: 0px;
+		}
+		
+		.mainDetailsDiv {
+			padding: 20px;
+		}
+		
+		.srDescription {
+			padding: 10px 0px;
+		}
+
+		.srDescription maximo-htmlfield ::content .hidden {
+            display: none;
+        }
+		
+		.srDescription maximo-htmlfield {
+			word-wrap: break-word;
+			overflow: hidden;
+		}
+		
+		.srDescription maximo-htmlfield ::content label {
+			font-size: 1.57em;
+			font-family: HelveticaNeue-Light;
+			line-height: 26px;
+			text-align: left;
+			color: var(--Primary-gray100);
+		}
+		
+		.srAddendum {
+			padding: 2px 0px;
+		}
+		
+		.srAddendum maximo-label ::content label{
+			color: var(--Primary-gray100);
+		}
+		
+		.priorityIcon{
+		  	fill:#d74108;
+		}
+		
+		.actionButton {
+			margin-bottom: 20px;
+			text-align: center;
+		}
+		
+		.actionButton maximo-button ::content button {
+			color: var(--Primary-blue50);
+			font-size: 1.3em;			
+		}
+		
+		.bottomSpace {
+			margin-bottom: 20px;
+		}
+		
+		.locationDescription ::content label{
+			font-family: HelveticaNeue-Light;
+			font-size: 1.3em;
+			color: var(--Primary-gray100);
+		}
+		
+		.sectionHeader {
+			background-color: var(--Primary-blue50);
+			text-align:left;
+			padding: 15px;
+			display: flex;
+			align-items: center;
+		}
+		
+		.sectionHeader span {
+			font-family:HelveticaNeue-Light;
+			font-size: 1.57em;
+			color: var(--Primary-white);
+			padding-left: 10px;
+			letter-spacing: 0px;
+		}
+		
+		.sectionHeader iron-icon {
+			vertical-align: bottom;
+			--iron-icon-fill-color: var(--Primary-white);
+			fill: var(--Primary-white);
+		}
+		
+		/** ATTACHMENT styles **/
+		
+		.addButton:hover {
+			cursor: pointer;
+		}
+		.addAttachLabel{
+			right : 10px;
+			padding : 0px 0px 0px 0px;
+		}
+		.addAttachLabel::content label{
+			color : var(--Primary-blue50);
+			font-size: 1.3em;
+		}
+		.addAttachLabel::content label:hover {
+			cursor: pointer;
+		}
+		.addAttachIcon{
+			vertical-align: top;
+			fill : var(--Primary-blue50);
+		}
+		
+		.trashIcon {
+			--iron-icon-height: 14px;
+    		--iron-icon-width: 14px;
+    		--iron-icon-fill-color: var(--Primary-blue50);
+		}
+
+		.previewImg {
+			padding: 5px;
+			height : auto;
+			position: relative;
+		}
+		
+		.previewCounter::content label {
+			font-size: 1.3em;
+		}
+		
+		.previewPagination::content label {
+			cursor: pointer;
+			color : var(--Primary-blue50);
+			font-size: 1.3em;
+		}
+		
+		.chevronIcon {
+			cursor: pointer;
+    		--iron-icon-fill-color: var(--Primary-blue50);
+    		fill: var(--Primary-blue50);
+   			width: 9px;
+   			height: 15px;
+   			vertical-align: text-bottom;
+		}
+		
+		.attachmentItem::content label{
+			word-wrap : break-word;
+			cursor: pointer;
+			color : var(--Primary-blue50);
+		}
+		.attachmentItem::content label:hover{
+			text-decoration: underline;
+		}
+		
+		.filenameWrpper {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		
+		.deleteAttachment {
+			white-space: nowrap;
+			@apply(--layout-horizontal);
+			@apply(--layout-center);
+			@apply(--layout-end-justified);
+			cursor:pointer;
+			margin-left: 15px;
+		}
+		
+		.deleteLabel::content label {
+			color : #4178be;
+			font-family:HelveticaNeue;
+			cursor:pointer;
+		}
+		
+		.imgLimit {
+    		--iron-image-height: 210px;
+    		background-color: lightgray;
+		}
+		
+		.attachmentProgressWrapper {
+		    @apply(--layout-vertical);
+		    @apply(--layout-center-justified);
+		    @apply(--layout-center);
+		    padding-top: 30px;
+		    padding-bottom: 30px;
+		}
+		
+		.desktopAttachmentSection .attachmentProgressWrapper {
+		    height: 220px;
+		}
+		
+		.uploadingAttach {
+			position: relative;
+			height: 340px;
+		}
+		
+		.attachmentProgress  {
+			width: 60%;
+			border: 1px solid var(--Primary-blue50);
+			@apply(--layout-center);
+			height: 10px;
+		}
+		
+		.attachmentProgress ::content .progress {
+			background-color:#4178be;
+		}
+		
+		
+		.attachmentRemainTime {
+			padding-left:22px;
+			@apply(--layout-center);
+		}
+		.attachmentRemainTime::content label{
+			color : #4178be;
+			font-family:HelveticaNeue;
+			font-size:1.3em;
+			letter-spacing:0px;
+		}
+		
+		.cancelAttachButton {
+			@apply(--layout-horizontal);
+			@apply(--layout-center-justified);
+		}
+		
+		.cancelAttach::content button{
+			color: var(--Primary-white);
+			background-color: var(--Primary-blue50);
+			border: 1px solid var(--Primary-blue50);
+			margin-bottom: 10px;
+			padding-left: 10px;
+			padding-right: 10px;
+			font-size: 1.3em;
+		}
+		
+		.cancelAttach::content .button.action:not([aria-disabled]):hover{
+			color: var(--Primary-white);
+		}
+		
+		.attachments-delete {
+			position:absolute ;	
+			padding:0px;
+			background: rgba(0, 0, 0, 0.4);
+			width: 100%;
+			height: 100%;		/* 100% - headerbar */
+			border: none;
+			z-index: 10;
+			margin: 0;
+		}
+		 
+		.attach-name {
+		 	margin-bottom: 10px;
+		 	@apply(--layout-horizontal);
+		 	@apply(--layout-justified);
+		}
+		 
+		.attach-nav {
+		 	margin-top: 10px;
+		 	margin-bottom: 20px;
+		 	position: relative;
+		}
+		 
+		.invisible {
+		 	visibility: hidden;
+		}
+		 
+		.addButton_disabled {
+			pointer-events: none;
+		}
+		
+		.addButton_disabled .addAttachIcon {
+			fill: var(--Primary-gray30);
+		} 
+		
+		.addButton_disabled ::content label{
+			color : var(--Primary-gray30);
+		}
+		
+		
+		.errorNotification {
+			top: 30px;
+			position: absolute;
+			width: 100%;
+			height: 40px;
+			background-color: var(--Primary-orange10);
+			border-top : 1px solid var(--Primary-orange10);
+			border-bottom : 1px solid var(--Primary-orange10); 
+			@apply(--layout-horizontal);
+			@apply(--layout-center);
+			@apply(--layout-justified);
+			padding: 1px 6px 1px 5px;
+			box-sizing: border-box;
+		}
+		
+		.errorMessage {
+			@apply(--layout-horizontal);
+			@apply(--layout-center);
+			@apply(--layout-left-justified);
+		}
+		
+		.errorMessage-icon {
+			height: 22px;
+			width: 19px;
+		}
+		
+		.errorMessage-label {
+			padding-left: 10px;
+		}
+		.errorMessage-label ::content label {
+			color: #000000;
+		}
+		.errorMessage-button {
+			@apply(--layout-right-justified);
+			white-space: nowrap;
+		}
+		.errorMessage-button ::content iron-icon {
+			width: 15px;
+			height: 12px;
+		}		
+		
+
+		/** Chat style **/		
+		.chatHistory {
+			padding: 10px 0px 0px 0px;
+		}
+		
+		.chatWrapper {
+			position: relative;
+		}
+				
+    	.inputCommentDiv{
+    		width : 100%;
+    		height : 36px;
+    		background: var(--Primary-blue50);
+    		padding : 12px 0px 12px 0px;
+    		left : 0;
+    		right : 0;
+    		z-index: 1002;
+    		position: absolute;
+    	}
+    	.inputComment::content input{
+    		width : calc(100% - 10px);
+    		border-width: 0px;
+    		padding-left: 10px;
+    	}
+    	.inputComment {
+    		width : 100%;
+    	}
+    	.inputComment::content div{
+    		padding-left : 10px;
+    	}
+    	.inputCommentChildDiv{
+    		width : calc(100% - 65px);
+    		padding-right : 15px;
+    	}
+		.sendMessageButtonIcon{
+			width : 35px;
+			height : 35px;
+			fill: var(--Primary-white);
+		}
+		.sendMessageButtonIcon:hover {
+			cursor: pointer;
+		}
+		.sendMessageButtonIconDesktop{
+			width : 35px;
+			height : 35px;
+			fill: var(--Primary-blue50);
+		}
+		
+		.messageBubble::content .leftPersonImage:hover {
+			cursor: pointer;
+		}
+		
+		.messageBubble::content .rightPersonImage:hover {
+			cursor: pointer;
+		}
+
+		.personInfo {
+			padding:0px;
+			border: none;
+			z-index: 1100;
+			color:white;
+			background-color: rgba(0,0,0,0);
+			box-shadow: none;
+			position: absolute;
+			width: 100%;
+			max-width: 90%;
+			top: var(--business-card-top);
+		}
+		
+		.personInfo .personInfoPictureBorder {
+		    border: 1px solid #e0e0e0;
+		    background: #f9f9f9;
+			width: 50px;
+			height: 50px;
+			box-shadow:0px 2px 10px 0px rgba(0,0,0,0.50);
+		    border-radius: 35px;
+		    position: absolute;
+		    display: block;
+		    padding:8px;
+		}
+		
+		.personInfoLeftPos {
+			left: var(--business-card-left);
+		}
+		
+		.personInfoRightPos {
+			right: var(--business-card-right);
+		}
+
+		.personInfo .personInfoLeftContentWrapper {
+		    left: 35px;
+		}
+		
+		.personInfo .personInfoRightPictureBorder {
+		    right : -2px;
+
+		}
+		.personInfo .personInfoRightPictureWrapper {
+		    right : -1px;
+		}
+
+		.personInfo .personInfoRightContentWrapper {
+		    right: 35px;
+		}
+		
+		.personInfo .personInfoContentWrapper {
+		    border: 1px solid #e0e0e0;
+		    
+		    top: 35px; 
+		    position: absolute;
+		    min-width: 132px;
+		    min-height :20px;
+		    background: #f9f9f9;
+		    padding: 21px 21px 0px 21px;
+			box-shadow:0px 2px 10px 0px rgba(0,0,0,0.50);
+			
+			margin-bottom:5px;
+		}
+		
+		.personInfo .personInfoPictureWrapper {
+ 			width: 50px;
+			height: 50px;
+		    background: #f9f9f9;
+		    border-radius: 35px;
+		    position: absolute;
+		    padding:8px;
+		}
+		
+		.personInfo .personInfoIconContainerPhone {
+			@apply(--layout-horizontal);
+			@apply(--layout-center);
+			@apply(--layout-around-justified);
+			
+			height: 70px;
+		}
+
+		.personInfo .personInfoIconContainerDesktop {
+			@apply(--layout-vertical);
+			@apply(--layout-center);
+			height: 61px;
+			padding-top: 9px;
+		}
+		
+		.personInfo .personInfoIcon {
+			width: 30px;
+			height: 30px;
+		}
+		
+		.personInfoImage::content .noimage{
+			fill: #aeaeae;
+		}
+		
+		.personInfo .personInfoNameWrapper {
+		}
+		
+		.personInfo .personInfoLinkDesktop {
+			padding: 3px;
+			color: #0000ff;
+		}
+		
+		.personInfo .personInfoLinkDesktop span {
+			color: #0000ff
+		}
+
+		.noSectionIcon {
+			width: 60px;
+			height: inherit;
+			color: var(--Neutral-gray10);
+			fill: var(--Neutral-gray10);
+			margin: 20px 0px 10px 0px;
+		}
+
+		.noSectionText {
+			color: var(--Primary-gray30);
+			margin: 0px 0px 20px 0px;
+		}
+		
+		.desktopPanel::content .panelInternal{
+			background-color: var(--Primary-blue80);
+		}
+		
+		.desktopPanel::content .back {
+			fill: var(--Primary-blue30);
+		}
+		
+		.desktopDetails .srDescription maximo-htmlfield ::content label,
+		.desktopDetails .bottomSpace maximo-label ::content label{
+			color: var(--Primary-white);
+		}
+		
+		.desktopDetails .actionButton {
+			text-align: left;			
+		}
+		
+		.desktopDetails .actionButton maximo-button ::content button {
+			color: var(--Primary-blue40);
+			font-size: 1.3em;
+		}
+		
+		.desktopSectionWrapper {
+			@apply(--layout-horizontal);
+		}
+		
+		.desktopSectionWrapper > div {
+			width: 375px;
+		}
+		
+		.desktopSectionWrapper > div > div {
+			background-color: var(--Primary-white);
+			margin-left: 20px;
+			margin-bottom: 20px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+		
+		.desktopAttachmentSection {
+    		height: 420px;
+		}
+		
+		.desktopChatContainer {
+    		height: 550px;
+    		overflow-y: auto;
+    		background-color:  var(--Primary-white);
+		}
+		.desktopCommentSection .inputCommentDiv {
+			background-color: var(--Primary-gray10);
+			margin-bottom: 30px;
+		}
+		.priorityLabel ::content label{
+   	    	color : #D74108 !important;
+   	    }
+   	    .priorityLabel{
+   	   		padding-top : 2px;
+   	    	display : block;
+   	    }
+		/* .desktopChatContainer > div {
+    		overflow-y: auto;
+    		height: calc(100% - 36px);
+    		background-color:  var(--Primary-white);
+		} */
+		
+		</style>
+	</template>
+</dom-module>

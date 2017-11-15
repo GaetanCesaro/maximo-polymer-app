@@ -1,0 +1,86 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<title>maximo-text style tests</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		
+		<script src="../../../main.js"></script>
+		<script src="../../../test.js"></script>
+		<script src="../../../components/webcomponentsjs/webcomponents.js"></script>
+		<script src="../../../components/web-component-tester/browser.js"></script>
+		<script src="../../../components/iron-test-helpers/mock-interactions.js"></script>
+		
+		<link rel="import" href="../../../maximocomponents/maximo-module/maximo-module.html"/>
+		
+		<style is="custom-style">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+<body>
+	<maximo-module id="module"></maximo-module>
+	<test-fixture id="text">
+		<template>
+			<maximo-text id="text" label="Test Text" ></maximo-text>
+		</template>
+	</test-fixture>
+ <script>
+suite('<maximo-text>', function() {
+var text;
+setup(function() {
+	text = fixture('text');
+});
+
+test('base text style', function(done) {
+	//test styles of base component
+	expect(getStyleProperty(text.$.wrapper, 'display')).to.equal('block', 'text display is not correct');
+	expect(rgb2hex(getStyleProperty(text.$.input, 'border-color'))).to.equal('#aeb8b8', 'text border color is not correct');
+	expect(getStyleProperty(text.$.input, 'padding-left')).to.equal('3px', 'text padding-left is not correct');
+	expect(getStyleProperty(text.$.validationicon, 'display')).to.equal('none', 'text display is not correct');
+	expect(getStyleProperty(text.$.validationicon, 'position')).to.equal('relative', 'text position color is not correct');
+	expect(getStyleProperty(text.$.wrapper, 'position')).to.equal('static', 'text display is not correct');
+ 	done();
+});
+test('calling validator when the input is empty',function(){
+	//Testing if the validator change the display:none to display:block when the if condition is not valid
+	text.validator(text,true);
+	expect(getStyleProperty(text.$.wrapper, 'display')).to.equal('block', 'text display is not correct');
+	expect(rgb2hex(getStyleProperty(text.$.input, 'border-color'))).to.equal('#d74108', 'text border color is not correct');
+	expect(getStyleProperty(text.$.input, 'padding-left')).to.equal('30px', 'text padding-left is not correct');
+	expect(getStyleProperty(text.$.validationicon, 'display')).to.equal('block', 'text display is not correct');
+	expect(getStyleProperty(text.$.validationicon, 'position')).to.equal('absolute', 'text position is not correct');
+	expect(getStyleProperty(text.$.wrapper, 'position')).to.equal('relative', 'text display is not correct');
+});
+test('calling validator when a value is set',function(){
+	text.value= "testing";
+	text.validator(text,true);
+	expect(getStyleProperty(text.$.wrapper, 'display')).to.equal('block', 'text display is not correct');
+	expect(rgb2hex(getStyleProperty(text.$.input, 'border-color'))).to.equal('#aeb8b8', 'text border color is not correct');
+	expect(getStyleProperty(text.$.input, 'padding-left')).to.equal('3px', 'text padding-left is not correct');
+	expect(getStyleProperty(text.$.validationicon, 'display')).to.equal('none', 'text display is not correct');
+	expect(getStyleProperty(text.$.validationicon, 'position')).to.equal('relative', 'text position color is not correct');
+	expect(getStyleProperty(text.$.wrapper, 'position')).to.equal('static', 'text display is not correct');
+});
+});
+
+</script>
+</body>
+</html>

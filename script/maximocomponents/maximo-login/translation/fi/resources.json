@@ -1,0 +1,31 @@
+{
+		"main_title":"Enterprise Asset Management",
+		"log_in":"Kirjaudu sisään",
+		"user_name":"Käyttäjätunnus",
+		"password":"Salasana",
+		"sign_in":"Sisäänkirjaus",
+		"error":"Anna kelvolliset valtuustiedot.",
+		"copyright_0":"Copyright IBM Corporation",
+		"copyright_1":"Kaikki oikeudet pidätetään.",
+		"copyright_2":"Lisätietoja on tuotteen lisenssissä.",
+		"loading_resources":"Lataus on meneillään",
+		"missing_config":"Kokoonpanotiedosto {0} puuttuu. Käytetään oletusarvoja.",
+		"unknown_error":"On ilmennyt tuntematon virhe. {0}",
+		"resource_error":"Merkkijonoresursseja pyydettäessä on ilmennyt virhe. {0}",
+		"contact_admin":"Jos ongelma toistuu, ota yhteys järjestelmän pääkäyttäjään.",
+//START NON-TRANSLATABLE
+		"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+//END NON-TRANSLATABLE
+		"nonfederal":"TÄRKEÄ HUOMAUTUS: Henkilötietoja (kuten arkaluonteisia taloudellisia tietoja tai potilastietoja tai mitään tiettyyn henkilöön yhdistettävissä olevia tietoja), paitsi liiketoiminnan yhteystietoja, jotka on määritetty pakollisiksi tässä järjestelmässä ja joita tukipalvelujen toimitus edellyttää, EI TULE syöttää tähän järjestelmään. Henkilötietoja syöttävä käyttäjä hyväksyy sen, että IBM voi <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">tietosuojakäytäntöjensä</a> mukaisesti käyttää ja myös siirtää kyseisiä tietoja maiden rajojen yli pyydettyjen palvelujen tuottamista varten. Jos asiakas pyytää IBM:n työntekijää tai alihankkijaa kirjaamaan asiakkaan henkilökohtaisia tietoja, tämä huomautus tulee lukea asiakkaalle ja tältä tulee hankkia suostumus, ennen kuin asiakkaan henkilökohtaisia tietoja kirjataan järjestelmään.",
+		"session_timeout":"Istuntosi on aikakatkaistu.",
+		"noworkscape" : "Käyttäjätunnuksellesi ei ole määritetty työpistettä",
+		"no_access_default":"Sinulla ei ole pyydetyn sijainnin kaikki tarvittavia valtuutuksia. Haluatko ladata oletussovelluksen?",
+		"signout" : "Olet kirjautunut ulos. Sulje selain, tai kirjaudu uudelleen sisään.",
+		"login_error" : "Sisäänkirjausvirhe",
+		"login_error_invalid" :"Käyttäjätunnuksen ja salasanan yhdistelmä ei kelpaa. Yritä uudelleen.",
+		"return" : "Palaa",
+		"logout" : "Uloskirjaus",
+		"logout_complete" : "Viimeistele uloskirjaus sulkemalla selain.",
+		"user_info_error" : "On ilmennyt virhe ladattaessa käyttäjätietoja. Ota yhteys järjestelmän pääkäyttäjään"
+}
+

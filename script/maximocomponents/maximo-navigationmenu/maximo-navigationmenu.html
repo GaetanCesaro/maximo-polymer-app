@@ -1,0 +1,51 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->
+<dom-module id="maximo-navigationmenu">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-navigationmenu-css.html">
+	<style is="custom-style" include="maximo-navigationmenu-css"></style>
+	
+	<template>
+		<div id="outer" class="outer">
+			<div id="icondiv" class="icon" on-tap="toggleMenu" >
+				<iron-icon tabindex="0" id="button" role="button" icon="Maximo:App-Menu" on-keyup="_buttonkey"></iron-icon>
+			</div>
+			<maximo-overlay id="menusection" opened="{{isopen}}">
+				<ul id="expandeddiv" class="expanded" role="menu" title="">
+					<li id="WCHeading" hidden heading disabled role="menuitem"><span class="heading">{{localize('uitext', 'mxapiwelcome', 'WorkCenters')}}</span>
+						<ul role="menu">
+							<hr id="WCHeadingHR" hidden aria-hidden="true">
+							<template id="leveltemplate" is="dom-repeat" items="{{menuoptions}}" filter="_isWC" as="navigationmenuitem">
+								<li current$="{{_disabled(navigationmenuitem.value)}}" role="menuitem" on-tap="_wait" disabled$="{{_disabled(navigationmenuitem.value)}}" aria-disabled$="{{_disabled(navigationmenuitem.value)}}" ><a id="[[id]]_wc_[[navigationmenuitem.value]]" class="itemtext" disabled$="{{_disabled(navigationmenuitem.value)}}" href="{{_itemURL(navigationmenuitem.value)}}"><img class="wcImage" src="images/workcenters/{{navigationmenuitem.value}}.svg" onerror="this.style.opacity='0'"/>{{navigationmenuitem.label}}</a></li>
+						    </template>
+						    <li role="menuitem" aria-hidden="true" style="display:none"></li>
+					    </ul>
+				    </li>
+				    <li id="APPHeading" hidden heading disabled><span class="heading">{{localize('uitext','mxapiwelcome','ToolsAndTasks')}}</span>
+					    <ul role="menu">
+						    <hr id="APPHeadingHR" hidden aria-hidden="true" >
+							<template id="leveltemplate" is="dom-repeat" items="{{menuoptions}}" filter="_isAPP" as="navigationmenuitem">
+								<li current$="{{_disabled(navigationmenuitem.value)}}" role="menuitem" on-tap="_wait" disabled$="{{_disabled(navigationmenuitem.value)}}" aria-disabled$="{{_disabled(navigationmenuitem.value)}}" ><a id="[[id]]_tool_[[navigationmenuitem.value]]" class="itemtext" disabled$="{{_disabled(navigationmenuitem.value)}}" href="{{_itemURL(navigationmenuitem.value)}}" on-tap="_wait">{{navigationmenuitem.label}}</a></li>
+						    </template>
+						    <li role="menuitem" aria-hidden="true" style="display:none"></li>
+						</ul>
+					</li>
+				    <template is="dom-if" if="{{_showMore(_allowedCount)}}">
+				    	<hr>
+				    	<li role="menuitem"><a id="[[id]]_welcome" class="itemtext" href="{{_itemURL('welcome')}}" on-tap="_wait" >{{localize('uitext', 'mxapibase', 'More...')}}</a></li>
+				    </template>
+			  	</ul>	
+			</maximo-overlay>
+		</div>
+	</template>
+	<script src="maximo-navigationmenu.js"></script>	
+</dom-module>

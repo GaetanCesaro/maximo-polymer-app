@@ -1,0 +1,82 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../components/polymer/polymer.html" />
+<link rel="import" href="../components/app-route/app-route.html"/>
+<link rel="import" href="../maximocomponents/maximo-slider-container/maximo-slider-container.html">
+<link rel="import" href="../maximocards/kpi/maximo-kpi-indicator/maximo-kpi-indicator.html"/>
+<link rel="import" href="../maximocards/businessanalytics/maximo-datasets/maximo-datasets-card.html" />
+<link rel="import" href="../maximocards/maximo-weather-card/maximo-weather-card.html"/>
+<link rel="import" href="../maximocards/businessanalytics/maximo-work-mgmt/maximo-work-mgmt.html" />
+<link rel="import" href="../maximocards/businessanalytics/maximo-supinv-mgmt/maximo-supinv-mgmt.html" />
+<!-- Data -->
+<link rel="import" href="../maximodata/maximo-weather-data/maximo-weather-data.html"/>
+
+<dom-module id="workscape-businessanalyst">	
+	<style>
+		.noshrink {
+			flex-shrink: 0;
+		} 
+	</style>
+	<template>
+		<app-route route="{{subroute}}" pattern="/:route" data="{{subrouteData}}"></app-route>
+
+		<maximo-workscape id="workscape" >
+			<maximo-slider-container id="indicatorcontainer">
+						
+				<maximo-kpi-indicator id="EMWNODOWN" kpiname="EMWNODOWN" unit="%"></maximo-kpi-indicator>
+				<maximo-kpi-indicator id="EMWNOFAIL" kpiname="EMWNOFAIL" unit="%"></maximo-kpi-indicator>
+				<maximo-kpi-indicator id="CLOSEDWNOACT" kpiname="CLOSEDWNOACT" unit="%"></maximo-kpi-indicator>
+				<maximo-kpi-indicator id="KPI-10" kpiname="KPI-10" ></maximo-kpi-indicator>
+				<maximo-kpi-indicator id="KPI-4" kpiname="KPI-4"></maximo-kpi-indicator>
+		
+			</maximo-slider-container>
+			<maximo-slider-container id="panelSlider" >	
+				<maximo-datasets-card id="workscape-datasets-card" class="noshrink" selected-query-name="MYDATASETS"></maximo-datasets-card>			
+				<maximo-work-mgmt id="workmgmt" class="noshrink"></maximo-work-mgmt>				
+				<maximo-supinv-mgmt id="supinv" class="noshrink"></maximo-supinv-mgmt>
+			</maximo-slider-container>
+		</maximo-workscape>
+	</template>
+
+<script>
+	Polymer({
+
+	    is: "workscape-businessanalyst",
+   		properties: {
+   			subroute: {
+   				type: String,
+   				notify: true
+   			}
+	    },
+	    behaviors: [BaseComponent],
+		listeners: {
+			'createnew' : 'createnew',
+			'openlib' : 'openlib'
+	 	},
+	    observers: [
+	        '_subRouteChanged(subrouteData.route)'
+	    ],
+		ready: function()
+		{
+		},
+		createnew : function(e) {
+			console.log('got create new event');
+		},
+		openlib : function(e) {
+			$M._changeWorkCenter('datasetdesigner');
+		},
+		_subRouteChanged(subRoute) {
+			if(this.subRoute !== subRoute){
+				if(subRoute !== ''){
+					//handle sub route changes here
+				}
+				this.subRoute = subRoute;
+			}
+		}
+});
+</script>
+</dom-module>	

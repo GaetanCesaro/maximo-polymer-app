@@ -1,0 +1,41 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-appmenu">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-appmenu-css.html">
+	<style is="custom-style" include="maximo-appmenu-css"></style>
+	
+	<template>
+		<div id="outer">
+			<div class="icon">
+				<iron-icon id="menuicon" class="menuicon" icon="{{menuicon}}" on-click="toggleMenu"></iron-icon>
+			</div>
+			<maximo-overlay id="menusection" opened="{{isopen}}">
+				<ul id="expandeddiv" class="expanded">
+					<li><span class="heading">{{localize('uitext', 'mxapiwelcome', 'WorkCenters')}}</span></li>
+					<hr>
+					<template id="leveltemplate" is="dom-repeat" items="{{menuoptions}}" filter="_isWC" as="appmenuitem">
+						<li><a class="itemtext" disabled$="{{_disabled(appmenuitem.value)}}" href="{{_itemURL(appmenuitem.value)}}">{{appmenuitem.label}}</a></li>
+				    </template>
+				    <li><span class="heading">{{localize('uitext','mxapiwelcome','ToolsAndTasks')}}</span></li>
+				    <hr>
+					<template id="leveltemplate" is="dom-repeat" items="{{menuoptions}}" filter="_isAPP" as="appmenuitem">
+						<li><a class="itemtext" disabled$="{{_disabled(appmenuitem.value)}}" href="{{_itemURL(appmenuitem.value)}}">{{appmenuitem.label}}</a></li>
+				    </template>
+				    <hr>
+				    <li><a class="itemtext" href="#/welcome">{{localize('uitext', 'mxapibase', 'More...')}}</a></li>
+			  	</ul>	
+			</maximo-overlay>
+		</div>
+	</template>
+	<script src="maximo-appmenu.js"></script>	
+</dom-module>

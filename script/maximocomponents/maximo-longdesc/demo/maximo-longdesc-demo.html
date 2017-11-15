@@ -1,0 +1,67 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-longdesc-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+  		<div class="outer">
+			<div style="text-align: left">
+				Value undefined<br>
+				<maximo-longdesc text="{{xx}}" auto-size></maximo-longdesc> <!-- undefined will not call into polymer observer. Leave this to test hiding --> 
+			</div>
+		</div>
+  		<div class="outer">
+			<div style="text-align: left">
+				Empty String value<br>
+				<maximo-longdesc text="" auto-size></maximo-longdesc>
+			</div>
+		</div>
+  		<div class="outer">
+			<div style="text-align: left">
+				HTML example<br>
+				<maximo-longdesc text="{{textValue}}" auto-size></maximo-longdesc>
+			</div>
+		</div>
+  		<div class="outer">
+	  		<div style="text-align: left">
+	  			Auto Sized with max-height<br>
+	  			<maximo-longdesc text="{{textValue1}}" auto-size max-height='50'></maximo-longdesc>
+			</div>
+		</div>
+		<div class="outer">
+			<div style="text-align: left">
+  				Sized (200x100)<br>
+  				<maximo-longdesc text="{{textValue1}}" width="200px" height="100px"></maximo-longdesc>
+  			</div>
+  		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-longdesc-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				textValue: {
+					type: String
+				},
+				textValue1: {
+					type: String
+				},
+			},
+			_handleRecordDataRefreshed: function(e){
+				this.textValue = this.data[0].description;
+				this.textValue1 = this.data[1].description;
+			}
+		});
+	</script>
+</dom-module>

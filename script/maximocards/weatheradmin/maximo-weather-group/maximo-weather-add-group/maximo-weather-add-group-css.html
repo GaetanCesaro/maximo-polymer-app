@@ -1,0 +1,118 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-weather-add-group-css">
+	<template>
+    	<style>
+   		
+    		.outer > div, .outer > div > div, .outer > div > div > div {
+    			display: inline-block;
+    			vertical-align: top;
+    		}
+    		
+    		.updown {
+    			width: 24px;
+    			margin-top: 40%;
+    		}
+    		
+    		.updown.ordered {
+    			margin-top: 21px;
+    		}
+    		
+    		.updown maximo-button ::content button {
+    			margin: 15px 5px;
+    		}
+    		
+    		.updown maximo-button ::content button iron-icon {
+    			width: 18px;
+				height: 18px;
+    		}
+    		
+    		.updown:not(.ordered) maximo-button:first-of-type ::content button {
+    			margin-bottom: -10px;
+    		}
+    		
+    		.updown:not(.ordered) maximo-button:last-of-type ::content button {
+    			margin-top: -10px;
+    		}
+    		
+    		.updown.ordered maximo-button ::content button {
+    			margin: 10px 5px;
+    		}
+    		
+    		.outer maximo-label ::content > label {
+    			font-size: 129%;
+    			font-family: 'HelveticaNeue-Thin';
+    		}
+    		maximo-searchbar ::content .wrapper, maximo-searchbar ::content .wrapper {
+    			padding: 5px 0px;
+    		}
+    		
+    		.buttons {
+    			margin-top: 20px;
+    			text-align: center;
+    			max-width: 1100px;
+    			padding: 20px;
+    			display: block !important;
+    		}
+    		
+    		.add {
+				@apply(--layout-vertical);
+    			text-align: center;
+    			padding: 0px 20px;
+			}
+    		
+    		.add maximo-button ::content button {
+    			margin-top: 200px;
+    		}
+
+    		.add maximo-button ::content iron-icon {
+    			height: 17px;
+    			width: 17px;
+    		}
+    		
+    		.add maximo-label ::content label {
+    			font-size: 80%;
+    		}
+    		
+    		.reset {
+    			float: right;
+    		}
+    		
+    		.moveOrdered ::content iron-icon {
+    			transform: rotate(90deg);
+    		}
+    		
+    		maximo-searchbar.selectedsearch ::content .wrapper, .reset, .moveOrdered {
+    			margin: 0px 26px 0px 0px;
+    		}
+    		
+    		maximo-searchbar.selectedsearch.rtl ::content .wrapper, .reset.rtl, .moveOrdered.rtl {
+    			margin: 0px 0px 0px 26px;
+    		}
+
+    		.moveOrdered {
+    			float: right;
+    			margin-bottom: 5px;
+    		}
+    		
+    		.buttons > maximo-button ::content button {
+				margin: 0px 20px;
+    			padding: 0px 10px 0px 20px;
+    			font-size: 129%;
+			}
+    		
+    		.nextbutton ::content iron-icon {
+    			margin: 0px !important;
+    		}
+    		
+    		.outer maximo-datalist .sort {
+    			margin-bottom: -2px !important;
+    		}
+
+		</style>
+	</template>
+</dom-module>

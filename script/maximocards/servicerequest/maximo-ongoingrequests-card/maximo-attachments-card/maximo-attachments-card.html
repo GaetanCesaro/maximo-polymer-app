@@ -1,0 +1,61 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../../maximo-attachmentsprv-card/maximo-attachmentsprv-card.html">
+<link rel="import" href="../../maximo-attachments-delete/maximo-attachments-delete.html">
+<link rel="import" href="../../../../maximocomponents/maximo-systemproperty/maximo-systemproperty.html" />
+
+<dom-module id="maximo-attachments-card">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<link rel="import" href="maximo-attachments-card-css.html">
+	<style is="custom-style" include="maximo-attachments-card-css"></style>
+	
+	<template>
+		<maximo-systemproperty
+			id="maxfilesizeprop"
+			property-name="mxe.int.doclink.maxfilesize"
+			on-property-data-refreshed="_handleGetMaxFileSize"
+			on-property-data-error="_handleGetMaxFileSizeError">
+		</maximo-systemproperty>
+			
+		<maximo-resource id="attachmentResource" on-attachment-created="_handleAttachmentCreated" on-attachment-deleted="_handleAttachmentDeleted" on-attachment-progress="_handleAttachmentProgress" on-attachment-error="_notifyError"></maximo-resource>	
+		<maximo-attachments-delete class="attachments-delete" id="deleteDialog" hidden="true" on-delete="_deleteFile" ></maximo-attachments-delete>
+		<div id="main" class="attachmentMain">
+			<maximo-simple-panel  class="attachmentPanel" id="overlaydlg" title="{{localize('uitext', 'mxapisr', 'Attachments')}}" count$="({{recordCount}})" back-button="true" on-close="close">
+				<div id="attachmentItemList"> 
+					<template is="dom-repeat" items="{{recordData}}" as="at" id="attachmentTemplate">
+						<div class="attachmentItemDiv container flex">
+							<div align="left" class="attachmentItemLeft">
+								<a href={{at.href}} target="_blank" download="{{at.describedBy.description}}" style="text-decoration: none;">
+									<maximo-label class= "attachmentItem" label="{{getAttachmentItemLabel(at, index)}}" on-click="showPreview"></maximo-label>
+								</a>
+							</div>
+							<div align="right" class="attachmentItemRight" on-tap="deleteAttachment">
+								<iron-icon class="trashIcon" icon="action-based:trash"></iron-icon>
+								<maximo-label class="deleteLabel" label="{{localize('uitext','mxapibase','Delete')}}"></maximo-label>
+							</div>
+						</div>
+					</template>
+				</div>
+				<div id="attachmentUploading">
+				</div> 
+			</maximo-simple-panel>
+				
+			<input type="file" id="fileInput" style="display:none" accept="image/*" on-change="_handleFileSelection">
+			<div id="addButton" class="addButton" on-tap="_addBtnClicked">
+				<iron-icon class="addAttachIcon" icon="icons:add-circle-outline"></iron-icon>
+				<maximo-label class="addAttachLabel" label="{{localize('uitext', 'mxapisr', 'AddAttachment')}}"></maximo-label>
+			</div>
+		</div>
+	</template>
+	
+	<script src="maximo-attachments-card.js"></script>
+</dom-module>

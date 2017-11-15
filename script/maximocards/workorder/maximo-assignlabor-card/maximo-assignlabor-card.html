@@ -1,0 +1,115 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<!--
+A description of what component does
+
+Example:
+
+    <maximo-assignlabor-card></maximo-assignlabor-card>
+
+@demo
+-->      
+<dom-module id="maximo-assignlabor-card">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-assignlabor-card-css.html">
+	<style is="custom-style" include="maximo-assignlabor-card-css"></style>
+	
+	<template>
+		<maximo-resource id="woAssignlaborResource" 
+			resource-uri="{{record.href}}"
+			query-params="{{queryparams}}"
+			additional-params='["oslc.where=person.supervisor=%22-personid-%22","responseos=MXAPILABOR"]'>
+		</maximo-resource>
+		<maximo-collection
+		    id="assignLaborAvailableLaborCollection" 
+			attribute-names="laborcode,availability,starttime,person.displayname,person._imagelibref, person.supervisor,assignment.craft.description,laborcraftrate.skilllevel,laborcraftrate.craft,assignment.craftskill.description,orgid,worklocation"
+			collection-data="{{woLaborRecordData}}"
+			debounce-duration="600"	
+			filter-data="{{woLaborFilterData}}"
+			object-name="MXAPIWODETAIL"
+			search-attribute-names="laborcode,assignment.craftskill.description,assignment.craft.description,person.displayname"
+			search-term-value="{{searchTermValue}}"
+			selected-query-name="All"
+			use-search-terms="true"
+			query-info="{{queryInfo}}"
+			additional-params='{{additionalparams}}'>
+		</maximo-collection>
+
+		<div id="maximo-assignlabor-dialogcontainer" class="maincontainer">
+			<div>
+				<div id="maximo-assignlabor-dialogcontainer-div1" style="padding: 15px; float: right;">
+					<maximo-imglib id="maximo-assignlabor-dialogcontainer-div1-image" width="90px" height="90px" image="{{record.asset._imagelibref}}" noimageicon="maximo-based:no-image" rounded></maximo-imglib>
+				</div>
+				<div>
+					<maximo-label id="maximo-assignlabor_wonum_label" label="{{localize('uitext', 'mxapiwo', 'WorkOrder')}}:" bold></maximo-label>
+					<maximo-button id="maximo-assignlabor_editbutton" action="true" on-tap="openWorkorder" label="{{record.wonum}}" easticon="maximo-based:forward" class="iconsize"></maximo-button><!--  icon="icons:chevron-right" -->
+				</div>
+				<maximo-field id="description_label" label="{{localize('uitext', 'mxapiwodetail', 'Description')}}" datalabel="{{record.description}}"></maximo-field>
+				<div id="maximo-assignlabor-wodatadiv" class="flex-equal-justified">
+					<div id="maximo-assignlabor-wodatadiv-div" class="flex-vertical">
+						<maximo-field id="assignlabor_location_label" label="{{localize('uitext', 'mxapiwodetail', 'Location')}}" datalabel="{{record.location.description}}"></maximo-field>
+						<maximo-field id="assignlabor_assetnum_label" label="{{localize('uitext', 'mxapiwodetail', 'Asset')}}" datalabel="{{record.asset.description}}"></maximo-field>
+						<div>
+							<maximo-text id="assignlabor_fromdate_Label" type="text" data-type="date"  label="{{localize('uitext', 'mxapiwodetail', 'FromDate')}}" value="{{fromDate}}"></maximo-text>
+							<maximo-text id="assignlabor_todate_Label" type="text" data-type="date"  label="{{localize('uitext', 'mxapiwodetail', 'ToDate')}}" value="{{toDate}}"></maximo-text>
+ 
+						</div>
+						<maximo-text id="assignlabor_estdur_label"  label="{{localize('uitext', 'mxapiwodetail', 'Duration')}}" value="{{duration}}" format="HHMM" width="10"></maximo-text>								
+					</div>
+				</div>
+			</div>
+			<maximo-footer>
+				<maximo-button id="assignlabor_avail_labor_close_button" label="{{localize('uitext', 'mxapibase', 'Refresh')}}" icon="action-based:reset" action="true" on-tap="reloadAvailability"></maximo-button>
+			</maximo-footer>
+		</div>
+		<hr></hr>
+		<maximo-panel label="{{localize('uitext', 'mxapiwodetail', 'MyTeam')}}">
+			<maximo-searchbar id="myteamlist-searchbar" collection="{{getLocalObject('assignLaborAvailableLaborCollection')}}" placeholder='Search'></maximo-searchbar>
+			<template id="availLaborsection" is="dom-repeat" items="{{woLaborRecordData}}" as="labor">
+			 	<div id="availLaborsectionCard" class="cardborder">
+			 		<div id="availLaborsectionCard_div" class="cardcontainer">
+			 			<div id="availLaborsectionCard_div_div" class="flex-start-justified">
+					 		<div id="availLaborsectionCard_div_div_div" style="padding:0px 30px 0px 30px; flex-shrink: 0;">
+				 				<div  id="availLaborsectionCard_div_div_div_div">
+				 					<maximo-imglib id="availLaborsectionCard_div_div_div_div_col1_img" width="75px" height="75px" image="{{labor.person._imagelibref}}" rounded noimageicon="maximo-based:no-image"></maximo-imglib>
+				 				</div>
+								<div>
+									<maximo-label id="availLaborsectionCard_div_div_div_div_description" style=" white-space: nowrap;" label="{{labor.person.displayname}}"></maximo-label>
+								</div>	
+							</div>
+							<div id="availLaborsectionCard_div_div_div2" >
+				 				<maximo-field id="availLaborsectionCard_div_div_div2_field_curstatus" label="{{localize('uitext', 'mxapiwodetail', 'Craft')}}" datalabel="{{labor.assignment.craft.description}}"></maximo-field>
+								<maximo-field id="availLaborsectionCard_div_div_div2_field_Asset" label="{{localize('uitext', 'mxapiwodetail', 'Skill')}}" datalabel="{{labor.assignment.craftskill.description}}"></maximo-field>
+								<maximo-field id="availLaborsectionCard_div_div_div2_field_location" label="{{localize('uitext', 'mxapiwodetail', 'Location')}}" datalabel="{{labor.worklocation}}"></maximo-field>
+								<maximo-field id="availLaborsectionCard_div_div_div3_field_craft" label="{{localize('uitext', 'mxapiwodetail', 'Availability')}}" datalabel="{{labor.availability}}" format="HhMm"></maximo-field>								
+								<maximo-field id="availLaborsectionCard_div_div_div2_field_starttime" label="{{localize('uitext', 'mxapiwodetail', 'StartTime')}}" datalabel="{{getDateTime(labor.starttime)}}"></maximo-field>
+							</div>	
+							<div id="availLaborsectionCard_div_div_div3" class="assignlink">								
+								<maximo-button id="availLaborsectionCard_div_div_div3_button" label="{{localize('uitext', 'mxapiwodetail', 'Assign')}}" on-tap="assignLabor" action="true" style="vertical-align:bottom"></maximo-button>
+					 		</div>		 		
+						</div>
+					</div>
+				</div>				
+			</template>	
+		</maximo-panel>
+		<maximo-footer>
+			<div id="availLaborsectionCard_footer" class="flex-center-justified">
+				<maximo-button id="assignlabor_avail_labor_close_button" label="{{localize('uitext', 'mxapibase', 'Close')}}" on-tap="closeDialog" default></maximo-button>
+			</div>
+		</maximo-footer>
+		
+	</template>
+
+	<script src="maximo-assignlabor-card.js"></script>
+
+</dom-module>

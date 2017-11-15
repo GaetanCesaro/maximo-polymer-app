@@ -1,0 +1,152 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-dialog-css">
+	<template>
+    	<style>
+			.dialog {
+			    border: 1px solid #e6e6e6;
+			    vertical-align: top;
+			    background: var(--Primary-white);
+			    color: rgba(111, 118, 118, 0.74);
+			    min-width: 250px;
+			    min-height: 100px;
+			    outline: none;
+			    border-spacing: 0px;
+			}
+			
+			.dialog h2 {
+			 	/* margin: 5px 0px; */
+			 	font-size: 120%;
+			 	white-space: nowrap;
+			 	justify-content: flex-start;
+			 	display: flex;
+			}
+			
+			.wrapper {
+			    position: absolute;
+			    box-sizing: border-box;
+				display: block;
+				padding: 0px;
+				border: 1px solid #e6e6e6;
+				opacity: 0;
+			}
+			
+			.border {
+				border: 5px solid var(--Primary-gray20);
+			}
+			
+			.header {
+				padding: 0px 15px;
+				margin: 0px;
+				/* line-height: 20px; */
+			}
+		
+			.footer {
+				padding: 10px 15px;
+				height: 30px;
+				margin: 0px;
+				line-height: 30px;
+			}
+			
+			.footer ::content h2 {
+				position: fixed;
+				bottom: 0px;
+				left: 0px;
+			}
+			
+			.title {
+				font-size: 22px;
+    			text-orientation: normal;
+    			white-space: nowrap;
+    			overflow: hidden;
+    			text-overflow: ellipsis;
+    			display: inline-block;
+    			/* max-width: 250px; */
+    			font-family: 'HelveticaNeue-Light';
+    			color: var(--Primary-blue60);
+				cursor: default;
+			}
+			
+			.close ::content svg{
+				fill: var(--Primary-white);
+			}
+			
+			.close:hover ::content svg{
+				fill: var(--Primary-blue30);
+			}
+			
+			.underlay {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 100vw;
+				height: 100vh;
+				background: #000;
+				opacity: 0;
+			}
+			
+			.internal {
+				overflow: hidden;
+				overflow-y: auto;
+				padding: 0px 15px;
+				height: 100%;
+				min-height: 60px;
+				outline: none;
+			}
+			
+			.dialogCloseButton {
+				right: 0px;
+				border-radius: 50%;
+    			background: #757575;
+				margin: -33px -14px;
+    			padding: 2px;
+    			position: absolute;
+			}
+			
+			.dialogCloseButton.rtl {
+				float: left;
+			}
+			
+			.fullSize .dialogCloseButton {
+				margin: -10px;
+    			border-radius: 50%
+			}
+			
+			.inner {
+			    border: 0px;
+			    max-width: 100vw;
+			}
+			
+			.dialogBackButton ::content svg {
+				fill: var(--Primary-blue50);
+			}
+
+			.dialogBackButton:hover ::content svg {
+				fill: var(--Primary-blue30);
+			}
+			
+			.dialogBackButton ::content svg.rtl {
+				transform: scaleX(-1);
+			}
+			
+			.dialogBackButton:hover ::content svg{
+				fill: var(--Primary-blue30);
+			}
+			
+			.dialogBackButton {
+				float: left;
+				margin: 0px 20px 0px 0px;
+			}
+			
+			.dialogBackButton.rtl {
+				float: right;
+				margin: 0px 0px 0px 20px;
+			}
+			
+		</style>
+	</template>
+</dom-module>

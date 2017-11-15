@@ -1,0 +1,290 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-inspection-form-css">
+	<template>
+    	<style>
+			
+			.mainPage {
+				width: 100%;
+				/* max-width: 1150px; */
+				display: inline-block;
+    			padding: 0px 0px 20px 0px;
+    		}
+    		
+    		.header {
+    			@apply(--layout-horizontal);
+    			@apply(--layout-justified); 
+    			background-color: var(--Primary-white);
+    			padding: 20px 70px 10px 30px;
+    		}
+    		
+			.pageDiv {
+    			@apply(--layout-vertical);
+				background: var(--Neutral-gray2);
+				text-align: left;
+				padding: 0px 30px 0px 30px;
+			}
+			
+			.pageDivQuestions {
+    			@apply(--layout-vertical);
+				background: var(--Neutral-gray2);
+				text-align: left;
+				padding: 0px 30px 30px 30px;
+			}
+
+			.pageDiv.rtl {
+				/* padding: 0px 20px 0px 0px; */
+			}
+			
+			.inlineInput ::content div {
+				@apply(--layout-horizontal);
+				@apply(--layout-center); 
+			}
+			
+			.inlineInput ::content label {
+				white-space: nowrap;
+			}
+			
+			.inlineInput ::content div input, .questionTitle ::content label {
+				margin: 0px 10px;
+				font-family:HelveticaNeue-Light;
+				font-size:22px;
+				color:var(--Primary-blue60);
+			}
+			
+			.addButton ::content button {
+				padding: 10px;
+				outline: 0px;
+				margin-left: 20px;
+			}
+			
+			.selectedButton ::content button {
+				background-color: var(--Primary-green50) !important;
+			}
+			
+			.margin > * {
+				margin: 0px 5px 0px 20px;
+			}
+			
+			.revField ::content > div {
+				margin: 6px 0px;
+			}
+			
+			.questionsPanel {
+				background-color: var(--Primary-white);
+				border:1px solid var(--Primary-gray10);
+				padding: 0px 10px;
+				position: relative;
+			}	
+			
+			table.questionTable {
+				border-collapse: collapse;
+				width: 100%;
+			}
+			
+			tr.questionHeader > th {
+				border-bottom: 1px solid var(--Primary-gray10);
+				padding: 8px 0px 8px 0px;
+			}
+
+			tr.questionRow > td {
+				border-bottom: 1px solid var(--Primary-gray10);
+			}
+
+			tr.hovered {
+				background-color: var(--Primary-gray10);
+			}
+			
+			tr ::content input {
+				transition: all 0s !important;
+				margin-top: 1px;
+				width: 95%;
+			}
+			
+			tr.hovered ::content input {
+				background-color: var(--Primary-gray10);
+			}
+
+			.highlight maximo-text ::content input {
+    			color: var(--Primary-orange50);
+    			font-style: italic;
+			}
+			
+			iron-icon.questCopied {
+    			color: var(--Primary-orange50);
+			}
+			
+			.datalistItem.dropTarget {
+				outline: 2px solid var(--Primary-blue50);
+		    	outline-offset: -1px;
+			}
+			
+			.datalistItem.dropTargetTop + .datalistItem { 
+				box-shadow: inset 0 2px 0 var(--Primary-blue50);
+			}
+			
+			.datalistItem.dropTargetBottom { 
+				box-shadow: inset 0 2px 0 var(--Primary-blue50);
+			}
+			
+			.datalistItem.dropTargetLast { 
+				box-shadow: inset 0 -2px 0 var(--Primary-blue50);
+			}
+			
+			tr[draggable] {
+				cursor: grab; 
+				cursor: -webkit-grab;
+			}
+			
+			tr.groupHeader{
+				background-color: var(--Primary-blue10);
+				font-weight: bold;
+			}
+
+			tr.groupHeader > td {
+				border-bottom: 0px;
+			}
+
+			tr.groupHeader ::content input {
+				background-color: var(--Primary-blue10);
+				font-weight: bold;
+			}
+
+			tr.groupHeader, tr.groupQuestion, tr.groupQuestionLast, tr.groupInfo {
+			    border-left: 4px solid var(--Primary-blue10);
+			    border-right: 4px solid var(--Primary-blue10);
+			}
+
+			tr.groupQuestionLast{
+			    border-bottom: 4px solid var(--Primary-blue10);
+			}
+
+			tr.groupQuestion ::content td.colGroupSeq, tr.groupQuestionLast ::content td.colGroupSeq {
+				padding-left: 12px;
+			}
+			
+			tr.groupInfo{
+				background-color: var(--Neutral-gray2);
+				border-bottom: 1px solid var(--Primary-gray10);
+			}
+
+			tr.groupInfo ::content button {
+				margin: 0px 25px;
+			}
+
+			.groupChevron{
+			     color:var(--Primary-blue50);
+			     transform: rotate(90deg); 
+			     cursor:pointer;
+			}
+			
+			.noRecords {
+				text-align: center;
+			}
+			
+			.noRecords iron-icon {
+				--iron-icon-height: 100px;
+    			--iron-icon-width: 100px;
+    			--iron-icon-fill-color: var(--Primary-gray10);
+    			
+    			/* -webkit-filter: drop-shadow(0px 45px 10px rgba(0,0,0,0.2));
+				filter: drop-shadow(0px 45px 10px rgba(0,0,0,0.2)); */
+			}
+			
+			.noRecords p { 
+				font-family:HelveticaNeue-Light-Italic;
+				font-size:22px;
+				color:var(--Primary-blue60);
+			}
+			
+			.modal {
+				display: none;
+    			position: absolute;
+    			z-index: 3000;
+    			left: 0;
+    			top: 0;
+    			width: 100%;
+    			overflow: auto;
+    			background-color: rgba(0,0,0,0.12); /* Black w/ opacity */
+    			padding-bottom: 30px;
+			}
+			
+
+			.modal-content {
+				position: relative;
+			    margin: auto;
+			    padding: 0;
+			    border: 2px solid var(--Primary-green50);
+			    background-color: var(--Primary-white);
+			    width: 94%;
+			    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+			    -webkit-animation-name: animatetop;
+			    -webkit-animation-duration: 0.4s;
+			    animation-name: animatetop;
+			    animation-duration: 0.4s
+			}
+			
+			/* Add Animation */
+			@-webkit-keyframes animatetop {
+			    from {top:-300px; opacity:0} 
+			    to {top:0; opacity:1}
+			}
+			
+			@keyframes animatetop {
+			    from {top:-300px; opacity:0}
+			    to {top:0; opacity:1}
+			}
+			
+			.instructionInput {
+				margin-top: 25px;
+				width:100%;
+				padding: 0px 0px 20px 0px;
+			}
+			
+			.instructionCollapse ::content > div {
+				width:100%;
+			}
+			.instructionCollapse{
+				z-index:1;
+			}
+			
+			.colGroupCB {
+				text-align: center;
+				width: 40px;
+			}
+			.colGroupSeq {
+				width: 70px;
+			} 
+			.colDescription {
+			} 
+			.colRequired {
+				width: 70px;
+			}
+			.colActions {
+				text-align: right;
+				width: 120px;
+			}
+			
+			.mainPage ::content input::-webkit-input-placeholder {
+				color: var(--Primary-gray50);
+				font-family: 'HelveticaNeue-Italic';
+			}
+			
+			 .mainPage ::content input::-moz-placeholder {
+			 	color: var(--Primary-gray50);
+				font-family: 'HelveticaNeue-Italic';
+			 } 
+			 
+			 .mainPage ::content input:-ms-input-placeholder {
+			 	color: var(--Primary-gray50);
+				font-family: 'HelveticaNeue-Italic';
+			 } 
+			    		
+			
+		</style>
+	</template>
+</dom-module>

@@ -1,0 +1,164 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<script>
+	/**
+	 * Wraps browser output text
+	 *
+	 * @polymerBehavior Logger
+	 */
+	
+	/**
+	 * Singleton indicator
+	 */
+	var isSet = false;
+	/**
+	 * Debug mode flag
+	 */
+	var isDebug = false;
+	/**
+	 * selected log level
+	 * index of logLevels Array
+	 */
+	var selectedLogLevel = 0;
+	
+    Logger = {
+
+      	properties: {
+      		
+      		/**
+      		 * Available log levels
+      		 * LOG
+			 * INFO
+			 * WARN
+			 * ERROR
+      		 */
+      		logLevels: {
+      			type: Array,
+      			value: function() {
+      				return ['error','warn','info','log'];
+      			},
+      			readOnly: true
+      		},
+			  
+      	},
+      	
+      	listeners: {
+      	},
+      	
+      	attached: function() {
+			if (isSet === false) {
+				this._setup()
+			}
+      	},
+      	
+      	detached:function() {
+      		if (isSet === true) {
+      			this._destroy();
+      		}
+		},
+      	
+      	/**
+      	 * Wraps the default log output
+      	 */
+		log: function(msg) {
+			if (isDebug && selectedLogLevel >= 3 ){
+				if (typeof msg != 'object') {
+					console.log( this._getFormat() , msg);
+				}else {
+					console.log(this._getFormat(), 'object');
+					console.log(msg);
+				}
+			}
+		},
+		
+		/**
+      	 * Wraps the default info output
+      	 */
+		info: function(msg) {
+			if (isDebug && selectedLogLevel >= 2 ){	
+				if (typeof msg != 'object') {
+					console.info( this._getFormat() , msg);
+				}else {
+					console.info(this._getFormat(), 'object');
+					console.info(msg);
+				}
+			}
+		},
+
+		/**
+      	 * Wraps the default warn output
+      	 */
+		warn: function(msg) {
+			if (isDebug && selectedLogLevel >= 1 ){
+				if (typeof msg != 'object') {
+					console.warn( this._getFormat() , msg);
+				}else {
+					console.warn(this._getFormat(), 'object');
+					console.warn(msg);
+				}
+			}
+		},
+
+		/**
+      	 * Wraps the default error output
+      	 */
+		error: function(msg) {
+			if (isDebug){
+				if (typeof msg != 'object') {
+					console.error( this._getFormat() , msg);
+				}else {
+					console.error(this._getFormat(), 'object');
+					console.error(msg);
+				}
+			}
+		},
+		
+		/**
+		 * Initialize singleton variables
+		 */
+		_setup: function() {
+			
+			if (isSet === true) {
+				return;
+			}
+			
+      		var debug = $M.debug;
+      		if (debug && (debug === true || debug === 'true' || debug === 1)) {
+      			isDebug = true;
+      		}else {
+      			isSet = true;
+      			return;
+      		}
+      		
+      		var logLevel = $M.logLevel;
+      		if (logLevel && this.logLevels.indexOf(logLevel.toLowerCase()) >= 0) {
+				selectedLogLevel = this.logLevels.indexOf(logLevel.toLowerCase());
+      		}
+      		
+      		isSet = true;
+      		
+      		console.info('Initializing logger with ' + this.logLevels[selectedLogLevel] + ' level.');
+      		
+		},
+		
+		/**
+		 * Destroy singleton
+		 */
+		_destroy: function() {
+  			//isSet = false;
+  			//console.log('removing singleton');
+		},
+		
+		/**
+		 * Includes log issuer in the output
+		 */
+		_getFormat: function() {
+			return '[' + this.nodeName + '] - %s';
+		}
+		
+    };
+</script>

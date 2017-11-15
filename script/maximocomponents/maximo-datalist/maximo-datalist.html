@@ -1,0 +1,54 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../maximo-button/maximo-button.html"/>
+<link rel="import" href="../maximo-checkbox/maximo-checkbox.html"/>
+
+<!-- 
+
+### Styling
+The following custom properties and mixins are available for styling:
+Custom property | Description | Default
+----------------|-------------|----------
+`--chevron-color` | Change group chevron color | `--Primary-gray70`
+`--line-height` | Change line-height of all items in the list | `20px`
+`--dl-border` | Set data list border attributes | `1px solid var(--Cool-gray30)`
+`--dl-item-border` | Mixin applied to every li in list | `{}`
+
+
+ -->
+
+<dom-module id="maximo-datalist">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-datalist-css.html">
+	<style is="custom-style" include="maximo-datalist-css"></style>
+	
+	<template>
+		<div class="wrapper">
+			<h4>{{label}}</h4>
+			<div id="datalist" class="datalist" on-scroll="_scrolled">
+				<div id="info" class="info">{{localize('uitext','mxapibase','Loading')}}</div>
+			</div>
+			<div id="controls" class="controls">
+				<div>
+					<maximo-button hidden$="{{_hideTopBottom}}" disabled="true" action="true" icon="action-based:move-to-top" title="{{localize('uitext','mxapibase','move_to_top')}}" on-tap="_moveToTop" synchronous></maximo-button>
+					<maximo-button disabled="true" action="true" icon="arrow-upward" title="{{localize('uitext','mxapibase','move_up')}}" on-tap="_moveUp" synchronous></maximo-button>
+					<div style="height:25px;display:block"></div>
+					<maximo-button disabled="true" action="true" icon="arrow-downward" title="{{localize('uitext','mxapibase','move_down')}}" on-tap="_moveDown" synchronous></maximo-button>
+					<maximo-button hidden$="{{_hideTopBottom}}" disabled="true" action="true" icon="action-based:move-to-bottom" title="{{localize('uitext','mxapibase','move_to_bottom')}}" on-tap="_moveToBottom" synchronous></maximo-button>
+				</div>
+			</div>
+		</div>
+	</template>
+	
+	<script src="maximo-datalist.js"></script>
+	
+</dom-module>

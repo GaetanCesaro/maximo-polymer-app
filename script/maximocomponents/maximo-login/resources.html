@@ -1,0 +1,48 @@
+<!-- 
+	Licensed Materials - Property of IBM
+	5724-U18
+	Copyright IBM Corporation. 2016
+ -->
+<dom-module id="login-resources">
+
+	<script language="javascript">
+		Polymer({
+		    is: 'login-resources',
+		    strings :{
+		    	"en": {
+	    			"main_title":"Enterprise Asset Management",
+	    			"log_in":"Log In",
+	    			"user_name":"User Name",
+	    			"password":"Password",
+	    			"sign_in":"Sign In",
+	    			"error":"Please enter valid credentials.",
+	    			"copyright_0":"Copyright IBM Corporation",
+	    			"copyright_1":"All rights reserved.",
+	    			"copyright_2":"See product license for details.",
+	    			"loading_resources":"",
+	    			"missing_config":"{0} configuration file is missing. Using defaults.",
+					"unknown_error":"An unknown error has occurred. {0}",
+	    			"resource_error":"There was an error while requesting string resources. {0}",
+	    			"contact_admin":"If the problem persists, contact your System Administrator.",
+	    			//START NON-TRANSLATABLE
+	    			"federal":"IMPORTANT NOTE: You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. Usage of this IS may be monitored, recorded, and subject to audit. Unauthorized use of this IS is prohibited, and subject to criminal and civil penalties. Use of this IS indicates consent to monitoring, and recording.  Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a> to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+	    			//END NON-TRANSLATABLE
+	    			"nonfederal":"IMPORTANT NOTE: Other than business contact information that is indicated as mandatory on this system and that is necessary to provide support, personal information, such as sensitive financial or medical data, and any information that is identifiable to an individual, SHOULD NOT be entered into this system. Anyone entering personal information agrees that IBM may use and transfer it across country borders according to <a href=\"https://www.ibm.com/cloud/resourcecenter/content/80\">IBM privacy policies</a>  to provide the requested services. If you are an IBM employee or contractor and a client asks that you enter their personal information, you must read this notice to them to obtain their consent before entering their personal information.",
+	    			"session_timeout":"Your session has timed out.",
+	    			"noworkscape" : "There is no Work Center defined for your userid"
+		    	}
+		    },
+		    ready: function(){
+		    	if($M){
+		    		var langBundle = this.strings[$M.lang];
+		    		if(!langBundle){
+		    			langBundle = this.strings['en'];
+		    		}
+		    		$M.storeResources('uitext', 'login', langBundle);
+		    	}
+		    }
+		});
+	
+	</script>
+
+</dom-module>

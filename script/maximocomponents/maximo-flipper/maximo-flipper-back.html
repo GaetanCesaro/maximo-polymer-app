@@ -1,0 +1,43 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->      
+<dom-module id="maximo-flipper-back">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<template>
+		<style>
+			:host {
+				backface-visibility: hidden;
+				-webkit-backface-visibility: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				transform: rotateY(180deg);
+				-webkit-transform: rotateY(180deg);
+				display: block;
+				box-sizing: border-box;
+			}
+			
+			:host.rtl {
+				transform: rotateY(-180deg);
+				-webkit-transform: rotateY(-180deg);
+			}
+		</style>
+		<content></content>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-flipper-back',
+		  	behaviors: [BaseComponent]
+		});
+	</script>
+</dom-module>

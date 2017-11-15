@@ -1,0 +1,510 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+/* jshint ignore:start */  
+
+<link rel="import" href="formatter.html">
+<link rel="import" href="logger.html">
+<script>
+
+/* jshint ignore:end */  
+	/**
+	 * Foundation Behavior for all maximo components.
+	 *
+	 * @polymerBehavior BaseComponent
+	 */
+	 var Base = {
+		/* these properties are not listed in the component.properties, but they do work */
+		properties : {
+			id: {
+            	type: String
+			},
+			idSep: {
+				type: String,
+				value: '_'
+			},
+			initialized : {
+				type: Boolean,
+				value: false
+			},
+			style: {
+				type: String,
+				notify:true
+			},
+			skin: {
+				type: String,
+				value: function(){
+					return $M.skin?$M.skin:'';
+				}
+			},
+			scopeClass: {
+				type: String 
+			},
+			layout: {
+				type: String,
+				value: '',
+				observer : '_setLayout'
+			},
+			eventListeners: {
+				value: [],
+				type: Array
+			},
+			synchronous: {
+				type: Boolean,
+				value: false,
+				notify: true
+			},
+			eventTarget: {
+				type: Object
+			},
+			panelWidth: {
+				 type: String,
+				 value: '350px'
+			},
+			sigoptions: {
+				type: String,
+				observer: '_handleSigoptionChange',
+				notify: true
+			},
+			licensekeys: {
+				type: String,
+				observer: '_handleLicenseChange',
+				notify: true
+			},
+		},
+		handlers: {},
+	  	listeners: {
+	        'user-activity': '_userActivity'
+		},
+		behaviorFunctions: [],
+		/**
+		 * Destroy this component. Call destroy on all children and remove all handlers and behavior functions.   
+		 */
+		destroy: function(meOnly){
+			var functions = this.behaviorFunctions;
+			for(var index = 0 ; index<functions.length; index++){
+				delete this[functions[index]];
+			}
+			if(!meOnly){
+				$j(this.children).each(function(){
+					if(this.hasAttribute('data-maximocomponent')){
+						this.destroy();
+					}
+				});
+			}
+			var handlers = this.handlers;
+			for(var handlerId in handlers){
+				var element = handlers[handlerId];
+				$j(element).unbind(handlerId);
+			}
+		},
+		/**
+		 * Bind an event to this component and store so it can be removed later.
+		 * @param {object} element object to bind to.
+		 * @param {string} event Type of event for bind.
+		 * @param {object} func Fuction to call when event triggers.
+		 * @return {object} handler.
+		 */
+		bindEvent: function(element, event, func){
+			var newEvent = event+'.'+this.id+'_'+element.id+'_'+this.tagName;
+			if(window.markPolymerListeners){
+				var listeners = $j(element).attr('mx-listeners');
+				if(!listeners){ 
+					listeners = {};
+				}
+				else {
+					listeners = JSON.parse(listeners);
+				}
+				listeners[event] = 1;
+				$j(element).attr('mx-listeners',JSON.stringify(listeners));
+			}
+			if(this.handlers[newEvent]){
+				if(window.markPolymerListeners){
+					var listeners = $j(element).attr('mx-listeners');
+					if(listeners){
+						listeners = JSON.parse(listeners);
+						if(listeners[event]){
+							delete listeners[event];
+						}
+					}
+					$j(element).attr('mx-listeners',JSON.stringify(listeners));
+				}
+				$j(element).unbind(newEvent);	
+			}
+			$j(element).bind(newEvent, func);
+			this.handlers[newEvent] = element;
+			return this.handlers[newEvent];
+		},
+		/**
+		 * Translate string based on user location.
+		 *
+		 * @param {string} type Type of resource bundle. ('uitext', 'message') 
+		 * @param {string} group Group for lookup in resources.
+		 * @param {string} key Key for lookup in resources.
+		 * @param {array} params
+		 * @return {string} localized value or key if not found.
+		 */
+		localize: function(type, group, key, params){ // need to change to this once files are updated
+			return $M.localize(type, group, key, params);
+		},
+		/**
+		 * Close top most dialog.
+		 */
+		closeDialog: function(){
+			$M.closeDialog();
+		},
+		/**
+		 * Display common Not Available (N/A) localized label.
+		 */
+		getNoDataString: function(){
+			return $M.getNoDataString();
+		},
+		/**
+		 *	Generates a Maximo link that points to a specific record.
+		 */
+		getMaximoRecordLink: function(appName, id){
+			return $M.getMaximoRecordLink(appName, id);
+		},
+		/**
+		 *	Opens Maximo and brings up the selected record.
+		 *
+		 * @param {string} appName ID of application to open.
+		 * @param {string} id Unique ID of record to open.
+		 */
+		openMaximoRecord: function(appName,id){
+			$M.openMaximoRecord(appName, id);
+		},
+		_setLayout: function(newValue, oldValue){
+			this['layout_'+((newValue && newValue !=='')?newValue:'default')] = true;
+			this['layout_'+oldValue] = false;
+			this._applyAttributes([{'name':'layout','default':'default','concat':false,'pre':'data-','ignoreProperty':true}]);
+		},
+		_fixClass: function(){
+			this.parentClass = '';
+			var i = 0;
+			var parent = this;
+			if (parent.parentNode) {
+				do {
+					parent = parent.parentNode.host?parent.parentNode.host:parent.parentNode;
+					if(parent.tagName){
+						var tName = parent.tagName.toLowerCase();
+						if(tName.indexOf('maximo')>=0){
+							this.parentClass += ' '+tName;	
+						}
+					}
+					i++;
+				}
+				while (i < 1 && parent.parentNode);
+			}
+		},
+		_applyAttributes : function(attributes){
+			var apply = function(attr, element, value){
+				var newValue = $j(element).attr(attr.name);
+				if(false !== attr.concat){
+					newValue = value + (newValue?';'+ newValue:'');
+				}
+				else {
+					newValue = value;
+				}
+			
+				var pre = attr.pre?attr.pre:'';
+				$j(element).attr(pre+attr.name, newValue);
+			};
+			if(this.root._lightChildren){
+				var component = this;
+				var children = component.root._lightChildren;
+				var childElementCount = 0;
+				var firstElement;
+				attributes.forEach(function(attr){
+					var componentValue = component.getAttribute(attr.name);
+					if(!componentValue){
+						componentValue = component[attr.name];
+					}
+					if(!componentValue && attr['default'] && (attr.ignoreProperty|| component.properties[attr.name])){
+						componentValue = attr['default'];
+						component.setAttribute(attr.name, componentValue);
+					}
+					if(componentValue){
+						var found = false;
+						children.forEach(function(child){
+							if(child.nodeType === 1){
+								if(childElementCount===0){
+									firstElement = child;
+								}
+								childElementCount++;
+								if(child.getAttribute('data-'+attr.name)==='true'){
+									found = true;
+									apply(attr, child, componentValue);
+								}
+								var styleElements = $j(child).find('[data-'+attr.name+'="true"]');
+								styleElements.each(function(){
+									found = true;
+									apply(attr, this, componentValue);
+								});
+							}
+						});
+						if(true !== attr['markers-required'] && childElementCount === 1 && !found){
+							apply(attr, firstElement, componentValue);
+						}
+					}
+				});
+			}
+		},
+		/**
+		 *	Get the top parent within this document.
+		 */
+		getTopParentElement: function(){
+			var element = this;
+			while (element.parentElement !== null){
+				element = element.parentElement;
+			}
+			return element;
+		},
+		_applyTemplateIDs: function(){
+			var self = this;
+			if(this.idObserversAdded){
+				return;
+			}
+			if(!$M.mutationCount){
+				$M.mutationCount = 0;
+			}
+			$M.mutationCount++;
+			this.idObserversAdded = true;
+			// code to find the template
+			// check the list of registered templates before searching - or this will occur a lot
+			var templates = this.getElementsByTagName('template');
+			for (var i=0; i<templates.length; i++){
+				var template = templates[i];
+				if (template.is === 'dom-repeat'){
+					// dom change should tell us when the template is updated
+					var self = this;
+					// calling this way helps with closures?
+					this.bindEvent(template, 'dom-change', function(object){
+						self._templateDomChange(object);
+					});
+				}
+				else if(template.parentNode.tagName === 'IRON-LIST' && !template.className.includes('maximo-table-editable')){
+					var self = this;
+					var items = template.parentNode.$.items;
+					this.listMutationObserver = new MutationObserver(function(mutations) {
+						$M._updateListInstanceIds(self, items);
+						//self._templateDomChange(items);
+					});
+					this.startListMutationObserver = function(){
+						self.listMutationObserver.observe(items, { childList: true , subtree: true, attributes: true});	
+					}
+					this.startListMutationObserver();
+				}
+				else {
+
+					this.bindEvent(template, 'dom-change', function(object){
+						self._applyTemplateIDs();
+					});
+				}
+			}
+		},
+		ready: function(){
+			this._applyTemplateIDs(); 
+			
+			if(!this.dynamic){
+				this._fixClass();
+				if (this.$) { //in case a module only has script
+					var keys = Object.keys(this.$);
+					keys.forEach(function(key) {
+						var child = this.$[key]; 
+						if(child.tagName !== 'MAXIMO-COLLECTION'){
+							child.setAttribute('id', this.buildId(key));
+							$j(this.$[key]).addClass(this.parentClass);
+						}  
+					}, this);
+					var idPrefix = this.id + this.idSep;
+					if(this.domHost !== undefined && this.domHost !== null && this.domHost.id)
+					{
+						idPrefix = this.domHost.id + this.idSep + this.id + this.idSep;
+					}
+					if (this.$.content && this.$.content._distributedNodes) {
+						this.$.content._distributedNodes.forEach(function(node) {
+							if (node.nodeType === 1) {
+								$j(node).find('*').each(function() {
+										$j(this).attr('id',idPrefix+ $j(this).attr('id'));
+								});
+							}
+						});
+					}
+				}
+			}
+
+			if (this.eventListeners){
+				this.eventListeners.forEach(function(listener){
+					$M.addListener(listener, this);
+				},this);
+			}
+		},
+		attached: function(){
+			if (!this.initialized && !this.dynamic) {
+				$M.addComponent(this);
+			}
+			var attributes = [{'name':'style'},{'name':'layout','default':'default','concat':false,'pre':'data-','ignoreProperty':true}];
+			this._applyAttributes(attributes);
+			//these should be done in attach so all children can be built
+			$j(this).children(0).addClass(this.skin);
+			$j(this).children(0).find('*').addClass(this.skin);
+			$j(this).attr('data-maximoComponent', 'true');
+			if($M.touch && this.childNodes && this.$){
+				var hashKeys = Object.keys(this.$);
+				var my = this;
+				hashKeys.forEach(function(key){
+					$j(my.$[key]).toggleClass('touch', true);
+				});
+			}
+		},
+		/**
+		 * Get a new id with the {componentID}{separator}{childID}.
+		 * @param {object} element object to use when building the ID.
+		 * @return {string} ID.
+		 */
+		buildId: function(childId, trackMissing) {
+			
+			if(trackMissing!==undefined && (!this.id || this.id.length===0)){
+				this.missingId = true;
+			}
+			var id;
+			if(this.domHost === undefined || this.domHost === null)
+			{
+				id = (this.id.length>0?this.id+this.idSep:'')+childId;
+			}
+			else {
+				id = (this.domHost && this.domHost.id?this.domHost.id + this.idSep:'') + this.id+this.idSep+childId;
+			}
+			return id;
+		},
+		/**
+		 * Return a valid value or an empty string.
+		 * @param {string} value
+		 * @return {string} value or ''.
+		 */
+		getEmptyValue : function (value) {
+			return value ? value : '';
+		},
+		/**
+		 * Convert a date to a string
+		 *
+		 * @param {date} date
+		 * @param {string}
+		 */
+		getDate : function (date) {
+			if (date) {
+				return new Date(date).toDateString();
+			}
+		},
+		/**
+		 * Convert a datetime to a string.
+		 *
+		 * @param {date} date
+		 * @param {boolean} displayTimezone
+		 * @return {string) 
+		 */
+		getDateTime : function (date, /*boolean*/displayTimezone) {
+			if (date) {
+				if (displayTimezone){
+					return new Date(date).toString();
+				}
+				else {
+					date = new Date(date).toString();
+					return date.substring(0,date.indexOf('GMT')).trim();
+				}
+			}
+		},
+		/**
+		 * Get the object based on ID.
+		 * @param {string} objectId ID of object to find.
+		 * @return {Object} Dom Object.
+		 */
+		getLocalObject : function (objectId) {
+			if(objectId.toUpperCase()===this.tagName){
+				return this;
+			}
+			return this.$[objectId];
+		},
+		/**
+		 * Find an object defined at the window level
+		 * @param {string} objectId id for which to search.
+		 * @return {object}.
+		 */
+		getGlobalObject : function (objectId) {
+			return window[objectId];
+		},
+		/**
+		 * Is this allowed on a table.
+		 * @return {boolean}.
+		 */
+		allowedOnTable: function(){
+			return false;	
+		},
+		_templateDomChange : function (object) {
+			$M.templateUpdated(object.target?object.target:object);
+		},
+		/**
+		 * Must be extended. Does nothing in base.
+		 */
+		positionOverlay: function(){
+			//must be extended.
+		},
+		/**
+		 * Must be extended. Does nothing in base.
+		 */
+		toggleLoading: function(){
+			//must be extended.
+		},
+		
+		booleanAsString: function(bool){
+			return bool+'';
+		},
+		
+		/**
+		 * To be called via events on elements Example would be scroll or tap. To make sure user activity is tracked when events do not or are stopped from bubbling 
+		 */
+		_userActivity: function(e){
+			if($M.login){
+				$M.login.fire('login-user-activity', {'type':(e.detail && e.detail.type)?e.detail.type:e.type});
+			}
+
+		},
+		_handleSigoptionChange: function(e){
+			if (this.sigoptions === undefined) {
+				return;
+			}
+			var hasAccess = $M.checkSigoptions(this.sigoptions);
+			if (hasAccess === false) {
+				$j(this).attr('hidden', true);
+				console.log('access denied for ' + this.id);
+			}
+			// To remove:
+			//$j(this).removeAttr('hidden');
+		},
+		_handleLicenseChange: function(e){
+			if (this.licensekeys === undefined) {
+				return;
+			}
+			var hasAccess = $M.checkLicenses(this.licensekeys);
+			if (hasAccess === false) {
+				$j(this).attr('hidden', true);
+				console.log('license denied for ' + this.id);
+			}
+			// To remove:
+			//$j(this).removeAttr('hidden');
+		},
+		isAuthorized: function(sigoptions){
+			return $M.checkSigoptions(sigoptions);
+		},
+		isLicensed: function(license){
+			return $M.checkLicenses(license);
+		}
+	};
+	BaseComponent = [Formatter, Base];
+/* jshint ignore:start */
+</script>
+/* jshint ignore:end */

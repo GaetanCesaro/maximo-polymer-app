@@ -1,0 +1,91 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../maximo-datadesign-objsets/maximo-datadesign-objsets.html" />
+<link rel="import" href="../maximo-datadesign-deffilter/maximo-datadesign-deffilter.html" />
+<link rel="import" href="../maximo-datadesign-content/maximo-datadesign-content.html" />
+<link rel="import" href="../maximo-datadesign-save/maximo-datadesign-save.html" />
+<link rel="import" href="../maximo-datadesign-savedialog/maximo-datadesign-savedialog.html" />
+<link rel="import" href="../maximo-datadesign-previewdialog/maximo-datadesign-previewdialog.html" />
+
+<dom-module id="maximo-datadesign-main">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-datadesign-main-css.html">
+	<style is="custom-style" include="maximo-datadesign-main-css"></style>		
+  <template>
+	<maximo-collection
+  		auto 
+	    id="analyticdataset" 
+		attribute-names="analyticdatasetid,analyticdatasetnum,createddate,description,description_longdescription,ispublic,lastupdatedate,intobjectname,oslcqueryid,queryid,clausename,owner,templatename,maxintobject.app"
+		collection-data="{{dataset}}"
+		debounce-duration="600"
+		dynamic-attribute-names="{{dynamicAttributeNames}}"				
+		object-name="MXAPIANALYTICDATASET" 
+		query-info="{{queryInfo}}" 
+		use-search-terms="true"	
+		on-record-data-refreshed="_handleRecordDataRefreshed"
+		on-record-created="handleRecordCreated"
+		on-record-saved="handleRecordSaved"
+		on-data-error="collectionDataError"
+		>				
+	</maximo-collection>
+	
+	<maximo-collection
+		auto
+	    id="endpointcollection" 
+		attribute-names="endpointname,rel.maxendpointdtl{property,value}"
+		collection-data="{{endpointData}}"
+		debounce-duration="600"
+		object-name="MXAPIENDPOINT" 
+		selected-query-name="All"
+		search-attribute-names="endpointname"
+		search-term-value="WATSONOAUTH"
+		use-search-terms="true"
+		refresh-interval="300">				
+	</maximo-collection>
+  
+	<iron-ajax
+		id="mxajax_testsql"
+	    handle-as="json"
+	    on-response="processTestSqlResponse"
+	    on-error="processTestSqlError"
+	    timeout="60000">
+	</iron-ajax>
+	
+	<maximo-resource id="newDatasetResource" resource-uri="{{newDatasetHref}}"></maximo-resource>
+	<div class="mainPage">
+		<maximo-wizard id="wizard" label="{{localize('uitext', 'mxapiwosdataset', 'DataSetDesigner')}}" class="selectedFilter">
+			<maximo-wizard-step id="designer_tab1" intvalue="0" label="{{localize('uitext', 'mxapiwosdataset', 'SelectObjectSet')}}" 
+				help-text="{{localize('uitext', 'mxapiwosdataset', 'ObjectSetsInfo')}}">
+			</maximo-wizard-step>
+			<maximo-wizard-step id="designer_tab2" intvalue="1" label="{{localize('uitext', 'mxapiwosdataset', 'ConfigureContent')}}"
+				help-text="{{localize('uitext', 'mxapiwosdataset', 'RenamefieldsInfo')}}">
+			</maximo-wizard-step>
+			<maximo-wizard-step id="designer_tab3" intvalue="2" label="{{localize('uitext', 'mxapiwosdataset', 'DefineFilters')}}"
+				help-text="{{localize('uitext', 'mxapiwosdataset', 'DefineawhereclauseInfo')}}">
+			</maximo-wizard-step>
+			<maximo-wizard-step id="designer_tab4" intvalue="3" label="{{localize('uitext', 'mxapiwosdataset', 'Save')}}"
+				help-text="{{localize('uitext', 'mxapiwosdataset', 'SpecifyanameInfo')}}">
+			</maximo-wizard-step>
+		</maximo-wizard>
+		<div id="pageDiv" class="pageDiv">
+			<iron-pages id="pages" selected="{{selectedtab}}">
+		      <maximo-datadesign-objsets id="objsets" dataset="{{_dataset}}" selected="{{selectedtab}}"></maximo-datadesign-objsets>
+		      <maximo-datadesign-content id="crcontent" dataset="{{_dataset}}" selected="{{selectedtab}}" ></maximo-datadesign-content>      
+		      <maximo-datadesign-deffilter id="deffilter" dataset="{{_dataset}}" selected="{{selectedtab}}"></maximo-datadesign-deffilter>
+		      <maximo-datadesign-save id="saveit" dataset="{{_dataset}}" selected="{{selectedtab}}"></maximo-datadesign-save>
+		    </iron-pages>  
+	    </div>
+	 </div>
+  </template>
+  <script src="maximo-datadesign-main.js"></script>
+
+</dom-module>

@@ -1,0 +1,40 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2017
+-->      
+<dom-module id="maximo-flipper-front">
+	<link rel="import" href="../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+
+	<link rel="import" href="../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+	
+	<template>
+		<style>
+			:host {
+				backface-visibility: hidden;
+				-webkit-backface-visibility: hidden;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 2;
+				/* for firefox 31 */
+				transform: rotateY(0deg);
+				-webkit-transform: rotateY(0deg);
+				display: block;
+				box-sizing: border-box;
+			}
+			
+		</style>
+		<content></content>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-flipper-front',
+		  	behaviors: [BaseComponent]
+		});
+	</script>
+</dom-module>

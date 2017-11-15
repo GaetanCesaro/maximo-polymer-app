@@ -1,0 +1,40 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<link rel="import" href="../workorder/maximo-work-wmatl/maximo-work-wmatl.html" />
+<link rel="import" href="../workorder/maximo-work-backlog/maximo-work-backlog.html" />
+<link rel="import" href="../workorder/maximo-overdue-work/maximo-overdue-work.html" />
+      
+<dom-module id="maximo-work-mgmt">
+
+	<link rel="import" href="../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-work-mgmt-css.html">
+	<style is="custom-style" include="maximo-work-mgmt-css"></style>
+	
+  <template>
+	<maximo-panel id="workmgmtpnl" label="{{localize('uitext', 'mxapiwosdataset', 'WorkManagement')}}" width="600px" height="600px">		
+		<maximo-content-selector id="contentSelector" class="horizontal center-justified layout selectedFilter" block="true">		
+			<maximo-label id="maximo_priority_label1" intvalue="all" on-tap="newPriority" label="{{localize('uitext', 'mxapiwosdataset', 'all')}}"></maximo-label>
+			<maximo-label id="maximo_priority_label2" intvalue="1" on-tap="newPriority" label="{{localize('uitext', 'mxapiwosdataset', 'Priority1')}}"></maximo-label>
+			<maximo-label id="maximo_priority_label3" intvalue="2" on-tap="newPriority" label="{{localize('uitext', 'mxapiwosdataset', 'Priority2')}}"></maximo-label>
+			<maximo-label id="maximo_priority_label4" intvalue="3" on-tap="newPriority" label="{{localize('uitext', 'mxapiwosdataset', 'Priority3')}}"></maximo-label>
+			<maximo-label id="maximo_priority_label5" intvalue="4" on-tap="newPriority" label="{{localize('uitext', 'mxapiwosdataset', 'Priority4')}}"></maximo-label>
+		</maximo-content-selector>
+			
+		<maximo-overdue-work id="overduework" priority={{priority}}></maximo-overdue-work>
+		<maximo-work-backlog id="workbacklog" priority={{priority}}></maximo-work-backlog>
+		<maximo-work-wmatl id="workwaitingmtl" priority={{priority}}></maximo-work-wmatl>
+	</maximo-panel>
+  </template>
+
+  <script src="maximo-work-mgmt.js"></script>
+
+</dom-module>

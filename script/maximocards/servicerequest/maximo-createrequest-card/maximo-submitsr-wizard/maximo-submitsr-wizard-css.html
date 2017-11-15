@@ -1,0 +1,92 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-submitsr-wizard-css">
+	<template>
+    	<style>
+    					
+			:host .panelHeader ::content maximo-label ::content label, .panelHeader div.title {
+/* 				color: var(--Primary-white); */
+				color: #335c72;
+				font-size: 24px;
+				font-family: HelveticaNeue-Light;
+				font-weight: normal !important;
+			}
+			
+			:host .panelHeader {
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+				margin: 0px;
+				background-color: #ffffff;
+ 			}
+ 			.panelHeaderDesktop{
+ 				max-width : 550px;
+ 				min-width : 380px;
+ 				width : 50%;
+ 			}
+ 			:host .panelHeader maximo-wizard {
+				@apply(--layout-end-justified);
+				
+ 			}
+ 			
+ 			:host .panelHeader maximo-wizard ::content .help {
+ 				height: 0px;
+ 			}
+ 			
+ 			:host .panelHeader maximo-wizard ::content .maindiv {
+ 				text-align: end;
+ 				padding-top: 3px;
+ 			}
+ 			
+ 			:host .panelHeader maximo-wizard ::content .outer .label {
+				font-family:HelveticaNeue-Light;
+				font-size:14px;
+				color:#464646;
+				line-height:36px;
+				text-align:center;
+				padding-bottom: 2px;
+				padding-left: 7px;
+				padding-right: 7px;
+ 			}
+ 			
+ 			:host .backButton {
+ 				@apply(--layout-start-justified);
+ 			}
+ 			
+ 			:host .backButton ::content .button {
+				font-family:HelveticaNeue;
+				font-size:18px;
+				color:#4178be;
+				letter-spacing:0px;
+				text-align:left;
+				margin-left: 6px; 			
+    		}
+    		
+    		:host .backButton ::content .button .icon {
+    			width: 9px;
+    			height: 15px;
+    			padding-bottom: 2px;
+    		}
+    		
+    		:host .panel {
+    			height: 100%;
+    			width: 100%;
+    		}
+    		
+    		:host .pageDiv {
+    			height: calc(100% - 62px);
+    		}
+    		.stepPages{
+    			height : 100%;
+    		}
+    		
+    		.submitsrWizard ::content .inner {
+    			pointer-events: none;
+    		}
+ 			
+		</style>
+	</template>
+</dom-module>

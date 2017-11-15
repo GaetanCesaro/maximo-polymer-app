@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE weblogic-web-app PUBLIC "-//BEA Systems, Inc.//DTD Web Application 8.1//EN"
+                "http://www.oracle.com/technology/weblogic/servers/wls810/dtd/weblogic810-web-jar.dtd">
+
+<weblogic-web-app>
+
+	<security-role-assignment>
+		<role-name>maximouser</role-name>
+		<principal-name>maximousers</principal-name>
+	</security-role-assignment>
+	
+    <context-root>/maximo-x</context-root>
+
+	
+</weblogic-web-app> 

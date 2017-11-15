@@ -1,0 +1,155 @@
+<!--
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * 5724-U18
+ *
+ * (C) Copyright IBM Corp. 2016,2017 All Rights Reserved
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ */
+-->
+
+<dom-module id="maximo-weather-group-css">
+  <template>
+    <style>
+      :host {
+        background: white;
+        border-radius: 3px;
+        display: block;
+        margin: 15px 18px;
+        opacity: 1;
+        position: relative;
+        transition: opacity 0.4s;
+      }
+
+      :host([narrow-viewport]) .header {
+        @apply(--layout-vertical);
+      }
+
+      :host(:not([narrow-viewport])) .header {
+        @apply(--layout-horizontal);
+      }
+
+      :host(:not([narrow-viewport])) .header > div:not(.actions) {
+        margin: 0 0 13px 10px;
+      }
+
+      .main {
+        margin-bottom: 10px;
+      }
+
+      .main > div {
+        @apply(--layout-horizontal);
+        @apply(--layout-end-justified);
+      }
+
+      .main.active > div {
+        background-color: #c0e6ff;
+        height: 48px;
+      }
+
+      .main > div > .title {
+        @apply(--layout-flex-11);
+        color: #325c80;
+        font-family: 'HelveticaNeue-Light';
+        font-size: 22px;
+        letter-spacing: 0;
+        margin: 7px 0 0 7px;
+        text-align: left;
+      }
+
+      .main > div > .add-button ::content > .maximo-button {
+        background-color: transparent;
+        border: 0px;
+        color: #4178be;
+        font-family: 'HelveticaNeue-Light';
+        font-size: 14px;
+        height: 40px;
+        padding: 4px 10px 4px 4px;
+      }
+
+      .main:not(.active) > div > .add-button:hover ::content > .maximo-button {
+        background-color: #325c80;
+        color: #FFF;
+      }
+
+      .main > div > .add-button ::content > .maximo-button > .icon {
+        fill: #4178be;
+        height: 22px;
+        margin-right: 8px;
+        width: 22px;
+      }
+
+      .main.active > div > .add-button ::content > .maximo-button {
+        color: #4b8400;
+      }
+
+      .main.active > div > .add-button ::content > .maximo-button > .icon > svg {
+        fill: #4b8400;
+      }
+
+      .main.active > div > .add-button:hover,
+      .main.active > div > .add-button:hover ::content > .maximo-button:hover {
+        background-color: transparent;
+        color: #4b8400;
+      }
+
+      .main.active > div > .add-button ::content > .maximo-button:hover > .icon > svg {
+        fill: #4b8400;
+      }
+
+      .header {
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
+        min-width: 900px;
+      }
+
+      .header > div {
+        @apply(--layout-flex-2);
+        color: #3c4646;
+        font-family: 'HelveticaNeue-Bold';
+        font-size: 14px;
+        line-height: 12.96px;
+        margin: 10px;
+        text-align: left;
+      }
+
+      .header > div.formula {
+        @apply(--layout-flex-3);
+      }
+
+      .header > div.actions {
+        @apply(--layout-flex);
+      }
+
+      .nomethod {
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 14px;
+        height: 47px;
+        line-height: 47px;
+        padding: 0 10px;
+      }
+
+      .score-item {
+        border-top: 1px solid #e0e0e0;
+        display: block;
+      }
+
+      .score-item:last-of-type {
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .active {
+        border: 3px solid #c0e6ff;
+      }
+
+      .new_method_form {
+        display: block;
+      }
+    </style>
+  </template>
+</dom-module>

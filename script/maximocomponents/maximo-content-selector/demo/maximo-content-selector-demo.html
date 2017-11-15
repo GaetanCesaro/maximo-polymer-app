@@ -1,0 +1,48 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../../maximo-label/maximo-label.html">
+<dom-module id="maximo-content-selector-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+  		<div class="outer">
+	  		<div style="text-align: left">
+	  			<maximo-content-selector id="CS1">
+		  			<maximo-label id="CS1_a" intvalue="all" on-tap="_tapped" label="Label A"></maximo-label>
+					<maximo-label id="CS1_b" intvalue="all" on-tap="_tapped" label="Label B"></maximo-label>
+	  			</maximo-content-selector>
+	  			<maximo-content-selector id="CS2" class="horizontal center-justified layout selectedFilter" block="true">
+	  				<maximo-label id="CS2_a" intvalue="all" on-tap="_tapped" label="Label A"></maximo-label>
+	  				<maximo-label id="CS2_b" intvalue="all" on-tap="_tapped" label="Label B"></maximo-label>
+	  				<maximo-label id="CS2_c" intvalue="all" on-tap="_tapped" label="Label C"></maximo-label>
+	  				<maximo-label id="CS2_d" intvalue="all" on-tap="_tapped" label="Label D"></maximo-label>
+	  			</maximo-content-selector>
+	  			<div style="max-width:200px">
+		  			<maximo-content-selector id="CS3" class="horizontal center-justified layout selectedFilter" block="true">
+	  					<maximo-label id="CS3_a" intvalue="all" on-tap="_tapped" label="Label A"></maximo-label>
+	  					<maximo-label id="CS3_b" intvalue="all" on-tap="_tapped" label="Label B"></maximo-label>
+	  					<maximo-label id="CS3_c" intvalue="all" on-tap="_tapped" label="Label C"></maximo-label>
+	  					<maximo-label id="CS3_d" intvalue="all" on-tap="_tapped" label="Label D"></maximo-label>
+	  				</maximo-content-selector>
+	  			</div>
+			</maximo-content-selector>
+			</div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-content-selector-demo',
+			behaviors: [BaseComponent],
+			properties: {
+
+			},
+			_tapped: function(e){
+				
+			}
+		});
+	</script>
+</dom-module>

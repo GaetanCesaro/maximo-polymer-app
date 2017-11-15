@@ -1,0 +1,171 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-comments-card-css">
+	<template>
+    	<style>
+    	
+    	:host {
+    	
+    	}
+    	.inputCommentDiv{
+    		width : 100%;
+    		height : 36px;
+    		background: #4278bb;
+    		bottom : 0px;
+    		position : absolute;
+    		padding : 12px 0px 12px 0px;
+    		left : 0;
+    		right : 0;
+    		z-index: 1002;
+    	}
+    	.inputComment::content input{
+    		width : 100%;
+    	}
+    	.inputComment {
+    		width : 100%;
+    	}
+    	.inputComment::content div{
+    		padding-left : 10px;
+    	}
+    	.inputCommentChildDiv{
+    		width : calc(100% - 65px);
+    		padding-right : 15px;
+    	}
+		.sendMessageButtonIcon{
+			width : 35px;
+			height : 35px;
+		}
+		.sendMessageButtonIcon:hover {
+			cursor: pointer;
+		}
+		.commentPanel {
+			height : 100%;
+		}
+		.commentPanel::content .panelHeader {
+			padding: 10px 0px 12px 0px;
+			background-color : #ffffff;
+		}
+		.commentPanel::content .panelTitle {
+			@apply(--layout-center-justified);			
+		}
+		.commentPanel::content .panelInternal{
+			height : calc(100% - 110px);	/* 100% - (title + comment input size) */ 
+			padding: 10px 13px 0px 13px;
+			position: relative;
+		}
+		.commentPanel::content .panel{
+			height: 100%;
+		}
+		div.commentMain {
+			height : 100%;
+		}
+		
+		.messageBubble::content .leftPersonImage:hover {
+			cursor: pointer;
+		}
+
+		.personInfo {
+			padding:0px;
+			border: none;
+			z-index: 1001;
+			color:white;
+			background-color: rgba(0,0,0,0);
+			box-shadow: none;
+			position: absolute;
+			width: 100%;
+			max-width: 90%;
+		}
+		
+		.personInfo .personInfoPictureBorder {
+		    border: 1px solid #e0e0e0;
+		    background: #f9f9f9;
+			width: 50px;
+			height: 50px;
+			box-shadow:0px 2px 10px 0px rgba(0,0,0,0.50);
+		    border-radius: 35px;
+		    position: absolute;
+		    display: block;
+		    padding:8px;
+		}
+		
+
+		.personInfo .personInfoLeftContentWrapper {
+		    left: 35px;
+		}
+		
+		.personInfo .personInfoRightPictureBorder {
+		    right : -2px;;
+
+		}
+		.personInfo .personInfoRightPictureWrapper {
+		    right : -1px;
+		}
+
+		.personInfo .personInfoRightContentWrapper {
+		    right: 35px;
+		}
+		
+		.personInfo .personInfoContentWrapper {
+		    border: 1px solid #e0e0e0;
+		    
+		    top: 35px; 
+		    position: absolute;
+		    min-width: 132px;
+		    min-height :20px;
+		    background: #f9f9f9;
+		    padding: 21px 21px 0px 21px;
+			box-shadow:0px 2px 10px 0px rgba(0,0,0,0.50);
+		}
+		
+		.personInfo .personInfoPictureWrapper {
+ 			width: 50px;
+			height: 50px;
+		    background: #f9f9f9;
+		    border-radius: 35px;
+		    position: absolute;
+		    padding:8px;
+		}
+		
+		.personInfo .personInfoIconContainerPhone {
+			@apply(--layout-horizontal);
+			@apply(--layout-center);
+			@apply(--layout-around-justified);
+			
+			height: 70px;
+		}
+
+		.personInfo .personInfoIconContainerDesktop {
+			@apply(--layout-vertical);
+			@apply(--layout-center);
+			height: 61px;
+			padding-top: 9px;
+		}
+		
+		.personInfo .personInfoIcon {
+			width: 30px;
+			height: 30px;
+		}
+		
+		.personInfoImage::content .noimage{
+			fill: #aeaeae;
+		}
+		
+		.personInfo .personInfoNameWrapper {
+		}
+		
+		.personInfo .personInfoLinkDesktop {
+			padding: 3px;
+			color: #0000ff;
+		}
+		
+		.personInfo .personInfoLinkDesktop span {
+			color: #0000ff
+		}
+
+		</style>
+	</template>
+</dom-module>

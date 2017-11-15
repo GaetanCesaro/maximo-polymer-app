@@ -1,0 +1,188 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+<dom-module id="maximo-input-card-css">
+	<template>
+    	<style>
+			
+			:host * {
+				/* border: 1px solid black; */
+			}
+			
+			.card {
+				
+				background-color: var(--Primary-white);
+				border-bottom: 10px solid var(--Primary-blue40);
+				box-shadow: 2px 2px 2px var(--Cool-gray40);
+			}
+			
+			.card.highlight {
+				border: 2px solid var(--Primary-green10);
+    			outline-color: var(--Primary-green10) !important;
+    			border-bottom: 7px solid var(--Primary-green10) !important;
+    		}
+			
+			.dashedBorder {
+				border:2px dashed var(--Primary-blue50);
+			}
+			
+			.header {
+				padding: 10px;
+				@apply(--layout-horizontal);
+      			@apply(--layout-justified);
+      			
+      			border-bottom: 1px solid var(--Neutral-gray10);
+			}
+			
+			maximo-label.copy ::content label {
+				color: var(--Primary-orange50);
+			}
+			
+			iron-icon.copy {
+				fill: var(--Primary-orange50);
+				--iron-icon-fill-color: var(--Primary-orange50);
+			}
+			
+			.content {
+				@apply(--layout-horizontal);
+			}
+			
+			.content > div {
+				padding: 10px;
+			}
+			
+			.bottom-padding {
+				padding-bottom: 10px;
+			}
+			
+			.inlineInput ::content div {
+				@apply(--layout-horizontal);
+				@apply(--layout-center); 
+			}
+			.inlineInput ::content input{
+				min-width: 60%;
+			}
+			
+			.inlineInput ::content div input, .questionTitle ::content label {
+				margin: 0px 10px;
+				font-family:HelveticaNeue;
+			}
+			
+			.inlineInput, .inlineInput ::content div, .inlineInput ::content div input {
+				width: 100%;
+			}
+			
+			.inlineInput ::content label {
+				white-space: nowrap;
+			}
+			
+			.preview {
+				@apply(--layout-vertical);
+				text-align: left;
+				background-color: var(--Neutral-gray2);
+				max-width: 50%;
+				min-width: 30%;
+				
+			}
+			
+			.previewTitle ::content label {
+				font-family:HelveticaNeue-Bold;
+				color: var(--Primary-blue60);
+			}
+			
+			.required {
+				text-align: left;
+			}
+
+			.required ::content label {
+				padding-right: 7px;
+			}
+						
+			.required.rtl {
+				text-align: right;
+			}
+			
+			.actionSet iron-icon {
+				cursor: pointer;
+				--iron-icon-fill-color: var(--Primary-blue50);
+			}
+			
+			.title ::content label {
+				font-family:HelveticaNeue-Bold;
+			}
+			.title{
+				font-family:HelveticaNeue-Bold;
+			}
+			.options{
+				@apply(--layout-horizontal);
+				@apply(--layout-center); 
+			}
+			.ne ::content div{
+				@apply(--layout-horizontal);
+				@apply(--layout-center); 
+			}  
+			.optionlabel{
+                margin-right: 7px;
+            }
+            .optionplus{
+                margin-right:4px;
+                padding-top:5px;
+                --iron-icon-fill-color:var(--Primary-blue50);
+            }
+            .optionminus{
+                margin-right:4px;
+                padding-top:5px;
+            } 
+            .optionminusactive{
+				--iron-icon-fill-color:var(--Primary-blue50);
+            }
+            .optioninput {
+    			padding: 3px 3px;
+    			transition: all .5s;
+    			outline: none;
+    			margin-bottom: 3px;
+    			border-radius: 2px;
+    			line-height: 27px;
+    			min-width: 150px;
+    			border-style: solid;
+				border-color:  var(--Cool-gray30);
+    			border-width: 0px 0px 2px 0px;
+    			min-width: 53%;
+    			overflow-x:hidden;
+    		}	
+    		.previewSection{
+    			width: 100%;
+    			overflow-x:hidden;
+    		}
+            .options .validationicon {
+                --iron-icon-fill-color:var(--Primary-orange50);
+                display:none;
+            }
+            label[required]:before {
+    			content: '* ';
+    			font-size: 110%;
+    			color : var(--Primary-orange50);
+    		}
+    		*::-webkit-input-placeholder {
+ 		   		font-style: italic;
+			}
+			*:-moz-placeholder {
+   			 	/* FF 4-18 */
+  				font-style: italic;
+			}
+			*::-moz-placeholder {
+			    /* FF 19+ */
+			    font-style: italic;
+
+			}
+			*:-ms-input-placeholder {
+			    /* IE 10+ */
+			   	font-style: italic;
+			}
+    		            
+		</style>
+	</template>
+</dom-module>

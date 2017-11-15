@@ -1,0 +1,45 @@
+<link rel="import" href="../../../../components/polymer/polymer.html"/>
+<link rel="import" href="../../../../maximocomponents/_behaviors/base-component.html"/>
+      
+<dom-module id="maximo-servicerequest-location">
+
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+	
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-servicerequest-location-css.html">
+	<style is="custom-style" include="maximo-servicerequest-location-css"></style>
+	
+  <template>
+  	<maximo-collection 
+			auto
+		    id="siteinfo" 
+			attribute-names="mapname,rel.mapsites{*}"
+			collection-data="{{mapInfo}}"
+			debounce-duration="600"
+			object-name="MXAPIMAPMANAGER"
+			selected-query-name="All"
+			key-search-attribute-name="mapname"
+			key-search = "UXMAPMAN"			
+			on-record-data-refreshed="_handleSiteInfoRefreshed">
+	</maximo-collection>
+	<maximo-collection 
+		    id="srlocationdata" 
+			attribute-names="*"
+			collection-data="{{srLocationData}}"
+			debounce-duration="600"
+			object-name="UXSR"
+			selected-query-name="All" 
+			group-by-attribute-names="siteid,count.*"
+			group-by-data="{{groupByData}}"
+			on-groupby-data-refreshed="_handleGroupByDataRefreshed"
+			on-record-data-refreshed="_handleLocationDataRefreshed">
+	</maximo-collection>
+	
+		
+	<maximo-chart id="chart" charttype="mapchart" frameclass="cardborder" chartoptions="{{chartoptions}}" fulltitle="{{localize('Location')}}" values="{{chartdata}}" labels="{{labels}}" width="500" height="400" hovertemplates="{{hovertemplates}}"></maximo-chart>
+  </template>
+  <script src="maximo-servicerequest-location.js"></script>
+</dom-module>

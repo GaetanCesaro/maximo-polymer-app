@@ -1,0 +1,103 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<dom-module id="maximo-label-demo">
+	<link rel="import" href="../../../../css/demo.html">
+	<link rel="import" href="../maximo-select.html">
+	<style is="custom-style" include="maximo-demo-css"></style>
+	<template>
+  		<maximo-collection 
+			auto="true"	
+			id="collection" 
+			collection-data="{{data}}"
+			test-url="{{resolveUrl('data/data.json')}}"
+			on-record-data-refreshed="_handleRecordDataRefreshed">
+  		</maximo-collection>
+		<div class="outer">
+			
+			<div class="demo-section">
+				<p class="demo-header">Default label</p>
+				<maximo-label id="label1" label="Your favorite label"></maximo-label>
+				<div class="code">
+  					<xmp><maximo-label id="label1" label="Your favorite label"></maximo-label></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Bold label</p>
+				<maximo-label id="label2" label="Your favorite label, now bold" bold></maximo-label>
+				<div class="code">
+  					<xmp><maximo-label id="label2" label="Your favorite label, now bold" bold></maximo-label></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Group of labels without block="true"</p>
+				<maximo-label id="label4" label="Your favorite labels"></maximo-label>
+				<maximo-label id="label5" label="Your favorite labels, side by side"></maximo-label>
+				<div class="code">
+  					<xmp><maximo-label id="label4" label="Your favorite labels"></maximo-label>
+  					<maximo-label id="label5" label="Your favorite labels, side by side"></maximo-label></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Group of labels with block="true"</p>
+				<maximo-label id="label6" label="Your favorite label" block="true"></maximo-label>
+				<maximo-label id="label7" label="Your favorite label, under your favorite label"></maximo-label>
+				<div class="code">
+  					<xmp><maximo-label id="label6" label="Your favorite label" block="true"></maximo-label>
+  					<maximo-label id="label7" label="Your favorite label, under your favorite label"></maximo-label></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Label with data bound, passing thru the label propertie a value</p>
+				<maximo-label id="label8" label="{{exampledata}}"></maximo-label>
+				<div class="code">
+  					<xmp><maximo-label id="label8" label="{{exampledata}}"></maximo-label></xmp>
+  				</div>
+			</div>
+			<div class="demo-section">
+				<p class="demo-header">Label clickable that calls a function that is a simple js alert!</p>
+				<maximo-label id="label9" on-tap="lfunc" label="Let me call a function to you! :)"></maximo-label>
+				<div class="code">
+  					<xmp><maximo-label id="label9" on-tap="lfunc" label="Let me call a function to you! :)"></maximo-label></xmp>
+  				</div>
+			</div>
+
+  		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'maximo-label-demo',
+			behaviors: [BaseComponent],
+			properties: {
+				querylist: {
+    		type: Array,
+    		value: [],
+    		notify: true
+    	},
+    		exampledata:{
+    			type:String,
+    			notify:true,
+    			value:"Your favorite label, now binded"
+    		}
+			},
+			_handleRecordDataRefreshed: function(e){
+				console.log(this.data);
+				var demoData=this.data;
+				demoData.forEach(function(d) {
+					this.querylist=d.description;
+					console.log(d.description);	
+			});
+				console.log(this.querylist);
+			},
+			ready : function(){
+  			
+  	},
+  			lfunc:function(){
+  				alert("Your favorite label here too! :)");
+  			}
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,45 @@
+<!--
+ @license 
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016,2017
+-->
+
+<dom-module id="maximo-inspector-start">
+	<link rel="import" href="../../../../../css/palette.html">
+	<style is="custom-style" include="maximo-palette-css"></style>
+		
+	<link rel="import" href="../../../../../css/shared.html">
+	<style is="custom-style" include="maximo-shared-css"></style>
+
+	<link rel="import" href="maximo-inspector-start-css.html">
+	<style is="custom-style" include="maximo-inspector-start-css"></style>		
+	<template>
+		
+		<div id="inspectorStartMainDiv" class="mainPage">
+		
+			<div id="inspectorStartHeaderDiv" class="header container">
+				<maximo-label id="wodetails_section_label_worktype" label="{{inspForm.name}}"></maximo-label>
+			</div>
+			
+			<div>
+				<div id="inspectorListBckgroundDiv"class="icon">
+					<object data="images/Inspection-Incomplete.svg" type="image/svg+xml" height="110px" width="111px" style="padding-top: 75px;"></object>
+				</div>
+			</div>
+			
+			<div id="inspectorInstructions" style="padding-top: 25px;">
+				<p class="sectionHeaders">[[objectTypeLabel]]</p> <!-- {{inspForm.assetLocationLabel}} -->
+				<maximo-label id="inspectorStartInstructions" class="instructions" label="[[objectDescription]]"></maximo-label><!-- {{inspForm.description}} -->
+			</div>
+			
+			<div id="inspectorInstructions" style="padding-top: 25px;" align="center" hidden$="{{!hasInstructions}}">
+				<p class="sectionHeaders">{{localize('uitext','mxapiinspresult','instructions')}}</p>
+					<maximo-htmlfield id="inspectorStartInstructions" class="instructions" datalabel="{{inspForm.description_longdescription}}"></maximo-htmlfield>
+			</div>		
+		</div>
+  
+	</template>
+	<script src="maximo-inspector-start.js"></script>
+
+</dom-module>
