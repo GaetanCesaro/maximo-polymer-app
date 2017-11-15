@@ -29,7 +29,8 @@ Example:
 		<maximo-collection 
 			auto
 		    id="personcollection" 
-			attribute-names="rel.labor{rel.laborcraftrate{rel.craft{craft,description},rel.uxcraftskill{skilllevel,description},defaultcraft}}, personcal.shift.shiftnum, personcal.shift.description, personcal.calendar.calnum, personcal.calendar.description, displayname, _imagelibref, primarysms,addressline1,city,stateprovince,postalcode,country,phone.phonenum,email.emailaddress,user.defsite,user.defsite.description"
+			attribute-names="rel.labor{rel.laborcraftrate{rel.craft{craft,description},rel.uxcraftskill{skilllevel,description},defaultcraft}}, personcal.shift.shiftnum, personcal.shift.description, personcal.calendar.calnum, personcal.calendar.description, displayname, _imagelibref, primarysms,addressline1,city,stateprovince,postalcode,country,phone.phonenum,email.emailaddress,user.defsite,user.defsite.description,
+			user.rv_location, user.defstoreroom"
 			collection-data="{{personData}}"
 			debounce-duration="600"
 			dynamic-attribute-names="{{dynamicAttributeNames}}"	
@@ -38,7 +39,7 @@ Example:
 			order-by-attribute-names="%2Bdisplayname"
 			query-info="{{queryInfo}}" 
 			search-term-value="{{searchTermValue}}"
-			search-attribute-names="labor.laborcraftrate.craft.description,labor.laborcraftrate.uxcraftskill.description,personcal.shiftnum,personcal.calnum,personcal.calendar.description,personcal.shift.description,displayname,user.defsite,addressline1,city,stateprovince,country"
+			search-attribute-names="labor.laborcraftrate.craft.description,labor.laborcraftrate.uxcraftskill.description,personcal.shiftnum,personcal.calnum,personcal.calendar.description,personcal.shift.description,displayname,user.defsite,addressline1,city,stateprovince,country,user.rv_location"
 			selected-query-name="{{selectedQueryName}}"
 			selected-record="{{selectedRecord}}"
 			selected-record-index="{{selectedRecordIndex}}"
@@ -52,7 +53,7 @@ Example:
 		<maximo-resource id="myteamlistResource" resource-uri="{{record.href}}"></maximo-resource>
 		<maximo-panel id="myteamlist" label="{{localize('uitext', 'mxapiperuser', 'MyContacts')}}" headinginfo="{{recordCount}}" width="[[panelWidth]]" height="470px" collections="personcollection">
 		<maximo-searchbar id="myteamlist-searchbar" collection="{{getLocalObject('personcollection')}}" placeholder="{{localize('uitext', 'mxapibase', 'Search')}}"></maximo-searchbar>
-		<maximo-norecordfound id="teamlist_norecord"  collection="{{getLocalObject('personcollection')}}" message="{{localize('uitext', 'mxapiperuser', 'NoteammemberswerefoundContactyouradminist')}}"></maximo-norecordfound>
+		<maximo-norecordfound id="teamlist_norecord"  collection="{{getLocalObject('personcollection')}}" message="{{localize('uitext', 'mxapiperuser', 'NoteammemberswerefoundContactyouradminist')}}"></maximo-norecordfound>		
 			<iron-list id="myteamlistIronList" items="{{personData}}" as="record">
 				<template id="myteamlistTemplate">
 					<div  id="myteamlistTemplate_innerdiv">
@@ -65,7 +66,9 @@ Example:
 							<div class="cardcontainer">
 								<div class="flex-start-justified">
 									<div id="myteamlist_section_div1_div2" style="text-align: left;flex:1">
-										<maximo-field id="myteamlist_section_label0" label="{{localize('uitext', 'mxapiperuser', 'Site')}}" datalabel="{{record.user.defsite.description}}"></maximo-field>
+										<!--maximo-field id="myteamlist_section_label0" label="{{localize('uitext', 'mxapiperuser', 'Site')}}" datalabel="{{record.user.defsite.description}}"></maximo-field-->
+										<maximo-field id="gco_myteamlist_section_label0" label="{{schema.properties.user.properties.rv_location.title}}" datalabel="{{record.user.rv_location}}"></maximo-field>
+										<maximo-field id="gco_myteamlist_section_label1" label="{{schema.properties.user.properties.defstoreroom.title}}" datalabel="{{record.user.defstoreroom}}"></maximo-field>
 										<maximo-field id="myteamlist_section_label1" label="{{schema.properties.labor.items.properties.laborcraftrate.items.properties.craft.items.properties.craft.title}}" datalabel="{{record.labor.0.laborcraftrate.0.craft.0.description}}"></maximo-field>
 										<maximo-field id="myteamlist_section_label2" label="{{schema.properties.labor.items.properties.laborcraftrate.items.properties.uxcraftskill.items.properties.skilllevel.title}}" datalabel="{{record.labor.0.laborcraftrate.0.uxcraftskill.0.description}}"></maximo-field>
 										<maximo-field id="myteamlist_section_label3" label="{{schema.properties.personcal.properties.calendar.properties.calnum.title}}" datalabel="{{record.personcal.calendar.description}}"></maximo-field>
@@ -76,6 +79,7 @@ Example:
 									</div>
 								</div>
 							</div>
+
 							<maximo-section id="myteamlist_contact_section" label="{{localize('uitext', 'mxapiperuser', 'Contact')}}"  style="display:block;" collapsed="true"  width="100%"  fontsize="90%" customstyle="modest">
 								<hr>
 								<div class="spacer">
