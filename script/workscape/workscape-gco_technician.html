@@ -1,0 +1,128 @@
+<!-- 
+ @license
+ Licensed Materials - Property of IBM
+ 5724-U18
+ Copyright IBM Corporation. 2016
+-->
+<link rel="import" href="../components/polymer/polymer.html" />
+
+<link rel="import" href="../maximocomponents/maximo-slider-container/maximo-slider-container.html">
+<link rel="import" href="../maximocards/workorder/maximo-openwork/maximo-openwork-card.html" />
+<link rel="import" href="../maximocards/maximo-teamlist/maximo-teamlist-card.html" />
+<link rel="import" href="../maximocards/maximo-weather-card/maximo-weather-card.html"/>
+<link rel="import" href="../maximocards/kpi/maximo-kpi-indicator/maximo-kpi-indicator.html"/>
+<link rel="import" href="../maximocomponents/maximo-prioritytag/maximo-prioritytag.html" />
+
+<!-- Data -->
+<link rel="import" href="../maximodata/maximo-weather-data/maximo-weather-data.html"/>
+
+<!-- GCO -->
+<link rel="import" href="../maximocards/gco/gco-weekroute/gco-weekroute-card.html" />
+
+<dom-module id="workscape-gco_technician">
+	<style>
+		.noshrink {
+			flex-shrink: 0;
+		} 
+	</style>
+	<template id="template">
+		<app-route route="{{subroute}}" pattern="/:route" data="{{subrouteData}}"></app-route>
+
+		<maximo-workscape id="workscape" >
+		
+			<!--maximo-slider-container id="indicatorcontainer">
+				<!-- Average EM Completion Time for Sam the Technician >
+				<maximo-kpi-indicator kpiname="{{getKPIName('AVGEMCOMPTIME')}}" unit="{{localize('uitext', 'mxapibase', 'Days')}}"></maximo-kpi-indicator>					
+			
+				<!-- Work Order Overdue for the Sam the Technician >
+				<maximo-kpi-indicator kpiname="{{getKPIName('WOOVERDUE')}}"></maximo-kpi-indicator>
+			</maximo-slider-container-->
+
+			<maximo-slider-container id="panelSlider">
+				<gco-weekroute-card id="workscape-gco_technician-weekroute" class="noshrink" selected-query-name="GCO_MYWEEKROUTE" panel-width="450px"></gco-weekroute-card>
+				<maximo-openwork-card id="workscape-gco_technician-openwork" class="noshrink" selected-query-name="MYASSIGNEDOPENWORK" panel-width="450px"></maximo-openwork-card>
+				<maximo-teamlist-card id="workscape-gco_technician-myteamlist" class="noshrink" selected-query-name="MYTEAMLIST" panel-width="450px"></maximo-teamlist-card>
+			</maximo-slider-container>
+		</maximo-workscape>
+	</template>
+
+	<script>
+		Polymer({
+		    is: "workscape-gco_technician",
+	   		properties: {
+	   			recordData: {
+	   				type: Object,
+	   				notify: true
+	   			},
+	   			selectedRecord: {
+	   				type: Object,
+	   				notify: true
+	   			},
+	   			woFilterData: {
+	   				type: Object,
+	   				value: null,
+	   				notify: true
+	   			},
+	   			selectedQueryDefaultLabel: {
+	   				type: String,
+	   				notify: true
+	   			},
+	   			selectedQueryName: {
+	   				type: String,
+	   				value: '',
+	   				notify: true,
+	   				observer: '_selectedQueryNameChanged'
+	   			},
+	   			selectedAssetTypeLabelDefault: {
+	   				type: String,
+	   				notify: true
+	   			},
+	   	      	
+	   			dynamicAttributeNames: {
+	   				type: Array,
+	   				value: [],
+	   				notify: true
+	   			}	   			
+		    },
+		    behaviors: [BaseComponent],
+		    observers: [
+		    	'_subRouteChanged(subrouteData.route)'
+		    ],
+			ready: function()
+			{
+			
+			},
+			
+			_handleRecordDataRefreshed: function()
+			{
+			
+			},
+			
+			_showUserDetails: function()
+			{
+				
+			},
+			
+			_selectedQueryNameChanged : function()
+			{
+				
+			},
+			attached: function(){
+				
+			},
+			getKPIName: function(kpiname){
+				var maxauth = JSON.parse(sessionStorage.getItem('maxauth'));
+				var user = $M.getMaxauth().whoami.personId;
+				return kpiname+user;
+			},
+			_subRouteChanged(subRoute) {
+				if(this.subRoute !== subRoute){
+					if(subRoute !== ''){
+						//handle sub route changes here
+					}
+					this.subRoute = subRoute;
+				}
+			}
+	});
+	</script>
+</dom-module>	
